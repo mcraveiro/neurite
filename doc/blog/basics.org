@@ -1,0 +1,340 @@
+#+title: Nerd Food: Neurons for Computer Geeks
+#+options: date:nil toc:nil author:nil num:nil title:nil
+
+As any computer geek would tell you, computer science is great in and
+of itself and many of us could live long and contented lives inside
+that box. But things certainly tend to become interesting when there
+is a whole problem domain to model, and doubly so when that domain is
+outside of our comfort zone. As it happens, I have managed to step
+outside said zone - rather quite far outside. It seemed like a good
+idea to chronicle these adventures here.
+
+The journey we are about to embark starts with a deceptively simple
+mission: to understand how one can use computers to model neurons. The
+intended audience of these posts is anyone who loves coding but has no
+idea about electricity, circuits, cells and so on - basically someone
+very much like me. We shall try to explain, at least to a degree, all
+of the required core concepts in order to start coding. As it turns
+out, there are quite a few.
+
+But hey, as [[http://skeptics.stackexchange.com/questions/8742/did-einstein-say-if-you-cant-explain-it-simply-you-dont-understand-it-well-en][they say]], "If you can't explain something to a
+six-year-old, you really don't understand it yourself". So lets see if
+I got it or not.
+
+* Neuron from up on high
+
+A neuron is a _cell_, so it makes sense to start with cells. Cells are
+a basic building block in biology and can be considered as the
+smallest unit of a living organism - at least for our purposes, if
+nothing else. The key idea behind a cell is as obvious as you'd like:
+there is the inside, the outside, and the thing that separates
+both. Of course, this being biology, we need to give it complicated
+names. Accordingly, the inside of the cell is the _cytoplasm_ and the
+thing that separates the cell from the outside world is the
+_membrane_. You can think of it as a _tiny_ roundy-box-like thing,
+with some gooey stuff inside. The material of the box is the
+membrane. The gooey stuff is the cytoplasm.
+
+Living beings are made up of many, many cells - according to some
+estimates, a human body would have several trillion - and cells
+themselves come in many, _many_ kinds. Fortunately, we are interested
+in just one kind: the _neuron_. A neuron is a nerve cell. There are
+many, many kinds of neurons too, but they all share some basic things
+in common. These basic things - their structural components if you
+like - is called their _morphology_.
+
+Unlike the "typical" cell we described above (i.e. "roundy-box-like
+thing"), the neuron is more like a roundy-box-like thing with some
+branches coming out of it. The box-like thing is the cell body and is
+called _soma_. There are two types of branches: axons and dendrites. A
+_dendrite_ tends to be short, and it branches like a tree. The _axon_
+tends to be long and it also branches off like a tree. As we said,
+there are many kinds of neurons, but a fair generalisation is that
+they tend to have few axons (one or maybe a couple) and many dendrites
+(in the thousands).
+
+This very basic morphology is already sufficient to allows to start to
+think of a neuron as a "computing device" - a strange kind of device
+where the dendrites provide inputs and the axon outputs. The neuron
+received all these inputs, performs some kind of computation over
+them, and produces an output.
+
+The next logical question for a computer science is then, where do the
+outputs come from and where do they go. Imagining an idealised neuron,
+the dendrites would be "connecting" to other dendrites or to axons. At
+this juncture we need to expand on what exactly these "connections"
+are. In truth, its not that the axon directly binds to the dendrite;
+there is always a gap between them. But this gap is a special kind of
+gap, first because it is a very small gap and second because it is one
+over which things can travel, from the axon into the dendrite. This
+kind of connectivity between neurons is called a _synapse_.
+
+From this it is an easy leap to imagine that these sets of neurons
+connected to other neurons begin to form "networks" of connectivity,
+and these networks will also have computational-device-like
+properties, just like a neuron. These are called _neural
+networks_. Our brain happens to be one of these "neural networks", and
+a pretty large one at that: it can have [[http://www.nature.com/scitable/blog/brain-metrics/are_there_really_as_many][as many as 80-100 billion
+neurons]], connected over some 1 quadrillion synapses. In these days of
+financial billions and trillions, it is easy to be fooled into
+thinking 100 billion is not a very large number, so get a sense of
+perspective lets compare it to another large network. The biggest and
+fasted growing human-made network is the Internet, estimated to have
+[[http://www.gartner.com/newsroom/id/2905717][some 5 billion connected devices]] but yet less than [[http://bgp.potaroo.net/][600k connections in
+its core]] - and yet we are already [[http://research.dyn.com/2014/08/internet-512k-global-routes/][creacking at the seams]].
+
+* A Large Detour Over Very, _Very_ Small Things
+
+Alas, we must dig deeper before we start to understand how these
+things behave in groups. Our skimpy first pass at the neuron
+morphology left a lot of details out, which are required to understand
+how they behave. As we explained, neurons have axons and dendrites,
+and these are responsible for hooking them together. However, what is
+interesting is what they talk about once they are hooked.
+
+A neuron is can be thought of as an _electrical device_, and much of
+its power stems from this. In general, as computer scientists we don't
+like to get to close to the physical (and messy) world of hardware; it
+is sufficient to understand some high-level properties, but rarely do
+we want to concern ourselves with transistors in the CPU or even
+(regrettably) pipelines. But with neurons, we need to understand the
+hardware - or better, the wetware.
+
+We started off by saying cells have a membrane that separates the
+outside world from the cytoplasm. That was a tad of an
+oversimplification; after all, if the membrane did not allow anything
+in, how would the cell continue to exist - or even come about in the
+first place? In practice these membranes are permeable - or to be
+precise, _semi-permeable_. This just means that it allows some stuff
+in and some stuff out, under controlled circumstances. This is how a
+cell gets energy _in_ to do its thing and how it expels its unwanted
+content _out_. Once things started to move in and out selectively,
+something very interesting can start to happen: the build up of
+"electric potential". However, rather unfortunately, in order to
+understand what we mean by this, we need to cover the fundamentals of
+electricity. If you are an electricity nerd, I apologise in advance;
+this is what happens when a computer scientist escapes from his realm
+I'm afraid.
+
+But onwards and upwards we march.
+
+** "Honor the charge they made!"
+
+First we need to understand the concept of _charge_. It is almost a
+tautology that atoms are made up of "sub-atomic" particles. These are
+the _proton_, the _neutron_ and the _electron_. The neutron is not
+particularly interesting for our purposes; however the electron and
+the proton are, and all because they have a magical property called
+_charge_. For our purposes, it suffices to know that charge means they
+attract or repeal each other. You can think of a charge as an
+arbitrary number attached to the sub-atomic particle, very much like a
+person has a weight or height, but with the side-effect that makes
+people push or hug each other when they are in close proximity. It
+just happens that all people push or hug each other with the same
+strength when they are at the same distance. This "strength" is the
+_electric force_. How they decide whether to hug or push the next guy
+is based on the "sign" of the charge - that is, positive or negative -
+with respect to their own charge "sign". Positives push positives away
+but hug negatives and vice-versa.
+
+For whatever historical reasons, very clever people decided that an
+electron has one negative unit of charge and a proton has a positive
+unit of charge. However, just because they have the same charge does
+not mean they are similar in other respects. In fact, they are quite
+different creatures. For example, the electron is very "small" when
+compared to the proton - some 2000 times "smaller". The relevance of
+this "size" difference will become apparent later on.
+
+As it happens, these sub-atomic crazy critters are rather small
+entities. So small in fact that it would be really cumbersome if we
+had to talk about charges in terms of the charge of an electron; the
+numbers would just be too big and unwieldy. So, the very clever people
+came up with a sensible way to bundle up the charges of the sub-atomic
+particles in bigger numbers, much like we don't talk about millimetres
+when measuring the distance to the Moon. However, unlike the nice and
+logical metric system, with its neat use of the decimal system,
+physicists came up instead with the _Coulomb_, or _C_, one definition
+of which is:
+
+- 1 Coloumb (1C) = 6.241 x 10^18 protons
+- -1 Coloumb (-1C) = 6.241 x 10^18 electrons
+
+This may sound like a _very_ odd choice - hey, why not just 1 x 10^20
+or some other "round" number? - but just like a [[http://www.quora.com/Why-is-a-kilogram-equal-to-1000-grams-but-a-kilobyte-equals-1024-bytes][kilobyte is 1024 bytes
+rather 1000]], this it wasn't done by accident either. In fact, all
+related [[https://en.wikipedia.org/wiki/International_System_of_Units][SI Units]] were carefuly designed to work together and make
+calculations as easy as possible.
+
+Anyway, whenever you see =q= or =Q= in formulas it normally refers to
+a charge in Coulombs.
+
+** Units, Dimensions, Measures, Oh My!
+
+Since we are on the subject of SI, this is probably a good point to
+talk about units, dimensions, measurements, magnitudes and conversions
+and other such exciting topics. Unfortunately, these are important to
+understand how it all hangs together.
+
+A number such as =1A= makes use of the SI _unit of measure_ "Ampere"
+and it exists in a _dimension_: the dimension of all units which can
+talk about electric charges. This is very much in the same way we can
+talk about time in seconds or minutes - we are describing points in
+the time dimension, but using different _units of measure_ or just
+units. A _measurement_ is the recording of a quantity with a unit in a
+dimension. Of course, it would be too simple to call it a "quantity",
+so instead physicists, mathematicians and the like call it
+_magnitude_. But for the lay person, its not too bad an approximation
+to replace "magnitude" with "quantity".
+
+Finally, it is entirely possible to have _compound dimensional units_;
+that is, one can have a unit of measure that refers to more than one
+dimension, such as say "10 kilometres per second".
+
+** Go With the Flow
+
+With this new-found understanding of all things measure and with the
+base unit for measuring electric charge, we can now progress to more
+complicated things.
+
+Now we have a way of talking about charge, and now we know these
+things can move (since they attract and repel each other), the next
+logical thing is to start to imagine _current_. The name sounds
+magical, but in reality it is akin to a current in a river: you are
+just trying to figure out how much water is coming past you every
+second (or some other suitable unit in the time dimension). The exact
+same exercise could be repeated for the number of cars going past in a
+motorway or the number of runners across some imaginary point in a
+track. For our electric purposes, current tells you how many charges
+have zipped past over a period of time.
+
+In terms of SI units, current is measured in _Amperes_, which have the
+symbol _A_; an Ampere tells us how many Coloumbs have flown past in a
+second. Whenever you see =I= in formulas it normally refers to
+current.
+
+Now lets see how these two things - Coulombs and Amperes - could work
+together. Lets imagine an arbitrary "pipe" between two imaginary
+locations, one side of which with a pile of positive charges (measured
+in Coloumbs, naturally) and the other side of which with a pile of
+negative charges. In this _extraordinarily_ simplified and
+non-existing world, the negative charges would "flow" down the pipe,
+attracted by the positive charges. Because the positive charges are so
+huge they won't budge, but the negative charges - the lighter
+electrons - would zip across to meet them. The number of charges you
+see going past is the current.
+
+** Resist!
+
+Going back to our example of current in a river, one can imagine that
+some surfaces are better at allowing water to flow than others; for
+example, a river out in the open is a lot less "efficient" at flowing
+than say a plastic pipe designed for that purpose. One reason is that
+the river has to deal with twists and turns as it finds a path over
+the landscape whereas the pipe could be laid out as straight as
+possible; but its is also that the rocks and other elements of the
+landscape slow down water whereas the pipe would have no such
+impediments. If one were to take these two extremes - a plastic pipe
+design for maximum water flow versus a landscape - one could see that
+they affect flow differently; and one could be tempted to name the
+property of "slowing down the flow" _resistance_, because it describes
+how much "resistance" these things are offering to the water. If you
+put up a barrier to avoid flooding, you probably would want it to
+"resist" water quite a lot rather than allow it to flow.
+
+Resistance is a fundamental concept in the electrical world. The gist
+of it is similar to the contrived examples above, in that not all
+materials behave the same way with regards to allowing charges to
+flow. Some allow them to flow freely nearly at maximum speed whereas
+others do not allow them to flow at all.
+
+Since we are dealing with physics, it is of course possible to measure
+resistance. We do so in SI Units of _Ohms_, denoted by the Greek
+letter upper-case Omega.
+
+As we shall see, not all materials are nicely behaved when it comes to
+resistance, offering a predictable behaviour against current.
+
+** You've Got Potential Baby!
+
+Lets return to our non-existing "pipe that allows charges to flow"
+scenario, and take it one step further. Imagine that for whatever
+reason our pipe becomes clogged up with a blockage somewhere in the
+middle. Nothing could actually flow due to this blockage so our
+current drops to zero.
+
+According to the highly simplified rules that we have learned thus
+far, we do know that - were there to be no blockage - there _would_ be
+movement. That is, the setup of the two bundles in space is such that,
+given the right conditions, we would start seeing things flowing. But,
+alas, we do not have the right conditions because the pipe is blocked;
+hence no flow. You could say this setup has "the potential" to get
+some flow going, if only we could fix the blockage.
+
+In the world of electricity, this is called the _electric potential_
+and is measured in SI Units of _Volts_. We call this potential
+_voltage_.
+
+** The First Formula: Ohm's Law
+
+We have now introduced all the main actors required for one of the
+main parts in the play: Ohm's Law. First lets move away from our
+contrived examples with pipes and water and use contrived examples
+with wires instead. Lets imagine a piece of copper, arranged in a
+square. Lets further imagine that we plug one end of the piece of
+copper to the + side of a regular AA battery and the other end to
+the - side of the piece of copper. You can start to imagine what will
+happen: the electrons stored in the - side will zip across the copper
+to meet their proton friends at the other end. What we've just done is
+a _circuit_; much like an F1 circuit, it is a "loop".
+
+Now, we have chosen copper because it is good at _conducting_ these
+pesky electrons.
+
+
+
+we can already start to
+One very useful simplification is to think of a
+neuron as a computation device
+
+
+
+
+
+
+
+In some cases it may be useful to refer to axons and
+dendrites as a a group; for this we have the term _neurites_.
+
+
+interesting properties from a computer science perspective. Neurons
+connect to each other forming _networks_, very much in the same way we
+connect computers over TCP/IP. These connections can be between axons
+and dendrites or between dendrites and dendrites.
+
+
+
+
+At this point you may be asking what are all these neurites for. In a
+way, this is what makes neurons special, and specially appealing to
+computer scientists. You see, neurons are in effect
+
+
+The
+branches are called the _dendritic branches_.
+
+This description we gave
+
+Axons conne
+
+
+
+
+
+
+ When we say the axon is "long", we
+
+
+mean relative to each other.  Neurons connect
+
+they all have a similar'ish
+structure.
