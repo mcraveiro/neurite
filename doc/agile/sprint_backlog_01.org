@@ -1,0 +1,58 @@
+#+title: Sprint Backlog 01
+#+options: date:nil toc:nil author:nil num:nil
+#+todo: STARTED | COMPLETED CANCELLED POSTPONED
+#+tags: { story(s) spike(p) }
+
+* Mission
+
+- Provide a full layman's explanation the LIF model.
+
+* Stories
+
+** Active
+
+#+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
+#+CAPTION: Clock summary at [2015-09-05 Sat 18:48]
+| <75>                                                                        |         |       |       |
+| Headline                                                                    | Time    |       |       |
+|-----------------------------------------------------------------------------+---------+-------+-------|
+| *Total time*                                                                | *62:44* |       |       |
+|-----------------------------------------------------------------------------+---------+-------+-------|
+| Stories                                                                     | 62:44   |       |       |
+| Active                                                                      |         | 62:44 |       |
+| STARTED Sprint and product backlog grooming                                 |         |       |  0:14 |
+| COMPLETED Write post on C++ implementation of Ohm's Law                     |         |       | 58:43 |
+| COMPLETED Write a post on Capacitors and RC Circuits                        |         |       |  3:47 |
+#+end:
+
+*** STARTED Sprint and product backlog grooming                       :story:
+    CLOCK: [2015-09-03 Thu 07:51]--[2015-09-03 Thu 08:05] =>  0:14
+
+Updates to sprint and product backlog.
+
+*** COMPLETED Write post on C++ implementation of Ohm's Law           :story:
+    CLOSED: [2015-09-05 Sat 18:48]
+    CLOCK: [2015-09-03 Thu 08:05]--[2015-09-05 Sat 18:48] => 58:43
+
+Create a simple post describing the code for Ohm's Law.
+
+*** COMPLETED Write a post on Capacitors and RC Circuits              :story:
+    CLOSED: [2015-09-05 Sat 18:48]
+    CLOCK: [2015-09-05 Sat 15:01]--[2015-09-05 Sat 18:48] =>  3:47
+
+Finish up the post on RC Circuits, with possibly a link back to
+neurons.
+
+*** Write a post on more advanced neuron morphology                   :story:
+
+We need to start talking about:
+
+- high-level: mylin sheath, axon hillock, etc.
+- lower level:
+  - compartments
+  - concentration gradient, voltage
+  - ions: channels and pumps
+
+*** Implement the capacitor's current differential equation in C++    :story:
+
+We need to use odeint. We need to write a blog post describing it.

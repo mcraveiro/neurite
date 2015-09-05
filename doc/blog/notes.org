@@ -1,0 +1,8 @@
+Links and other stuff:
+
+[[http://www.allaboutcircuits.com/textbook/direct-current/chpt-13/electric-fields-capacitance/][- Electric Fields and Capacitance]]
+[[http://www.allaboutcircuits.com/textbook/direct-current/chpt-13/capacitors-and-calculus/][- Capacitors and Calculus]]
+
+
+We will also try to fill in the gaps of [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks.html][part I]] to try to converge to a
+slightly more realistic morphology of the neuron.

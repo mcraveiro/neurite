@@ -11,9 +11,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/build/cmake)
 # threads
 find_package(Threads REQUIRED)
 
-# note: we should be able to compile with boost 1.54, but due to some
-# strange behaviour with boost::variant, we can't. see this email for
-# details: http://lists.boost.org/boost-users/2013/08/79650.php
+# boost
 add_definitions(-DBOOST_ALL_DYN_LINK)
 find_package(Boost 1.55 REQUIRED COMPONENTS
     system
@@ -99,7 +97,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${stage_bin_dir})
 
 # version info
 set(NEURITE_MAJOR_VERSION 0)
-set(NEURITE_MINOR_VERSION 72)
+set(NEURITE_MINOR_VERSION 1)
 set(NEURITE_PATCH_VERSION ${GIT_COMMIT_COUNT})
 set(NEURITE_VERSION "${NEURITE_MAJOR_VERSION}")
 set(NEURITE_VERSION "${NEURITE_VERSION}.${NEURITE_MINOR_VERSION}")

@@ -7,10 +7,6 @@ add_executable(ohms_law ${ohms_law_files})
 set(binary_name "neurite_ohms_law")
 set_target_properties(ohms_law PROPERTIES OUTPUT_NAME ${binary_name})
 
-#    ${Wt_DEBUG_LIBRARY}        # or {Wt_LIBRARY}
-#    ${Wt_HTTP_DEBUG_LIBRARY}   # or {Wt_HTTP_LIBRARY}
-#    ${Wt_EXT_DEBUG_LIBRARY}    # or {Wt_EXT_LIBRARY}
-
 target_link_libraries(ohms_law
     ${Wt_LIBRARY}
     ${Wt_HTTP_LIBRARY}
