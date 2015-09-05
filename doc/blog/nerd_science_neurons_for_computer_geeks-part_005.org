@@ -1,0 +1,17 @@
+#+title: Nerd Food: Neurons for Computer Geeks - Part V: More Morphology
+#+options: date:nil toc:nil author:nil num:nil title:nil
+
+Welcome to part V of a multi-part series post on modeling neurons. In
+[[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_5.html][part IV]] we introduced the RC Circuit, by making use of a lot of the
+foundations of the previous posts. In all honesty, we could now move
+to code and start looking at the [[http://icwww.epfl.ch/~gerstner/SPNM/node26.html][Leaky Integrate-and-Fire]] (LIF) model;
+since we've already introduced enough morphology and electricity for
+it. However, we are going to do just a little bit more morphology
+before we get to it.
+
+The main reason why I believe this is important is because I don't
+want to give you the impression that neurons are /easy/. If there is
+one thing they are not is easy. So in this section we are going to
+resume our morphological exploits and try to give a better account of
+the complexity inside the neuron. Then the simplifications done in LIF
+will have a context.

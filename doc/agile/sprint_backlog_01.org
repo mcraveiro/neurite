@@ -38,12 +38,13 @@ Create a simple post describing the code for Ohm's Law.
 
 *** COMPLETED Write a post on Capacitors and RC Circuits              :story:
     CLOSED: [2015-09-05 Sat 18:48]
-    CLOCK: [2015-09-05 Sat 15:01]--[2015-09-05 Sat 18:48] =>  3:47
+    CLOCK: [2015-09-05 Sat 15:01]--[2015-09-05 Sat 19:00] =>  3:59
 
 Finish up the post on RC Circuits, with possibly a link back to
 neurons.
 
 *** Write a post on more advanced neuron morphology                   :story:
+    CLOCK: [2015-09-05 Sat 19:06]
 
 We need to start talking about:
 
