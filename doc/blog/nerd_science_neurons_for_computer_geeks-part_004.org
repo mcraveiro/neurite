@@ -185,6 +185,8 @@ terminal - say =-=. Graphically - and pardoning my inability to use
 [[https://wiki.gnome.org/Apps/Dia/][Dia]] to create circuit diagrams - it would look more or less like this:
 
 #+CAPTION: Series circuit. Source: Author
+#+attr_html: :width 300px :height 200px
+https://github.com/mcraveiro/neurite/raw/master/doc/blog/images/series_circuit.png
 
 This circuit has a few interesting properties. First, if any of the
 light bulbs fail, all of them will stop working because the circuit is
@@ -205,6 +207,8 @@ literally a segment of cable that connects the other segments of
 cable, more or less like so:
 
 #+CAPTION: Parallel circuit. Source: Author
+#+attr_html: :width 300px :height 200px
+https://github.com/mcraveiro/neurite/raw/master/doc/blog/images/parallel_circuit.png
 
 Here you can see that if a bulb fails, there is still a closed loop in
 which current can flow, so the other bulbs should be unaffected. This
@@ -217,14 +221,14 @@ the circuit is the sum of all currents flowing through each component.
 This will become significant later on when we finally return to the
 world of neurons.
 
-* RC Circuit
+* The RC Circuit
 
 With all of this we can now move to the /RC circuit/. In its simplest
 form, the circuit has a source of current with a resistor and a
 capacitor:
 
 #+CAPTION: Source: Wikipedia, [[https://en.wikipedia.org/wiki/RC_circuit][RC circuit]]
-#+attr_html: :width 200px :height 200px
+#+attr_html: :width 300px :height 300px
 https://upload.wikimedia.org/wikipedia/commons/a/a4/Discharging_capacitor.svg
 
 Let's try to understand how the capacitor's voltage will behave over
@@ -332,8 +336,8 @@ http://www.tpub.com/neets/book2/32NE0159.GIF
 * Leaky Integrators and Low-Pass Filters
 
 As it turns out, mathematicians even have a name to describe functions
-like the natural response above: they are called /leaky
-integrators/. A leaky integrator is something that takes an input and
+like the natural response above: they are called /[[https://en.wikipedia.org/wiki/Leaky_integrator][leaky
+integrators]]/. A leaky integrator is something that takes an input and
 "integrates" - that is, sums it over a range - but by doing so, starts
 "leaking" values out. In order words, a regular sum of values over a
 range should just result in an ever growing output. With a leaky
@@ -345,7 +349,7 @@ imagine that you have a range of inputs varying from some arbitrary
 low number to some other arbitrary high-number. When you supply these
 inputs to a leaky integrator, it can be used to "filter out" the high
 numbers; input numbers higher than a certain cut-off point just result
-in zeros in the output. This is known as a /low-pass filter/. One can
+in zeros in the output. This is known as a /[[https://en.wikipedia.org/wiki/Low-pass_filter][low-pass filter]]/. One can
 conceive of a function that acted in the opposite way - a /high-pass
 filter/.
 
