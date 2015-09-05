@@ -2,16 +2,181 @@
 #+options: date:nil toc:nil author:nil num:nil title:nil
 
 Welcome to part V of a multi-part series post on modeling neurons. In
-[[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_5.html][part IV]] we introduced the RC Circuit, by making use of a lot of the
-foundations of the previous posts. In all honesty, we could now move
-to code and start looking at the [[http://icwww.epfl.ch/~gerstner/SPNM/node26.html][Leaky Integrate-and-Fire]] (LIF) model;
-since we've already introduced enough morphology and electricity for
-it. However, we are going to do just a little bit more morphology
-before we get to it.
+[[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_5.html][part IV]] we introduced the RC Circuit by making use of the foundations
+we had laid in previous posts. In all honesty, we could now move to
+code and start looking at the [[http://icwww.epfl.ch/~gerstner/SPNM/node26.html][Leaky Integrate-and-Fire]] (LIF) model, as
+we've already introduced most of the morphology and electricity
+concepts it requires. However, we are going to do just a little bit
+more morphology before we get to that.
 
-The main reason why I believe this is important is because I don't
-want to give you the impression that neurons are /easy/. If there is
-one thing they are not is easy. So in this section we are going to
-resume our morphological exploits and try to give a better account of
-the complexity inside the neuron. Then the simplifications done in LIF
-will have a context.
+The main reason why I believe this detour is important is because I
+don't want to give you the impression that neurons are /easy/. If
+there is one thing they are *not* is /easy/. So we're going to resume
+our morphological exploits to try to give a better account of the
+complexity inside the neuron; at least then the simplifications done
+in LIF will have a context.
+
+The content of this post is highly inspired from [[http://www.cambridge.org/us/academic/subjects/life-sciences/neuroscience/principles-computational-modelling-neuroscience][Principles of
+Computational Modelling in Neuroscience]], a book that is a must read if
+you become serious on this subject. If you do, you should also check
+out the Gerstner videos: [[http://klewel.com/conferences/epfl-neural-networks/index.php?talkID%3D1][Neural networks and biological modeling]].
+
+But here we are in layman's land and we'll continue so until the end
+of the series. So an obvious question is: why model?
+
+* Challenges in Modeling With Computers
+
+A layperson may be fooled into thinking that we model neurons because
+we want to build a "computer brain": one that is similar to a real
+brain, with its amazing ability to learn, and one which at some point
+may even /think and be conscious/. Hopefully, after you finish reading
+this series of posts, you will be able to appreciate the difficulty of
+the problem and understand why it is not very likely that we will be
+able to make a "realistic" "computer brain" any time soon - for any
+sensible definitions of "realistic", "computer brain" and "any time
+soon".
+
+Whilst we have good models that explain parts of the behaviour of the
+neuron and good models for neural networks too, it is not the case
+that we can just put all of these together to form some kind of
+"integrated neuron model", multiply it by 80 billion, add a few
+quadrillion synapses and away we go. This is just far too
+computationally demanding to be feasible.
+
+So if we are not just trying to build a computer brain, then why
+bother? Well, if you set your sights a little lower, computational
+models are actually really useful. After all, we need to understand
+the brain a bit better - however imperfect our understanding may be -
+and modeling things in computers is a great aid to this, as it is in
+so many other areas. Many times one can use computers to explore a
+problem, make predictions and then test those in the lab.
+
+Also, the computer models are now becoming quite sophisticated, so in
+some cases they are good representations of the biological
+processes. This tends to be the case for small things such as
+individual cells or smaller. As computers get faster and faster
+according to [[https://en.wikipedia.org/wiki/Moore%2527s_law][Moore's Law]], the power of these models is growing
+too.
+
+Using open source computational models also means its much easier for
+researchers to reproduce each others work, as well as for them to
+explore avenues not taken by the original researchers, speeding things
+up considerably. Standing on the shoulders of giants and all that.
+
+And, in an ideal world, we'd all be using some kind of standard
+"language" to describe these models so that we can all share
+information freely without having to learn the particulars of each
+others representations. The world is not quite there yet, but
+initiatives such as [[https://www.neuroml.org/][NeuroML]] are pushing on this direction. More on
+that later.
+
+A related question - and one that is not normally raised in
+traditional software engineering, but is very relevant in biology - is
+the level of detail at which one is to model. Software Engineers tend
+to believe there is such a thing as "the right model" for a problem,
+and that - if only you understood enough about the problem domain -
+you could come up with it and /all would be light/. Agile and sprints
+are just a way to converge to it, to the perfection that exists
+somewhere in the platonic cloud. Eric Evans with [[https://domainlanguage.com/ddd/][DDD]] started to
+challenge that assumption somewhat by making us reflect on just what
+it is that we mean by "model" and "modeling", but, in general, we have
+such an ingrained belief on this idea that is very hard to shake it
+off. For example, most of us still think of /the/ domain model when we
+are coding, rather than of a multitude of possible representations -
+each suitable for a given purpose.
+
+Alas, all of this becomes incredibly obvious when you are faced with a
+problem like modeling a neuron or a network of neurons. Here, there is
+just no such thing as the "right model"; only a set of models at a
+different perspectives, each with a different set of trade-offs, and
+any of them only make sense in the context of what one is trying to
+study.
+
+Having said all of that, lets resume our morphology adventures.
+
+* Electricity and Neurons
+
+We started off with [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks.html][an overview of the neuron]] and then moved over to
+[[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks_31.html][lots]] and [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_5.html][lots]] of electricity; now it's time to see how those two fit
+together.
+
+As we explained in [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks.html][part I]], there is a electric potential difference
+between the inside of the cell and the outside, called the /membrane
+potential/. The convention to compute this potential is to subtract
+the potential inside the cell to the potential outside the cell;
+current is positive when there is a flow of positive charge from the
+inside to the outside and negative otherwise. Taken into account these
+definitions, one should be able to make sense of the /resting membrane
+potential/: it is around -65mv. But how does this potential change?
+
+** Ion Channels
+
+[[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks_31.html][Earlier]], we spoke about ions - atoms that either lost or gained
+electrons and so are positively or negatively charged. We also said
+that, in general, the cell's membrane is impermeable, but there are
+tiny gaps in the membrane which allow things in and out of the
+cell. Now we can expand a bit further. /Ion channels/ are one such
+gap, and they have that name because they let ions through. There are
+/many/ kinds of ion channels. One way of naming them is to use the ion
+they are most permeable to - but of course, this being biology, the
+ion channels don't necessarily always have a major ion they are
+permeable to.
+
+Another useful categorisation distinguishes between /passive/ and
+/active/ ion channels. Active channels are those that change their
+permeability depending on external factors such as the membrane
+potential, the concentration of certain ions, and so on. For certain
+values they are open - i.e. permeable - whereas for other values they
+are closed, not allowing any ions through. Passive channels are
+simpler, they just have a fixed permeability behaviour.
+
+There are also /ionic pumps/. These are called pumps because they take
+one kind of ion out, exchanging it for another kind. For instance, the
+sodium-potassium pump pushes potassium into the cell and expels sodium
+out. A pump has a /stoichiometry/, which is a fancy word to describe
+the ratio of ions being pumped in and out.
+
+As you can imagine, the key to understating the role of electricity is
+to understand how the ions move. Very simplistically, ions tend to
+move for two reasons: because there is a potential difference between
+the inside and the outside of the cell, or because of the
+/concentration gradient/ of said ion. The concentration gradient just
+means that, left to their own devices, concentration becomes uniform
+over time. For example, if you drop some ink in a glass of water, you
+will start by seeing the ink quite clearly; given enough time, the ink
+will diffuse in the water, making it all equally coloured. The same
+principle applies to ions - they want to be equally concentrated.
+
+It should be fairly straightforward to work out that a phenomenal
+number of permutations is possible here. Not only do we have a great
+number of channels, all with different properties - some switching on
+and off as properties change around the cell - but we also have the
+natural flow of ions being affected by the membrane's potential and
+the concentration gradient, all of which are changing over time.
+
+** Sample Models
+
+The only way to break out of this insane degree of complexity is to
+try to model simpler aspects separately and use them to build a bigger
+picture. That is exactly what the clever people have done over
+time. Let's look at a couple, just to get a flavour.
+
+- The resting membrane potential: the objective here is to try to
+  calculate what the membrane potential is
+
+
+
+
+
+ Still, it is a useful way of class
+
+
+ We can classify them according to different criteria:
+
+-
+
+
+
+ What we
+mean by this is that the electric potential inside of the cell tends
+to be smaller than the electic potential outside the cell

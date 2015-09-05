@@ -12,17 +12,18 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-09-05 Sat 18:48]
-| <75>                                                                        |         |       |       |
-| Headline                                                                    | Time    |       |       |
-|-----------------------------------------------------------------------------+---------+-------+-------|
-| *Total time*                                                                | *62:44* |       |       |
-|-----------------------------------------------------------------------------+---------+-------+-------|
-| Stories                                                                     | 62:44   |       |       |
-| Active                                                                      |         | 62:44 |       |
-| STARTED Sprint and product backlog grooming                                 |         |       |  0:14 |
-| COMPLETED Write post on C++ implementation of Ohm's Law                     |         |       | 58:43 |
-| COMPLETED Write a post on Capacitors and RC Circuits                        |         |       |  3:47 |
+#+CAPTION: Clock summary at [2015-09-05 Sat 22:50]
+| <75>                                                                        |        |      |      |
+| Headline                                                                    | Time   |      |      |
+|-----------------------------------------------------------------------------+--------+------+------|
+| *Total time*                                                                | *7:53* |      |      |
+|-----------------------------------------------------------------------------+--------+------+------|
+| Stories                                                                     | 7:53   |      |      |
+| Active                                                                      |        | 7:53 |      |
+| STARTED Sprint and product backlog grooming                                 |        |      | 0:14 |
+| COMPLETED Write post on C++ implementation of Ohm's Law                     |        |      | 0:40 |
+| COMPLETED Write a post on Capacitors and RC Circuits                        |        |      | 3:59 |
+| STARTED Write a post on more advanced neuron morphology                     |        |      | 3:00 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -32,7 +33,7 @@ Updates to sprint and product backlog.
 
 *** COMPLETED Write post on C++ implementation of Ohm's Law           :story:
     CLOSED: [2015-09-05 Sat 18:48]
-    CLOCK: [2015-09-03 Thu 08:05]--[2015-09-05 Sat 18:48] => 58:43
+    CLOCK: [2015-09-03 Thu 08:05]--[2015-09-03 Thu 08:45] =>  0:40
 
 Create a simple post describing the code for Ohm's Law.
 
@@ -43,8 +44,9 @@ Create a simple post describing the code for Ohm's Law.
 Finish up the post on RC Circuits, with possibly a link back to
 neurons.
 
-*** Write a post on more advanced neuron morphology                   :story:
-    CLOCK: [2015-09-05 Sat 19:06]
+*** STARTED Write a post on more advanced neuron morphology           :story:
+    CLOCK: [2015-09-05 Sat 20:48]--[2015-09-05 Sat 22:49] =>  2:01
+    CLOCK: [2015-09-05 Sat 19:06]--[2015-09-05 Sat 20:05] =>  0:59
 
 We need to start talking about:
 
