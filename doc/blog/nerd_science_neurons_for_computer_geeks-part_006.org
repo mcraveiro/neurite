@@ -1,0 +1,24 @@
+#+title: Nerd Food: Neurons for Computer Geeks - Part VI: LIF At Long Last!
+#+options: date:nil toc:nil author:nil num:nil title:nil
+
+Welcome to part VI of a multi-part series on modeling neurons. In [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][part
+V]] we added just a bit more theory to link electricity with neurons,
+and also tried to give a vague idea of how complex neurons are. Now we
+are firmly back in the coding domain. We shall try to implement a
+simple neuron model called LIF.
+
+Lapicque’s introduction of the integrate-and-fire model neuron (1907)
+http://neurotheory.columbia.edu/~larry/AbbottBrResBul99.pdf
+
+Neuroengineering Tutorial: Integrate and Fire neuron modeling
+http://www.slideshare.net/ZubinBhuyan/x-neuro-integrate-and-fire-neuron-modeling
+
+Integrate-and-fire model
+http://icwww.epfl.ch/~gerstner/SPNM/node26.html
+
+Leaky Integrate-and-Fire Model Neuron
+http://people.brandeis.edu/~pmiller/COMP_NEURO/lifb.pdf
+
+Recherches quantitatives sur l'excitation électrique des Nerfs traitée
+comme une polarisation
+http://www.snv.jussieu.fr/brette/papers/Lap07.pdf
