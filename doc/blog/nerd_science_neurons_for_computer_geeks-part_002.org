@@ -33,12 +33,12 @@ electron has one negative unit of charge and a proton has a positive
 unit of charge. The sign is, of course, rather arbitrary. We could
 have just as well said that protons are red and electrons are blue or
 some other suitably binary-like convention to represent these
-permutations. Also, just because protons and electrons have the same
-charge, it does not follow that they are similar in other respects. In
-fact, they are very different creatures. For example, the electron is
-very "small" when compared to the proton - almost 2000 times
-"smaller". The relevance of this "size" difference will become
-apparent later on. Physicists call this "size" /mass/, by the by.
+permutations. Just because protons and electrons have the same charge,
+it does not follow that they are similar in other respects. In fact,
+they are _very_ different creatures. For example, the electron is very
+"small" when compared to the proton - almost 2000 times "smaller". The
+relevance of this "size" difference will become apparent later
+on. Physicists call this "size" /mass/, by the by.
 
 As it happens, all of these sub-atomic crazy critters are rather
 minute entities. So small in fact that it would be really cumbersome
@@ -109,9 +109,9 @@ current.
 
 Now lets see how these two things - Coulombs and Amperes - could work
 together. Lets imagine an arbitrary "pipe" between two imaginary
-locations, one side of which with a pile of positive charges and the
-other side of which with a pile of negative charges (both measured in
-Coulombs, naturally). In this /extraordinarily/ simplified and
+locations, one side of which with a pile of positive charges and, on
+the other side, a pile of negative charges - both measured in
+Coulombs, naturally. In this /extraordinarily/ simplified and
 non-existing world, the negative charges would "flow" down the pipe,
 attracted by the positive charges. Because the positive charges are so
 huge they won't budge, but the negative charges - the lighter
@@ -146,7 +146,7 @@ others do not allow them to flow at all.
 
 Since we are dealing with physics, it is of course possible to measure
 resistance. We do so in SI units of /Ohms/, denoted by the Greek
-letter upper-case Omega.
+letter \omega.
 
 As we shall see, not all materials are nicely behaved when it comes to
 resistance.
@@ -258,7 +258,7 @@ we've just learned, its easy to imagine what will happen: the
 electrons stored in the =-= side will zip across the copper to meet
 their proton friends at the other end. This elemental construction,
 with its circular path, is called a /circuit/. What you've done is to
-upset the neutral balance of the copper wire and got all the electrons
+upset the neutral balance of the copper wire, making all the electrons
 to move in a coordinated way (rather than random) from the =-= side to
 the =+= side.
 

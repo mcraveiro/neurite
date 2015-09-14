@@ -90,7 +90,7 @@ neurons]], connected over some 1 quadrillion synapses. In these days of
 financial billions and trillions, it is easy to be fooled into
 thinking 100 billion is not a very large number, so to get a sense of
 perspective lets compare it to another large network. The biggest and
-fasted growing human-made network is the Internet, estimated to have
+fastest growing human-made network is the Internet, estimated to have
 [[http://www.gartner.com/newsroom/id/2905717][some 5 billion connected devices]] but less than [[http://bgp.potaroo.net/][600k connections in its
 core]] - and yet we are already [[http://research.dyn.com/2014/08/internet-512k-global-routes/][creacking at the seams]].
 

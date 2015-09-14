@@ -152,9 +152,9 @@ These formulas may sound awfully complicated, but what they are trying
 to tell us is that the capacitor's current has the following
 properties:
 
-- it varies as a "function" of time: =I(t)=; that is to say, different
-  time points have different currents. Well, that's pretty consistent
-  with our simplistic notion of a decaying current.
+- it varies as a "function" of time; that is to say, different time
+  points have different currents. Well, that's pretty consistent with
+  our simplistic notion of a decaying current.
 - it is "scaled" by the capacitor's capacitance =C=; "bigger"
   capacitors can hold on to higher currents for longer when compared
   to "smaller" capacitors.
@@ -260,7 +260,7 @@ i_c(t) + i_r(t) = 0
 
 That is: at any particular point in time /t/, the current flowing
 through the capacitor added to the current flowing through the
-capacitor must sum to zero. However, we can now make use of the
+resistor must sum to zero. However, we can now make use of the
 previous formulas; after all, our section on capacitance taught us
 that:
 

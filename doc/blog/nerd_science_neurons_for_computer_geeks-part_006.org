@@ -4,35 +4,34 @@
 Welcome to part VI of a multi-part series on modeling neurons. In [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][part
 V]] we added just a bit more theory to link electricity with neurons,
 and also tried to give a vague idea of how complex neurons
-are. Looking back on that post, I cannot help but noticed I skipped
-one bit that is important to LIF. Lets look at that first, and then
-proceed to the model.
+are. Looking back on that post, I cannot help but notice I skipped one
+bit that is rather important to understanding LIF. So lets look at
+that first and then proceed towards the model.
 
 * Resting Potential and Action Potential
 
-We have spoken [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][before]] about the [[https://en.wikipedia.org/wiki/Membrane_potential][membrane potential]] and about the
-resting membrane potential, but we did so with so much hand-waving
-that it requires revisiting. When we are talking about the /resting/
-membrane potential we mean just that - the value for the membrane
-potential when nothing is happening and the membrane is left to its
-own devices. That is the magical -65mv we discussed before (with all
-of the related explanations on how to interpret negative
-voltages). However, time does not stand still and things happen:
-active ion gates get opened and shut, ions move around and the cell
-changes its membrane potential. When these changes result in a higher
-voltage - such as moving to -60mv - we say a /depolarisation/ is
-taking place. Conversely, when the voltage becomes more negative, we
-say /hyperpolarisation/ is occurring.
+We have spoken [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][before]] about the [[https://en.wikipedia.org/wiki/Membrane_potential][membrane potential]] and the resting
+membrane potential, but we did so with such a high degree of
+hand-waving it now warrants revisiting. When we are talking about the
+/resting/ membrane potential we mean just that - the value for the
+membrane potential when nothing much is happening. That is the magical
+circa -65mv we discussed before - with all of the related explanations
+on how to interpret negative voltages. However, time does not stand
+still and things happen: active ion gates get opened and shut, ions
+move around, concentrations change and so forth; and so the cell
+changes its membrane potential in response. When these changes result
+in a higher voltage - such as moving to -60mv - we say a
+/depolarisation/ is taking place. Conversely, when the voltage becomes
+more negative, we say /hyperpolarisation/ is occurring.
 
-With neurons, it may just happen that there is a short-lived but
-"strong" burst of depolarisation followed by rapid
-hyperpolarisation. This is called an /[[https://en.wikipedia.org/wiki/Action_potential][action potential]]/, and it is
-also known by many other names such as "nerve impulses" or
-"spikes". When you hear that "a neuron has fired" this means that an
-action potential has just been emitted. If you record the neuron's
-behaviour over time you will see a /spike train/ - a plot of the
-voltage over time, clearly showing the spikes. Taking a fairly random
-example:
+Now, it may just happen that there is a short-lived but "strong" burst
+of depolarisation followed by rapid hyperpolarisation. This is called
+an /[[https://en.wikipedia.org/wiki/Action_potential][action potential]]/, and it is also known by many other names such
+as "nerve impulses" or "spikes". When you hear that "a neuron has
+fired" this means that an action potential has just been emitted. If
+you record the neuron's behaviour over time you will see a /spike
+train/ - a plot of the voltage over time, clearly showing the
+spikes. Taking a fairly random example:
 
 #+CAPTION: Source: Wikipedia, [[https://en.wikipedia.org/wiki/Neural_oscillation][Neural oscillation]]
 #+attr_html: :width 300px :height 300px
@@ -43,41 +42,46 @@ something triggers the voltage of the neuron to rise, which triggers a
 number of gates to open, which then trigger the voltage to rise and so
 on, until some kind of magic voltage threshold is reached where the
 inverse occurs: the gates that were causing the voltage to rise shut
-and some other gates that cause the voltage to decrease open and so on
-until we fall back down to the resting membrane potential. In the case
-of the picture above, something else triggers us again and again,
-until we finally come to rest.
+and some other gates that cause the voltage to decrease open, and so
+on, until we fall back down to the resting membrane potential. The
+process feeds back on itself, first as a positive feedback and then as
+a negative feedback. In the case of the picture above, something else
+triggers us again and again, until we finally come to rest.
+
+This spiking or firing behaviour is what we are trying to model.
 
 * Historical Background for the Integrate-and-Fire Model
 
-A couple of years after Einstein's /annus mirabilis/, a french chap
-called Lapicque was also having his moment of inspiration, with his
-/[[http://www.snv.jussieu.fr/brette/papers/Lap07.pdf][Recherches quantitatives sur l'excitation électrique des nerfs
-traitée comme une polarisation]]/, summarised [[http://neurotheory.columbia.edu/~larry/AbbottBrResBul99.pdf][here]] in accessible
-terms.
+As it happens, we are not the first ones to try to do so. A couple of
+years after Einstein's /annus mirabilis/, a french chap called [[https://en.wikipedia.org/wiki/Louis_Lapicque][Louis
+Lapicque]] was also going through his own personal moment of
+inspiration, the output of which was the seminal /[[http://www.snv.jussieu.fr/brette/papers/Lap07.pdf][Recherches
+quantitatives sur l'excitation électrique des nerfs traitée comme une
+polarisation]]/. It is summarised [[http://neurotheory.columbia.edu/~larry/AbbottBrResBul99.pdf][here]] in fairly accessible English by
+Abbot.
 
-Lapicque had the insight of thinking of the neuron as an RC circuit,
-with the cell membrane's behaviour modeled as the interplay between
-the capacitor and the resistor; the action potential we described
-above was generated by the capacitor reaching a threshold and then
-discharging. Even with our lack of understanding on the subject
-matter, one cannot but appreciate Lapique's brilliance - having the
-ability to reach these conclusions in 1907.
+Lapicque had the insight of imagining the neuron as an RC circuit,
+with the membrane potential's behaviour explained as the interplay
+between capacitor and resistor; the action potential is then the
+capacitor reaching a threshold followed by a discharge. Even with our
+faint understanding of the subject matter, one cannot but appreciate
+Lapique's brilliance to have the ability to reach these conclusions
+in 1907. Of course, he also had to rely on the work of many others to
+get there, let's not forget.
 
-As it happens, this is still considered a useful model today, even
-though we know so much more about neurons now. It is a great example
-of what we mentioned [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][before]] in terms of modeling, in that each model
-is designed for a specific purpose and it should be as simple as
-possible for the stated end. Lapique's model still serves a purpose in
-the world of today. It's worth [[http://neurotheory.columbia.edu/~larry/AbbottBrResBul99.pdf][reading Abbot]] in full here to ram the
-point home:
+This model is still considered a useful model today, even though we
+know so much more about neurons now - a great example of what we
+mentioned [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][before]] in terms of the choices of the level of detail when
+modeling. Each model is designed for a specific purpose and it should
+be as simple as possible for the stated end (but no simpler). As [[http://neurotheory.columbia.edu/~larry/AbbottBrResBul99.pdf][Abbot]]
+says:
 
 #+begin_quote
 While Lapicque, because of the limited knowledge of his time, had no
 choice but to model the action potential in a simple manner, the
 stereotypical character of action potentials allows us, even today, to
 use the same approximation to avoid computation of the voltage
-trajectory during an action potential.  This allows us to focus both
+trajectory during an action potential. This allows us to focus both
 intellectual and computation resources on the issues likely to be most
 relevant in neural computation, without expending time and energy on
 modeling a phenomenon, the generation of action potentials, that is
@@ -94,9 +98,9 @@ LIF is defined as follows:
 \tau_m \frac{dv}{dt} = -v(t) + RI(t)
 \end{align}
 
-By now this should make vague sense, but lets do it step by
-step. First we know that the current of the RC circuit is defined like
-so:
+By now this should make vague sense, but lets do it step by step
+breakdown just to make sure we are all on the same page. First, we
+know that the current of the RC circuit is defined like so:
 
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
@@ -104,7 +108,7 @@ so:
 I(t) = I_R + I_C
 \end{align}
 
-From Ohm's Law we know that:
+From Ohm's Law we also know that:
 
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
@@ -112,7 +116,7 @@ From Ohm's Law we know that:
 I_R = \frac {v}{R}
 \end{align}
 
-And from the rigmarole of the capacitor we also know that:
+And from the [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_5.html][rigmarole of the capacitor]] we also know that:
 
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
@@ -120,7 +124,7 @@ And from the rigmarole of the capacitor we also know that:
 I_C = C \frac{dv}{dt}
 \end{align}
 
-Thus:
+Thus its not much of a leap to say:
 
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
@@ -128,7 +132,7 @@ Thus:
 I(t) = \frac {v(t)}{R} + C \frac{dv}{dt}
 \end{align}
 
-If we now multiply both sides by R:
+Now, if we now multiply both sides by R, we get:
 
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
@@ -136,12 +140,13 @@ If we now multiply both sides by R:
 RI(t) = v(t) + RC \frac{dv}{dt}
 \end{align}
 
-Remember that RC is \tau, the RC time constant. In this case, it's for
-the membrane so hence the /m/. The rest of the rearranging to the
-original formula should hopefully be obvious.
+Remember that RC is \tau, the [[https://en.wikipedia.org/wiki/RC_time_constant][RC time constant]]; in this case, we are
+dealing with the membrane so hence the /m/. With that, the rest of the
+rearranging to the original formula should be fairly obvious.
 
-If you recall, we mentioned [[https://en.wikipedia.org/wiki/Leaky_integrator][Leaky Integrators]] before; you should now
-be able to see the resemblance with our first formula.
+Also, if you recall, we mentioned [[https://en.wikipedia.org/wiki/Leaky_integrator][Leaky Integrators]] before. You should
+hopefully be able to see the resemblance between these and our first
+formula.
 
 Note that we did not model spikes explicitly with this
 formula. However, when it comes to implementing it, all that is
@@ -150,18 +155,117 @@ called the /spiking threshold/; when that value is reached, we need to
 reset the membrane potential back to a lower value - the /reset
 potential/.
 
-* Implementing the Formula
+And with that we have enough to start thinking about code...
 
-The first thing you cannot help but notice is that computers do not
-know about calculus. This is a tad of a problem.
+* Method in our Madness
 
-https://en.wikipedia.org/wiki/Euler_method
+.. Or so you may think. First, a quick detour on discretisation. As it
+happens, computers are rather fond of discrete things rather than the
+continuous entities that inhabit the world of calculus. Computers are
+very much of the same opinion as [[https://en.wikipedia.org/wiki/George_Berkeley][the priest]] [[http://www.maths.tcd.ie/pub/HistMath/People/Berkeley/Analyst/Analyst.pdf][who said]]:
 
-Neuroengineering Tutorial: Integrate and Fire neuron modeling
-http://www.slideshare.net/ZubinBhuyan/x-neuro-integrate-and-fire-neuron-modeling
+#+begin_quote
+And what are these same evanescent Increments? They are neither finite
+Quantities nor Quantities infinitely small, nor yet nothing. May we
+not call them the Ghosts of departed Quantities?
+#+end_quote
 
-Integrate-and-fire model
-http://icwww.epfl.ch/~gerstner/SPNM/node26.html
+So we cannot directly represent differential equations in the
+computer - not even the simpler ordinary differential equations
+(ODEs), with their single independent variable. Instead, we need to
+approximate them with a /method/ for /numerical integration/ of the
+ODE. Remember: when we say /integration/ we just mean "summing".
 
-Leaky Integrate-and-Fire Model Neuron
-http://people.brandeis.edu/~pmiller/COMP_NEURO/lifb.pdf
+Once we enter the world of /methods/ and /numerical analysis/ we are
+much closer to our ancestral home of Software Engineering. The job of
+numerical analysis is to look for ways in which one can make discrete
+approximations of the problems in mathematical analysis - like, say,
+calculus. The little recipes they come up with are called /numerical
+methods/. A method is nothing more than an algorithm, a set of steps
+used iteratively. One such method is the [[https://en.wikipedia.org/wiki/Euler_method][Euler Method]]: "[a] numerical
+procedure for solving ordinary differential equations (ODEs) with a
+given initial value", as Wikipedia tells us, and as it happens that is
+exactly what we are trying to do.
+
+So how does the Euler method work? Very simply. First you know that:
+
+#+OPTIONS: tex:t
+#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+\begin{align}
+y(t_0) = y_0
+y'(t) = f(t, y(t))
+\end{align}
+
+That is, at the beginning of time we have a known value. Then, for all
+other /t/'s, we use the current value in /f/ in order to be able to
+compute the next value. Lets imagine that our steps - how much we are
+moving forwards by - are of a size /h/. You can then say:
+
+#+OPTIONS: tex:t
+#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+\begin{align}
+t_{n+1} = t_n + h
+y_{n+1} = y_n + h * f(x_n, t_n)
+\end{align}
+
+And that's it. You just need to know where you are right now, by how
+much you need to scale the function - e.g. the step size - and then
+apply the function to the current values of /x/ and /t/.
+
+In code:
+
+#+begin_src c++
+template<typename F>
+void euler(F f, double y0, double start, double end, double h) {
+    double y = y0;
+    for (auto t(start); t < end; t += h) {
+        y += h * f(t, y, h);
+    }
+}
+#+end_src
+
+We are passing /h/ to the function /F/ because it needs to know about
+the step size, but other than that it should be a pretty clean mapping
+from the maths above.
+
+* First Take: Roll Your Own
+
+Lets revisit the formula again, but rearranging for voltage:
+
+#+OPTIONS: tex:t
+#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+\begin{align}
+v(t) = -\tau_m \frac{dv}{dt} + RI(t)
+\end{align}
+
+To start off with, lets make a simplification: instead of a variable
+current =I(t)=. we will assume we have a constant background current
+(so just =I=). Now we can define a few useful constants:
+
+#+begin_src c++
+const double background_current = 0.02; // 20 mA
+const double membrane_resting_potential = -60e-3; // -60mV
+const double membrane_resistance = 1e8; // R 100 megohms
+const double membrane_capacitance = 200e-12; // 200 pico-farads
+const double tau_m = membrane_resistance * membrane_capacitance;
+#+end_src
+
+These should all make sense given the previous parts. Perhaps not all
+magnitudes are obvious - other than
+=membrane_resting_potential=. These were obtained by looking at other
+implementations. Presumably, in practice, these numbers would be taken
+from experiments. Now we need to supply our function:
+
+#+begin_src c++
+double lif(double t, double v, double h) {
+    return tau_m * h + membrane_resistance * background_current;
+}
+#+end_src
+
+* Second Take: Boost OdeInt
+
+Now, as I said a few parts ago, we are going to make use of Boost's
+[[http://www.boost.org/doc/libs/1_59_0/libs/numeric/odeint/doc/html/boost_numeric_odeint/getting_started/overview.html][OdeInt]] - the /Ode/ part of the name should now give you a clue as to
+why. Like any good library, they already have an implementation of
+Euler's method out of the box. They also have a large number of other
+methods, called Stepper Algorithms. We'll stick to Euler's.

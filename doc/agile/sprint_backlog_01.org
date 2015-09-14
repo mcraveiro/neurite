@@ -12,19 +12,20 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-09-08 Tue 18:17]
+#+CAPTION: Clock summary at [2015-09-14 Mon 16:51]
 | <75>                                                                        |         |       |      |
 | Headline                                                                    | Time    |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *11:08* |       |      |
+| *Total time*                                                                | *22:20* |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 11:08   |       |      |
-| Active                                                                      |         | 11:08 |      |
+| Stories                                                                     | 22:20   |       |      |
+| Active                                                                      |         | 22:20 |      |
 | STARTED Sprint and product backlog grooming                                 |         |       | 0:14 |
 | COMPLETED Write post on C++ implementation of Ohm's Law                     |         |       | 0:40 |
 | COMPLETED Write a post on Capacitors and RC Circuits                        |         |       | 3:59 |
 | COMPLETED Write a post on more advanced neuron morphology                   |         |       | 3:00 |
-| STARTED Implement the capacitor's current differential equation in C++      |         |       | 3:15 |
+| STARTED Implement LIF and blog about it                                     |         |       | 9:27 |
+| STARTED Watch lectures on neuroscience                                      |         |       | 5:00 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -55,13 +56,24 @@ We need to start talking about:
 - concentration gradient, voltage
 - ions: channels and pumps
 
-*** STARTED Implement the capacitor's current differential equation in C++ :story:
+*** STARTED Implement LIF and blog about it                           :story:
+    CLOCK: [2015-09-10 Thu 19:10]--[2015-09-10 Thu 20:00] =>  0:50
+    CLOCK: [2015-09-10 Thu 07:51]--[2015-09-10 Thu 08:40] =>  0:49
+    CLOCK: [2015-09-09 Wed 13:47]--[2015-09-09 Wed 18:20] =>  4:33
     CLOCK: [2015-09-08 Tue 15:01]--[2015-09-08 Tue 18:16] =>  3:15
 
 We need to use odeint. We need to write a blog post describing it.
 
+*** STARTED Watch lectures on neuroscience
+    CLOCK: [2015-09-12 Sat 14:00]--[2015-09-12 Sat 19:00] =>  5:00
+
+We should take advantage of downtime to watch lectures on neuroscience.
+
 *** Consider writing a post about other neuron features
 
 - high-level: mylin sheath, axon hillock, etc.
-- lower level:
-  - compartments
+- lower level: compartments
+
+Links:
+
+- [[http://mathneuronet.org.uk/training/single_cell_notes.pdf][Single neuron models]]
