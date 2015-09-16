@@ -1,0 +1,41 @@
+* First Take: Roll Your Own
+
+Lets revisit the formula again, but rearranging for voltage:
+
+#+OPTIONS: tex:t
+#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+\begin{align}
+v(t) = -\tau_m \frac{dv}{dt} + RI(t)
+\end{align}
+
+To start off with, lets make a simplification: instead of a variable
+current =I(t)=. we will assume we have a constant background current
+(so just =I=). Now we can define a few useful constants:
+
+#+begin_src c++
+const double background_current = 0.02; // 20 mA
+const double membrane_resting_potential = -60e-3; // -60mV
+const double membrane_resistance = 1e8; // R 100 megohms
+const double membrane_capacitance = 200e-12; // 200 pico-farads
+const double tau_m = membrane_resistance * membrane_capacitance;
+#+end_src
+
+These should all make sense given the previous parts. Perhaps not all
+magnitudes are obvious - other than
+=membrane_resting_potential=. These were obtained by looking at other
+implementations. Presumably, in practice, these numbers would be taken
+from experiments. Now we need to supply our function:
+
+#+begin_src c++
+double lif(double t, double v, double h) {
+    return tau_m * h + membrane_resistance * background_current;
+}
+#+end_src
+
+* Second Take: Boost OdeInt
+
+Now, as I said a few parts ago, we are going to make use of Boost's
+[[http://www.boost.org/doc/libs/1_59_0/libs/numeric/odeint/doc/html/boost_numeric_odeint/getting_started/overview.html][OdeInt]] - the /Ode/ part of the name should now give you a clue as to
+why. Like any good library, they already have an implementation of
+Euler's method out of the box. They also have a large number of other
+methods, called Stepper Algorithms. We'll stick to Euler's.

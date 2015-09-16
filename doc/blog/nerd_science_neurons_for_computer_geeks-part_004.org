@@ -333,26 +333,6 @@ percent) of full charge or to discharge it to 37 percent (actually
 #+CAPTION: The RC Time constant. Source: [[http://www.tpub.com/neets/book2/1.htm][Concepts of alternating current]]
 http://www.tpub.com/neets/book2/32NE0159.GIF
 
-* Leaky Integrators and Low-Pass Filters
-
-As it turns out, mathematicians even have a name to describe functions
-like the natural response above: they are called /[[https://en.wikipedia.org/wiki/Leaky_integrator][leaky
-integrators]]/. A leaky integrator is something that takes an input and
-"integrates" - that is, sums it over a range - but by doing so, starts
-"leaking" values out. In order words, a regular sum of values over a
-range should just result in an ever growing output. With a leaky
-integrator, we add up to a point, but then we start leaking, resetting
-the value of the sum back to where we started off.
-
-It turns out these kind of functions have great utility. For example,
-imagine that you have a range of inputs varying from some arbitrary
-low number to some other arbitrary high-number. When you supply these
-inputs to a leaky integrator, it can be used to "filter out" the high
-numbers; input numbers higher than a certain cut-off point just result
-in zeros in the output. This is known as a /[[https://en.wikipedia.org/wiki/Low-pass_filter][low-pass filter]]/. One can
-conceive of a function that acted in the opposite way - a /high-pass
-filter/.
-
 * What next?
 
 Now we understand the basic behaviour of the RC Circuit, together with

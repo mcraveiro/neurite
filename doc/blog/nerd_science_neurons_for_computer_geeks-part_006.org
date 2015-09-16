@@ -1,12 +1,12 @@
-#+title: Nerd Food: Neurons for Computer Geeks - Part VI: LIF At Long Last!
+#+title: Nerd Food: Neurons for Computer Geeks - Part VI: Integrate and Fire!
 #+options: date:nil toc:nil author:nil num:nil title:nil
 
 Welcome to part VI of a multi-part series on modeling neurons. In [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][part
-V]] we added just a bit more theory to link electricity with neurons,
-and also tried to give a vague idea of how complex neurons
-are. Looking back on that post, I cannot help but notice I skipped one
-bit that is rather important to understanding LIF. So lets look at
-that first and then proceed towards the model.
+V]] we added a tad more theory to link electricity with neurons, and
+also tried to give an idea of just how complex neurons are. Looking
+back on that post, I cannot help but notice I skipped one bit that is
+rather important to understanding Integrate-and-Fire (IAF) models. So
+lets look at that first and then return to our trail.
 
 * Resting Potential and Action Potential
 
@@ -16,22 +16,27 @@ hand-waving it now warrants revisiting. When we are talking about the
 /resting/ membrane potential we mean just that - the value for the
 membrane potential when nothing much is happening. That is the magical
 circa -65mv we discussed before - with all of the related explanations
-on how to interpret negative voltages. However, time does not stand
-still and things happen: active ion gates get opened and shut, ions
-move around, concentrations change and so forth; and so the cell
-changes its membrane potential in response. When these changes result
-in a higher voltage - such as moving to -60mv - we say a
-/depolarisation/ is taking place. Conversely, when the voltage becomes
-more negative, we say /hyperpolarisation/ is occurring.
+on conventions around negative voltages. However, time does not stand
+still and things happen. The cell receives input from other neurons,
+and this varies over time. Some kinds of inputs can cause events to
+trigger on the receiving neuron: active ion channels may get opened or
+shut, ions move around, concentrations change and so forth, and thus,
+the cell will change its membrane potential in response. When these
+changes result in a higher voltage - such as moving to -60mv - we say
+a /depolarisation/ is taking place. Conversely, when the voltage
+becomes more negative, we say /hyperpolarisation/ is occurring.
 
 Now, it may just happen that there is a short-lived but "strong" burst
-of depolarisation followed by rapid hyperpolarisation. This is called
-an /[[https://en.wikipedia.org/wiki/Action_potential][action potential]]/, and it is also known by many other names such
-as "nerve impulses" or "spikes". When you hear that "a neuron has
-fired" this means that an action potential has just been emitted. If
-you record the neuron's behaviour over time you will see a /spike
-train/ - a plot of the voltage over time, clearly showing the
-spikes. Taking a fairly random example:
+of depolarisation, followed by equally rapid hyperpolarisation - and,
+as a result of which, the Axon's terminal decides to release
+/neurotransmitters/ into the synapse (well, into the /synaptic gap/ or
+/synaptic cleft/ to be precise). This is called an /[[https://en.wikipedia.org/wiki/Action_potential][action potential]]/,
+and it is also known by many other names such as "nerve impulses" or
+"spikes". When you hear that "a neuron has fired" this means that an
+action potential has just been emitted. If you record the neuron's
+behaviour over time you will see a /spike train/ - a plot of the
+voltage over time, clearly showing the spikes. Taking a fairly random
+example:
 
 #+CAPTION: Source: Wikipedia, [[https://en.wikipedia.org/wiki/Neural_oscillation][Neural oscillation]]
 #+attr_html: :width 300px :height 300px
@@ -50,14 +55,14 @@ triggers us again and again, until we finally come to rest.
 
 This spiking or firing behaviour is what we are trying to model.
 
-* Historical Background for the Integrate-and-Fire Model
+* Historical Background
 
 As it happens, we are not the first ones to try to do so. A couple of
 years after Einstein's /annus mirabilis/, a french chap called [[https://en.wikipedia.org/wiki/Louis_Lapicque][Louis
 Lapicque]] was also going through his own personal moment of
-inspiration, the output of which was the seminal /[[http://www.snv.jussieu.fr/brette/papers/Lap07.pdf][Recherches
+inspiration, the output of which was the seminal [[http://www.snv.jussieu.fr/brette/papers/Lap07.pdf][Recherches
 quantitatives sur l'excitation électrique des nerfs traitée comme une
-polarisation]]/. It is summarised [[http://neurotheory.columbia.edu/~larry/AbbottBrResBul99.pdf][here]] in fairly accessible English by
+polarisation]]. It is summarised [[http://neurotheory.columbia.edu/~larry/AbbottBrResBul99.pdf][here]] in fairly accessible English by
 Abbot.
 
 Lapicque had the insight of imagining the neuron as an RC circuit,
@@ -88,9 +93,144 @@ modeling a phenomenon, the generation of action potentials, that is
 already well understood.
 #+end_quote
 
+* The IAF Family
+
+Integrate-and-Fire is actually a family of models - related because
+all of them follow Lapicque's original insights. Over time, people
+have addressed shortcomings in the model by adding more parameters and
+modifying it slightly and from this other models were born.
+
+In general, models in the IAF family are single neuron models with a
+number of important properties (as per [[http://cns-classes.bu.edu/cn510/Papers/Izhikevich_Ch8.pdf][Izhikevich]]):
+
+- The spikes are all or none; that is, we either spike or we
+  don't. This is a byproduct of the way spikes are added to the model,
+  as we shall see later. This also means all spikes are identical
+  because the are all created the same way.
+- The threshold for the spike is well defined and there is no
+  ambiguity as to whether the neuron will fire or not.
+- It is possible to add a /refractory period/, similarly to how we add
+  the spike. The refractory period is a time during which the neuron
+  is less excitable (e.g. ignores inputs) and occurs right after the
+  spike.
+- Positive currents are used as excitatory inputs and negative currents
+  as inhibitory inputs.
+
+But how do the members of this family look like? We will take a few
+examples from [[https://en.wikipedia.org/wiki/Biological_neuron_model][Wikipedia]] to make a family portrait and then focus on
+LIF.
+
+** IAF: Integrate-and-Fire
+
+This the Lapicque model. It is also called a "perfect" or "non-leaky"
+neuron. The formula is as follows:
+
+#+OPTIONS: tex:t
+#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+\begin{align}
+I(t) = C_m \frac{dV_m(t)}{dt}
+\end{align}
+
+The /m/'s are there to signify /membrane/, nothing else. Note that its
+the job of the user to determine \theta - that is the point at which
+the neuron spikes - and then to reset everything to zero and start
+again. If you are wondering why it's called "integrate", that's
+because the differential equation must be integrated before we can
+compare the current value to a threshold and then, if we're passed it,
+well - fire!. Hence Integrate-and-Fire.
+
+Wikipedia states this in a classier way, of course:
+
+#+begin_quote
+[This formula] is just the time derivative of the law of capacitance, Q =
+CV. When an input current is applied, the membrane voltage increases
+with time until it reaches a constant threshold Vth, at which point a
+delta function spike occurs and the voltage is reset to its resting
+potential, after which the model continues to run. The firing
+frequency of the model thus increases linearly without bound as input
+current increases.
+#+end_quote
+
+** Integrate-and-Fire with Refractory Period
+
+It is possible to extend IAF to take the refractory period into
+account. This is done by adding a period of time /t ref/ during which
+the neuron does not fire.
+
+** LIF: Leaky Integrate-and-Fire
+
+One of the problems of IAF is that it will "remember" stimulus,
+regardless of the time that elapses between stimuli. By way of
+example: if a neuron gets some input below the firing threshold at
+some time (say /ta/), then nothing for a long period of time and then
+subsequent stimulus at say /tb/, this will cause the neuron to fire
+(assuming the two inputs together are above the threshold). In the
+real world, neurons "forget" about below-threshold stimulus after
+certain amount of time has elapsed. This problem is solved in LIF by
+adding a /leak/ term to IAF. The Wikipedia's formula is like so:
+
+#+OPTIONS: tex:t
+#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+\begin{align}
+I_m(t) - \frac{V_m(t)}{R_m} = C_m \frac{dV_m(t)}{dt}
+\end{align}
+
+We will discuss it in detail later on.
+
+*** Interlude: Leaky Integrators and Low-Pass Filters
+
+*Update*: this section got moved here from an earlier post.
+
+Minor detour into the world of "Leaky Integrators". As it turns out,
+mathematicians even have a name to describe functions like the one
+above: they are called /[[https://en.wikipedia.org/wiki/Leaky_integrator][Leaky Integrators]]/. A leaky integrator is
+something that takes an input and "integrates" - that is, sums it over
+a range - but by doing so, starts "leaking" values out. In order
+words, a regular sum of values over a range should just result in an
+ever growing output. With a leaky integrator, we add up to a point,
+but then we start leaking, resetting the value of the sum back to
+where we started off.
+
+It turns out these kind of functions have great utility. For example,
+imagine that you have a range of inputs varying from some arbitrary
+low number to some other arbitrary high-number. When you supply these
+inputs to a leaky integrator, it can be used to "filter out" the high
+numbers; input numbers higher than a certain cut-off point just result
+in zeros in the output. This is known as a /[[https://en.wikipedia.org/wiki/Low-pass_filter][low-pass filter]]/. One can
+conceive of a function that acted in the opposite way - a /high-pass
+filter/.
+
+** Exponential Integrate-and-Fire
+
+In this model, spike generation is exponential:
+
+#+OPTIONS: tex:t
+#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
+\begin{align}
+\frac{dX}{dt} = \Delta_\tau exp(\frac{X - X_t}{\Delta_\tau})
+\end{align}
+
+Wikipedia explains it as follows:
+
+#+begin_quote
+where X is the membrane potential, X_T is the membrane potential
+threshold, and \Delta_T is the sharpness of action potential
+initiation, usually around 1 mV for cortical pyramidal neurons. Once
+the membrane potential crosses X_T, it diverges to infinity in finite
+time.
+#+end_quote
+
+** Others
+
+We could continue and look into other IAF models, but you get the
+point. Each model has limitations, and as people work through those
+limitations - e.g. try to make the spike trains generated by the model
+closer to those observed in reality - they make changes to the model
+and create new members of the IAF family.
+
 * The Leaky Integrate-and-Fire Model (LIF) Formula
 
-LIF is defined as follows:
+Let's look at a slightly more familiar formulation of LIF:
 
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
@@ -192,7 +332,7 @@ So how does the Euler method work? Very simply. First you know that:
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
 \begin{align}
-y(t_0) = y_0
+y(t_0) = y_0 \\
 y'(t) = f(t, y(t))
 \end{align}
 
@@ -204,7 +344,7 @@ moving forwards by - are of a size /h/. You can then say:
 #+OPTIONS: tex:t
 #+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
 \begin{align}
-t_{n+1} = t_n + h
+t_{n+1} = t_n + h \\
 y_{n+1} = y_n + h * f(x_n, t_n)
 \end{align}
 
@@ -228,44 +368,10 @@ We are passing /h/ to the function /F/ because it needs to know about
 the step size, but other than that it should be a pretty clean mapping
 from the maths above.
 
-* First Take: Roll Your Own
+This method is also known as /Forward Euler/ or /Explicit Euler/.
 
-Lets revisit the formula again, but rearranging for voltage:
+* What next?
 
-#+OPTIONS: tex:t
-#+HTML_MATHJAX:  path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js"
-\begin{align}
-v(t) = -\tau_m \frac{dv}{dt} + RI(t)
-\end{align}
-
-To start off with, lets make a simplification: instead of a variable
-current =I(t)=. we will assume we have a constant background current
-(so just =I=). Now we can define a few useful constants:
-
-#+begin_src c++
-const double background_current = 0.02; // 20 mA
-const double membrane_resting_potential = -60e-3; // -60mV
-const double membrane_resistance = 1e8; // R 100 megohms
-const double membrane_capacitance = 200e-12; // 200 pico-farads
-const double tau_m = membrane_resistance * membrane_capacitance;
-#+end_src
-
-These should all make sense given the previous parts. Perhaps not all
-magnitudes are obvious - other than
-=membrane_resting_potential=. These were obtained by looking at other
-implementations. Presumably, in practice, these numbers would be taken
-from experiments. Now we need to supply our function:
-
-#+begin_src c++
-double lif(double t, double v, double h) {
-    return tau_m * h + membrane_resistance * background_current;
-}
-#+end_src
-
-* Second Take: Boost OdeInt
-
-Now, as I said a few parts ago, we are going to make use of Boost's
-[[http://www.boost.org/doc/libs/1_59_0/libs/numeric/odeint/doc/html/boost_numeric_odeint/getting_started/overview.html][OdeInt]] - the /Ode/ part of the name should now give you a clue as to
-why. Like any good library, they already have an implementation of
-Euler's method out of the box. They also have a large number of other
-methods, called Stepper Algorithms. We'll stick to Euler's.
+And yet again, we run out of time yet again before we can get into
+serious coding. In the next instalment we shall cover the
+implementation of the LIF model.
