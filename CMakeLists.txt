@@ -39,16 +39,6 @@ if(LIBXML2_FOUND)
     set(LIBS ${LIBS} ${LIBXML2_LIBRARY_DIR})
 endif()
 
-# odb
-find_package(ODB)
-if(ODB_FOUND)
-    message(STATUS "Found odb...")
-    include_directories(SYSTEM ${ODB_INCLUDE_DIR})
-    set(LIBS ${LIBS} ${LIBXML2_LIBRARY_DIR})
-else()
-    message(STATUS "odb not found.")
-endif()
-
 #
 # setup git
 #
@@ -78,6 +68,16 @@ execute_process(
 string(STRIP ${GIT_COMMIT_COUNT} GIT_COMMIT_COUNT)
 
 #
+# setup dogen knitter
+# set CMAKE_PROGRAM_PATH accordingly
+#
+find_program(DOGEN_KNITTER_COMMAND NAMES dogen_knitter)
+if(NOT DEFINED DOGEN_KNITTER_COMMAND)
+    message(FATAL_ERROR "dogen knitter not found.")
+endif()
+message(STATUS "Found dogen knitter (${DOGEN_KNITTER_COMMAND})...")
+
+#
 # useful vars
 #
 # staging directory
@@ -97,7 +97,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${stage_bin_dir})
 
 # version info
 set(NEURITE_MAJOR_VERSION 0)
-set(NEURITE_MINOR_VERSION 1)
+set(NEURITE_MINOR_VERSION 2)
 set(NEURITE_PATCH_VERSION ${GIT_COMMIT_COUNT})
 set(NEURITE_VERSION "${NEURITE_MAJOR_VERSION}")
 set(NEURITE_VERSION "${NEURITE_VERSION}.${NEURITE_MINOR_VERSION}")
@@ -112,6 +112,12 @@ endif()
 message(STATUS "Product version: ${NEURITE_VERSION}")
 
 #
+# Top-level knitter target.
+#
+add_custom_target(knit_all)
+
+#
 # include all sub directories
 #
+add_subdirectory(${CMAKE_SOURCE_DIR}/diagrams)
 add_subdirectory(${CMAKE_SOURCE_DIR}/projects)
