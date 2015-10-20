@@ -84,7 +84,11 @@ void life_cycle_manager::create_console_backend(const severity_level severity) {
     using namespace boost; // to handle empty deleter moving namespaces
     using namespace boost::log;
 
+#if BOOST_VERSION >= 105700
     boost::shared_ptr<std::ostream> s(&std::clog, null_deleter());
+#else
+    boost::shared_ptr<std::ostream> s(&std::clog, empty_deleter());
+#endif
     auto backend(boost::make_shared<sinks::text_ostream_backend>());
     backend->add_stream(s);
 

@@ -14,17 +14,17 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-10-20 Tue 22:10]
+#+CAPTION: Clock summary at [2015-10-20 Tue 22:17]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *6:02* |      |      |
+| *Total time*                                                                | *6:08* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 6:02   |      |      |
-| Active                                                                      |        | 6:02 |      |
+| Stories                                                                     | 6:08   |      |      |
+| Active                                                                      |        | 6:08 |      |
 | STARTED Sprint and product backlog grooming                                 |        |      | 1:51 |
 | COMPLETED Sprint kick-off meeting                                           |        |      | 0:40 |
-| COMPLETED Setup Travis CI for neurite                                       |        |      | 0:35 |
+| COMPLETED Setup Travis CI for neurite                                       |        |      | 0:41 |
 | STARTED Implement basic SWC support                                         |        |      | 2:56 |
 #+end:
 
@@ -42,7 +42,7 @@ Discuss with Ben the objectives of the sprint.
 
 *** COMPLETED Setup Travis CI for neurite                             :story:
     CLOSED: [2015-10-20 Tue 21:55]
-    CLOCK: [2015-10-20 Tue 21:55]--[2015-10-20 Tue 22:10] =>  0:15
+    CLOCK: [2015-10-20 Tue 21:55]--[2015-10-20 Tue 22:16] =>  0:21
     CLOCK: [2015-10-19 Mon 17:02]--[2015-10-19 Mon 17:22] =>  0:20
 
 We need continuous integration for neurite.
