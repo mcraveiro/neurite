@@ -22,7 +22,7 @@ add_custom_target(knit_${target}
     COMMENT "Knitting SWC model" VERBATIM
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMAND ${DOGEN_KNITTER_COMMAND}
-    --target ${CMAKE_SOURCE_DIR}/diagrams/${target}.dia,dogen
+    --target ${CMAKE_SOURCE_DIR}/diagrams/${target}.dia,neurite
     --cpp-project-dir ${CMAKE_SOURCE_DIR}/projects/
     --cpp-disable-cmakelists
     --ignore-files-matching-regex .*/CMakeLists.txt

@@ -1,9 +1,9 @@
 #include <ostream>
 #include <boost/io/ios_state.hpp>
-#include "dogen/swc/io/point_io.hpp"
-#include "dogen/swc/io/structure_identifier_types_io.hpp"
+#include "neurite/swc/io/point_io.hpp"
+#include "neurite/swc/io/structure_identifier_types_io.hpp"
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 std::ostream& operator<<(std::ostream& s, const point& v) {
@@ -14,7 +14,7 @@ std::ostream& operator<<(std::ostream& s, const point& v) {
     s.setf(std::ios::showpoint);
 
     s << " { "
-      << "\"__type__\": " << "\"dogen::swc::point\"" << ", "
+      << "\"__type__\": " << "\"neurite::swc::point\"" << ", "
       << "\"sample_number\": " << v.sample_number() << ", "
       << "\"unparsed_structure_identifier\": " << v.unparsed_structure_identifier() << ", "
       << "\"structure_identifier\": " << v.structure_identifier() << ", "

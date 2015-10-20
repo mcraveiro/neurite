@@ -1,6 +1,6 @@
-#include "dogen/swc/test_data/structure_identifier_types_td.hpp"
+#include "neurite/swc/test_data/structure_identifier_types_td.hpp"
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 structure_identifier_types_generator::structure_identifier_types_generator() : position_(0) { }

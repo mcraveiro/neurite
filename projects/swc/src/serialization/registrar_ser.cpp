@@ -7,7 +7,7 @@
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 template<typename Archive>

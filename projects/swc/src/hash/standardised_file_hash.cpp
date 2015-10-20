@@ -1,6 +1,6 @@
-#include "dogen/swc/hash/point_hash.hpp"
-#include "dogen/swc/hash/header_hash.hpp"
-#include "dogen/swc/hash/standardised_file_hash.hpp"
+#include "neurite/swc/hash/point_hash.hpp"
+#include "neurite/swc/hash/header_hash.hpp"
+#include "neurite/swc/hash/standardised_file_hash.hpp"
 
 namespace {
 
@@ -10,7 +10,7 @@ inline void combine(std::size_t& seed, const HashableType& value) {
     seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
-inline std::size_t hash_boost_optional_dogen_swc_header(const boost::optional<dogen::swc::header>& v) {
+inline std::size_t hash_boost_optional_neurite_swc_header(const boost::optional<neurite::swc::header>& v) {
     std::size_t seed(0);
 
     if (!v)
@@ -20,7 +20,7 @@ inline std::size_t hash_boost_optional_dogen_swc_header(const boost::optional<do
     return seed;
 }
 
-inline std::size_t hash_std_list_dogen_swc_point(const std::list<dogen::swc::point>& v) {
+inline std::size_t hash_std_list_neurite_swc_point(const std::list<neurite::swc::point>& v) {
     std::size_t seed(0);
     for (const auto i : v) {
         combine(seed, i);
@@ -30,14 +30,14 @@ inline std::size_t hash_std_list_dogen_swc_point(const std::list<dogen::swc::poi
 
 }
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 std::size_t standardised_file_hasher::hash(const standardised_file& v) {
     std::size_t seed(0);
 
-    combine(seed, hash_boost_optional_dogen_swc_header(v.header()));
-    combine(seed, hash_std_list_dogen_swc_point(v.points()));
+    combine(seed, hash_boost_optional_neurite_swc_header(v.header()));
+    combine(seed, hash_std_list_neurite_swc_point(v.points()));
 
     return seed;
 }

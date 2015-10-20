@@ -1,7 +1,7 @@
 #include <ostream>
 #include <boost/io/ios_state.hpp>
 #include <boost/algorithm/string.hpp>
-#include "dogen/swc/io/header_io.hpp"
+#include "neurite/swc/io/header_io.hpp"
 
 inline std::string tidy_up_string(std::string s) {
     boost::replace_all(s, "\r\n", "<new_line>");
@@ -10,7 +10,7 @@ inline std::string tidy_up_string(std::string s) {
     return s;
 }
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 std::ostream& operator<<(std::ostream& s, const header& v) {
@@ -21,7 +21,7 @@ std::ostream& operator<<(std::ostream& s, const header& v) {
     s.setf(std::ios::showpoint);
 
     s << " { "
-      << "\"__type__\": " << "\"dogen::swc::header\"" << ", "
+      << "\"__type__\": " << "\"neurite::swc::header\"" << ", "
       << "\"original_source\": " << "\"" << tidy_up_string(v.original_source()) << "\"" << ", "
       << "\"creature\": " << "\"" << tidy_up_string(v.creature()) << "\"" << ", "
       << "\"region\": " << "\"" << tidy_up_string(v.region()) << "\"" << ", "

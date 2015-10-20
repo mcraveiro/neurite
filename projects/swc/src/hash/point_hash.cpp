@@ -1,5 +1,5 @@
-#include "dogen/swc/hash/point_hash.hpp"
-#include "dogen/swc/hash/structure_identifier_types_hash.hpp"
+#include "neurite/swc/hash/point_hash.hpp"
+#include "neurite/swc/hash/structure_identifier_types_hash.hpp"
 
 namespace {
 
@@ -11,7 +11,7 @@ inline void combine(std::size_t& seed, const HashableType& value) {
 
 }
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 std::size_t point_hasher::hash(const point& v) {

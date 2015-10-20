@@ -98,6 +98,7 @@ include_directories(
     # real code
     # ${CMAKE_SOURCE_DIR}/projects/ohms_law/include
     ${CMAKE_SOURCE_DIR}/projects/swc/include
+    ${CMAKE_SOURCE_DIR}/projects/utility/include
     )
 
 #
@@ -105,3 +106,4 @@ include_directories(
 #
 # add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ohms_law/src)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/swc)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility/src)

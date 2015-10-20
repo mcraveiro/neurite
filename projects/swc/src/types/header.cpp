@@ -1,6 +1,6 @@
-#include "dogen/swc/types/header.hpp"
+#include "neurite/swc/types/header.hpp"
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 header::header()

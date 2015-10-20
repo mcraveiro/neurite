@@ -8,14 +8,14 @@
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
-#include "dogen/swc/serialization/header_ser.hpp"
+#include "neurite/swc/serialization/header_ser.hpp"
 
 namespace boost {
 namespace serialization {
 
 template<typename Archive>
 void save(Archive& ar,
-    const dogen::swc::header& v,
+    const neurite::swc::header& v,
     const unsigned int /*version*/) {
     ar << make_nvp("original_source", v.original_source_);
     ar << make_nvp("creature", v.creature_);
@@ -35,7 +35,7 @@ void save(Archive& ar,
 
 template<typename Archive>
 void load(Archive& ar,
-    dogen::swc::header& v,
+    neurite::swc::header& v,
     const unsigned int /*version*/) {
     ar >> make_nvp("original_source", v.original_source_);
     ar >> make_nvp("creature", v.creature_);
@@ -58,16 +58,16 @@ void load(Archive& ar,
 namespace boost {
 namespace serialization {
 
-template void save(archive::polymorphic_oarchive& ar, const dogen::swc::header& v, unsigned int version);
-template void load(archive::polymorphic_iarchive& ar, dogen::swc::header& v, unsigned int version);
+template void save(archive::polymorphic_oarchive& ar, const neurite::swc::header& v, unsigned int version);
+template void load(archive::polymorphic_iarchive& ar, neurite::swc::header& v, unsigned int version);
 
-template void save(archive::text_oarchive& ar, const dogen::swc::header& v, unsigned int version);
-template void load(archive::text_iarchive& ar, dogen::swc::header& v, unsigned int version);
+template void save(archive::text_oarchive& ar, const neurite::swc::header& v, unsigned int version);
+template void load(archive::text_iarchive& ar, neurite::swc::header& v, unsigned int version);
 
-template void save(archive::binary_oarchive& ar, const dogen::swc::header& v, unsigned int version);
-template void load(archive::binary_iarchive& ar, dogen::swc::header& v, unsigned int version);
+template void save(archive::binary_oarchive& ar, const neurite::swc::header& v, unsigned int version);
+template void load(archive::binary_iarchive& ar, neurite::swc::header& v, unsigned int version);
 
-template void save(archive::xml_oarchive& ar, const dogen::swc::header& v, unsigned int version);
-template void load(archive::xml_iarchive& ar, dogen::swc::header& v, unsigned int version);
+template void save(archive::xml_oarchive& ar, const neurite::swc::header& v, unsigned int version);
+template void load(archive::xml_iarchive& ar, neurite::swc::header& v, unsigned int version);
 
 } }

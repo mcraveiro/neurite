@@ -1,45 +1,45 @@
-#include "dogen/swc/test_data/point_td.hpp"
-#include "dogen/swc/test_data/header_td.hpp"
-#include "dogen/swc/test_data/standardised_file_td.hpp"
+#include "neurite/swc/test_data/point_td.hpp"
+#include "neurite/swc/test_data/header_td.hpp"
+#include "neurite/swc/test_data/standardised_file_td.hpp"
 
 namespace {
 
-dogen::swc::header
-create_dogen_swc_header(const unsigned int position) {
-    return dogen::swc::header_generator::create(position);
+neurite::swc::header
+create_neurite_swc_header(const unsigned int position) {
+    return neurite::swc::header_generator::create(position);
 }
 
-boost::optional<dogen::swc::header>
-create_boost_optional_dogen_swc_header(unsigned int position) {
-    boost::optional<dogen::swc::header> r(
-        create_dogen_swc_header(position));
+boost::optional<neurite::swc::header>
+create_boost_optional_neurite_swc_header(unsigned int position) {
+    boost::optional<neurite::swc::header> r(
+        create_neurite_swc_header(position));
     return r;
 }
 
-dogen::swc::point
-create_dogen_swc_point(const unsigned int position) {
-    return dogen::swc::point_generator::create(position);
+neurite::swc::point
+create_neurite_swc_point(const unsigned int position) {
+    return neurite::swc::point_generator::create(position);
 }
 
-std::list<dogen::swc::point> create_std_list_dogen_swc_point(unsigned int position) {
-    std::list<dogen::swc::point> r;
+std::list<neurite::swc::point> create_std_list_neurite_swc_point(unsigned int position) {
+    std::list<neurite::swc::point> r;
     for (unsigned int i(0); i < 4; ++i) {
-        r.push_back(create_dogen_swc_point(position + i));
+        r.push_back(create_neurite_swc_point(position + i));
     }
     return r;
 }
 
 }
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 standardised_file_generator::standardised_file_generator() : position_(0) { }
 
 void standardised_file_generator::
 populate(const unsigned int position, result_type& v) {
-    v.header(create_boost_optional_dogen_swc_header(position + 0));
-    v.points(create_std_list_dogen_swc_point(position + 1));
+    v.header(create_boost_optional_neurite_swc_header(position + 0));
+    v.points(create_std_list_neurite_swc_point(position + 1));
 }
 
 standardised_file_generator::result_type

@@ -14,18 +14,18 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-10-19 Mon 18:08]
+#+CAPTION: Clock summary at [2015-10-20 Tue 21:56]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *3:36* |      |      |
+| *Total time*                                                                | *5:47* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 3:36   |      |      |
-| Active                                                                      |        | 3:36 |      |
+| Stories                                                                     | 5:47   |      |      |
+| Active                                                                      |        | 5:47 |      |
 | STARTED Sprint and product backlog grooming                                 |        |      | 1:51 |
 | COMPLETED Sprint kick-off meeting                                           |        |      | 0:40 |
-| STARTED Implement basic SWC support                                         |        |      | 0:45 |
-| STARTED Setup Travis CI for neurite                                         |        |      | 0:20 |
+| COMPLETED Setup Travis CI for neurite                                       |        |      | 0:20 |
+| STARTED Implement basic SWC support                                         |        |      | 2:56 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -40,6 +40,14 @@ Updates to sprint and product backlog.
 
 Discuss with Ben the objectives of the sprint.
 
+*** COMPLETED Setup Travis CI for neurite                             :story:
+    CLOSED: [2015-10-20 Tue 21:55]
+    CLOCK: [2015-10-19 Mon 17:02]--[2015-10-19 Mon 17:22] =>  0:20
+
+We need continuous integration for neurite.
+
+- packages: libwt-dev libwtext-dev
+
 *** STARTED Implement basic SWC support                               :story:
 
 We need to add code to read and write SWC files, with tests sourced
@@ -51,7 +59,10 @@ from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
 - Original paper: [[http://ac.els-cdn.com/S0165027098000910/1-s2.0-S0165027098000910-main.pdf?_tid%3D06345944-767a-11e5-97c1-00000aab0f27&acdnat%3D1445270396_0f399ab6e23d392fd78e161582ad1c24][An on-line archive of reconstructed hippocampal
   neurons]] ([[http://www.sciencedirect.com/science/article/pii/S0165027098000910][HTML]])
 
-**** Create a SWC dogen model and code generate it
+**** COMPLETED Create a SWC dogen model and code generate it
+     CLOSED: [2015-10-20 Tue 21:54]
+     CLOCK: [2015-10-20 Tue 20:43]--[2015-10-20 Tue 21:54] =>  1:11
+     CLOCK: [2015-10-20 Tue 18:30]--[2015-10-20 Tue 19:30] =>  1:00
      CLOCK: [2015-10-19 Mon 17:22]--[2015-10-19 Mon 18:07] =>  0:45
 
 We should try to use dogen to create the infrastructure around SWC.
@@ -67,6 +78,10 @@ Notes:
 
 : CMAKE_PROGRAM_PATH=/home/marco/Development/DomainDrivenConsulting/dogen/build/output/gcc-5/stage/bin  cmake ../../ -G Ninja
 
+**** Create a simple parser for the SWC file format
+
+- add a few basic tests, but not too many: valid file, invalid file.
+
 *** Add support for CGAL                                              :story:
 
 We need to get a simple CGAL example to compile and run, adding all
@@ -78,13 +93,6 @@ We need to get a simple VTK example to compile and run, adding all
 the required infrastructure (debian packages, CMake files, etc).
 
 We should create a very simple Qt gui.
-
-*** STARTED Setup Travis CI for neurite                               :story:
-    CLOCK: [2015-10-19 Mon 17:02]--[2015-10-19 Mon 17:22] =>  0:20
-
-We need continuous integration for neurite.
-
-- packages: libwt-dev libwtext-dev
 
 *** Add XSD tool support to neurite                                   :story:
 

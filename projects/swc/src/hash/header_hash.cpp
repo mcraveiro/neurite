@@ -1,4 +1,4 @@
-#include "dogen/swc/hash/header_hash.hpp"
+#include "neurite/swc/hash/header_hash.hpp"
 
 namespace {
 
@@ -10,7 +10,7 @@ inline void combine(std::size_t& seed, const HashableType& value) {
 
 }
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 std::size_t header_hasher::hash(const header& v) {

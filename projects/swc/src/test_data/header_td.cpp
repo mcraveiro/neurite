@@ -1,5 +1,5 @@
 #include <sstream>
-#include "dogen/swc/test_data/header_td.hpp"
+#include "neurite/swc/test_data/header_td.hpp"
 
 namespace {
 
@@ -15,7 +15,7 @@ double create_double(const unsigned int position) {
 
 }
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 header_generator::header_generator() : position_(0) { }

@@ -1,5 +1,5 @@
-#include "dogen/swc/test_data/point_td.hpp"
-#include "dogen/swc/test_data/structure_identifier_types_td.hpp"
+#include "neurite/swc/test_data/point_td.hpp"
+#include "neurite/swc/test_data/structure_identifier_types_td.hpp"
 
 namespace {
 
@@ -11,9 +11,9 @@ int create_int(const unsigned int position) {
     return position;
 }
 
-dogen::swc::structure_identifier_types
-create_dogen_swc_structure_identifier_types(const unsigned int position) {
-    return dogen::swc::structure_identifier_types_generator::create(position);
+neurite::swc::structure_identifier_types
+create_neurite_swc_structure_identifier_types(const unsigned int position) {
+    return neurite::swc::structure_identifier_types_generator::create(position);
 }
 
 double create_double(const unsigned int position) {
@@ -22,7 +22,7 @@ double create_double(const unsigned int position) {
 
 }
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 point_generator::point_generator() : position_(0) { }
@@ -31,7 +31,7 @@ void point_generator::
 populate(const unsigned int position, result_type& v) {
     v.sample_number(create_unsigned_int(position + 0));
     v.unparsed_structure_identifier(create_int(position + 1));
-    v.structure_identifier(create_dogen_swc_structure_identifier_types(position + 2));
+    v.structure_identifier(create_neurite_swc_structure_identifier_types(position + 2));
     v.x(create_double(position + 3));
     v.y(create_double(position + 4));
     v.z(create_double(position + 5));

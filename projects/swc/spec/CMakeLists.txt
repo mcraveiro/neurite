@@ -28,6 +28,7 @@ set_target_properties(swc_spec PROPERTIES OUTPUT_NAME ${binary_name})
 
 target_link_libraries(swc_spec
     swc
+    utility
     ${Boost_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT})
 

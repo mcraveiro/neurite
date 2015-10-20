@@ -1,9 +1,9 @@
 #include <string>
 #include <ostream>
 #include <stdexcept>
-#include "dogen/swc/io/structure_identifier_types_io.hpp"
+#include "neurite/swc/io/structure_identifier_types_io.hpp"
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 std::ostream& operator<<(std::ostream& s, const structure_identifier_types& v) {

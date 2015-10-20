@@ -1,12 +1,12 @@
-#include "dogen/swc/types/point.hpp"
+#include "neurite/swc/types/point.hpp"
 
-namespace dogen {
+namespace neurite {
 namespace swc {
 
 point::point()
     : sample_number_(static_cast<unsigned int>(0)),
       unparsed_structure_identifier_(static_cast<int>(0)),
-      structure_identifier_(static_cast<dogen::swc::structure_identifier_types>(0)),
+      structure_identifier_(static_cast<neurite::swc::structure_identifier_types>(0)),
       x_(static_cast<double>(0)),
       y_(static_cast<double>(0)),
       z_(static_cast<double>(0)),
@@ -16,7 +16,7 @@ point::point()
 point::point(
     const unsigned int sample_number,
     const int unparsed_structure_identifier,
-    const dogen::swc::structure_identifier_types structure_identifier,
+    const neurite::swc::structure_identifier_types structure_identifier,
     const double x,
     const double y,
     const double z,
@@ -76,11 +76,11 @@ void point::unparsed_structure_identifier(const int v) {
     unparsed_structure_identifier_ = v;
 }
 
-dogen::swc::structure_identifier_types point::structure_identifier() const {
+neurite::swc::structure_identifier_types point::structure_identifier() const {
     return structure_identifier_;
 }
 
-void point::structure_identifier(const dogen::swc::structure_identifier_types v) {
+void point::structure_identifier(const neurite::swc::structure_identifier_types v) {
     structure_identifier_ = v;
 }
 
