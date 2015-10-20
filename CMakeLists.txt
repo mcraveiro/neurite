@@ -30,7 +30,7 @@ if(Boost_FOUND)
 endif()
 
 # wt
-find_package(Wt REQUIRED)
+# find_package(Wt REQUIRED)
 
 # libxml
 find_package(LibXml2 REQUIRED)
