@@ -26,7 +26,11 @@
 #include <boost/log/sources/logger.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/core.hpp>
+#if BOOST_VERSION >= 105500
 #include <boost/core/null_deleter.hpp>
+#else
+#include <boost/utility/empty_deleter.hpp>
+#endif
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include "neurite/utility/exception/invalid_enum_value.hpp"
 #include "neurite/utility/log/life_cycle_manager.hpp"
