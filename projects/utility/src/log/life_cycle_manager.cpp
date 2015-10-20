@@ -26,7 +26,7 @@
 #include <boost/log/sources/logger.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/core.hpp>
-#if BOOST_VERSION >= 105500
+#if BOOST_VERSION >= 105700
 #include <boost/core/null_deleter.hpp>
 #else
 #include <boost/utility/empty_deleter.hpp>
