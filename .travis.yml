@@ -1,0 +1,97 @@
+# -*- mode: yaml; tab-width: 4; indent-tabs-mode: nil -*-
+#
+# Copyright (C) 2015 Marco Craveiro <marco.craveiro@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+language: cpp
+
+compiler:
+  # - clang # disabled due to gcc STL
+  - gcc
+
+before_install:
+  # boost
+  - sudo add-apt-repository -y ppa:boost-latest/ppa
+  
+  # cmake
+  - sudo add-apt-repository -y ppa:kalakris/cmake
+
+  # g++4.9
+  - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+
+  # clang 3.4
+  - if [ "$CXX" == "clang++" ]; then sudo add-apt-repository -y ppa:h-rayflood/llvm; fi
+
+  - sudo apt-get update -qq
+
+install:
+  # boost. install all for now.
+  - sudo apt-get install libboost1.55-all-dev 
+
+  # ninja
+  - sudo apt-get install ninja-build
+
+  # cmake
+  - sudo apt-get install cmake
+
+  # g++4.9
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.9; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9" GCOV="gcov-4.9"; fi
+
+  # clang 3.4
+  - if [ "$CXX" == "clang++" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4; fi
+  - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.4" CC="clang-3.4"; fi
+
+  # coverage
+  - sudo pip install cpp-coveralls
+
+script: 
+  - export GIT_REPO="`pwd`"
+  - cd build
+  - mkdir output
+  - cd output
+  - export CTEST_OUTPUT_ON_FAILURE=1
+  - cmake ${GIT_REPO} -DWITH_MINIMAL_PACKAGING=on -G Ninja
+  - ninja -j2 run_all_specs # package
+  # - sudo dpkg -i stage/pkg/dogen_*_amd64-applications.deb
+  # - cd /tmp
+  # - /usr/bin/dogen_knitter --version
+  # - cd ${GIT_REPO}
+
+notifications:
+  email:
+    recipients:
+      - marco.craveiro@gmail.com
+    on_success: change
+    on_failure: always
+
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/db7439afa782608b5654
+    on_success: always
+    on_failure: always
+
+deploy:
+  provider: releases
+  api_key:
+    secure: UdotUzhLJ7GcmwyJlpqcsvWsXxuWjoswXG7intkgxKeD5vkIT6Ng2v7ik6c/4uO9wXJ9uWV8/X/EzdZhWqFjiamMljsmFGcy4Bt37oqP6oxdlRyO/KrLM1E/xtmA1kZppuY4njCqzZnMslyzyMtsl+DH3zseOL7GQIbkL5xbecI=
+  file_glob: true
+  file: stage/pkg/*.deb
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
