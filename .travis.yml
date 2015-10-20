@@ -84,7 +84,7 @@ notifications:
 
   webhooks:
     urls:
-      - https://webhooks.gitter.im/e/db7439afa782608b5654
+      - https://webhooks.gitter.im/e/f65b7ca790d29439491d
     on_success: always
     on_failure: always
 
