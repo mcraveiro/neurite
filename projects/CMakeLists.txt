@@ -96,10 +96,12 @@ include_directories(
     ${stage_inc_dir}/
 
     # real code
-    ${CMAKE_SOURCE_DIR}/projects/ohms_law/include
+    # ${CMAKE_SOURCE_DIR}/projects/ohms_law/include
+    ${CMAKE_SOURCE_DIR}/projects/swc/include
     )
 
 #
 # add all other projects
 #
 # add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ohms_law/src)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/swc)

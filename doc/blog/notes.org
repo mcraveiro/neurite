@@ -24,3 +24,7 @@ http://people.brandeis.edu/~pmiller/COMP_NEURO/lifb.pdf
    current and current.
 3. explain the derivation from capacitor's current to RC circuit's
    voltage.
+
+
+http://blog.mattbierner.com/stupid-template-tricks-template-assembler/
+http://githubengineering.com/counting-objects/

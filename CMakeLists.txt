@@ -115,6 +115,7 @@ message(STATUS "Product version: ${NEURITE_VERSION}")
 # Top-level knitter target.
 #
 add_custom_target(knit_all)
+add_custom_target(run_all_specs)
 
 #
 # include all sub directories
