@@ -14,25 +14,36 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-10-20 Tue 22:17]
-| <75>                                                                        |        |      |      |
-| Headline                                                                    | Time   |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *6:08* |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 6:08   |      |      |
-| Active                                                                      |        | 6:08 |      |
-| STARTED Sprint and product backlog grooming                                 |        |      | 1:51 |
-| COMPLETED Sprint kick-off meeting                                           |        |      | 0:40 |
-| COMPLETED Setup Travis CI for neurite                                       |        |      | 0:41 |
-| STARTED Implement basic SWC support                                         |        |      | 2:56 |
+#+CAPTION: Clock summary at [2015-11-10 Tue 17:56]
+| <75>                                                                        |         |       |      |
+| Headline                                                                    | Time    |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| *Total time*                                                                | *22:41* |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| Stories                                                                     | 22:41   |       |      |
+| Active                                                                      |         | 22:41 |      |
+| STARTED Sprint and product backlog grooming                                 |         |       | 2:33 |
+| STARTED Journal club and other activities                                   |         |       | 2:01 |
+| COMPLETED Sprint kick-off meeting                                           |         |       | 0:40 |
+| COMPLETED Setup Travis CI for neurite                                       |         |       | 0:41 |
+| COMPLETED Chat with UCL guys                                                |         |       | 3:45 |
+| COMPLETED Catch up with Ben                                                 |         |       | 0:28 |
+| COMPLETED Lurk on Geppetto's weekly meet                                    |         |       | 1:25 |
+| STARTED Implement basic SWC support                                         |         |       | 2:56 |
+| STARTED Create a blog post discussing all of the file formats               |         |       | 8:12 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
+    CLOCK: [2015-11-09 Mon 15:15]--[2015-11-09 Mon 15:57] =>  0:42
     CLOCK: [2015-10-19 Mon 16:42]--[2015-10-19 Mon 17:02] =>  0:20
     CLOCK: [2015-10-19 Mon 15:10]--[2015-10-19 Mon 16:41] =>  1:31
 
 Updates to sprint and product backlog.
+
+*** STARTED Journal club and other activities                         :story:
+    CLOCK: [2015-11-06 Fri 16:00]--[2015-11-06 Fri 18:01] =>  2:01
+
+Time spent in generic tasks.
 
 *** COMPLETED Sprint kick-off meeting                                 :story:
     SCHEDULED: <2015-10-19 Mon>
@@ -48,6 +59,72 @@ Discuss with Ben the objectives of the sprint.
 We need continuous integration for neurite.
 
 - packages: libwt-dev libwtext-dev
+
+*** COMPLETED Chat with UCL guys                                      :story:
+    CLOSED: [2015-11-09 Mon 15:57]
+    CLOCK: [2015-11-05 Thu 16:30]--[2015-11-05 Thu 20:15] =>  3:45
+
+- collada: file format for graphics
+- hoc/nmod: there are java translators to/from NeuroML. This is
+  related to the work that BM is doing.
+- ModelDB: the curation allows snapshots in different languages, the
+  objective is to ensure research is reproducible, not model
+  development.
+- Open Source Brain (OSB): storage for models in a standardised
+  format; updatable; living model.
+- OpenWork is doing work on this area, Matteo Cantarelli is doing the
+  coding.
+- Geppeto: 3D visualisation, including surface meshes. Runs
+  simulations using a NEURON backend; can use a cluster. The NeuroML
+  is converted into hoc/nmod totally transparently from a user
+  perspective. It is possible to change a few parameters from the UI
+  but it requires low-level javascript code to do it.
+- OBJ format
+- Neuro ORD
+- models have purposes, for example for reaction diffusion we need to
+  know compartment spaces etc but for other purposes we can get away
+  with rough (very approximated) geometric forms (electrical
+  aspects). This is because the equations do not have sensitivity to
+  the geometry. Cable equation. However for reaction / diffusion we do
+  need more accurate representation of the morphology.
+- Local field potential (?)
+- STEPS: developed in Japan. For visualisation.
+- Arjen van Ooyen
+- MCell
+- NetMorph
+- Neurite
+- NeuroMAC
+- Evo-Devo: Morphogenics
+- Eye Wire
+- VAA3D: microscopy; processing of microscope images.
+- Blue Brain: created algo that makes water tight meshes. "Nicifier".
+- Neurobox 3D
+- Brain Model Validation: OSB model validation tool.
+- SBML: models for chemical reactions, etc.
+- LEMS: model mathematical primitives, similar vein to
+  MathML/OpenMath.
+- NeuroML:: instance of LEMS model providing all the primitives for
+  neuroscience modeling. Users then create instances of NeuroML as
+  their models. It is however useful to ask LEMS questions to the
+  NeuroML models (model in the neuroscience domain), so due to this
+  one can imagine NeuroML objects as if descendants of the LEMS model
+  (model in the computer science domain). NeuroML model is then used
+  to create the conversions to the backends such as NEURON.
+
+*** COMPLETED Catch up with Ben                                       :story:
+    CLOSED: [2015-11-10 Tue 17:31]
+    CLOCK: [2015-11-10 Tue 15:10]--[2015-11-10 Tue 15:38] =>  0:28
+
+- discuss the meeting in London.
+- chat about the objective of the model.
+- tasks for next sprint.
+
+*** COMPLETED Lurk on Geppetto's weekly meet                          :story:
+    CLOSED: [2015-11-10 Tue 17:36]
+    CLOCK: [2015-11-10 Tue 16:01]--[2015-11-10 Tue 17:26] =>  1:35
+
+There may be some overlap on the work we're doing, so chat to the
+Geppetto guys.
 
 *** STARTED Implement basic SWC support                               :story:
 
@@ -82,6 +159,16 @@ Notes:
 **** Create a simple parser for the SWC file format
 
 - add a few basic tests, but not too many: valid file, invalid file.
+
+*** STARTED Create a blog post discussing all of the file formats     :story:
+    CLOCK: [2015-11-10 Tue 14:30]--[2015-11-10 Tue 15:10] =>  0:40
+    CLOCK: [2015-11-09 Mon 15:58]--[2015-11-09 Mon 18:10] =>  2:12
+    CLOCK: [2015-11-04 Wed 15:29]--[2015-11-04 Wed 18:00] =>  2:31
+    CLOCK: [2015-11-03 Tue 15:12]--[2015-11-03 Tue 18:01] =>  2:49
+
+We need a simple post talking about all the file formats we know
+of. Actually for this sprint we need to narrow it down to just a
+couple.
 
 *** Add support for CGAL                                              :story:
 

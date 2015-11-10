@@ -4,18 +4,8 @@ Links and other stuff:
 [[http://www.allaboutcircuits.com/textbook/direct-current/chpt-13/capacitors-and-calculus/][- Capacitors and Calculus]]
 
 
-We will also try to fill in the gaps of [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks.html][part I]] to try to converge to a
-slightly more realistic morphology of the neuron.
-
-
-Neuroengineering Tutorial: Integrate and Fire neuron modeling
-http://www.slideshare.net/ZubinBhuyan/x-neuro-integrate-and-fire-neuron-modeling
-
-Integrate-and-fire model
-http://icwww.epfl.ch/~gerstner/SPNM/node26.html
-
 Leaky Integrate-and-Fire Model Neuron
-http://people.brandeis.edu/~pmiller/COMP_NEURO/lifb.pdf
+
 
 
 1. explain why capacitance is constant.
