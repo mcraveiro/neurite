@@ -33,14 +33,16 @@
 | STARTED Create a blog post discussing all of the file formats               |         |       | 8:12 |
 #+end:
 
-*** STARTED Sprint and product backlog grooming                       :story:
+*** COMPLETED Sprint and product backlog grooming                     :story:
+    CLOSED: [2015-11-10 Tue 18:00]
     CLOCK: [2015-11-09 Mon 15:15]--[2015-11-09 Mon 15:57] =>  0:42
     CLOCK: [2015-10-19 Mon 16:42]--[2015-10-19 Mon 17:02] =>  0:20
     CLOCK: [2015-10-19 Mon 15:10]--[2015-10-19 Mon 16:41] =>  1:31
 
 Updates to sprint and product backlog.
 
-*** STARTED Journal club and other activities                         :story:
+*** COMPLETED Journal club and other activities                       :story:
+    CLOSED: [2015-11-10 Tue 18:00]
     CLOCK: [2015-11-06 Fri 16:00]--[2015-11-06 Fri 18:01] =>  2:01
 
 Time spent in generic tasks.
@@ -126,7 +128,8 @@ We need continuous integration for neurite.
 There may be some overlap on the work we're doing, so chat to the
 Geppetto guys.
 
-*** STARTED Implement basic SWC support                               :story:
+*** CANCELLED Implement basic SWC support                             :story:
+    CLOSED: [2015-11-10 Tue 18:00]
 
 We need to add code to read and write SWC files, with tests sourced
 from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
@@ -160,7 +163,8 @@ Notes:
 
 - add a few basic tests, but not too many: valid file, invalid file.
 
-*** STARTED Create a blog post discussing all of the file formats     :story:
+*** CANCELLED Create a blog post discussing all of the file formats   :story:
+    CLOSED: [2015-11-10 Tue 18:00]
     CLOCK: [2015-11-10 Tue 14:30]--[2015-11-10 Tue 15:10] =>  0:40
     CLOCK: [2015-11-09 Mon 15:58]--[2015-11-09 Mon 18:10] =>  2:12
     CLOCK: [2015-11-04 Wed 15:29]--[2015-11-04 Wed 18:00] =>  2:31
@@ -169,30 +173,3 @@ Notes:
 We need a simple post talking about all the file formats we know
 of. Actually for this sprint we need to narrow it down to just a
 couple.
-
-*** Add support for CGAL                                              :story:
-
-We need to get a simple CGAL example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
-
-*** Add support for VTK                                               :story:
-
-We need to get a simple VTK example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
-
-We should create a very simple Qt gui.
-
-*** Add XSD tool support to neurite                                   :story:
-
-Create a simple XSD schema and get it to code generate to C++ using
-the [[http://www.codesynthesis.com/products/xsd/][XSD tool]].
-
-*** Start a blog post talking about polygon meshes                    :story:
-
-We don't necessarily need to finish it this sprint but we need to
-start collecting all the terminology, etc in a blog post.
-
-*** Create a very simple polygon mesh using CGAL                      :story:
-
-Get the sample from Ben of a very simple model and using the [[http://doc.cgal.org/latest/Mesh_3/][3D Mesh
-Generation]] documentation, try to generate a simple mesh.
