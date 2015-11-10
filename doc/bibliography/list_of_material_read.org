@@ -1,0 +1,30 @@
+This file contains a list of interesting material that we have already
+read.
+
+* Papers
+
+** Basics
+
+- [[http://www.snv.jussieu.fr/brette/papers/Lap07.pdf][Recherches quantitatives sur l'excitation électrique des nerfs
+  traitée comme une polarisation]]
+
+** Tooling
+
+- [[http://arxiv.org/pdf/1205.3025.pdf][Current practice in software development for computational
+  neuroscience and how to improve it]]
+- [[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2638500/pdf/nihms87576.pdf][Simulation of networks of spiking neurons: A review of tools and
+  strategies]]
+- [[http://www.neuron.yale.edu/neuron/static/papers/hbtnn2/overviewforhbtnn2e.pdf][The NEURON Simulation Environment]]
+- [[http://www.cs.berkeley.edu/~fateman/papers/openmathcrit.pdf][A Critique of OpenMath and Thoughts on Encoding Mathematics]]
+
+* Book Chapters
+
+- [[http://cns-classes.bu.edu/cn510/Papers/Izhikevich_Ch8.pdf][Dynamical Systems in Neuroscience: The Geometry of Excitability and
+  Bursting]]: chapter 8.
+
+* Sites
+
+- [[http://www.slideshare.net/ZubinBhuyan/x-neuro-integrate-and-fire-neuron-modeling][Neuroengineering Tutorial: Integrate and Fire neuron modeling]]
+- [[http://icwww.epfl.ch/~gerstner/SPNM/node26.html][Integrate-and-fire model]]
+- [[http://people.brandeis.edu/~pmiller/COMP_NEURO/lifb.pdf][Leaky Integrate-and-Fire Model Neuron]]
+- [[http://www.neuron.yale.edu/neuron/static/docs/refman/hoc.html][Hoc]]
