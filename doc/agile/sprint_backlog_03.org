@@ -13,15 +13,16 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-11-10 Tue 18:01]
+#+CAPTION: Clock summary at [2015-11-11 Wed 18:02]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *0:03* |      |      |
+| *Total time*                                                                | *3:23* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 0:03   |      |      |
-| Active                                                                      |        | 0:03 |      |
+| Stories                                                                     | 3:23   |      |      |
+| Active                                                                      |        | 3:23 |      |
 | STARTED Sprint and product backlog grooming                                 |        |      | 0:03 |
+| COMPLETED Create a blog post discussing NEURON file formats                 |        |      | 3:20 |
 #+end:
 
 *** Journal club and other activities                                 :story:
@@ -32,6 +33,14 @@ Time spent in generic tasks.
     CLOCK: [2015-11-10 Tue 17:58]--[2015-11-10 Tue 18:01] =>  0:03
 
 Updates to sprint and product backlog.
+
+*** COMPLETED Create a blog post discussing NEURON file formats       :story:
+    CLOSED: [2015-11-11 Wed 18:01]
+    CLOCK: [2015-11-11 Wed 14:41]--[2015-11-11 Wed 18:01] =>  3:20
+
+We need a simple post talking about all the file formats we know
+of. Actually for this sprint we need to narrow it down to just a
+couple.
 
 *** STARTED Implement basic SWC support                               :story:
 
@@ -47,13 +56,6 @@ from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
 **** Create a simple parser for the SWC file format
 
 - add a few basic tests, but not too many: valid file, invalid file.
-
-*** STARTED Create a blog post discussing all of the file formats     :story:
-
-We need a simple post talking about all the file formats we know
-of. Actually for this sprint we need to narrow it down to just a
-couple.
-
 *** Add support for CGAL                                              :story:
 
 We need to get a simple CGAL example to compile and run, adding all

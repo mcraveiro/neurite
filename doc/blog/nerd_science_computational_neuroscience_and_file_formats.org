@@ -1,20 +1,25 @@
-#+title: Nerd Food: Computational Neuroscience and File Formats
+#+title: Nerd Food: Tooling in Computational Neuroscience - Part I
 #+options: date:nil toc:nil author:nil num:nil title:nil
 
-On the [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_16.html][previous series of posts]] we did a build up of theory - right up
-to the point where one is just about able to understand /Integrate and
-Fire/, one of the simpler families of neuron models. The series used a
-[[https://en.wikipedia.org/wiki/Reductionism][reductionist]] approach - or bottom up, if you prefer. This post has the
-opposite take, starting from the top. It discusses the different kinds
-of file formats used in neuroscience, their purpose and
-limitations. "File formats" may not sound particularly exciting at
-first glance, but it is important to keep in mind that these file
-formats are instances of meta-models of the problem domain in
-question, and as such, their expressiveness is very
-important. Understand those and you've understood a great deal about
-the domain.
+In the [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_16.html][previous series of posts]] we did a build up of theory - right up
+to the point where we were just about able to make sense of /Integrate
+and Fire/ - one of the simpler families of neuron models. The series
+used a [[https://en.wikipedia.org/wiki/Reductionism][reductionist]] approach - or bottom up, if you
+prefer[fn:prev_series]. We are now starting a new series with the
+opposite take, this time coming at it from the top. The objective is
+to provide a (very) high-level overview - in laymen's terms, still -
+of a few of the "platforms" used in computational neuroscience. As
+this is a rather large topic, we'll try to tackle a couple of
+platforms each post, discussing a little bit of their history, purpose
+and limitations - whilst trying to maintain a focus on /file formats/
+or DSLs. "File formats" may not sound particularly exciting at first
+glance, but it is important to keep in mind that these are instances
+of meta-models of the problem domain in question, and as such, their
+expressiveness is very important. Understand those and you've
+understood a great deal about the domain and about the engineering
+choices of those involved.
 
-But first, let's introduce Computational Neuroscience.
+But first, let's introduce /Computational Neuroscience/.
 
 * Computers and the Brain
 
@@ -47,84 +52,130 @@ These computational models are used to frame hypotheses that can be
 directly tested by biological or psychological experiments.
 #+end_quote
 
-Lots of big words, of course, but hopefully they make some sense after
-the previous posts. If not, don't despair; what they all hint at is an
-"interdisciplinary" effort to create biologically plausible models,
-and to use these models to provide insights on how the brain is
+Lots of big words, of course, but hopefully they make /some/ sense
+after the previous posts. If not, don't despair; what they all hint at
+is an "interdisciplinary" effort to create biologically plausible
+models, and to use these to provide insights on how the brain is
 performing certain functions. Think of the Computational
 Neuroscientist as the right-hand person of the Neuroscientist - the
 "computer guy" to the "business guy", if you like. The Neuroscientist
 (particularly the experimental Neuroscientist) gets his or her hands
 messy with wetware and experiments, which end up providing data and a
 better biological understanding; the Computational Neuroscientist
-takes these and uses them to make more accurate computer models, which
-can then be used to test hypothesis or to make new ones, and these can
-then validated by experiments and so on, in a virtuous feedback
-loop.[fn:compneuro]
+takes these and uses them to make improved computer models, which are
+used to test hypothesis or to make new ones, which can then validated
+by experiments and so on, in a virtuous feedback loop.[fn:compneuro]
+Where the "interdisciplinary" part comes in is that many of the people
+doing the role of "computer guys" are actually not computer scientists
+but instead come from a variety of backgrounds such as biology,
+physics, chemistry and so on. This variety adds a lot of value to the
+discipline because the brain is such a complex organ; understanding it
+requires all kinds of skills - and then some.
 
+* It's Models All the Way Down
 
-Of course, [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][as we already seen]], one does not just walk straight into
-Mordor and starts creating the "most biologically plausible" model of
-the brain possible; all models must have a scope as narrow as
-possible, in order to make them a) understandable and b)
+At the core, then, the work of the Computational Neuroscientist is to
+create models. Of course, [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_7.html][as we already seen]], one does not just walk
+straight into Mordor and starts creating the "most biologically
+plausible" model of the brain possible; all models must have a scope
+as narrow as possible, if they are to become a) understandable and b)
 computationally feasible. Thus engineering trade-offs are crucial to
 the discipline.
 
-In addition, creating a model does not imply writing things from
-scratch; instead, most practitioners rely on a wealth of software
-available, all with different advantages and disadvantages. Let's have
-a quick look at what is available.
+Also, it is important to understand that creating a model does not
+always imply writing things from scratch. Instead, most practitioners
+rely on a wealth of software available, all with different advantages
+and disadvantages.
+
+At this juncture you are probably wondering just what exactly are
+these "models" we speak so much of. Are they just equations like IaF?
+Well, yes and no. As it happens, all models have roughly the following
+structure:
+
+- /a morphology definition/: we've already [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks.html][spoken a bit]] about
+  morphology; think of it as the definition of the entities that exist
+  in your model, their characteristics and relationships. This is
+  actually closer to what we, computer scientists think the word
+  modeling means. For example, the morphology defines how many neurons
+  you have, how many axons and dendrites, connectivity, spatial
+  positioning and so on.
+- /a functional, mathematical or physical definition/: I've heard it
+  named in many ways, but fundamentally, what it boils down to is the
+  definition of the equations that your model requires. For example,
+  are you modeling electrical properties or reaction/diffusion?
+
+For the simpler models, the morphology gets somewhat obscured - after
+all, in LIF, there is very little information about a neuron because
+all we are interested in are the spikes. For other models, a lot of
+morphological details are required.
 
 * The Tooling Landscape
 
+** Idealised...
+
+It is important to keep in mind that these models are to be used in a
+/simulation/; that is, we are going to run the program for a period of
+time (hours or days) and observe different aspects of its
+behaviour. Thus the functional definition of the model provides the
+equations that describe the dynamics of the system being simulated and
+the morphology will provide some of the inputs for those equations.
+
+From here one can start sketch the requirements for a system for the
+Computational Neuroscientist:
+
+- a platform of some kind to provide simulation control: starting,
+  stopping, re-running, storing the results and so on. As the
+  simulations can take a long time to run, the data sets can be quite
+  large - on the hundreds of gigs range - so efficiently handling of
+  the output data is a must.
+- some kind of DSL that provides a user friendly way to define their
+  models, ideally with a graphical user interface that helps author
+  the DSL. The DSL must cover the two aspects we mention above.
+- efficient libraries of numerical routines to help solve the
+  equations. The libraries must be exposed in someway to the DSL so
+  that users can make use of these when defining the functional
+  aspects of the model.
+
+Architecturally, the ability to use a cluster or GPUs would of course
+be very useful, but we shall ignore those aspects for now. Given this
+idealised platform, we can now make a bit more sense of what actually
+exists in the wild.
+
+** ... vs Actual
+
 The multidisciplinary nature of Computational Neuroscience poses some
-challenges when it comes to model development: many of the
-practitioners in the field do not have a Software Engineering
+challenges when it comes to software development: as mentioned, many
+of the practitioners in the field do not have a Software Engineering
 background; of those that do have, most tend not to have strong
-biology and neuroscience backgrounds. As a result, the software
-landscape is somewhat fragmented, with applications following one of
-two approaches:
+biology and neuroscience backgrounds. As a result, the landscape is
+fragmented and the quality is uneven. On one side, most of the
+software is open source, making reuse a lot less of a problem. On the
+other hand, things such as continuous integration, version control,
+portability, user interface guide lines, organised releases, packaging
+and so on are still lagging behind most "regular" Free and Open Source
+projects[fn:tool_review].
 
-- The "bio" approach: software that hides most of the programming
-  complexity from the user, and uses vocabulary from the neuroscience
-  domain as much as possible. The software tends to be simple to use
-  (for technical users) but not very performant. Due to this, it's
-  focus tends to be on modeling neuron compartments, single neurons or
-  very small neural networks.
-- The "comp-sci" approach: software (and hardware) that exposes all of
-  the low-level complexity of programming, trying to cram out every
-  CPU cycle possible. The software is either a one-off model, written
-  for a specific paper or an extension to a well known set of
-  libraries and then exposed in a high-level language such as
-  Python.
+In some ways, to enter Computational Neuroscience is a bit like
+travelling in time to a era before git, before GitHub, before Travis
+and all other things we take for granted. Not everywhere, of course,
+but still in quite a few places, particularly with the older and more
+popular projects. One cannot help but get the feeling that the field
+could do with some of the general energy we have in the FOSS
+community, but the technical barriers to contributing tend to be large
+since the domain is so complex.
 
-Of course, this is a simplification; tools - or even portions of a
-tool - end up falling somewhere in between these two extreme points of
-a spectrum. On the plus side, most of the software is open source,
-which makes reuse a lot less of a problem. However, things such as
-continuous integration, version control, portability, user interface
-guide lines, organised releases, packaging and so on are still lagging
-behind most "regular" open source projects[fn:tool_review]. In some
-ways, to enter Computational Neuroscience is a bit like travelling in
-time to a era before git, before GitHub, before Travis and all other
-things we take for granted. Not everywhere, of course, but still in
-quite a few places, particularly with the older and more popular
-projects. One cannot help but get the feeling that the field could do
-with some of the general energy we have in the FOSS community, but the
-technical barriers to contributing tend to be large since the domain
-is so complex.
+So after all of this boring introductory material, we can finally look
+at our first system.
 
-Let's have a quick look at some of the more well-known tools, with a
-focus on file formats.
+* NEURON
 
-** NEURON
-
-One feels compelled to start with [[http://www.neuron.yale.edu/neuron/][NEURON,]] the most venerable of the
-lot, with origins in the 80s[fn:neuron]. NEURON is a simulation
-environment with great depth of functionality and a comprehensive user
-manual published as a (non-free) [[http://ebooks.cambridge.org/ebook.jsf?bid%3DCBO9780511541612][book]]. For the less wealthy, an
-[[http://www.neuron.yale.edu/neuron/static/papers/hbtnn2/overviewforhbtnn2e.pdf][overview paper]] is available, as are many other [[http://www.neuron.yale.edu/neuron/docs][online resources]]. The
-software itself is fully open source, with a [[http://www.neuron.yale.edu/hg/neuron/nrn/file/5b5889f69d6e/src][public mercurial repo]].
+Having to choose, one feels compelled to start with [[http://www.neuron.yale.edu/neuron/][NEURON]] - the most
+venerable of the lot, with roots in the 80s[fn:neuron]. NEURON is a
+simulation environment with great depth of functionality and a
+comprehensive user manual published as a (non-free) [[http://ebooks.cambridge.org/ebook.jsf?bid%3DCBO9780511541612][book]]. For the less
+wealthy, an [[http://www.neuron.yale.edu/neuron/static/papers/hbtnn2/overviewforhbtnn2e.pdf][overview paper]] is available, as are many other [[http://www.neuron.yale.edu/neuron/docs][online
+resources]]. The software itself is fully open source, with a [[http://www.neuron.yale.edu/hg/neuron/nrn/file/5b5889f69d6e/src][public
+mercurial repo]].
 
 As with many of the older tools in this field, NEURON development has
 not quite kept up the pace with the latest and greatest. For instance,
@@ -148,6 +199,8 @@ Whilst NEURON is vast, we are particularly interested in only two
 aspects of it: /hoc/ and /mod/ (in its many incarnations). These are
 the files that can be used to define models.
 
+** Hoc
+
 [[https://en.wikipedia.org/wiki/Hoc_(programming_language)][Hoc]] has a fascinating history and a pedigree to match. It is actually
 the creation of Kernighan and Pike, two UNIX luminaries, and has as
 contenders tools like bc and dc and so on. NEURON took hoc and
@@ -160,9 +213,12 @@ available to the user (UI, neuron modeling specific functionality,
 etc) but the gist of it is the same, and the strong point is the
 interactive development with rapid feedback. On the GUI versions of
 the interpreter, the script can specify it's UI elements including
-input widgets for parameters and widgets to display the output.
+input widgets for parameters and widgets to display the output. Hoc is
+then used as a mix between model/view logic and morphological definition
+language.
 
-Here's an example hoc [[http://www.neuron.yale.edu/neuron/static/docs/elementarytools/writcode.htm][code from the manual]]:
+To get a feel for the language, here's a very simple sample [[http://www.neuron.yale.edu/neuron/static/docs/elementarytools/writcode.htm][from the
+manual]]:
 
 #+begin_src
 create soma    // model topology
@@ -174,28 +230,35 @@ soma {
 }
 #+end_src
 
+** NMODL
+
 The second language supported by NEURON is [[http://www.neuron.yale.edu/neuron/static/docs/help/neuron/nmodl/nmodl.html][NMODL]] - The NEURON extended
-MODL or Model Description Language. As with Hoc, the history of MODL
-is quite interesting; it was a language was defined for use with
-SCoP - the Simulation Control Program[fn:scop_paper]. From what I can
-gather of SCoP, its main purpose was to make life easier when creating
-new simulations, providing an environment where users could focus on
-what they were trying to simulate rather than nitty-gritty
-implementation specific details. According to them, the simulation
-environment had the following roles a) to provide a high-level
-language closer to the domain - a DSL - in which users can define
-their models; this is where MODL comes in b) to provide a library of
-numeric routines to solve the equations that make up the models, and
-to expose this library to the DSL c) finally, users need control
-primitives for the simulation itself, such as start and stop,
-recording of output and so on.
+MODL (Model Description Language). NMODL is used to specify a physical
+model in terms of equations such as simultaneous nonlinear algebraic
+equations, differential equations and so on. In practice, there are
+actually different versions of NMODL for different NEURON versions,
+but to keep things simple I'll just abstract these complexities and
+refer to them as one entity[fn:nmodl_history].
+
+As intimated above, NMODL is a descendant of MODL. As with Hoc, the
+history of MODL is quite interesting; it was a language was defined by
+the National Biomedical Simulation Resource to specify models for use
+with SCoP - the Simulation Control Program[fn:scop_paper]. From what I
+can gather of SCoP, its main purpose was to make life easier when
+creating simulations, providing an environment where users could focus
+on what they were trying to simulate rather than nitty-gritty
+implementation specific details.
 
 NMODL took MODL syntax and extended it with the primitives required by
 its domain; for instance, it added the NEURON block to the language,
-which allows multiple instances of these "objects".
+which allows multiple instances of "entities". As with MODL, NMODL is
+translated into efficient C code and linked against supporting
+libraries that provide the numerics; the NMODL translator to C also
+had to take into account the requirement of linking against NEURON
+libraries rather than SCoP.
 
-Example NMODL code, copied from the [[http://ebooks.cambridge.org/ebook.jsf?bid%3DCBO9780511541612][NEURON book]] (chapter 9, listing
-9.1):
+The below is a snippet of NMODL code, copied from the [[http://ebooks.cambridge.org/ebook.jsf?bid%3DCBO9780511541612][NEURON book]]
+(chapter 9, listing 9.1):
 
 #+begin_src
 NEURON {
@@ -213,104 +276,42 @@ ASSIGNED {
   i  (milliamp/cm2)
   v  (millivolt)
 }
-
-BREAKPOINT { i = g*(v - e) }
 #+end_src
 
+NMODL and hoc are used together to form a model; hoc to provide the
+UI, parameters and morphology and NMODL to provide the physical
+modeling. The website [[https://senselab.med.yale.edu/modeldb/default.cshtml][ModelDB]] provides a database of models in a
+variety of platforms with the main objective of making research
+reproducible. [[https://senselab.med.yale.edu/modeldb/showModel.cshtml?model%3D83319&file%3D/destexhe_benchmarks/NEURON/README][Here]] you can see an example of a production NEURON model
+in its full glory, with a mix of hoc and NMODL files - as well as a
+few others such as session files, which we can ignore for our
+purposes.
 
+** Thoughts
 
+NEURON is more or less a standard in Computational Neuroscience -
+together with a few other tools such as GENESIS, which we shall cover
+later. Embedded deeply in it source code is the domain logic learned
+painstakingly over several decades. Whilst software engineering-wise
+it is creaking at the seams, finding a next generation heir will be a
+non-trivial task given the features of the system, the amount of
+models that exist out there, and the knowledge and large community
+that uses it.
 
+Due to this, a solution that a lot of next-generation tools have
+developed is to use NEURON as a backend, providing a shiny modern
+frontend and then generating the appropriate hoc and NMODL required by
+NEURON. This is then executed in a NEURON environment and the results
+are sent back to the user for visualisation and processing using
+modern tools. Le Roi Est Mort, Vive Le Roi!
 
+* Conclusions
 
-
-
- There are different versions of
-NMODL but to keep things simple I'll just abstract these complexities
-and refer to them as one entity[fn:nmodl_history]. Using NMODL one can
-specify a physical model in terms of equations such as simultaneous
-nonlinear algebraic equations, differential equations and so on.
-
-
-
-https://github.com/FinnK/lems2hdl
-
-
-
-
-Think
-of NMOD
-
-
-
-MODL (model description language) was originally developed at the NBSR
-(National Biomedical Simulation Resource) to specify models for
-simulation with SCoP (Simulation Control Program). With MODL one
-specifies a physical model in terms of simultaneous nonlinear
-algebraic equations, differential equations, or kinetic schemes. MODL
-translates the specification into the C language which is then
-compiled and linked with the SCoP program. It turned out that only
-modest extensions to the MODL syntax were necessary to allow it to
-translate model descriptions into a form suitable for compiling and
-linking with NEURON V2. The extended version was called NMODL. In
-NEURON V3 the advent of the object oriented interpreter, OC, allowed
-Point Processes to be treated as objects instead of parallel arrays of
-variables. The model description translator that emits code suitable
-for NEURON V3 is called NOCMODL. NMODL and NOCMODL handle identical
-input model descriptions, they differ merely in the output interface
-code. A prototype model description translator has been written to
-generate code suitable for linking with GENESIS.
-
-
-
-* GENESIS
-
-[[http://www.scholarpedia.org/article/GENESIS_(simulation_environment)][GENESIS]]
-
-
-As the name implies, GENESIS has
-
-
-
-
-, which is to say one can describe a
-
- falls closer
-to the first camp,
-
-
-
-
-
-- computational neuroscience makes use of the entire toolkit of
-  computer science, including machine learning, neural networks, and
-  computational learning theory - as well as more mundane things, of
-  course.
-
-
-
-As the previous series of posts alluded to,
-
-
-
-
-
-
-As you can imagine, it would be quite annoying if everyone who n
-
-
-* Links
-
-- [[https://github.com/mikehulluk/morphforge][Morphforge]]: high level, simulator independent, Python library for
-  building simulations of small populations of multi-compartmental
-  neurons, in which membrane voltage is calculated from the sum of
-  individual ionic currents flowing across a membrane. It
-- [[http://www.jara.org/index.php?id%3D1198&S%3D2&L%3D2][NESTML]]: the goal of the NESTML project is to ease model writing for
-  neuroscientists by providing an additional language layer on top of
-  NEST and a component library to allow a composition of models
-
-; if it did, a lot of the interdisciplinary nature of
-Computational Neuroscience would be lost because there are too few
-people with the required technical skill.
+In this first part we've outlined what Computational Neuroscience is
+all about, what we mean by a model in this context and what services
+one can expect from a platform in this domain. We also covered the
+first of such platforms. Tune in for the next instalment where we'll
+cover more platforms.
 
 [fn:neuron] The early story of NEURON is available [[http://neuron.duke.edu/userman/4/neuron.html][here]]; see also the
 [[http://www.scholarpedia.org/article/Neuron_simulation_environment][scholarpedia page]].
@@ -336,6 +337,9 @@ models is an important issue. Sometimes this modeling is quite data
 driven and may involve cycling back and forth between experimental and
 computational methods.
 #+end_quote
+
+[fn:prev_series] I still owe you the final post of that series, coming
+out soon, hopefully.
 
 [fn:tool_review] This is a problem that has not gone unnoticed; for
 instance, this paper provides an interesting and thorough review of

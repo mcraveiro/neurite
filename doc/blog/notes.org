@@ -18,3 +18,90 @@ Leaky Integrate-and-Fire Model Neuron
 
 http://blog.mattbierner.com/stupid-template-tricks-template-assembler/
 http://githubengineering.com/counting-objects/
+
+
+
+
+with applications following one of
+two approaches:
+
+- /The "bio" approach/: software that hides most of the programming
+  complexity from the user, and uses vocabulary from the neuroscience
+  domain as much as possible. The software tends to be simple to use
+  (for technical users) but performance is a secondary
+  requirement. Due to this, it's focus tends to be on modeling neuron
+  compartments, single neurons or very small neural networks.
+- /The "comp-sci" approach/: software (and hardware) that exposes all
+  of the low-level complexity of programming, trying to cram out every
+  CPU cycle possible. The software is either one-off, written for a
+  specific paper or an extension to a well known set of libraries and
+  then exposed in a high-level language such as Python.
+
+Of course, this is a simplification; tools - or even portions of a
+tool - end up falling somewhere in between these two extreme points of
+a spectrum.
+
+
+
+* GENESIS
+
+[[http://www.scholarpedia.org/article/GENESIS_(simulation_environment)][GENESIS]]
+
+
+As the name implies, GENESIS has
+
+
+
+
+, which is to say one can describe a
+
+ falls closer
+to the first camp,
+
+
+
+
+
+- computational neuroscience makes use of the entire toolkit of
+  computer science, including machine learning, neural networks, and
+  computational learning theory - as well as more mundane things, of
+  course.
+
+
+
+As the previous series of posts alluded to,
+
+
+
+
+
+
+As you can imagine, it would be quite annoying if everyone who n
+
+
+* Links
+
+- [[https://github.com/mikehulluk/morphforge][Morphforge]]: high level, simulator independent, Python library for
+  building simulations of small populations of multi-compartmental
+  neurons, in which membrane voltage is calculated from the sum of
+  individual ionic currents flowing across a membrane. It
+- [[http://www.jara.org/index.php?id%3D1198&S%3D2&L%3D2][NESTML]]: the goal of the NESTML project is to ease model writing for
+  neuroscientists by providing an additional language layer on top of
+  NEST and a component library to allow a composition of models
+
+; if it did, a lot of the interdisciplinary nature of
+Computational Neuroscience would be lost because there are too few
+people with the required technical skill.
+
+
+According to them, the simulation
+environment had the following roles a) to provide a high-level
+language closer to the domain - a DSL - in which users can define
+their models; this is where MODL comes in b) to provide a library of
+numeric routines to solve the equations that make up the models, and
+to expose this library to the DSL c) finally, users need control
+primitives for the simulation itself, such as start and stop,
+recording of output and so on.
+
+
+https://github.com/FinnK/lems2hdl
