@@ -13,16 +13,17 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-11-11 Wed 18:02]
-| <75>                                                                        |        |      |      |
-| Headline                                                                    | Time   |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *3:23* |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 3:23   |      |      |
-| Active                                                                      |        | 3:23 |      |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:03 |
-| COMPLETED Create a blog post discussing NEURON file formats                 |        |      | 3:20 |
+#+CAPTION: Clock summary at [2015-11-15 Sun 16:15]
+| <75>                                                                        |         |       |      |
+| Headline                                                                    | Time    |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| *Total time*                                                                | *11:07* |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| Stories                                                                     | 11:07   |       |      |
+| Active                                                                      |         | 11:07 |      |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:03 |
+| COMPLETED Create a blog post discussing NEURON file formats                 |         |       | 3:20 |
+| STARTED Create a progress report                                            |         |       | 7:44 |
 #+end:
 
 *** Journal club and other activities                                 :story:
@@ -56,6 +57,14 @@ from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
 **** Create a simple parser for the SWC file format
 
 - add a few basic tests, but not too many: valid file, invalid file.
+*** STARTED Create a progress report                                  :story:
+    CLOCK: [2015-11-15 Sun 10:55]--[2015-11-15 Sun 14:34] =>  3:39
+    CLOCK: [2015-11-14 Sat 15:53]--[2015-11-14 Sat 17:50] =>  1:57
+    CLOCK: [2015-11-12 Thu 06:51]--[2015-11-12 Sun 07:44] =>  0:53
+    CLOCK: [2015-11-11 Wed 22:55]--[2015-11-12 Thu 00:10] =>  1:15
+
+Do a report describing the activities thus far.
+
 *** Add support for CGAL                                              :story:
 
 We need to get a simple CGAL example to compile and run, adding all
