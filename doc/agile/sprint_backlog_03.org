@@ -13,17 +13,17 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-11-15 Sun 16:15]
-| <75>                                                                        |         |       |      |
-| Headline                                                                    | Time    |       |      |
-|-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *11:07* |       |      |
-|-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 11:07   |       |      |
-| Active                                                                      |         | 11:07 |      |
-| STARTED Sprint and product backlog grooming                                 |         |       | 0:03 |
-| COMPLETED Create a blog post discussing NEURON file formats                 |         |       | 3:20 |
-| STARTED Create a progress report                                            |         |       | 7:44 |
+#+CAPTION: Clock summary at [2015-11-15 Sun 18:47]
+| <75>                                                                        |         |       |       |
+| Headline                                                                    | Time    |       |       |
+|-----------------------------------------------------------------------------+---------+-------+-------|
+| *Total time*                                                                | *16:43* |       |       |
+|-----------------------------------------------------------------------------+---------+-------+-------|
+| Stories                                                                     | 16:43   |       |       |
+| Active                                                                      |         | 16:43 |       |
+| STARTED Sprint and product backlog grooming                                 |         |       |  0:03 |
+| COMPLETED Create a blog post discussing NEURON file formats                 |         |       |  3:20 |
+| STARTED Create a progress report                                            |         |       | 13:20 |
 #+end:
 
 *** Journal club and other activities                                 :story:
@@ -58,8 +58,11 @@ from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
 
 - add a few basic tests, but not too many: valid file, invalid file.
 *** STARTED Create a progress report                                  :story:
+    CLOCK: [2015-11-15 Sun 18:47]--[2015-11-15 Sun 22:30] =>  3:43
     CLOCK: [2015-11-15 Sun 10:55]--[2015-11-15 Sun 14:34] =>  3:39
     CLOCK: [2015-11-14 Sat 15:53]--[2015-11-14 Sat 17:50] =>  1:57
+    CLOCK: [2015-11-13 Fri 09:59]--[2015-11-13 Fri 14:40] =>  4:41
+    CLOCK: [2015-11-12 Thu 20:55]--[2015-11-12 Thu 21:50] =>  0:55
     CLOCK: [2015-11-12 Thu 06:51]--[2015-11-12 Sun 07:44] =>  0:53
     CLOCK: [2015-11-11 Wed 22:55]--[2015-11-12 Thu 00:10] =>  1:15
 
