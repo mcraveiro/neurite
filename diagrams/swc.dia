@@ -134,7 +134,7 @@ and expot support.
         <dia:real val="3.6000000000000001"/>
       </dia:attribute>
       <dia:attribute name="name">
-        <dia:string>#standardised_file#</dia:string>
+        <dia:string>#file#</dia:string>
       </dia:attribute>
       <dia:attribute name="stereotype">
         <dia:string>##</dia:string>
@@ -1497,13 +1497,13 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:point val="46,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.95,-5.05;70.035,-0.55"/>
+        <dia:rectangle val="45.95,-5.05;65.03,-0.55"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="46,-5"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="23.984999999999999"/>
+        <dia:real val="18.98"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="4.4000000000000004"/>
@@ -1653,7 +1653,7 @@ Parent samples should appear before any child samples.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#standardised_file#</dia:string>
+            <dia:string>#file#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1847,17 +1847,17 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="57.9925,-5"/>
+        <dia:point val="55.49,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="57.2425,-14.05;68.9775,-4.2"/>
+        <dia:rectangle val="54.74,-14.05;68.9775,-4.2"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="57.9925,-5"/>
-        <dia:point val="57.9925,-10"/>
+        <dia:point val="55.49,-5"/>
+        <dia:point val="55.49,-10"/>
         <dia:point val="68.7775,-10"/>
         <dia:point val="68.7775,-14"/>
       </dia:attribute>
@@ -1918,17 +1918,17 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="57.9925,-0.6"/>
+        <dia:point val="55.49,-0.6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="39.36,-1.35;58.7425,10.6"/>
+        <dia:rectangle val="39.36,-1.35;56.24,9.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="57.9925,-0.6"/>
-        <dia:point val="57.9925,4"/>
+        <dia:point val="55.49,-0.6"/>
+        <dia:point val="55.49,4"/>
         <dia:point val="39.41,4"/>
         <dia:point val="39.41,9"/>
       </dia:attribute>

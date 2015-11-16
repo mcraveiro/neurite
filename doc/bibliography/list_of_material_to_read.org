@@ -2,3 +2,8 @@ This file contains a list of interesting material that we have not yet
 read.
 
 * Papers
+
+* Links
+
+- [[http://www.brains-minds-media.org/archive/228][XML for Model Specification in Neuroscience]]
+- [[https://www.neuron.yale.edu/neuron/docs/import3d][NEURON: Using Import3D]]
