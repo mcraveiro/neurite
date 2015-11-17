@@ -1,4 +1,4 @@
-#+title: Nerd Food: Tooling in Computational Neuroscience - Part I
+#+title: Nerd Food: Tooling in Computational Neuroscience - Part I: NEURON
 #+options: date:nil toc:nil author:nil num:nil title:nil
 
 In the [[http://mcraveiro.blogspot.co.uk/2015/09/nerd-food-neurons-for-computer-geeks_16.html][previous series of posts]] we did a build up of theory - right up
