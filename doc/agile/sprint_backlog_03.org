@@ -67,7 +67,8 @@ what are they used for, existing formats. Actually one way of tackling
 this is to create a blog post first and then summarise it in the
 presentation.
 
-*** STARTED Create a ball and stick neuron using NEURON
+*** STARTED Create a ball and stick neuron using NEURON               :story:
+    CLOCK: [2015-11-18 Wed 15:31]
     CLOCK: [2015-11-16 Mon 17:44]--[2015-11-16 Mon 17:57] =>  0:13
     CLOCK: [2015-11-16 Mon 15:55]--[2015-11-16 Mon 17:43] =>  1:48
 
