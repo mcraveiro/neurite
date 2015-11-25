@@ -13,20 +13,20 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-11-24 Tue 17:46]
+#+CAPTION: Clock summary at [2015-11-25 Wed 18:02]
 | <75>                                                                        |         |       |       |
 | Headline                                                                    | Time    |       |       |
 |-----------------------------------------------------------------------------+---------+-------+-------|
-| *Total time*                                                                | *47:02* |       |       |
+| *Total time*                                                                | *50:28* |       |       |
 |-----------------------------------------------------------------------------+---------+-------+-------|
-| Stories                                                                     | 47:02   |       |       |
-| Active                                                                      |         | 47:02 |       |
+| Stories                                                                     | 50:28   |       |       |
+| Active                                                                      |         | 50:28 |       |
 | STARTED Sprint and product backlog grooming                                 |         |       |  0:06 |
 | STARTED Journal club and other activities                                   |         |       |  2:23 |
 | COMPLETED Create a blog post discussing NEURON file formats                 |         |       |  3:20 |
 | COMPLETED Create a progress report                                          |         |       | 18:36 |
-| STARTED Fill in paperwork                                                   |         |       |  7:46 |
-| STARTED Create a presentation on 3D neuronal morphologies                   |         |       |  7:05 |
+| STARTED Fill in paperwork                                                   |         |       |  8:31 |
+| STARTED Create a presentation on 3D neuronal morphologies                   |         |       |  9:46 |
 | STARTED Create a ball and stick neuron using NEURON                         |         |       |  6:20 |
 | STARTED Implement basic SWC support                                         |         |       |  1:26 |
 #+end:
@@ -63,12 +63,14 @@ couple.
 Do a report describing the activities thus far.
 
 *** STARTED Fill in paperwork                                         :story:
+    CLOCK: [2015-11-25 Wed 14:35]--[2015-11-25 Wed 15:20] =>  0:45
     CLOCK: [2015-11-24 Tue 13:01]--[2015-11-24 Tue 17:07] =>  4:06
     CLOCK: [2015-11-23 Mon 14:30]--[2015-11-23 Mon 18:10] =>  3:40
 
 Time spent sorting out forms, etc.
 
 *** STARTED Create a presentation on 3D neuronal morphologies         :story:
+    CLOCK: [2015-11-25 Wed 15:21]--[2015-11-25 Wed 18:02] =>  2:41
     CLOCK: [2015-11-24 Tue 17:07]--[2015-11-24 Tue 17:45] =>  0:38
     CLOCK: [2015-11-24 Tue 13:44]--[2015-11-24 Tue 17:07] =>  3:23
     CLOCK: [2015-11-17 Tue 14:48]--[2015-11-17 Tue 17:52] =>  3:04

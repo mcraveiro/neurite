@@ -41,80 +41,111 @@ For purposes of this post, the data gathering process starts with the
 microscope. Of course, keep in mind that we are focusing only on the
 /morphology/ at present - the shape and the structures that make up
 the neuron - so we are ignoring other important activities in the
-lab. For instance, one can conduct experiments to measure voltage in
-neurons and these measurements provide data for the functional aspects
-of the models. Alas, we will skip these for now, with the promise of
+lab. For instance, one can conduct experiments to measure voltage in a
+neuron, and these measurements provide data for the functional aspects
+of the model. Alas, we will skip these for now, with the promise of
 returning to them at a later date[fn:neuroimaging].
 
 So, microscopes then. [[https://en.wikipedia.org/wiki/Microscopy][Microscopy]] is the technical name for the
 observation work done with the microscope. Because neurons are so
 small - some 4 to 100 microns in size - only certain types of
 microscopes are suitable to perform neuronal microscopy. To make
-matters worse, the sub-structures inside the neuron are really what we
-want to know about and these can be ridiculously small. For example, a
-[[https://en.wikipedia.org/wiki/Dendritic_spine][dentritic spine]] - the minute protrusions that come out of the
-dendrites - can be as tiny as 500 nanometres; the lipid bylayer itself
-is only 2 or 3 nanometres thick, so you can imagine how incredibly
-small ion channels and pumps must be. Yet these are the things we want
-to observe and measure.
+matters worse, the sub-structures inside the neuron are an important
+area of study and they can be ridiculously small: a [[https://en.wikipedia.org/wiki/Dendritic_spine][dentritic spine]] -
+the minute protrusions that come out of the dendrites - can be as tiny
+as 500 nanometres; the lipid bylayer itself is only 2 or 3 nanometres
+thick, so you can imagine how incredibly small ion channels and pumps
+are. Yet these are some of the things we want to observe and
+measure. Lets call this the "micro" work. On the other hand, we also
+want to understand connectivity and other larger structures, as well
+as perform observations of the evolution of the cell and so on. Lets
+call this the "macro" work. These are not technical terms, by the by,
+just so we can orient ourselves.
 
 #+CAPTION: Example of measurements one may want to perform on a dendrite. Source: [[http://www.pnas.org/content/106/39/16877.abstract][Reversal of long-term dendritic spine alterations in Alzheimer disease models]]
 #+attr_html: :width 300px :height 300px
 http://www.pnas.org/content/106/39/16877/F1.large.jpg
 
-Given these demands, there are only a few extremely specialised - and
-/extremely/ expensive - tools for the job. The main tool of choice is
-the [[https://en.wikipedia.org/wiki/Electron_microscope][Electron Microscope (EM)]]. This crazy critter can provide insane
-levels of magnification by using a beam of electrons instead of
-visible light, as done by the more conventional [[https://en.wikipedia.org/wiki/Optical_microscope][Optical
-Microscopes]]. In particular, the [[https://en.wikipedia.org/wiki/Scanning_electron_microscope][Scanning Electron Microscope]] (SEM)
-performs a scan of the object under study, and has a resolution higher
-than 1 nanometre. There are also [[https://en.wikipedia.org/wiki/Confocal_microscopy][Confocal Microscopes]] which use a
-technique patented by [[https://en.wikipedia.org/wiki/Marvin_Minsky][Marvin Minsky]] - yes, he of Computer Science and
-AI fame - that improves resolution and contrast. It seems the same
-principles can be applied to EM as well, creating [[https://en.wikipedia.org/wiki/Scanning_confocal_electron_microscopy][SCEM
-microscopes]][fn:microscopes]. And, as we shall see, the variety of
-microscopy approaches does not end there either.
+** Optical Versus Electron
 
-At any rate, whatever the technical details, the fact is that the
-imagery that results from all of these advances is truly
-haunting. Take this image:
+The "macro" work is usually done using the [[https://en.wikipedia.org/wiki/Optical_microscope][Optical]] "family" of
+microscopes, which is what you probably think of when you hear the
+word /microscope/: they use light, and in some cases visible light, to
+perform the observations. This puts a limit to their resolution, known
+as the [[https://en.wikipedia.org/wiki/Diffraction-limited_system][diffraction limit]], meaning that it cannot go much lower than
+200 nanometres. Mind you, that's still pretty impressive considering
+the size of the neuron, but unfortunately not quite low enough for
+sub-structure analysis. Even taking these limitations into account,
+there still have been many advances in this field, such as [[https://en.wikipedia.org/wiki/Confocal_microscopy][Confocal
+Microscopy]][fn:confocal] - improving resolution and contrast - or the
+incredible-looking movies produced by [[http://blogs.scientificamerican.com/expeditions/journey-through-the-brain-multiphoton-microscopy/][Multiphoton Microscopy]]. In fact,
+it seems there is no sign of optical microscopy dying out, and I guess
+this is mainly due to its lower cost and ease of use. It also combines
+nicely with the more expensive types of microscopes we will cover
+next. For example, you can use an optical microscope to assess the
+larger structures and see how they evolve over time, and eventually
+decide on specific areas that require more detailed analysis.
+
+At that point you will need an [[https://en.wikipedia.org/wiki/Electron_microscope][Electron Microscope]] (EM). Of course, EM
+is itself a family - and a large one at that, with many and diverse
+members. What they all share in common is providing insane levels of
+magnification, and all because they use a beam of electrons instead of
+visible light. From this baseline, each member of the family then
+specialises on a given technique. For example, the [[https://en.wikipedia.org/wiki/Scanning_electron_microscope][Scanning Electron
+Microscope]] (SEM) performs a scan of the object under study, and has a
+resolution higher than 1 nanometre; the [[https://en.wikipedia.org/wiki/Scanning_confocal_electron_microscopy][Scanning Confocal Electron
+Microscopes (SCEM)]] use the same confocal technique mentioned above to
+provide higher depth resolution. And [[https://en.wikipedia.org/wiki/Transmission_electron_microscopy][Transmission Electron Microscopy]]
+(TEM) has the ability to penetrate inside the specimen during the
+imagining process, given samples with thickness of 100 nanometres or
+less. Note that some of these have been around for a while. For
+example, TEM was used in the fifties to show that neurons communicate
+over synaptic junctions.
+
+One thing to note about TEM, EM in general - and probably Optical
+Microscopy too - is that the entire process, including the chemical
+preparation of the sample, staining and so on, all the way up to the
+creating the micrographs, is /very/ labour intensive and /very/
+specialised - most likely done by an expert human neuroanatomist. At
+any rate, whatever the technical details behind all of this, the fact
+is that the imagery that results from all of these advances is truly
+evocative - haunting even. Take this image, produced with SEM:
 
 #+CAPTION: Human neuron. [[http://ucsdnews.ucsd.edu/pressrelease/new_reprogramming_method_makes_better_stem_cells][Source: New Reprogramming Method Makes Better Stem Cells]]
 #+attr_html: :width 300px :height 300px
 http://ucsdnews.ucsd.edu/news_uploads/2014_06_26_human_ipsc_derived_neuron_deerinck.jpg
 
-Technically, these pictures are called [[https://en.wikipedia.org/wiki/Micrograph][micrographs]]. As you can see,
-micrographs provide a great visual description of the topology of the
-object we are trying to study. You also may notice a slight coloration of
-the cell in that picture. This is most likely due to the fact that the
-people doing the analysis [[https://en.wikipedia.org/wiki/Staining][stain]] the neuron to make it easier to
-image. Its worth noting that the entire process, including staining
-and creating the micrographs, is still highly manual and requires a
-lot of skill, most likely done by an expert human neuroanatomist.
+Personally, I think this image is trully beautiful; simultaneously
+inspiring and depressing because it really conveys the messiness and
+complexity of wetware.
 
-Now, in practice - at least as far as I have seen, which is not very
-far at all, to be fair - 2D grayscale images are preferred by
-researchers to the nice, Public Relations friendly pictures like the
-one above; those appear to be more useful for magazine covers. The
-working micrographs are not quite as exciting to the untrained eye but
-very useful to the professionals. Here's an example:
+** Stacks and Stacks of 'Em
+
+Technically, pictures like the one above  are called [[https://en.wikipedia.org/wiki/Micrograph][micrographs]]. As
+you can see, micrographs provide a great visual description of the
+topology of the object we are trying to study. You also may notice a
+slight coloration of the cell in that picture. This is most likely due
+to the fact that the people doing the analysis [[https://en.wikipedia.org/wiki/Staining][stain]] the neuron to
+make it easier to image. Now, in practice - at least as far as I have
+seen, which is not very far at all, to be fair - 2D grayscale images
+are preferred by researchers to the nice, Public Relations friendly
+pictures like the one above; those appear to be more useful for
+magazine covers. The working micrographs are not quite as exciting to
+the untrained eye but very useful to the professionals. Here's an
+example:
 
 #+CAPTION: The left-hand side shows the original micrograph. On the right-hand side it shows the result of processing it with machine learning. Source: [[http://papers.nips.cc/paper/4741-deep-neural-networks-segment-neuronal-membranes-in-electron-microscopy-images.pdf][Deep Neural Networks Segment Neuronal Membranes in Electron Microscopy Images]]
 #+attr_html: :width 600px :height 200px
 http://www.leet.it/home/giusti/website/lib/exe/fetch.php?w=900&tok=d88a10&media=wiki:biomed-neurons.jpg
 
 Let's focus on the left-hand side of this image for a moment. It was
-taken using /ssTEM/ - serial-section Transmitted Electron Microscopy -
-a recent evolutionary step in the [[https://en.wikipedia.org/wiki/Transmission_electron_microscopy][Transmission Electron Microscopy]]
-(TEM). Now, We don't want to stray /too/ far adrift, but its probably
-worth mentioning a word or two on TEM. It is a technology that has
-been used by neuroscientists for a very long time; in the fifties it
-was used to show that neurons communicate over synaptic
-junctions. Anyhow, the /ss/ part of ssTEM is helpful in creating
-/stacks/ of images, which is why you see the cool drawings next to the
-picture; they are there to give you the idea that the top-most image
-is one of 30 in a stack.
+taken using /ssTEM/ - serial-section TEM, an evolutionary step in
+TEM.
+
+/ss/ part of ssTEM is helpful in creating /stacks/ of images, which is
+why you see the cool drawings next to the picture; they are there to
+give you the idea that the top-most image is one of 30 in a
+stack[fn:sstem].
 
 The process of producing the images above was as follows: they started
 off with a neuronal tissue sample, which is prepared for
@@ -241,6 +272,9 @@ what is happening inside the brain. For example, there are
 [[https://en.wikipedia.org/wiki/Neuroimaging][neuroimagining]] techniques which can provide data about both structure
 and function.
 
-[fn:microscopes] And of course, progress stands still for no one, so
-there are many new developments in this area. [[http://blogs.scientificamerican.com/expeditions/journey-through-the-brain-multiphoton-microscopy/][Multiphoton Microscopy]],
-for one, seems extremely interesting.
+[fn:microscopes]
+
+[fn:sstem] For a more technical but yet short and understandable take,
+read [[http://www.jneurosci.org/content/26/47/12101.full][Uniform Serial Sectioning for Transmission Electron Microscopy]].
+
+[fn:minsky] Yes, he of Computer Science and AI fame!
