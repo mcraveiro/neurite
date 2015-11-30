@@ -1,4 +1,4 @@
-#+title: Nerd Food: Tooling in Computational Neuroscience - Part II: SWC
+#+title: Nerd Food: Tooling in Computational Neuroscience - Part II: Microscopy
 #+options: date:nil toc:nil author:nil num:nil title:nil
 
 #+begin_html
@@ -13,29 +13,27 @@ Research is what I'm doing when I don't know what I'm doing.
 
 Welcome to the second instalment of our second series on Computational
 Neuroscience for lay people. You can find the first post of the
-previous series [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks.html][here]], and the first post of the second series [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][here]]. As
-you'd expect, this second series is slightly more advanced, and it is
-peppered with the unavoidable bits of technical jargon. Having said
-that, we shall continue to pursue our ambitious target of making
+previous series [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks.html][here]], and the first post of the current series
+[[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][here]]. As you'd expect, this second series is slightly more advanced,
+and, as such, it is peppered with unavoidable technical jargon. Having
+said that, we shall continue to pursue our ambitious target of making
 things as easy to parse as possible (but no easier). If you read the
 first series, the second should hopefully make some kind of
 sense.[fn:feynman]
 
-In the [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][previous post]] we discussed [[https://en.wikipedia.org/wiki/Computational_neuroscience][Computational Neuroscience]] as a
-discipline, and the kind of things one may want to do in this
-field. We also spoke about models and their composition, and the
-desirable properties of a platform that runs simulations of said
-models. However, it occurred to me that we should probably build some
-kind of "end-to-end" understanding; that is, by starting with the
-simulations and models we are missing a vital link with the physical
-(e.g. non-computational) world. To put matters right, this part
-attempts to provide a high-level introduction on how data is acquired
-from the real world and then used - amongst other things - to inform
-the modeling process. The part ends with a quick tour of the venerable
-SWC format, which still plays an important role in representing 3D
-neuron morphologies.
+Our [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][last post]] discussed [[https://en.wikipedia.org/wiki/Computational_neuroscience][Computational Neuroscience]] as a discipline,
+and the kind of things one may want to do in this field. We also spoke
+about models and their composition, and the desirable properties of a
+platform that runs simulations of said models. However, it occurred to
+me that we should probably build some kind of "end-to-end"
+understanding; that is, by starting with the simulations and models we
+are missing a vital link with the physical (i.e. non-computational)
+world. To put matters right, this part attempts to provide a
+high-level introduction on how data is acquired from the real world
+and then can used - amongst other things - to inform the modeling
+process.
 
-* In The Beginning There Was the Microscope
+* Macro and Micro Microworlds
 
 For purposes of this post, the data gathering process starts with the
 microscope. Of course, keep in mind that we are focusing only on the
@@ -60,136 +58,159 @@ measure. Lets call this the "micro" work. On the other hand, we also
 want to understand connectivity and other larger structures, as well
 as perform observations of the evolution of the cell and so on. Lets
 call this the "macro" work. These are not technical terms, by the by,
-just so we can orient ourselves.
+just so we can orient ourselves. So, how does one go about observing
+these differently sized microworlds?
 
 #+CAPTION: Example of measurements one may want to perform on a dendrite. Source: [[http://www.pnas.org/content/106/39/16877.abstract][Reversal of long-term dendritic spine alterations in Alzheimer disease models]]
 #+attr_html: :width 300px :height 300px
 http://www.pnas.org/content/106/39/16877/F1.large.jpg
 
-** Optical Versus Electron
+* Optical Microscopy
 
 The "macro" work is usually done using the [[https://en.wikipedia.org/wiki/Optical_microscope][Optical]] "family" of
-microscopes, which is what you probably think of when you hear the
-word /microscope/: they use light, and in some cases visible light, to
-perform the observations. This puts a limit to their resolution, known
-as the [[https://en.wikipedia.org/wiki/Diffraction-limited_system][diffraction limit]], meaning that it cannot go much lower than
-200 nanometres. Mind you, that's still pretty impressive considering
-the size of the neuron, but unfortunately not quite low enough for
-sub-structure analysis. Even taking these limitations into account,
-there still have been many advances in this field, such as [[https://en.wikipedia.org/wiki/Confocal_microscopy][Confocal
-Microscopy]][fn:confocal] - improving resolution and contrast - or the
-incredible-looking movies produced by [[http://blogs.scientificamerican.com/expeditions/journey-through-the-brain-multiphoton-microscopy/][Multiphoton Microscopy]]. In fact,
-it seems there is no sign of optical microscopy dying out, and I guess
-this is mainly due to its lower cost and ease of use. It also combines
-nicely with the more expensive types of microscopes we will cover
-next. For example, you can use an optical microscope to assess the
+microscopes, which is what most of us think of when hearing the word
+microscope. As it was with [[https://en.wikipedia.org/wiki/Microscope][Van Leeuwenhoek's]] tool in the sixteen
+hundreds, so it is that today's optical microscopes still rely on
+light and lenses to perform observations. Needless to say, things did
+evolve a fair bit since then, but standard optical microscopy has not
+completely removed the shackles of its limitations. These are of three
+kinds, as Wikipedia helpfully [[https://en.wikipedia.org/wiki/Microscopy#Optical_microscopy][tells us]]: a) the objects we want to
+observe must be dark or strongly refracting - a problem since the
+internal structures of the cell are transparent; b) visible light's
+[[https://en.wikipedia.org/wiki/Diffraction-limited_system][diffraction limit]] means that we cannot go much lower than 200
+nanometres - pretty impressive, but unfortunately not quite low enough
+for detailed sub-structure analysis; and c) out of focus light hampers
+image clarity.
+
+Workarounds to these limitations have been found in the guise of
+/techniques/, with the aim of augmenting the abilities of standard
+optical microscopy. There are many of these. There is the [[https://en.wikipedia.org/wiki/Confocal_microscopy][Confocal
+Microscopy]][fn:minsky] - improving resolution and contrast; the
+[[https://en.wikipedia.org/wiki/Fluorescence_microscope][Fluorescence microscope]], which uses a /[[https://en.wikipedia.org/wiki/Microscopy#Sub-diffraction_techniques][sub-diffraction technique]]/ to
+reconstruct some of the detail that is missing due to diffraction; or
+the incredible-looking movies produced by [[http://blogs.scientificamerican.com/expeditions/journey-through-the-brain-multiphoton-microscopy/][Multiphoton Microscopy]]. And
+of course, it is possible to combine multiple techniques in a single
+microscope, as is the case with the [[https://en.wikipedia.org/wiki/Multiphoton_fluorescence_microscope][Multiphoton Fluorescence
+Microscopes]] (MTMs) and many others.
+
+In fact, given all of these developments, it seems there is no sign of
+optical microscopy dying out. Presumably some of this is due to the
+relative lower cost of this approach as well as to the ease of use. In
+addition, optical microscopy is complementary to the other more
+expensive types of microscopes; it is the perfect tool for "macro"
+work. For example, you can use an optical microscope to assess the
 larger structures and see how they evolve over time, and eventually
-decide on specific areas that require more detailed analysis.
+decide on specific areas that require more detailed analysis. And when
+you do, you need a /completely/ different kind of microscope.
 
-At that point you will need an [[https://en.wikipedia.org/wiki/Electron_microscope][Electron Microscope]] (EM). Of course, EM
-is itself a family - and a large one at that, with many and diverse
-members. What they all share in common is providing insane levels of
-magnification, and all because they use a beam of electrons instead of
-visible light. From this baseline, each member of the family then
-specialises on a given technique. For example, the [[https://en.wikipedia.org/wiki/Scanning_electron_microscope][Scanning Electron
-Microscope]] (SEM) performs a scan of the object under study, and has a
-resolution higher than 1 nanometre; the [[https://en.wikipedia.org/wiki/Scanning_confocal_electron_microscopy][Scanning Confocal Electron
-Microscopes (SCEM)]] use the same confocal technique mentioned above to
-provide higher depth resolution. And [[https://en.wikipedia.org/wiki/Transmission_electron_microscopy][Transmission Electron Microscopy]]
-(TEM) has the ability to penetrate inside the specimen during the
-imagining process, given samples with thickness of 100 nanometres or
-less. Note that some of these have been around for a while. For
-example, TEM was used in the fifties to show that neurons communicate
-over synaptic junctions.
+* Electron Microscopy
 
-One thing to note about TEM, EM in general - and probably Optical
-Microscopy too - is that the entire process, including the chemical
-preparation of the sample, staining and so on, all the way up to the
-creating the micrographs, is /very/ labour intensive and /very/
-specialised - most likely done by an expert human neuroanatomist. At
-any rate, whatever the technical details behind all of this, the fact
-is that the imagery that results from all of these advances is truly
-evocative - haunting even. Take this image, produced with SEM:
+When you need /really/ high-resolution, there is only one tool to turn
+to: the [[https://en.wikipedia.org/wiki/Electron_microscope][Electron Microscope (EM)]]. This crazy critter can provide
+/insane/ levels of magnification by using a beam of electrons instead
+of visible light. Just how insane, you ask? Well, if you think that an
+optical microscope lives in the range of 1500x to 2000x - that is, can
+magnify a sample up to two thousand times - an EM can magnify as much
+as 10 million times, and provide a sub-nanometre
+resolution[fn:picometre]. It is mind boggling. If fact, we've already
+seen images of atoms using EM in [[http://mcraveiro.blogspot.co.uk/2015/08/nerd-food-neurons-for-computer-geeks_31.html][part II]], but perhaps it wasn't easy
+to appreciate just how amazing a feat that is.
+
+Of course, EM is itself a family - and a large one at that, with many
+and diverse members. As with optical microscopy, each member of the
+family specialises on a given technique or combination of
+techniques. For example, the [[https://en.wikipedia.org/wiki/Scanning_electron_microscope][Scanning Electron Microscope]] (SEM)
+performs a scan of the object under study, and has a resolution of 1
+nanometre or higher; the [[https://en.wikipedia.org/wiki/Scanning_confocal_electron_microscopy][Scanning Confocal Electron Microscopes (SCEM)]]
+uses the same confocal technique mentioned above to provide higher
+depth resolution; and [[https://en.wikipedia.org/wiki/Transmission_electron_microscopy][Transmission Electron Microscopy]] (TEM) has the
+ability to penetrate inside the specimen during the imagining process,
+given samples with thickness of 100 nanometres or less.
+
+A couple of noteworthy points are required at this juncture. Whilst
+they may sound new and exciting, some of these EM techniques have been
+around for a very long time. For example, TEM was used in the fifties
+to show that neurons communicate over synaptic junctions. Its also
+important to understand that the entire imaging process is not at all
+trivial - certainly not for TEM, nor EM in general and probably
+Optical Microscopy too. It is a /very/ labour intensive and /very/
+specialised process - most likely done by an expert human
+neuroanatomist - and includes the chemical preparation of the sample
+all the way up to the creating the images.
+
+At any rate, whatever the technical details behind all of this, the
+fact is that the imagery that results from all of these advances is
+truly evocative - haunting even. Take this image produced by SEM:
 
 #+CAPTION: Human neuron. [[http://ucsdnews.ucsd.edu/pressrelease/new_reprogramming_method_makes_better_stem_cells][Source: New Reprogramming Method Makes Better Stem Cells]]
 #+attr_html: :width 300px :height 300px
 http://ucsdnews.ucsd.edu/news_uploads/2014_06_26_human_ipsc_derived_neuron_deerinck.jpg
 
-Personally, I think this image is trully beautiful; simultaneously
-inspiring and depressing because it really conveys the messiness and
-complexity of wetware.
+Personally, I think it is incredibly beautiful; simultaneously
+awe-inspiring and depressing because it really conveys the messiness
+and complexity of wetware. By way of contrast, look at the neatness of
+man-made micro-structures:
 
-** Stacks and Stacks of 'Em
+#+CAPTION: The BlueGene/Q chip. Source: [[http://www.eetimes.com/document.asp?doc_id%3D1260096][IBM plants transactional memory in CPU]]
+#+attr_html: :width 300px :height 300px
+http://m.eet.com/media/1118299/bluegeneq%20x%20420.jpg
 
-Technically, pictures like the one above  are called [[https://en.wikipedia.org/wiki/Micrograph][micrographs]]. As
-you can see, micrographs provide a great visual description of the
-topology of the object we are trying to study. You also may notice a
-slight coloration of the cell in that picture. This is most likely due
-to the fact that the people doing the analysis [[https://en.wikipedia.org/wiki/Staining][stain]] the neuron to
-make it easier to image. Now, in practice - at least as far as I have
-seen, which is not very far at all, to be fair - 2D grayscale images
-are preferred by researchers to the nice, Public Relations friendly
-pictures like the one above; those appear to be more useful for
-magazine covers. The working micrographs are not quite as exciting to
-the untrained eye but very useful to the professionals. Here's an
-example:
+* Stacks and Stacks of 'Em
+
+Technically, pictures like the ones above are called [[https://en.wikipedia.org/wiki/Micrograph][micrographs]]. As
+you can see in the neuron micrograph, these images provide a great
+visual description of the topology of the object we are trying to
+study. You also may notice a slight coloration of the cell in that
+picture. This is most likely due to the fact that the people doing the
+analysis [[https://en.wikipedia.org/wiki/Staining][stain]] the neuron to make it easier to image. Now, in
+practice - at least as far as I have seen, which is not very far at
+all, to be fair - 2D grayscale images are preferred by researchers to
+the nice, Public Relations friendly pictures like the one above; those
+appear to be more useful for magazine covers. The working micrographs
+are not quite as exciting to the untrained eye but very useful to the
+professionals. Here's an example:
 
 #+CAPTION: The left-hand side shows the original micrograph. On the right-hand side it shows the result of processing it with machine learning. Source: [[http://papers.nips.cc/paper/4741-deep-neural-networks-segment-neuronal-membranes-in-electron-microscopy-images.pdf][Deep Neural Networks Segment Neuronal Membranes in Electron Microscopy Images]]
 #+attr_html: :width 600px :height 200px
 http://www.leet.it/home/giusti/website/lib/exe/fetch.php?w=900&tok=d88a10&media=wiki:biomed-neurons.jpg
 
-Let's focus on the left-hand side of this image for a moment. It was
+Let's focus on the left-hand side of this image for the moment. It was
 taken using /ssTEM/ - serial-section TEM, an evolutionary step in
-TEM.
-
-/ss/ part of ssTEM is helpful in creating /stacks/ of images, which is
-why you see the cool drawings next to the picture; they are there to
-give you the idea that the top-most image is one of 30 in a
-stack[fn:sstem].
-
-The process of producing the images above was as follows: they started
-off with a neuronal tissue sample, which is prepared for
-observation. The sample had 1.5 micrometres and was then sectioned
-into 30 slices of 50 nanometres. Each of these slices was imaged, at a
-resolution of 4x4 nanometres per pixel.
+TEM. The /ss/ part of ssTEM is helpful in creating /stacks/ of images,
+which is why you see the little drawings on the left of the picture;
+they are there to give you the idea that the top-most image is one of
+30 in a stack[fn:sstem]. The process of producing the images above was
+as follows: they started off with a neuronal tissue sample, which is
+prepared for observation. The sample had 1.5 micrometres and was then
+sectioned into 30 slices of 50 nanometres. Each of these slices was
+imaged, at a resolution of 4x4 nanometres per pixel.
 
 As you can imagine, this work is extremely sensitive to measurement
 error. The trick is to ensure there is some kind of visual continuity
 between images so that you can recreate a 3D model from the 2D
 slices. This means for instance that if you are trying to figure out
 connectivity, you need some way to relate a dendrite to it's soma and
-say to the axon of the neuron it connects to - and that's why the
-slices have to be so thin. It would be no good if the pictures miss
-this information out as you will not be able to recreate the
-connectivity faithfully. This is actually really difficult to achieve
-in practice due to the minute sizes involved; a slight tremor that
-displaces the sample by some nanometres would cause shifts in
-aligment. In addition, in the real world these samples are not
-sliced - the sizes are too small for that now - but instead, thin
-layers from the sample are /burnt/ away and then the sample is
-re-imagined. Even with the high-precision the tools have, you can
+say to the axon of the neuron it connects to - and that's one of the
+reasons why the slices have to be so thin. It would be no good if the
+pictures miss this information out as you will not be able to recreate
+the connectivity faithfully. This is actually really difficult to
+achieve in practice due to the minute sizes involved; a slight tremor
+that displaces the sample by some nanometres would cause shifts in
+alignment; even with the high-precision the tools have, you can
 imagine that there is always some kind of movement in the sample's
-position.
-
-Its also worth noticing that, even though the images are 2D grayscale,
-since the pixel size is only a few nanometres wide (say 4x4), the full
-size of an image is very large. Indeed, the latest generation of
-microscopes produce stacks on the 500 Terabyte range, making the
-processing of the images a "big-data" challenge.
+position as part of the slicing process.
 
 Images in a stack are normally stored using traditional formats such
-as [[https://en.wikipedia.org/wiki/Tagged_Image_File_Format][TIFF]]. You can see an example of the raw images in a stack [[https://github.com/unidesigner/groundtruth-drosophila-vnc/tree/master/stack2/raw][here]]. On
-the topic of formats: its probably time we mention the [[https://www.openmicroscopy.org/site][Open Microscopy
-Environment]] (OME). The microscopy world is dominated by hardware and
-as such its the perfect environment for corporations, their
-proprietary formats and expensive software packages. The OME guys are
-trying to buck the trend by creating a suite of open source tools and
-protocols, and by looking at some of [[http://help.openmicroscopy.org/viewing-data.html#screen][their stuff]], they seem to be
-doing alright.
+as [[https://en.wikipedia.org/wiki/Tagged_Image_File_Format][TIFF]][fn:ome]. You can see an example of the raw images in a stack
+[[https://github.com/unidesigner/groundtruth-drosophila-vnc/tree/master/stack2/raw][here]]. Its worth noticing that, even though the images are 2D
+grey-scale, since the pixel size is only a few nanometres wide (4x4 in
+this case), the full size of an image is very large. Indeed, the
+latest generation of microscopes produce stacks on the 500 Terabyte
+range, making the processing of the images a "big-data" challenge.
 
 * What To Do Once You Got the Images
 
-But back to the task at hand. Once you have micrographs, the next
+But back to the task at hand. Once you have the stack, the next
 logical step is to try to figure out what's what: which objects are in
 the picture. This is called segmentation and labelling, presumably
 because you are breaking the one big monolithic picture into discrete
@@ -202,26 +223,24 @@ than the theoretical variety). Cracking this puzzle is gaining
 popularity amongst the programming nerds as you can see by the
 popularity of challenges such as this one: [[http://fiji.sc/Segmentation_of_neuronal_structures_in_EM_stacks_challenge_-_ISBI_2012][Segmentation of neuronal
 structures in EM stacks challenge - ISBI 2012]]. It is from this
-challenge we sourced the stack and micrograph above. There are also
-open source packages to help with segmentation. A couple of notable
-contenders are [[http://fiji.sc/Fiji][Fiji]] and [[http://ilastik.org/][Ilastik]].
+challenge we sourced the stack and micrograph above; the right-hand
+side is the finished product after machine learning processing.
+
+There are also open source packages to help with segmentation. A
+couple of notable contenders are [[http://fiji.sc/Fiji][Fiji]] and [[http://ilastik.org/][Ilastik]]. Below is a
+screenshot of Ilastik.
 
 #+CAPTION: Source: [[http://ilastik.org/gallery.html#][Ilastik gallery]].
 #+attr_html: :width 300px :height 300px
 https://raw.githubusercontent.com/ilastik/ilastik.github.io/master/gallery/Figure-2-a.png
 
-Three-Dimensional Immersive Virtual Reality forStudying Cellular
-Compartments in 3D ModelsFrom EM Preparations of Neural Tissues
-http://onlinelibrary.wiley.com/doi/10.1002/cne.23852/epdf
-
-
 An activity that naturally follows on from segmentation and labelling
 is [[https://en.wikipedia.org/wiki/Neuronal_tracing][reconstruction]]. The objective of reconstruction is to try to
-reconstruct morphology given the images in the stack. It could involve
-inferring the missing bits of information or any other kind of
-analysis which transforms the set of discrete objects spotted by
-segmentation into something looking more like a bunch of connected
-neurons.
+"reconstruct" morphology given the images in the stack. It could
+involve inferring the missing bits of information by mathematical
+means or any other kind of analysis which transforms the set of
+discrete objects spotted by segmentation into something looking more
+like a bunch of connected neurons.
 
 Once we have a reconstructed model, we can start performing
 /morphometric analysis/. As wikipedia tells us, [[https://en.wikipedia.org/wiki/Morphometrics][Morphometry]] is "the
@@ -235,46 +254,66 @@ One such tool is [[http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/N
 Python for the popular open source 3D computer graphics software
 [[https://en.wikipedia.org/wiki/Blender_(software)][Blender]].
 
-
-
 #+CAPTION: Source: [[http://figshare.com/articles/Segmented_anisotropic_ssTEM_dataset_of_neural_tissue/856713][Segmented anisotropic ssTEM dataset of neural tissue]]
 #+attr_html: :width 300px :height 300px
 http://wiki.blender.org/uploads/9/98/NeuroMorph_screenshot.png
 
-in an ideal
-world one would want to export the stack, its associated segmentation
-and labelling meta-data into a tool that can create three-dimensional
-structures for morphometric analysis.
+* Conclusion
 
-Unfortunately for the lovers of Free Software, reconstruction
-tends to be done using proprietary tools such as [[http://www.mbfbioscience.com/neurolucida][NeuroLucida]]. On the
-plus side, NeuroLucida does output slightly more open formats such as
-NeuroLucida XML, which appears to have been [[https://code.google.com/p/ontomorphtab/source/browse/trunk/OntoMorph2/etc/neurolucida-xml/neurolucida-xml.xsd?r%3D335][reverse-engineered]].
+This post was a bit of a world-wind tour of some of the sources of
+real world data for Computational Neuroscience. As I soon found out,
+each of these sections could have easily been ten times bigger and
+still not provide you with a proper overview of the landscape; having
+said that, I hope that the post at least gives some impression of the
+terrain and its main features.
 
-* Stuff
+Another point of note is the lack of standardisation in information
+exchange. In an ideal world one would want a pipeline with components
+to perform each of the steps of the complete process, from data
+acquisition off of a microscope (either opitical or EM), to
+segmentation, labelling, reconstruction and finally morphometric
+analysis. This would then be used as an input to the models. Alas, no
+such standard appears to exist.
 
-Segmentation and Tracking of 3D Neuron Microscopy Images Using a
-PDE Based Method and Connected Component Labeling algorithm
-ftp://ftp.math.ucla.edu/pub/camreport/cam08-03.pdf
+One final point in terms of Free and Open Source Software (FOSS). On
+one hand, it is encouraging to see the large number of FOSS tools and
+programs being used. Unfortunately - at least for the lovers of Free
+Software - there are also some proprietary tools that are widely used
+such as [[http://www.mbfbioscience.com/neurolucida][NeuroLucida]]. Since the software is so specialised, the fear is
+that in the future, the better funded commercial enterprises will take
+over more and more of the space.
 
-http://previews.figshare.com/1288336/preview_1288336.jpg
-http://web.cs.ucla.edu/~dt/papers/tmi94/tmi94.pdf
-
-[fn:feynman] As a bit of an aside, I was totally unaware of the
-[[https://www.farnamstreetblog.com/2012/04/learn-anything-faster-with-the-feynman-technique/][Feynman Technique]], but after reading that post I became convinced I
-have been trying to apply it all along. On this topic (and the reason
-why I came to know of the Feynman Technique), read [[https://www.farnamstreetblog.com/2015/01/richard-feynman-knowing-something/][Richard Feynman:
-The Difference Between Knowing the Name of Something and Knowing
-Something]].
+[fn:feynman] As it happens, what we are doing here is to apply a
+well-established learning methodology called the [[https://www.farnamstreetblog.com/2012/04/learn-anything-faster-with-the-feynman-technique/][Feynman Technique]]. I
+was blissfully unaware of its existence all this time, even though
+[[https://en.wikipedia.org/wiki/Richard_Feynman][Feynman]] is one of my heroes and even though I had read a fair bit
+about the man. On this topic (and the reason why I came to know about
+the Feynman Technique), its worth reading [[https://www.farnamstreetblog.com/2015/01/richard-feynman-knowing-something/][Richard Feynman: The
+Difference Between Knowing the Name of Something and Knowing
+Something]], where Feynman discusses his disappointment with science
+education in Brazil. Unfortunately the Portuguese and the Brazilian
+teaching systems have a lot in common - or at least they did when I
+was younger.
 
 [fn:neuroimaging] Nor is the microscope the only way to figure out
 what is happening inside the brain. For example, there are
 [[https://en.wikipedia.org/wiki/Neuroimaging][neuroimagining]] techniques which can provide data about both structure
 and function.
 
-[fn:microscopes]
+[fn:minsky] Patented by [[https://en.wikipedia.org/wiki/Marvin_Minsky][Marvin Minsky]], no less - yes, he of Computer
+Science and AI fame!
+
+[fn:picometre] And, to be fair, sub-nanometre just doesn't quite
+capture just how low these things can go. For an example, read
+[[http://www.ncbi.nlm.nih.gov/pubmed/21844593][Electron microscopy at a sub-50 pm resolution]].
 
 [fn:sstem] For a more technical but yet short and understandable take,
 read [[http://www.jneurosci.org/content/26/47/12101.full][Uniform Serial Sectioning for Transmission Electron Microscopy]].
 
-[fn:minsky] Yes, he of Computer Science and AI fame!
+[fn:ome] On the topic of formats: its probably time we mention the
+[[https://www.openmicroscopy.org/site][Open Microscopy Environment]] (OME). The microscopy world is dominated
+by hardware and as such its the perfect environment for corporations,
+their proprietary formats and expensive software packages. The OME
+guys are trying to buck the trend by creating a suite of open source
+tools and protocols, and by looking at some of [[http://help.openmicroscopy.org/viewing-data.html#screen][their stuff]], they seem
+to be doing alright.

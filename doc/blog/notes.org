@@ -105,3 +105,15 @@ recording of output and so on.
 
 
 https://github.com/FinnK/lems2hdl
+
+
+Three-Dimensional Immersive Virtual Reality forStudying Cellular
+Compartments in 3D ModelsFrom EM Preparations of Neural Tissues
+http://onlinelibrary.wiley.com/doi/10.1002/cne.23852/epdf
+
+Segmentation and Tracking of 3D Neuron Microscopy Images Using a
+PDE Based Method and Connected Component Labeling algorithm
+ftp://ftp.math.ucla.edu/pub/camreport/cam08-03.pdf
+
+http://previews.figshare.com/1288336/preview_1288336.jpg
+http://web.cs.ucla.edu/~dt/papers/tmi94/tmi94.pdf
