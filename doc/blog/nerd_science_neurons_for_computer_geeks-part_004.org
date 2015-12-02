@@ -174,7 +174,7 @@ path, such that the current flows through /all/ of them, one after the
 other. If any component fails, the flow will cease.
 
 This is best understood by way of example. Lets imagine the [[http://www.physicsclassroom.com/class/circuits/Lesson-4/Two-Types-of-Connections][canonical
-example]] of a battery - our old friend the 1.5V AA battery - and a
+example]] of a battery - our old friend the 1.5V AA battery - and
 three small light bulbs. A circuit that connects them in series would
 be made up of a cable segment plugged onto one of the battery's
 terminals - say =+=, then connected to the first light bulb. A second

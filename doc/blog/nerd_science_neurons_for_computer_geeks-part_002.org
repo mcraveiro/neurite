@@ -70,7 +70,7 @@ talk about units, dimensions, measurements, magnitudes, conversions
 and other such exciting topics. Unfortunately, these are important to
 understand how it all hangs together.
 
-A number such as =1A= makes use of the SI /unit of measure/ "Ampere"
+A number such as =1C= makes use of the SI /unit of measure/ "Coulomb"
 and it exists in a /dimension/: the dimension of all units which can
 talk about electric charges. This is very much in the same way we can
 talk about time in seconds or minutes - we are describing points in

@@ -34,10 +34,10 @@ process.
 
 * Macro and Micro Microworlds
 
-For purposes of this post, the data gathering process starts with the
-microscope. Of course, keep in mind that we are focusing only on the
-/morphology/ at present - the shape and the structures that make up
-the neuron - so we are ignoring other important activities in the
+For the purposes of this post, the data gathering process starts with
+the microscope. Of course, keep in mind that we are focusing only on
+the /morphology/ at present - the shape and the structures that make
+up the neuron - so we are ignoring other important activities in the
 lab. For instance, one can conduct experiments to measure voltage in a
 neuron, and these measurements provide data for the functional aspects
 of the model. Alas, we will skip these for now, with the promise of
