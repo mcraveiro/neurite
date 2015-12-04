@@ -13,31 +13,32 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-11-25 Wed 18:02]
+#+CAPTION: Clock summary at [2015-12-04 Fri 14:00]
 | <75>                                                                        |         |       |       |
 | Headline                                                                    | Time    |       |       |
 |-----------------------------------------------------------------------------+---------+-------+-------|
-| *Total time*                                                                | *50:28* |       |       |
+| *Total time*                                                                | *49:02* |       |       |
 |-----------------------------------------------------------------------------+---------+-------+-------|
-| Stories                                                                     | 50:28   |       |       |
-| Active                                                                      |         | 50:28 |       |
-| STARTED Sprint and product backlog grooming                                 |         |       |  0:06 |
-| STARTED Journal club and other activities                                   |         |       |  2:23 |
+| Stories                                                                     | 49:02   |       |       |
+| Active                                                                      |         | 49:02 |       |
+| COMPLETED Sprint and product backlog grooming                               |         |       |  0:06 |
+| COMPLETED Journal club and other activities                                 |         |       |  2:23 |
 | COMPLETED Create a blog post discussing NEURON file formats                 |         |       |  3:20 |
+| COMPLETED Create a post on microscopy                                       |         |       |  9:46 |
 | COMPLETED Create a progress report                                          |         |       | 18:36 |
-| STARTED Fill in paperwork                                                   |         |       |  8:31 |
-| STARTED Create a presentation on 3D neuronal morphologies                   |         |       |  9:46 |
-| STARTED Create a ball and stick neuron using NEURON                         |         |       |  6:20 |
-| STARTED Implement basic SWC support                                         |         |       |  1:26 |
+| COMPLETED Fill in paperwork                                                 |         |       |  8:31 |
+| COMPLETED Create a ball and stick neuron using NEURON                       |         |       |  6:20 |
 #+end:
 
-*** STARTED Sprint and product backlog grooming                       :story:
+*** COMPLETED Sprint and product backlog grooming                     :story:
+    CLOSED: [2015-12-04 Fri 13:59]
     CLOCK: [2015-11-17 Tue 14:44]--[2015-11-17 Tue 14:47] =>  0:03
     CLOCK: [2015-11-10 Tue 17:58]--[2015-11-10 Tue 18:01] =>  0:03
 
 Updates to sprint and product backlog.
 
-*** STARTED Journal club and other activities                         :story:
+*** COMPLETED Journal club and other activities                       :story:
+    CLOSED: [2015-12-04 Fri 13:59]
     CLOCK: [2015-11-20 Fri 15:42]--[2015-11-20 Fri 18:05] =>  2:23
 
 Time spent in generic tasks.
@@ -49,6 +50,15 @@ Time spent in generic tasks.
 We need a simple post talking about all the file formats we know
 of. Actually for this sprint we need to narrow it down to just a
 couple.
+*** COMPLETED Create a post on microscopy                             :story:
+    CLOSED: [2015-12-04 Fri 13:59]
+    CLOCK: [2015-11-25 Wed 15:21]--[2015-11-25 Wed 18:02] =>  2:41
+    CLOCK: [2015-11-24 Tue 17:07]--[2015-11-24 Tue 17:45] =>  0:38
+    CLOCK: [2015-11-24 Tue 13:44]--[2015-11-24 Tue 17:07] =>  3:23
+    CLOCK: [2015-11-17 Tue 14:48]--[2015-11-17 Tue 17:52] =>  3:04
+
+Cover the basics on EM, OM etc.
+
 *** COMPLETED Create a progress report                                :story:
     CLOSED: [2015-11-16 Mon 14:32]
     CLOCK: [2015-11-17 Tue 13:10]--[2015-11-17 Tue 14:43] =>  1:33
@@ -62,25 +72,16 @@ couple.
 
 Do a report describing the activities thus far.
 
-*** STARTED Fill in paperwork                                         :story:
+*** COMPLETED Fill in paperwork                                       :story:
+    CLOSED: [2015-12-04 Fri 14:00]
     CLOCK: [2015-11-25 Wed 14:35]--[2015-11-25 Wed 15:20] =>  0:45
     CLOCK: [2015-11-24 Tue 13:01]--[2015-11-24 Tue 17:07] =>  4:06
     CLOCK: [2015-11-23 Mon 14:30]--[2015-11-23 Mon 18:10] =>  3:40
 
 Time spent sorting out forms, etc.
 
-*** STARTED Create a presentation on 3D neuronal morphologies         :story:
-    CLOCK: [2015-11-25 Wed 15:21]--[2015-11-25 Wed 18:02] =>  2:41
-    CLOCK: [2015-11-24 Tue 17:07]--[2015-11-24 Tue 17:45] =>  0:38
-    CLOCK: [2015-11-24 Tue 13:44]--[2015-11-24 Tue 17:07] =>  3:23
-    CLOCK: [2015-11-17 Tue 14:48]--[2015-11-17 Tue 17:52] =>  3:04
-
-We need to explain the processes around it: how do they come about,
-what are they used for, existing formats. Actually one way of tackling
-this is to create a blog post first and then summarise it in the
-presentation.
-
-*** STARTED Create a ball and stick neuron using NEURON               :story:
+*** COMPLETED Create a ball and stick neuron using NEURON             :story:
+    CLOSED: [2015-12-04 Fri 14:00]
     CLOCK: [2015-11-20 Fri 14:01]--[2015-11-20 Fri 15:41] =>  1:40
     CLOCK: [2015-11-18 Wed 15:31]--[2015-11-18 Wed 18:10] =>  2:39
     CLOCK: [2015-11-16 Mon 17:44]--[2015-11-16 Mon 17:57] =>  0:13
@@ -93,89 +94,3 @@ Neuron does not support SWC exports, at least according to this old
 post: [[http://www.neuron.yale.edu/phpbb/viewtopic.php?f%3D13&t%3D787][converting hoc to swc]].
 
 However we could try to get [[http://neuronland.org/NLMorphologyConverter/NLMorphologyConverter.html][NLMorphologyConverter]] to work over wine.
-
-*** STARTED Implement basic SWC support                               :story:
-
-We need to add code to read and write SWC files, with tests sourced
-from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
-
-- [[http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html][SWC Format specification]]
-- [[http://neuromorpho.org/neuroMorpho/dableFiles/guerra%2520da%2520rocha/CNG%2520version/cc08lamx4cel01pp-sb.CNG.swc][Example SWC file]]
-- [[http://research.mssm.edu/cnic/tools-ns.html][NeuronStudio]] has an implementation in C.
-
-**** COMPLETED Read the original Cannon paper
-     CLOSED: [2015-11-16 Mon 15:55]
-     CLOCK: [2015-11-16 Mon 14:29]--[2015-11-16 Mon 15:55] =>  1:26
-
-- quick parse of the paper to get a better understanding of the format.
-- paper: [[http://ac.els-cdn.com/S0165027098000910/1-s2.0-S0165027098000910-main.pdf?_tid%3D06345944-767a-11e5-97c1-00000aab0f27&acdnat%3D1445270396_0f399ab6e23d392fd78e161582ad1c24][An on-line archive of reconstructed hippocampal neurons]]
-
-Notes:
-
-- still not clear what SWC stands for or its origins.
-- there should only be one point with an index of -1, indicating it is
-  the root point (generally part of the soma). Question: aren't there
-  multiple points off of the soma?  e.g. axon, "first degree"
-  dendrites?
-- all points must have one and only one parent.
-- parents should have a lower index than the child. This avoids loops
-  and unconnected branches.
-- cells are reduced to a collection of cylinders. For each we have 2
-  points and a radius. The interconnections between cylinders are also
-  mentioned in the file.
-- user defined payload for additional meta-data during the
-  reconstruction process, on a per-point basis.
-- electrophysiological data can also be included, but there is no
-  standardisation for it. It is supplied as a set of external links to
-  files. Also contains a link to the raw data, presumably the
-  microscopy image stack.
-- other file formats to research: [[https://code.google.com/p/ontomorphtab/source/browse/trunk/OntoMorph2/etc/neurolucida-xml/neurolucida-xml.xsd?r%3D335][neurolucida XML]], ASC. Notes on this:
-  The Neurolucida file format is used by MicroBrightField products to
-  store information on neuronal reconstructions. Both binary and ASCII
-  format files can be generated by these products, and at this time
-  neuroConstruct can import ASCII (*.asc) format V3 files (a
-  heirarchical file structure with "CellBody", "Dendrite", etc). The
-  format allows recording of various anatomical features, not only
-  neuronal processes such as dendrites and cell bodies, but can record
-  other microanatomical features of potential interest to
-  anatomists. Not all of these features will be relevant when
-  constructing a single cell computational model. See [[http://www.neuroconstruct.org/docs/import.html][this page]].
-- list of commonly used file formats: [[http://neuronland.org/NLMorphologyConverter/FormatStatus.html][Supported Formats and Current
-  Status]]. We should keep an eye on [[http://neuronland.org/NLMorphologyConverter/NLMorphologyConverter.html][NLMorphologyConverter]].
-- structure editor detects missing connectivity, unconnected branches,
-
-**** Create a simple parser for the SWC file format
-
-- add a few basic tests, but not too many: valid file, invalid file.
-
-*** Create a blog post on SWC                                         :story:
-
-- describe format
-- describe the reconstruction and generative processes
-
-*** Add support for CGAL                                              :story:
-
-We need to get a simple CGAL example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
-
-*** Add support for VTK                                               :story:
-
-We need to get a simple VTK example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
-
-We should create a very simple Qt gui.
-
-*** Add XSD tool support to neurite                                   :story:
-
-Create a simple XSD schema and get it to code generate to C++ using
-the [[http://www.codesynthesis.com/products/xsd/][XSD tool]].
-
-*** Start a blog post talking about polygon meshes                    :story:
-
-We don't necessarily need to finish it this sprint but we need to
-start collecting all the terminology, etc in a blog post.
-
-*** Create a very simple polygon mesh using CGAL                      :story:
-
-Get the sample from Ben of a very simple model and using the [[http://doc.cgal.org/latest/Mesh_3/][3D Mesh
-Generation]] documentation, try to generate a simple mesh.
