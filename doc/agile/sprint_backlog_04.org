@@ -1,0 +1,94 @@
+#+title: Sprint Backlog 03
+#+options: date:nil toc:nil author:nil num:nil
+#+todo: STARTED | COMPLETED CANCELLED POSTPONED
+#+tags: { story(s) spike(p) }
+
+* Mission
+
+- Add basic SWC support.
+- Create a mesh wit CGAL
+
+* Stories
+
+** Active
+
+#+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
+#+CAPTION: Clock summary at [2015-11-25 Wed 18:02]
+| <75>                                                                        |         |       |       |
+| Headline                                                                    | Time    |       |       |
+|-----------------------------------------------------------------------------+---------+-------+-------|
+| *Total time*                                                                | *50:28* |       |       |
+|-----------------------------------------------------------------------------+---------+-------+-------|
+| Stories                                                                     | 50:28   |       |       |
+| Active                                                                      |         | 50:28 |       |
+| STARTED Sprint and product backlog grooming                                 |         |       |  0:06 |
+| STARTED Journal club and other activities                                   |         |       |  2:23 |
+| COMPLETED Create a blog post discussing NEURON file formats                 |         |       |  3:20 |
+| COMPLETED Create a progress report                                          |         |       | 18:36 |
+| STARTED Fill in paperwork                                                   |         |       |  8:31 |
+| STARTED Create a presentation on 3D neuronal morphologies                   |         |       |  9:46 |
+| STARTED Create a ball and stick neuron using NEURON                         |         |       |  6:20 |
+| STARTED Implement basic SWC support                                         |         |       |  1:26 |
+#+end:
+
+*** STARTED Sprint and product backlog grooming                       :story:
+    CLOCK: [2015-12-04 Fri 13:55]--[2015-12-04 Fri 14:26] =>  0:31
+
+
+Updates to sprint and product backlog.
+
+*** Journal club and other activities                                 :story:
+
+Time spent in generic tasks.
+
+*** Create a presentation on 3D neuronal morphologies                 :story:
+
+We need to explain the processes around it: how do they come about,
+what are they used for, existing formats. Actually one way of tackling
+this is to create a blog post first and then summarise it in the
+presentation.
+
+*** STARTED Implement basic SWC support                               :story:
+
+We need to add code to read and write SWC files, with tests sourced
+from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
+
+- [[http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html][SWC Format specification]]
+- [[http://neuromorpho.org/neuroMorpho/dableFiles/guerra%2520da%2520rocha/CNG%2520version/cc08lamx4cel01pp-sb.CNG.swc][Example SWC file]]
+- [[http://research.mssm.edu/cnic/tools-ns.html][NeuronStudio]] has an implementation in C.
+
+**** Create a simple parser for the SWC file format
+
+- add a few basic tests, but not too many: valid file, invalid file.
+
+*** Create a blog post on SWC                                         :story:
+
+- describe format
+- describe the reconstruction and generative processes
+
+*** Add support for CGAL                                              :story:
+
+We need to get a simple CGAL example to compile and run, adding all
+the required infrastructure (debian packages, CMake files, etc).
+
+*** Add support for VTK                                               :story:
+
+We need to get a simple VTK example to compile and run, adding all
+the required infrastructure (debian packages, CMake files, etc).
+
+We should create a very simple Qt gui.
+
+*** Add XSD tool support to neurite                                   :story:
+
+Create a simple XSD schema and get it to code generate to C++ using
+the [[http://www.codesynthesis.com/products/xsd/][XSD tool]].
+
+*** Start a blog post talking about polygon meshes                    :story:
+
+We don't necessarily need to finish it this sprint but we need to
+start collecting all the terminology, etc in a blog post.
+
+*** Create a very simple polygon mesh using CGAL                      :story:
+
+Get the sample from Ben of a very simple model and using the [[http://doc.cgal.org/latest/Mesh_3/][3D Mesh
+Generation]] documentation, try to generate a simple mesh.
