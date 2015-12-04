@@ -18,29 +18,31 @@
  * MA 02110-1301, USA.
  *
  */
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE swc_spec
-#include <iostream>
-#include <boost/test/included/unit_test.hpp>
-#include <boost/test/unit_test_monitor.hpp>
-#include <boost/exception/diagnostic_information.hpp>
+#ifndef NEURITE_UTILITY_SERIALIZATION_ARCHIVE_TYPES_HPP
+#define NEURITE_UTILITY_SERIALIZATION_ARCHIVE_TYPES_HPP
 
-namespace  {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-const std::string error_msg("Error during test");
+#include <iosfwd>
 
-inline void translate(const boost::exception& e) {
-    std::cerr << std::endl << boost::diagnostic_information(e);
-    throw std::runtime_error(error_msg);
-}
+namespace neurite {
+namespace utility {
+namespace serialization {
 
-struct exception_fixture {
-    exception_fixture() {
-        ::boost::unit_test::unit_test_monitor.register_exception_translator<
-            boost::exception>(&translate);
-    }
+/**
+ * @brief Boost serialisation archive types.
+ */
+enum class archive_types : unsigned int {
+    invalid = 0,
+    xml = 1, ///< Boost XML archive
+    text = 2, ///< Boost plain-text archive
+    binary = 3 ///<  Boost binary archive
 };
 
-}
+std::ostream& operator<<(std::ostream& stream, archive_types value);
 
-BOOST_GLOBAL_FIXTURE(exception_fixture);
+} } }
+
+#endif

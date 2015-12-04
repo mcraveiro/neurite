@@ -18,29 +18,32 @@
  * MA 02110-1301, USA.
  *
  */
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE swc_spec
-#include <iostream>
-#include <boost/test/included/unit_test.hpp>
-#include <boost/test/unit_test_monitor.hpp>
-#include <boost/exception/diagnostic_information.hpp>
+#ifndef NEURITE_UTILITY_IO_MAP_IO_HPP
+#define NEURITE_UTILITY_IO_MAP_IO_HPP
 
-namespace  {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-const std::string error_msg("Error during test");
+#include <map>
+#include <ostream>
+#include "neurite/utility/io/pair_io.hpp"
 
-inline void translate(const boost::exception& e) {
-    std::cerr << std::endl << boost::diagnostic_information(e);
-    throw std::runtime_error(error_msg);
-}
+namespace std {
 
-struct exception_fixture {
-    exception_fixture() {
-        ::boost::unit_test::unit_test_monitor.register_exception_translator<
-            boost::exception>(&translate);
+template<typename Key, typename Value>
+inline ostream& operator<<(ostream& stream, const map<Key, Value>& map) {
+    stream << "[ ";
+    for(typename std::map<Key, Value>::const_iterator i(map.begin());
+        i != map.end();
+        ++i) {
+        if (i != map.begin()) stream << ", ";
+        stream << (*i);
     }
-};
+    stream << " ]";
+    return(stream);
+}
 
 }
 
-BOOST_GLOBAL_FIXTURE(exception_fixture);
+#endif

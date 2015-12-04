@@ -18,29 +18,39 @@
  * MA 02110-1301, USA.
  *
  */
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE swc_spec
-#include <iostream>
-#include <boost/test/included/unit_test.hpp>
-#include <boost/test/unit_test_monitor.hpp>
-#include <boost/exception/diagnostic_information.hpp>
+#ifndef NEURITE_UTILITY_TEST_FILE_ASSERTER_HPP
+#define NEURITE_UTILITY_TEST_FILE_ASSERTER_HPP
 
-namespace  {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-const std::string error_msg("Error during test");
+#include <memory>
+#include <boost/filesystem/path.hpp>
 
-inline void translate(const boost::exception& e) {
-    std::cerr << std::endl << boost::diagnostic_information(e);
-    throw std::runtime_error(error_msg);
-}
+namespace neurite {
+namespace utility {
+namespace test {
 
-struct exception_fixture {
-    exception_fixture() {
-        ::boost::unit_test::unit_test_monitor.register_exception_translator<
-            boost::exception>(&translate);
-    }
+class file_asserter {
+public:
+    file_asserter(const file_asserter&) = default;
+    virtual ~file_asserter() = default;
+    file_asserter(file_asserter&&) = default;
+    file_asserter& operator=(const file_asserter&) = default;
+
+public:
+    typedef std::shared_ptr<file_asserter> shared_ptr;
+
+protected:
+    file_asserter() = default;
+
+public:
+    virtual bool is_assertable(boost::filesystem::path path) const = 0;
+    virtual bool assert_file(boost::filesystem::path expected,
+        boost::filesystem::path actual) const = 0;
 };
 
-}
+} } }
 
-BOOST_GLOBAL_FIXTURE(exception_fixture);
+#endif

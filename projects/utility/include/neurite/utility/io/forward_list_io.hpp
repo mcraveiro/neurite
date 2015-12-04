@@ -18,29 +18,30 @@
  * MA 02110-1301, USA.
  *
  */
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE swc_spec
-#include <iostream>
-#include <boost/test/included/unit_test.hpp>
-#include <boost/test/unit_test_monitor.hpp>
-#include <boost/exception/diagnostic_information.hpp>
+#ifndef NEURITE_UTILITY_IO_FORWARD_LIST_IO_HPP
+#define NEURITE_UTILITY_IO_FORWARD_LIST_IO_HPP
 
-namespace  {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-const std::string error_msg("Error during test");
+#include <ostream>
+#include <forward_list>
+#include "neurite/utility/io/jsonify_io.hpp"
 
-inline void translate(const boost::exception& e) {
-    std::cerr << std::endl << boost::diagnostic_information(e);
-    throw std::runtime_error(error_msg);
-}
+namespace std {
 
-struct exception_fixture {
-    exception_fixture() {
-        ::boost::unit_test::unit_test_monitor.register_exception_translator<
-            boost::exception>(&translate);
+template<typename Containee>
+inline ostream& operator<<(ostream& s, const forward_list<Containee>& l) {
+    s << "[ ";
+    for(auto i(l.cbegin()); i != l.cend(); ++i) {
+        if (i != l.cbegin()) s << ", ";
+        s << neurite::utility::streaming::jsonify(*i);
     }
-};
+    s << " ]";
+    return(s);
+}
 
 }
 
-BOOST_GLOBAL_FIXTURE(exception_fixture);
+#endif

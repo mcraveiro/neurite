@@ -120,5 +120,6 @@ add_custom_target(run_all_specs)
 #
 # include all sub directories
 #
+add_subdirectory(${CMAKE_SOURCE_DIR}/build)
 add_subdirectory(${CMAKE_SOURCE_DIR}/diagrams)
 add_subdirectory(${CMAKE_SOURCE_DIR}/projects)

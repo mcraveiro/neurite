@@ -20,6 +20,8 @@
  */
 #include <boost/test/unit_test.hpp>
 #include "neurite/utility/test/logging.hpp"
+#include "neurite/utility/test/exception_checkers.hpp"
+#include "neurite/swc/types/hydration_error.hpp"
 #include "neurite/swc/types/hydrator.hpp"
 #include "neurite/swc/types/standardised_file.hpp"
 #include "neurite/swc/io/standardised_file_io.hpp"
@@ -30,16 +32,31 @@ const std::string empty;
 const std::string test_module("swc");
 const std::string test_suite("hydrator_spec");
 
+const std::string invalid_file_name("INVALID_FILE_NAME");
+const std::string file_not_found("Failed to open file");
+
 }
+
+using neurite::swc::hydration_error;
+using neurite::utility::test::contains_checker;
 
 BOOST_AUTO_TEST_SUITE(hydrator)
 
+BOOST_AUTO_TEST_CASE(hydrating_non_existing_file_throws) {
+    SETUP_TEST_LOG_SOURCE("hydrating_non_existing_file_throws");
+
+    neurite::swc::hydrator h;
+    contains_checker<hydration_error> c(file_not_found);
+    BOOST_CHECK_EXCEPTION(h.hydrate(invalid_file_name), hydration_error, c);
+}
+
 BOOST_AUTO_TEST_CASE(hydrating_empty_stream_results_in_empty_file) {
     SETUP_TEST_LOG_SOURCE("hydrating_empty_stream_results_in_empty_file");
-
+    /*
     neurite::swc::hydrator h;
     auto sf(h.hydrate("a/b/c.swc"));
     BOOST_LOG_SEV(lg, debug) << sf;
+    */
 }
 
 BOOST_AUTO_TEST_SUITE_END()

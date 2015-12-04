@@ -18,29 +18,30 @@
  * MA 02110-1301, USA.
  *
  */
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE swc_spec
-#include <iostream>
-#include <boost/test/included/unit_test.hpp>
-#include <boost/test/unit_test_monitor.hpp>
-#include <boost/exception/diagnostic_information.hpp>
+#ifndef NEURITE_UTILITY_IO_MEMORY_IO_HPP
+#define NEURITE_UTILITY_IO_MEMORY_IO_HPP
 
-namespace  {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-const std::string error_msg("Error during test");
+#include <memory>
+#include <ostream>
+#include "neurite/utility/io/jsonify_io.hpp"
 
-inline void translate(const boost::exception& e) {
-    std::cerr << std::endl << boost::diagnostic_information(e);
-    throw std::runtime_error(error_msg);
+namespace std {
+
+template<typename T>
+inline std::ostream& operator<<(std::ostream& s, const shared_ptr<T>& p) {
+    using neurite::utility::streaming::jsonify;
+    if (p)
+        s << *p;
+    else
+        s << "\"shared_ptr\": \"empty shared pointer\"";
+
+    return s;
 }
 
-struct exception_fixture {
-    exception_fixture() {
-        ::boost::unit_test::unit_test_monitor.register_exception_translator<
-            boost::exception>(&translate);
-    }
-};
-
 }
 
-BOOST_GLOBAL_FIXTURE(exception_fixture);
+#endif

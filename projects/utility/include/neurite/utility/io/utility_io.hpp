@@ -18,29 +18,24 @@
  * MA 02110-1301, USA.
  *
  */
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE swc_spec
-#include <iostream>
-#include <boost/test/included/unit_test.hpp>
-#include <boost/test/unit_test_monitor.hpp>
-#include <boost/exception/diagnostic_information.hpp>
+#ifndef NEURITE_UTILITY_IO_UTILITY_IO_HPP
+#define NEURITE_UTILITY_IO_UTILITY_IO_HPP
 
-namespace  {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-const std::string error_msg("Error during test");
+namespace neurite {
+namespace utility {
 
-inline void translate(const boost::exception& e) {
-    std::cerr << std::endl << boost::diagnostic_information(e);
-    throw std::runtime_error(error_msg);
-}
+/**
+ * @brief Overloads for general objects (stl, boost, etc) to support
+ * the inserter operator.
+ *
+ * Used only for debugging purposes.
+ */
+namespace streaming {
 
-struct exception_fixture {
-    exception_fixture() {
-        ::boost::unit_test::unit_test_monitor.register_exception_translator<
-            boost::exception>(&translate);
-    }
-};
+} } }
 
-}
-
-BOOST_GLOBAL_FIXTURE(exception_fixture);
+#endif

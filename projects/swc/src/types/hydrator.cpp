@@ -44,15 +44,14 @@ standardised_file hydrator::hydrate(std::istream& /*s*/) const {
 standardised_file hydrator::hydrate(const boost::filesystem::path& p) const {
     const auto gs(p.generic_string());
     BOOST_LOG_SEV(lg, debug) << "Parsing file: " << gs;
-    // boost::filesystem::ifstream s(p);
+    boost::filesystem::ifstream s(p);
 
-    // if (s.fail()) {
-    //     BOOST_LOG_SEV(lg, error) << failed_to_open_file << ": " << gs;
-    //     BOOST_THROW_EXCEPTION(hydration_error(failed_to_open_file + gs));
-    // }
+    if (s.fail()) {
+        BOOST_LOG_SEV(lg, error) << failed_to_open_file << ": " << gs;
+        BOOST_THROW_EXCEPTION(hydration_error(failed_to_open_file + gs));
+    }
 
-    // const auto r(hydrate(s));
-    standardised_file r;
+    const auto r(hydrate(s));
     BOOST_LOG_SEV(lg, debug) << "Parsed file successfully.";
     return r;
 }

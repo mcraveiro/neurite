@@ -13,22 +13,16 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-11-25 Wed 18:02]
-| <75>                                                                        |         |       |       |
-| Headline                                                                    | Time    |       |       |
-|-----------------------------------------------------------------------------+---------+-------+-------|
-| *Total time*                                                                | *50:28* |       |       |
-|-----------------------------------------------------------------------------+---------+-------+-------|
-| Stories                                                                     | 50:28   |       |       |
-| Active                                                                      |         | 50:28 |       |
-| STARTED Sprint and product backlog grooming                                 |         |       |  0:06 |
-| STARTED Journal club and other activities                                   |         |       |  2:23 |
-| COMPLETED Create a blog post discussing NEURON file formats                 |         |       |  3:20 |
-| COMPLETED Create a progress report                                          |         |       | 18:36 |
-| STARTED Fill in paperwork                                                   |         |       |  8:31 |
-| STARTED Create a presentation on 3D neuronal morphologies                   |         |       |  9:46 |
-| STARTED Create a ball and stick neuron using NEURON                         |         |       |  6:20 |
-| STARTED Implement basic SWC support                                         |         |       |  1:26 |
+#+CAPTION: Clock summary at [2015-12-04 Fri 15:49]
+| <75>                                                                        |        |      |      |
+| Headline                                                                    | Time   |      |      |
+|-----------------------------------------------------------------------------+--------+------+------|
+| *Total time*                                                                | *1:52* |      |      |
+|-----------------------------------------------------------------------------+--------+------+------|
+| Stories                                                                     | 1:52   |      |      |
+| Active                                                                      |        | 1:52 |      |
+| STARTED Sprint and product backlog grooming                                 |        |      | 0:31 |
+| STARTED Implement basic SWC support                                         |        |      | 1:21 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -56,10 +50,66 @@ from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
 - [[http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html][SWC Format specification]]
 - [[http://neuromorpho.org/neuroMorpho/dableFiles/guerra%2520da%2520rocha/CNG%2520version/cc08lamx4cel01pp-sb.CNG.swc][Example SWC file]]
 - [[http://research.mssm.edu/cnic/tools-ns.html][NeuronStudio]] has an implementation in C.
+- [[https://github.com/meawoppl/reconstruct-1101][Reconstruct]]: generates 3D representations from stacks. Paper:
+  [[http://synapses.clm.utexas.edu/pubs/2005jmi_1466.pdf][Reconstruct: a free editor for serial section microscopy]]
 
-**** Create a simple parser for the SWC file format
+**** STARTED Read the original Cannon paper
+
+- quick parse of the paper to get a better understanding of the format.
+- paper: [[http://ac.els-cdn.com/S0165027098000910/1-s2.0-S0165027098000910-main.pdf?_tid%3D06345944-767a-11e5-97c1-00000aab0f27&acdnat%3D1445270396_0f399ab6e23d392fd78e161582ad1c24][An on-line archive of reconstructed hippocampal neurons]]
+
+Notes:
+
+- still not clear what SWC stands for or its origins.
+- there should only be one point with an index of -1, indicating it is
+  the root point (generally part of the soma). Question: aren't there
+  multiple points off of the soma?  e.g. axon, "first degree"
+  dendrites?
+- all points must have one and only one parent.
+- parents should have a lower index than the child. This avoids loops
+  and unconnected branches.
+- cells are reduced to a collection of cylinders. For each we have 2
+  points and a radius. The interconnections between cylinders are also
+  mentioned in the file.
+- user defined payload for additional meta-data during the
+  reconstruction process, on a per-point basis.
+- electrophysiological data can also be included, but there is no
+  standardisation for it. It is supplied as a set of external links to
+  files. Also contains a link to the raw data, presumably the
+  microscopy image stack.
+- other file formats to research: [[https://code.google.com/p/ontomorphtab/source/browse/trunk/OntoMorph2/etc/neurolucida-xml/neurolucida-xml.xsd?r%3D335][neurolucida XML]], ASC. Notes on this:
+  The Neurolucida file format is used by MicroBrightField products to
+  store information on neuronal reconstructions. Both binary and ASCII
+  format files can be generated by these products, and at this time
+  neuroConstruct can import ASCII (*.asc) format V3 files (a
+  heirarchical file structure with "CellBody", "Dendrite", etc). The
+  format allows recording of various anatomical features, not only
+  neuronal processes such as dendrites and cell bodies, but can record
+  other microanatomical features of potential interest to
+  anatomists. Not all of these features will be relevant when
+  constructing a single cell computational model. See [[http://www.neuroconstruct.org/docs/import.html][this page]].
+- list of commonly used file formats: [[http://neuronland.org/NLMorphologyConverter/FormatStatus.html][Supported Formats and Current
+  Status]]. We should keep an eye on [[http://neuronland.org/NLMorphologyConverter/NLMorphologyConverter.html][NLMorphologyConverter]].
+- structure editor detects missing connectivity, unconnected branches,
+
+**** STARTED Create a simple parser for the SWC file format
+     CLOCK: [2015-12-04 Fri 14:49]--[2015-12-04 Fri 15:49] =>  1:00
+     CLOCK: [2015-12-04 Fri 14:27]--[2015-12-04 Fri 14:48] =>  0:21
 
 - add a few basic tests, but not too many: valid file, invalid file.
+
+**** Add validation support
+
+We need to perform some basic validation on the SWC file. For an
+example in python see [[https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model%3D168858&file%3D%255CCoskrenEtAl2015%255CHHmodel%255CScripts%255CPython%255Clib%255CSwc.py][this reader]].
+
+- ID's must be unique.
+- parent id's must exist in file.
+- there must be one and only one soma.
+- there must be one and only one root. Root must be soma?
+- types must be well-defined - warning only?
+- all nodes must be reachable from root.
+- graph must be acyclic
 
 *** Create a blog post on SWC                                         :story:
 
