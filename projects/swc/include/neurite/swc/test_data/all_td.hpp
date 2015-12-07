@@ -5,9 +5,9 @@
 #pragma once
 #endif
 
+#include "neurite/swc/test_data/file_td.hpp"
 #include "neurite/swc/test_data/point_td.hpp"
 #include "neurite/swc/test_data/header_td.hpp"
-#include "neurite/swc/test_data/standardised_file_td.hpp"
 #include "neurite/swc/test_data/structure_identifier_types_td.hpp"
 
 #endif

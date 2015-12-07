@@ -1,7 +1,7 @@
 #include <ostream>
+#include "neurite/swc/io/file_io.hpp"
 #include "neurite/swc/io/point_io.hpp"
 #include "neurite/swc/io/header_io.hpp"
-#include "neurite/swc/io/standardised_file_io.hpp"
 
 namespace boost {
 
@@ -35,9 +35,9 @@ inline std::ostream& operator<<(std::ostream& s, const std::list<neurite::swc::p
 namespace neurite {
 namespace swc {
 
-std::ostream& operator<<(std::ostream& s, const standardised_file& v) {
+std::ostream& operator<<(std::ostream& s, const file& v) {
     s << " { "
-      << "\"__type__\": " << "\"neurite::swc::standardised_file\"" << ", "
+      << "\"__type__\": " << "\"neurite::swc::file\"" << ", "
       << "\"header\": " << v.header() << ", "
       << "\"points\": " << v.points()
       << " }";

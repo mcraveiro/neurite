@@ -11,7 +11,8 @@ point::point()
       y_(static_cast<double>(0)),
       z_(static_cast<double>(0)),
       radius_(static_cast<double>(0)),
-      parent_sample_(static_cast<int>(0)) { }
+      parent_sample_(static_cast<int>(0)),
+      line_number_(static_cast<unsigned int>(0)) { }
 
 point::point(
     const unsigned int sample_number,
@@ -21,7 +22,8 @@ point::point(
     const double y,
     const double z,
     const double radius,
-    const int parent_sample)
+    const int parent_sample,
+    const unsigned int line_number)
     : sample_number_(sample_number),
       unparsed_structure_identifier_(unparsed_structure_identifier),
       structure_identifier_(structure_identifier),
@@ -29,7 +31,8 @@ point::point(
       y_(y),
       z_(z),
       radius_(radius),
-      parent_sample_(parent_sample) { }
+      parent_sample_(parent_sample),
+      line_number_(line_number) { }
 
 void point::swap(point& other) noexcept {
     using std::swap;
@@ -41,6 +44,7 @@ void point::swap(point& other) noexcept {
     swap(z_, other.z_);
     swap(radius_, other.radius_);
     swap(parent_sample_, other.parent_sample_);
+    swap(line_number_, other.line_number_);
 }
 
 bool point::operator==(const point& rhs) const {
@@ -51,7 +55,8 @@ bool point::operator==(const point& rhs) const {
         y_ == rhs.y_ &&
         z_ == rhs.z_ &&
         radius_ == rhs.radius_ &&
-        parent_sample_ == rhs.parent_sample_;
+        parent_sample_ == rhs.parent_sample_ &&
+        line_number_ == rhs.line_number_;
 }
 
 point& point::operator=(point other) {
@@ -122,6 +127,14 @@ int point::parent_sample() const {
 
 void point::parent_sample(const int v) {
     parent_sample_ = v;
+}
+
+unsigned int point::line_number() const {
+    return line_number_;
+}
+
+void point::line_number(const unsigned int v) {
+    line_number_ = v;
 }
 
 } }

@@ -1,21 +1,21 @@
-#ifndef NEURITE_SWC_TEST_DATA_STANDARDISED_FILE_TD_HPP
-#define NEURITE_SWC_TEST_DATA_STANDARDISED_FILE_TD_HPP
+#ifndef NEURITE_SWC_TEST_DATA_FILE_TD_HPP
+#define NEURITE_SWC_TEST_DATA_FILE_TD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/swc/types/standardised_file.hpp"
+#include "neurite/swc/types/file.hpp"
 
 namespace neurite {
 namespace swc {
 
-class standardised_file_generator {
+class file_generator {
 public:
-    standardised_file_generator();
+    file_generator();
 
 public:
-    typedef neurite::swc::standardised_file result_type;
+    typedef neurite::swc::file result_type;
 
 public:
     static void populate(const unsigned int position, result_type& v);

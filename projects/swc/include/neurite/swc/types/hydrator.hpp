@@ -25,17 +25,31 @@
 #pragma once
 #endif
 
+#include <string>
 #include <iosfwd>
 #include <boost/filesystem/path.hpp>
-#include "neurite/swc/types/standardised_file.hpp"
+#include "neurite/swc/types/point.hpp"
+#include "neurite/swc/types/file.hpp"
 
 namespace neurite {
 namespace swc {
 
+/**
+ * @brief Provides line number information on errors.
+ */
+typedef boost::error_info<struct tag_file_name, std::string> error_in_file;
+typedef boost::error_info<struct tag_line_number, unsigned int> error_in_line;
+typedef boost::error_info<struct tag_field_number, unsigned int> error_in_field;
+
 class hydrator {
+private:
+    structure_identifier_types to_structure_identifier_type(const int i) const;
+    point process_point_line(const std::string& s,
+        const unsigned int line_number) const;
+
 public:
-    standardised_file hydrate(std::istream& s) const;
-    standardised_file hydrate(const boost::filesystem::path& p) const;
+    file hydrate(std::istream& is) const;
+    file hydrate(const boost::filesystem::path& p) const;
 };
 
 } }

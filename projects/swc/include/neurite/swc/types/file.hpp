@@ -1,5 +1,5 @@
-#ifndef NEURITE_SWC_TYPES_STANDARDISED_FILE_HPP
-#define NEURITE_SWC_TYPES_STANDARDISED_FILE_HPP
+#ifndef NEURITE_SWC_TYPES_FILE_HPP
+#define NEURITE_SWC_TYPES_FILE_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
@@ -10,7 +10,7 @@
 #include <boost/optional.hpp>
 #include "neurite/swc/types/point.hpp"
 #include "neurite/swc/types/header.hpp"
-#include "neurite/swc/serialization/standardised_file_fwd_ser.hpp"
+#include "neurite/swc/serialization/file_fwd_ser.hpp"
 
 namespace neurite {
 namespace swc {
@@ -18,26 +18,26 @@ namespace swc {
 /**
  * @brief Represents a standardised SWC file.
  */
-class standardised_file final {
+class file final {
 public:
-    standardised_file() = default;
-    standardised_file(const standardised_file&) = default;
-    ~standardised_file() = default;
+    file() = default;
+    file(const file&) = default;
+    ~file() = default;
 
 public:
-    standardised_file(standardised_file&& rhs);
+    file(file&& rhs);
 
 public:
-    standardised_file(
+    file(
         const boost::optional<neurite::swc::header>& header,
         const std::list<neurite::swc::point>& points);
 
 private:
     template<typename Archive>
-    friend void boost::serialization::save(Archive& ar, const standardised_file& v, unsigned int version);
+    friend void boost::serialization::save(Archive& ar, const file& v, unsigned int version);
 
     template<typename Archive>
-    friend void boost::serialization::load(Archive& ar, standardised_file& v, unsigned int version);
+    friend void boost::serialization::load(Archive& ar, file& v, unsigned int version);
 
 public:
     const boost::optional<neurite::swc::header>& header() const;
@@ -56,14 +56,14 @@ public:
     /**@}*/
 
 public:
-    bool operator==(const standardised_file& rhs) const;
-    bool operator!=(const standardised_file& rhs) const {
+    bool operator==(const file& rhs) const;
+    bool operator!=(const file& rhs) const {
         return !this->operator==(rhs);
     }
 
 public:
-    void swap(standardised_file& other) noexcept;
-    standardised_file& operator=(standardised_file other);
+    void swap(file& other) noexcept;
+    file& operator=(file other);
 
 private:
     boost::optional<neurite::swc::header> header_;
@@ -76,8 +76,8 @@ namespace std {
 
 template<>
 inline void swap(
-    neurite::swc::standardised_file& lhs,
-    neurite::swc::standardised_file& rhs) {
+    neurite::swc::file& lhs,
+    neurite::swc::file& rhs) {
     lhs.swap(rhs);
 }
 

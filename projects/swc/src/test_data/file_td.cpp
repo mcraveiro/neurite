@@ -1,6 +1,6 @@
+#include "neurite/swc/test_data/file_td.hpp"
 #include "neurite/swc/test_data/point_td.hpp"
 #include "neurite/swc/test_data/header_td.hpp"
-#include "neurite/swc/test_data/standardised_file_td.hpp"
 
 namespace {
 
@@ -34,30 +34,30 @@ std::list<neurite::swc::point> create_std_list_neurite_swc_point(unsigned int po
 namespace neurite {
 namespace swc {
 
-standardised_file_generator::standardised_file_generator() : position_(0) { }
+file_generator::file_generator() : position_(0) { }
 
-void standardised_file_generator::
+void file_generator::
 populate(const unsigned int position, result_type& v) {
     v.header(create_boost_optional_neurite_swc_header(position + 0));
     v.points(create_std_list_neurite_swc_point(position + 1));
 }
 
-standardised_file_generator::result_type
-standardised_file_generator::create(const unsigned int position) {
-    standardised_file r;
-    standardised_file_generator::populate(position, r);
+file_generator::result_type
+file_generator::create(const unsigned int position) {
+    file r;
+    file_generator::populate(position, r);
     return r;
 }
 
-standardised_file_generator::result_type*
-standardised_file_generator::create_ptr(const unsigned int position) {
-    standardised_file* p = new standardised_file();
-    standardised_file_generator::populate(position, *p);
+file_generator::result_type*
+file_generator::create_ptr(const unsigned int position) {
+    file* p = new file();
+    file_generator::populate(position, *p);
     return p;
 }
 
-standardised_file_generator::result_type
-standardised_file_generator::operator()() {
+file_generator::result_type
+file_generator::operator()() {
     return create(position_++);
 }
 

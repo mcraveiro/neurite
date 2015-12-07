@@ -19,8 +19,13 @@
  *
  */
 #include <iostream>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/algorithm/string/trim.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include "neurite/utility/log/logger.hpp"
+#include "neurite/utility/io/vector_io.hpp"
 #include "neurite/swc/types/hydration_error.hpp"
 #include "neurite/swc/types/hydrator.hpp"
 
@@ -29,19 +34,117 @@ namespace {
 using namespace neurite::utility::log;
 auto lg(logger_factory("swc.hydrator"));
 
+const unsigned long minimum_number_of_point_fields(7);
+// const char hash('#');
+
+const std::string invalid_field_value("Field value is not valid");
 const std::string failed_to_open_file("Failed to open file: ");
+const std::string missing_fields("Not enough fields");
+
+inline unsigned int stoui(const std::string& str) {
+    unsigned long result = std::stoul(str, 0/*idx*/, 10/*base*/);
+    if (result > std::numeric_limits<unsigned int>::max())
+        throw std::out_of_range("stoui");
+    return result;
+}
 
 }
 
 namespace neurite {
 namespace swc {
 
-standardised_file hydrator::hydrate(std::istream& /*s*/) const {
-    standardised_file r;
+structure_identifier_types hydrator::
+to_structure_identifier_type(const int i) const {
+    switch (i) {
+    case 0: return structure_identifier_types::invalid; // FIXME
+    case 1: return structure_identifier_types::soma;
+    case 2: return structure_identifier_types::axon;
+    case 3: return structure_identifier_types::basal_dendrite;
+    case 4: return structure_identifier_types::apical_dendrite;
+    case 5: return structure_identifier_types::fork_point;
+    case 6: return structure_identifier_types::end_point;
+    default: return structure_identifier_types::custom;
+    }
+}
+
+
+point hydrator::
+process_point_line(const std::string& s, const unsigned int line_number) const {
+    std::vector<std::string> tokens;
+    const auto trimmed(boost::trim_copy(s));
+    boost::split(tokens, trimmed, boost::is_space(), boost::token_compress_on);
+    BOOST_LOG_SEV(lg, debug) << "Parsing line with tokens: " << tokens;
+
+    if (tokens.size() < minimum_number_of_point_fields) {
+        BOOST_LOG_SEV(lg, error) << missing_fields << ". Expected: "
+                                 << minimum_number_of_point_fields
+                                 << " Actual: " << tokens.size();
+        BOOST_THROW_EXCEPTION(hydration_error(missing_fields));
+    }
+
+    unsigned int field_number(0);
+    try {
+        point r;
+        r.sample_number(stoui(tokens[field_number]));
+
+        const auto usi(stoi(tokens[++field_number]));
+        r.unparsed_structure_identifier(usi);
+        r.structure_identifier(to_structure_identifier_type(usi));
+
+        r.x(stod(tokens[++field_number]));
+        r.y(stod(tokens[++field_number]));
+        r.z(stod(tokens[++field_number]));
+        r.radius(stod(tokens[++field_number]));
+        r.parent_sample(stoi(tokens[++field_number]));
+        r.line_number(line_number);
+        return r;
+    } catch (const std::invalid_argument& e) {
+        BOOST_LOG_SEV(lg, error) << "Conversion error. Field " << field_number
+                                 << ". Value: '" << tokens[field_number] << "'";
+
+        hydration_error he(invalid_field_value);
+        he << error_in_field(field_number);
+        throw he;
+    } catch (const std::out_of_range& e) {
+        BOOST_LOG_SEV(lg, error) << "Conversion error. Field " << field_number
+                                 << ". Value: '" << tokens[field_number] << "'";
+
+        hydration_error he(invalid_field_value);
+        he << error_in_field(field_number);
+        throw he;
+    }
+}
+
+file hydrator::hydrate(std::istream& is) const {
+    file r;
+
+    std::string input_line;
+    unsigned int line_number(0);
+    try {
+        while (std::getline(is, input_line)) {
+            if (input_line.empty()){
+                BOOST_LOG_SEV(lg, debug) << "Ignoring empty line. Line number: "
+                                         << line_number;
+            }
+
+            /*
+              const auto c(input_line[0]);
+              if (c == hash && in_header) {
+              process_header_line()
+              }
+            */
+            r.points().push_back(process_point_line(input_line, line_number));
+            ++line_number;
+        }
+    } catch(boost::exception& e) {
+        BOOST_LOG_SEV(lg, error) << "Failed to parse line: " << line_number;
+        e << error_in_line(line_number);
+        throw;
+    }
     return r;
 }
 
-standardised_file hydrator::hydrate(const boost::filesystem::path& p) const {
+file hydrator::hydrate(const boost::filesystem::path& p) const {
     const auto gs(p.generic_string());
     BOOST_LOG_SEV(lg, debug) << "Parsing file: " << gs;
     boost::filesystem::ifstream s(p);
@@ -51,9 +154,16 @@ standardised_file hydrator::hydrate(const boost::filesystem::path& p) const {
         BOOST_THROW_EXCEPTION(hydration_error(failed_to_open_file + gs));
     }
 
-    const auto r(hydrate(s));
-    BOOST_LOG_SEV(lg, debug) << "Parsed file successfully.";
-    return r;
+    try {
+        const auto r(hydrate(s));
+        BOOST_LOG_SEV(lg, debug) << "Parsed file successfully.";
+        return r;
+    } catch(boost::exception& e) {
+        const auto s(p.generic_string());
+        BOOST_LOG_SEV(lg, error) << "Failed to parse file: " << s;
+        e << error_in_file(s);
+        throw;
+    }
 }
 
 } }

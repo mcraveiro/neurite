@@ -783,7 +783,7 @@ and expot support.
         <dia:point val="16,23"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="15.95,22.95;35.415,31.45"/>
+        <dia:rectangle val="15.95,22.95;35.415,32.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="16,23"/>
@@ -792,7 +792,7 @@ and expot support.
         <dia:real val="19.365000000000002"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="8.4000000000000004"/>
+        <dia:real val="9.1999999999999993"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#point#</dia:string>
@@ -1060,6 +1060,29 @@ one of the few formats which use radius instead of diameter).#</dia:string>
             <dia:string>#The sample number. Connectivity is expressed with this value.
 
 Parent samples should appear before any child samples.#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#line_number#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>#unsigned int#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#Number of the line of the file from which this point was read out.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1459,16 +1482,16 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="25.6825,31.4498"/>
+        <dia:point val="25.6825,32.2501"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="24.9325,30.6998;33.265,42.8"/>
+        <dia:rectangle val="24.9325,31.5001;33.265,42.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="25.6825,31.4498"/>
+        <dia:point val="25.6825,32.2501"/>
         <dia:point val="25.6825,37"/>
         <dia:point val="33.065,37"/>
         <dia:point val="33.065,42"/>
@@ -1488,7 +1511,7 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:color val="#000000"/>
       </dia:attribute>
       <dia:connections>
-        <dia:connection handle="0" to="O4" connection="24"/>
+        <dia:connection handle="0" to="O4" connection="26"/>
         <dia:connection handle="1" to="O6" connection="1"/>
       </dia:connections>
     </dia:object>

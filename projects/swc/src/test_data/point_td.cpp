@@ -37,6 +37,7 @@ populate(const unsigned int position, result_type& v) {
     v.z(create_double(position + 5));
     v.radius(create_double(position + 6));
     v.parent_sample(create_int(position + 7));
+    v.line_number(create_unsigned_int(position + 8));
 }
 
 point_generator::result_type

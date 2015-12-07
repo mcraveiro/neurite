@@ -22,7 +22,8 @@ std::ostream& operator<<(std::ostream& s, const point& v) {
       << "\"y\": " << v.y() << ", "
       << "\"z\": " << v.z() << ", "
       << "\"radius\": " << v.radius() << ", "
-      << "\"parent_sample\": " << v.parent_sample()
+      << "\"parent_sample\": " << v.parent_sample() << ", "
+      << "\"line_number\": " << v.line_number()
       << " }";
     return(s);
 }

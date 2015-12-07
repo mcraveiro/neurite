@@ -1,6 +1,6 @@
+#include "neurite/swc/hash/file_hash.hpp"
 #include "neurite/swc/hash/point_hash.hpp"
 #include "neurite/swc/hash/header_hash.hpp"
-#include "neurite/swc/hash/standardised_file_hash.hpp"
 
 namespace {
 
@@ -33,7 +33,7 @@ inline std::size_t hash_std_list_neurite_swc_point(const std::list<neurite::swc:
 namespace neurite {
 namespace swc {
 
-std::size_t standardised_file_hasher::hash(const standardised_file& v) {
+std::size_t file_hasher::hash(const file& v) {
     std::size_t seed(0);
 
     combine(seed, hash_boost_optional_neurite_swc_header(v.header()));

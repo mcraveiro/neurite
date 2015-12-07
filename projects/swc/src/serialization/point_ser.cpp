@@ -25,6 +25,7 @@ void save(Archive& ar,
     ar << make_nvp("z", v.z_);
     ar << make_nvp("radius", v.radius_);
     ar << make_nvp("parent_sample", v.parent_sample_);
+    ar << make_nvp("line_number", v.line_number_);
 }
 
 template<typename Archive>
@@ -39,6 +40,7 @@ void load(Archive& ar,
     ar >> make_nvp("z", v.z_);
     ar >> make_nvp("radius", v.radius_);
     ar >> make_nvp("parent_sample", v.parent_sample_);
+    ar >> make_nvp("line_number", v.line_number_);
 }
 
 } }

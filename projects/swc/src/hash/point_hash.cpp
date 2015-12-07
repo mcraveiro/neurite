@@ -25,6 +25,7 @@ std::size_t point_hasher::hash(const point& v) {
     combine(seed, v.z());
     combine(seed, v.radius());
     combine(seed, v.parent_sample());
+    combine(seed, v.line_number());
 
     return seed;
 }

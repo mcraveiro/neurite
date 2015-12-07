@@ -1,4 +1,4 @@
-#+title: Sprint Backlog 03
+#+title: Sprint Backlog 04
 #+options: date:nil toc:nil author:nil num:nil
 #+todo: STARTED | COMPLETED CANCELLED POSTPONED
 #+tags: { story(s) spike(p) }
@@ -13,16 +13,16 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-12-04 Fri 15:49]
+#+CAPTION: Clock summary at [2015-12-07 Mon 17:29]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *1:52* |      |      |
+| *Total time*                                                                | *5:31* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 1:52   |      |      |
-| Active                                                                      |        | 1:52 |      |
+| Stories                                                                     | 5:31   |      |      |
+| Active                                                                      |        | 5:31 |      |
 | STARTED Sprint and product backlog grooming                                 |        |      | 0:31 |
-| STARTED Implement basic SWC support                                         |        |      | 1:21 |
+| STARTED Implement basic SWC support                                         |        |      | 5:00 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -52,6 +52,7 @@ from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
 - [[http://research.mssm.edu/cnic/tools-ns.html][NeuronStudio]] has an implementation in C.
 - [[https://github.com/meawoppl/reconstruct-1101][Reconstruct]]: generates 3D representations from stacks. Paper:
   [[http://synapses.clm.utexas.edu/pubs/2005jmi_1466.pdf][Reconstruct: a free editor for serial section microscopy]]
+- [[http://neuron.duke.edu/cells/index/topindex.html][SWC data from Duke]]
 
 **** STARTED Read the original Cannon paper
 
@@ -93,6 +94,8 @@ Notes:
 - structure editor detects missing connectivity, unconnected branches,
 
 **** STARTED Create a simple parser for the SWC file format
+     CLOCK: [2015-12-07 Mon 16:01]--[2015-12-07 Mon 17:29] =>  1:28
+     CLOCK: [2015-12-07 Mon 13:43]--[2015-12-07 Mon 15:54] =>  2:11
      CLOCK: [2015-12-04 Fri 14:49]--[2015-12-04 Fri 15:49] =>  1:00
      CLOCK: [2015-12-04 Fri 14:27]--[2015-12-04 Fri 14:48] =>  0:21
 

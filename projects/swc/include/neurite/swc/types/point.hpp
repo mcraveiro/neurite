@@ -30,7 +30,8 @@ public:
         const double y,
         const double z,
         const double radius,
-        const int parent_sample);
+        const int parent_sample,
+        const unsigned int line_number);
 
 private:
     template<typename Archive>
@@ -104,6 +105,14 @@ public:
     void parent_sample(const int v);
     /**@}*/
 
+    /**
+     * @brief Number of the line of the file from which this point was read out.
+     */
+    /**@{*/
+    unsigned int line_number() const;
+    void line_number(const unsigned int v);
+    /**@}*/
+
 public:
     bool operator==(const point& rhs) const;
     bool operator!=(const point& rhs) const {
@@ -123,6 +132,7 @@ private:
     double z_;
     double radius_;
     int parent_sample_;
+    unsigned int line_number_;
 };
 
 } }
