@@ -68,6 +68,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
     endif()
     set(other_flags "${other_flags} -frtti -fvisibility-inlines-hidden")
     set(other_flags "${other_flags} -fvisibility=default")
+    set(other_flags "${other_flags} -fPIC")
 
     # set the flags
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${optimisation_flags}")
@@ -87,17 +88,23 @@ endif()
 # parameters for boost tests
 set(boost_test_parameters "")
 
+message("${Qt5Core_INCLUDE_DIRS}")
+message("${Qt5Gui_INCLUDE_DIRS}")
+
 # user includes
 include_directories(
     # third party
     ${Wt_INCLUDE_DIR}
-
+    ${Qt5Core_INCLUDE_DIRS}
+    ${Qt5Gui_INCLUDE_DIRS}
+  
     # generated header files
     ${stage_inc_dir}/
 
     # real code
     # ${CMAKE_SOURCE_DIR}/projects/ohms_law/include
     ${CMAKE_SOURCE_DIR}/projects/swc/include
+    ${CMAKE_SOURCE_DIR}/projects/soma/include
     ${CMAKE_SOURCE_DIR}/projects/utility/include
     )
 
@@ -106,4 +113,5 @@ include_directories(
 #
 # add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ohms_law/src)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/swc)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/soma)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility/src)

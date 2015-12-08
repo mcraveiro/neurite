@@ -35,14 +35,28 @@ Updates to sprint and product backlog.
 
 Time spent in generic tasks.
 
-*** Create a presentation on 3D neuronal morphologies                 :story:
+*** STARTED Create a VTK setup from github                            :story:
+    CLOCK: [2015-12-08 Tue 16:31]--[2015-12-08 Tue 18:22] =>  1:51
 
-We need to explain the processes around it: how do they come about,
-what are they used for, existing formats. Actually one way of tackling
-this is to create a blog post first and then summarise it in the
-presentation.
+It seems the debian packages are a bit outdated. Build from source.
 
-*** STARTED Implement basic SWC support                               :story:
+- [[http://www.vtk.org/Wiki/VTK/Building/Linux][VTK/Building/Linux]]
+- [[http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup][VTK/Tutorials/QtSetup]]
+- [[https://www.youtube.com/watch?v%3Dsb5FTVGqhPo][Building Qt-enabled VTK applications]]
+- [[http://mitk.org/wiki/MITK][The Medical Imaging Interaction Toolkit (MITK)]]
+- [[http://docs.mitk.org/2015.05/Architecture.html][MITK Artchitecture]]
+- [[http://www.commontk.org/index.php/Main_Page][CTK - The Common Toolkit]]
+
+: sudo apt-get install qtbase5-dev qttools5-dev
+: git clone git@github.com:Kitware/VTK.git
+: cd VTK
+: mkdir build
+: cd build
+: CMAKE_INCLUDE_PATH=/usr/local/personal/include CMAKE_LIBRARY_PATH=/usr/local/personal/lib cmake -DCMAKE_INSTALL_PREFIX=/home/marco/Development/phd/local -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
+: cmake -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
+
+*** COMPLETED Implement basic SWC support                             :story:
+    CLOSED: [2015-12-08 Tue 16:57]
 
 We need to add code to read and write SWC files, with tests sourced
 from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
@@ -54,7 +68,8 @@ from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
   [[http://synapses.clm.utexas.edu/pubs/2005jmi_1466.pdf][Reconstruct: a free editor for serial section microscopy]]
 - [[http://neuron.duke.edu/cells/index/topindex.html][SWC data from Duke]]
 
-**** STARTED Read the original Cannon paper
+**** COMPLETED Read the original Cannon paper
+     CLOSED: [2015-12-08 Tue 16:57]
 
 - quick parse of the paper to get a better understanding of the format.
 - paper: [[http://ac.els-cdn.com/S0165027098000910/1-s2.0-S0165027098000910-main.pdf?_tid%3D06345944-767a-11e5-97c1-00000aab0f27&acdnat%3D1445270396_0f399ab6e23d392fd78e161582ad1c24][An on-line archive of reconstructed hippocampal neurons]]
@@ -93,7 +108,9 @@ Notes:
   Status]]. We should keep an eye on [[http://neuronland.org/NLMorphologyConverter/NLMorphologyConverter.html][NLMorphologyConverter]].
 - structure editor detects missing connectivity, unconnected branches,
 
-**** STARTED Create a simple parser for the SWC file format
+**** COMPLETED Create a simple parser for the SWC file format
+     CLOSED: [2015-12-08 Tue 16:57]
+     CLOCK: [2015-12-08 Tue 15:50]--[2015-12-08 Tue 16:30] =>  0:40
      CLOCK: [2015-12-07 Mon 16:01]--[2015-12-07 Mon 17:29] =>  1:28
      CLOCK: [2015-12-07 Mon 13:43]--[2015-12-07 Mon 15:54] =>  2:11
      CLOCK: [2015-12-04 Fri 14:49]--[2015-12-04 Fri 15:49] =>  1:00
@@ -101,7 +118,7 @@ Notes:
 
 - add a few basic tests, but not too many: valid file, invalid file.
 
-**** Add validation support
+*** Add SWC validation support                                        :story:
 
 We need to perform some basic validation on the SWC file. For an
 example in python see [[https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model%3D168858&file%3D%255CCoskrenEtAl2015%255CHHmodel%255CScripts%255CPython%255Clib%255CSwc.py][this reader]].
@@ -113,6 +130,13 @@ example in python see [[https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?m
 - types must be well-defined - warning only?
 - all nodes must be reachable from root.
 - graph must be acyclic
+
+*** Create a presentation on 3D neuronal morphologies                 :story:
+
+We need to explain the processes around it: how do they come about,
+what are they used for, existing formats. Actually one way of tackling
+this is to create a blog post first and then summarise it in the
+presentation.
 
 *** Create a blog post on SWC                                         :story:
 

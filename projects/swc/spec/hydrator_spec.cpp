@@ -36,11 +36,20 @@ const std::string test_module("swc");
 const std::string test_suite("hydrator_spec");
 
 const std::string one_line_input(" 1 2 3.087 7.342 -21.875 8.209  -1 ");
+const std::string three_line_input(R"( 1 2 0.087 0.342 0.875 0.209  -1
+ 1 2 1.087 1.342 1.875 1.209  -1
+ 1 2 2.087 2.342 2.875 2.209  -1
+)");
 const std::string missing_fields_input(" 1 2 3.087 7.342 -21.875 8.209");
 const std::string bad_radius_input(" 1 2 3.087 7.342 -21.875 BAD_RADIUS  -1 ");
+const std::string bad_third_line_input(R"( 1 2 3.087 7.342 -21.875 8.209  -1
+ 1 2 3.087 7.342 -21.875 8.209  -1
+ 1 2 3.087 7.342 -21.875 8.209  -1
+ 1 2 BAD_X 7.342 -21.875 8.209  -1
+ 1 2 3.087 7.342 -21.875 8.209  -1
+)");
 
 const std::string invalid_file_name("INVALID_FILE_NAME");
-
 const std::string missing_fields("Not enough fields");
 const std::string file_not_found("Failed to open file");
 
@@ -94,6 +103,35 @@ BOOST_AUTO_TEST_CASE(hydrating_one_line_input_results_in_expected_file) {
     BOOST_CHECK(p.line_number() == 0);
 }
 
+BOOST_AUTO_TEST_CASE(hydrating_three_line_input_results_in_expected_file) {
+    SETUP_TEST_LOG_SOURCE("hydrating_one_line_input_results_in_expected_file");
+
+    neurite::swc::hydrator h;
+    std::istringstream is(three_line_input);
+    const auto f(h.hydrate(is));
+
+    BOOST_LOG_SEV(lg, debug) << "File:" << f;
+    BOOST_CHECK(!f.header());
+    BOOST_REQUIRE(f.points().size() == 3);
+
+    unsigned int i(0);
+    for(const auto& p : f.points()) {
+        BOOST_CHECK(p.sample_number() == 1);
+        BOOST_CHECK(p.unparsed_structure_identifier() == 2);
+
+        using ste = neurite::swc::structure_identifier_types;
+        BOOST_CHECK(p.structure_identifier() == ste::axon);
+        BOOST_REQUIRE_CLOSE(p.x(), i + 0.087, 0.000001);
+        BOOST_REQUIRE_CLOSE(p.y(), i + 0.342, 0.000001);
+        BOOST_REQUIRE_CLOSE(p.z(), i + 0.875, 0.000001);
+        BOOST_REQUIRE_CLOSE(p.radius(), i + 0.209, 0.000001);
+
+        BOOST_CHECK(p.parent_sample() == -1);
+        BOOST_CHECK(p.line_number() == i);
+        ++i;
+    }
+}
+
 BOOST_AUTO_TEST_CASE(hydrating_bad_radius_input_throws) {
     SETUP_TEST_LOG_SOURCE("hydrating_bad_radius_input_throws");
 
@@ -102,16 +140,40 @@ BOOST_AUTO_TEST_CASE(hydrating_bad_radius_input_throws) {
     try {
         h.hydrate(is);
     } catch(const neurite::swc::hydration_error& he) {
-        BOOST_CHECK(boost::starts_with("xxx", he.what()));
+        BOOST_CHECK(boost::starts_with("Field value is not valid", he.what()));
 
-        // const auto ln(boost::get_error_info<neurite::swc::error_in_line>(he));
-        // BOOST_CHECK(ln == 0);
+        const auto ln(boost::get_error_info<neurite::swc::error_in_line>(he));
+        BOOST_REQUIRE(ln != 0);
+        BOOST_LOG_SEV(lg, debug) << "Line:" << *ln;
+        BOOST_CHECK(*ln == 0);
 
-        // const auto fn(boost::get_error_info<neurite::swc::error_in_field>(he));
-        // BOOST_CHECK(fn == 6);
+        const auto fn(boost::get_error_info<neurite::swc::error_in_field>(he));
+        BOOST_CHECK(fn != 0);
+        BOOST_LOG_SEV(lg, debug) << "Field:" << *fn;
+        BOOST_CHECK(*fn == 5);
     }
-    contains_checker<hydration_error> c(missing_fields);
-    BOOST_CHECK_EXCEPTION(, hydration_error, c);
+}
+
+BOOST_AUTO_TEST_CASE(hydrating_bad_third_line_input_throws) {
+    SETUP_TEST_LOG_SOURCE("hydrating_bad_third_line_input_throws");
+
+    neurite::swc::hydrator h;
+    std::istringstream is(bad_third_line_input);
+    try {
+        h.hydrate(is);
+    } catch(const neurite::swc::hydration_error& he) {
+        BOOST_CHECK(boost::starts_with("Field value is not valid", he.what()));
+
+        const auto ln(boost::get_error_info<neurite::swc::error_in_line>(he));
+        BOOST_REQUIRE(ln != 0);
+        BOOST_LOG_SEV(lg, debug) << "Line:" << *ln;
+        BOOST_CHECK(*ln == 3);
+
+        const auto fn(boost::get_error_info<neurite::swc::error_in_field>(he));
+        BOOST_CHECK(fn != 0);
+        BOOST_LOG_SEV(lg, debug) << "Field:" << *fn;
+        BOOST_CHECK(*fn == 2);
+    }
 }
 
 BOOST_AUTO_TEST_CASE(hydrating_empty_stream_results_in_empty_file) {

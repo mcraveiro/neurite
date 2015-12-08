@@ -32,6 +32,12 @@ endif()
 # wt
 # find_package(Wt REQUIRED)
 
+# qt
+set(CMAKE_AUTOMOC ON)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+
 # libxml
 find_package(LibXml2 REQUIRED)
 if(LIBXML2_FOUND)
