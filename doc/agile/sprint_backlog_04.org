@@ -13,16 +13,19 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-12-07 Mon 17:29]
+#+CAPTION: Clock summary at [2015-12-09 Wed 16:43]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *5:31* |      |      |
+| *Total time*                                                                | *9:53* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 5:31   |      |      |
-| Active                                                                      |        | 5:31 |      |
+| Stories                                                                     | 9:53   |      |      |
+| Active                                                                      |        | 9:53 |      |
 | STARTED Sprint and product backlog grooming                                 |        |      | 0:31 |
-| STARTED Implement basic SWC support                                         |        |      | 5:00 |
+| COMPLETED Implement basic SWC support                                       |        |      | 5:40 |
+| STARTED Create a VTK setup from github                                      |        |      | 2:42 |
+| STARTED Parse btmorph's source                                              |        |      | 0:13 |
+| STARTED Create a blog post on SWC                                           |        |      | 0:47 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -34,26 +37,6 @@ Updates to sprint and product backlog.
 *** Journal club and other activities                                 :story:
 
 Time spent in generic tasks.
-
-*** STARTED Create a VTK setup from github                            :story:
-    CLOCK: [2015-12-08 Tue 16:31]--[2015-12-08 Tue 18:22] =>  1:51
-
-It seems the debian packages are a bit outdated. Build from source.
-
-- [[http://www.vtk.org/Wiki/VTK/Building/Linux][VTK/Building/Linux]]
-- [[http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup][VTK/Tutorials/QtSetup]]
-- [[https://www.youtube.com/watch?v%3Dsb5FTVGqhPo][Building Qt-enabled VTK applications]]
-- [[http://mitk.org/wiki/MITK][The Medical Imaging Interaction Toolkit (MITK)]]
-- [[http://docs.mitk.org/2015.05/Architecture.html][MITK Artchitecture]]
-- [[http://www.commontk.org/index.php/Main_Page][CTK - The Common Toolkit]]
-
-: sudo apt-get install qtbase5-dev qttools5-dev
-: git clone git@github.com:Kitware/VTK.git
-: cd VTK
-: mkdir build
-: cd build
-: CMAKE_INCLUDE_PATH=/usr/local/personal/include CMAKE_LIBRARY_PATH=/usr/local/personal/lib cmake -DCMAKE_INSTALL_PREFIX=/home/marco/Development/phd/local -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
-: cmake -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
 
 *** COMPLETED Implement basic SWC support                             :story:
     CLOSED: [2015-12-08 Tue 16:57]
@@ -118,6 +101,42 @@ Notes:
 
 - add a few basic tests, but not too many: valid file, invalid file.
 
+*** STARTED Create a VTK setup from github                            :story:
+    CLOCK: [2015-12-09 Wed 14:50]--[2015-12-09 Wed 15:41] =>  0:51
+    CLOCK: [2015-12-08 Tue 16:31]--[2015-12-08 Tue 18:22] =>  1:51
+
+It seems the debian packages are a bit outdated. Build from source.
+
+- [[http://www.vtk.org/Wiki/VTK/Building/Linux][VTK/Building/Linux]]
+- [[http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup][VTK/Tutorials/QtSetup]]
+- [[https://www.youtube.com/watch?v%3Dsb5FTVGqhPo][Building Qt-enabled VTK applications]]
+- [[http://mitk.org/wiki/MITK][The Medical Imaging Interaction Toolkit (MITK)]]
+- [[http://docs.mitk.org/2015.05/Architecture.html][MITK Artchitecture]]
+- [[http://www.commontk.org/index.php/Main_Page][CTK - The Common Toolkit]]
+
+: sudo apt-get install qtbase5-dev qttools5-dev
+: git clone git@github.com:Kitware/VTK.git
+: cd VTK
+: mkdir build
+: cd build
+: CMAKE_INCLUDE_PATH=/usr/local/personal/include CMAKE_LIBRARY_PATH=/usr/local/personal/lib cmake -DCMAKE_INSTALL_PREFIX=/home/marco/Development/phd/local -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
+: cmake -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
+
+*** STARTED Parse btmorph's source                                    :story:
+    CLOCK: [2015-12-09 Wed 15:42]--[2015-12-09 Wed 15:55] =>  0:13
+
+We need to understand how btmorph is able to visualise SWC
+files. First get it to work, then parse the source.
+
+: apt-get install python-matplotlib python-numpy python-scipy
+: git clone https://bitbucket.org/btorb/btmorph.git
+: cd btmorph/btmorph
+: export PYTHONPATH=$(pwd):$PYTHONPATH
+: import btmorph
+: import numpy
+: import matplotlib.pyplot as plt
+: btmorph.plot_2D_SWC("neurite/test_data/swc/ball_and_stick.swc")
+
 *** Add SWC validation support                                        :story:
 
 We need to perform some basic validation on the SWC file. For an
@@ -138,7 +157,8 @@ what are they used for, existing formats. Actually one way of tackling
 this is to create a blog post first and then summarise it in the
 presentation.
 
-*** Create a blog post on SWC                                         :story:
+*** STARTED Create a blog post on SWC                                 :story:
+    CLOCK: [2015-12-09 Wed 15:56]--[2015-12-09 Wed 16:43] =>  0:47
 
 - describe format
 - describe the reconstruction and generative processes
