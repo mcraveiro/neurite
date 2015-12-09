@@ -7,6 +7,7 @@ project(neurite)
 
 # add our own modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/build/cmake)
+# list(APPEND CMAKE_MODULE_PATH $ENV{CMAKE_EXTERNAL_MODULE_PATH})
 
 # threads
 find_package(Threads REQUIRED)
@@ -31,6 +32,10 @@ endif()
 
 # wt
 # find_package(Wt REQUIRED)
+
+# vtk
+find_package(VTK REQUIRED)
+include(${VTK_USE_FILE})
 
 # qt
 set(CMAKE_AUTOMOC ON)

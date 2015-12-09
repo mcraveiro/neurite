@@ -13,19 +13,19 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2015-12-09 Wed 16:43]
-| <75>                                                                        |        |      |      |
-| Headline                                                                    | Time   |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *9:53* |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 9:53   |      |      |
-| Active                                                                      |        | 9:53 |      |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:31 |
-| COMPLETED Implement basic SWC support                                       |        |      | 5:40 |
-| STARTED Create a VTK setup from github                                      |        |      | 2:42 |
-| STARTED Parse btmorph's source                                              |        |      | 0:13 |
-| STARTED Create a blog post on SWC                                           |        |      | 0:47 |
+#+CAPTION: Clock summary at [2015-12-09 Wed 18:11]
+| <75>                                                                        |         |       |      |
+| Headline                                                                    | Time    |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| *Total time*                                                                | *11:00* |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| Stories                                                                     | 11:00   |       |      |
+| Active                                                                      |         | 11:00 |      |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:31 |
+| COMPLETED Implement basic SWC support                                       |         |       | 5:40 |
+| STARTED Create a VTK setup from github                                      |         |       | 3:40 |
+| STARTED Parse btmorph's source                                              |         |       | 0:22 |
+| STARTED Create a blog post on SWC                                           |         |       | 0:47 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -42,13 +42,15 @@ Time spent in generic tasks.
     CLOSED: [2015-12-08 Tue 16:57]
 
 We need to add code to read and write SWC files, with tests sourced
-from [[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
+from
+[[http://neuromorpho.org/neuroMorpho/index.jsp][NeuroMorpho.Org]].
 
 - [[http://www.neuronland.org/NLMorphologyConverter/MorphologyFormats/SWC/Spec.html][SWC Format specification]]
 - [[http://neuromorpho.org/neuroMorpho/dableFiles/guerra%2520da%2520rocha/CNG%2520version/cc08lamx4cel01pp-sb.CNG.swc][Example SWC file]]
 - [[http://research.mssm.edu/cnic/tools-ns.html][NeuronStudio]] has an implementation in C.
 - [[https://github.com/meawoppl/reconstruct-1101][Reconstruct]]: generates 3D representations from stacks. Paper:
-  [[http://synapses.clm.utexas.edu/pubs/2005jmi_1466.pdf][Reconstruct: a free editor for serial section microscopy]]
+  [[http://synapses.clm.utexas.edu/pubs/2005jmi_1466.pdf][Reconstruct:
+  a free editor for serial section microscopy]]
 - [[http://neuron.duke.edu/cells/index/topindex.html][SWC data from Duke]]
 
 **** COMPLETED Read the original Cannon paper
@@ -86,9 +88,11 @@ Notes:
   neuronal processes such as dendrites and cell bodies, but can record
   other microanatomical features of potential interest to
   anatomists. Not all of these features will be relevant when
-  constructing a single cell computational model. See [[http://www.neuroconstruct.org/docs/import.html][this page]].
+  constructing a single cell computational model. See
+  [[http://www.neuroconstruct.org/docs/import.html][this page]].
 - list of commonly used file formats: [[http://neuronland.org/NLMorphologyConverter/FormatStatus.html][Supported Formats and Current
-  Status]]. We should keep an eye on [[http://neuronland.org/NLMorphologyConverter/NLMorphologyConverter.html][NLMorphologyConverter]].
+  Status]]. We should keep an eye on
+  [[http://neuronland.org/NLMorphologyConverter/NLMorphologyConverter.html][NLMorphologyConverter]].
 - structure editor detects missing connectivity, unconnected branches,
 
 **** COMPLETED Create a simple parser for the SWC file format
@@ -102,6 +106,7 @@ Notes:
 - add a few basic tests, but not too many: valid file, invalid file.
 
 *** STARTED Create a VTK setup from github                            :story:
+    CLOCK: [2015-12-09 Wed 16:53]--[2015-12-09 Wed 17:51] =>  0:58
     CLOCK: [2015-12-09 Wed 14:50]--[2015-12-09 Wed 15:41] =>  0:51
     CLOCK: [2015-12-08 Tue 16:31]--[2015-12-08 Tue 18:22] =>  1:51
 
@@ -120,9 +125,11 @@ It seems the debian packages are a bit outdated. Build from source.
 : mkdir build
 : cd build
 : CMAKE_INCLUDE_PATH=/usr/local/personal/include CMAKE_LIBRARY_PATH=/usr/local/personal/lib cmake -DCMAKE_INSTALL_PREFIX=/home/marco/Development/phd/local -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
+: cd ~/Development/phd/neurite/build/output/gcc-5/ && CMAKE_INCLUDE_PATH=/usr/local/personal/include:/home/marco/Development/phd/local/include CMAKE_LIBRARY_PATH=/usr/local/personal/lib:/home/marco/Development/phd/local/lib CC=gcc-5 CXX=g++-5 CMAKE_PROGRAM_PATH=/home/marco/Development/DomainDrivenConsulting/dogen/build/output/gcc-5/stage/bin VTK_DIR=/home/marco/Development/phd/local/lib/cmake/vtk-6.3/ cmake -DVERBOSE=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ../../../ -G Ninja && ninja -j2 soma
 : cmake -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
 
 *** STARTED Parse btmorph's source                                    :story:
+    CLOCK: [2015-12-09 Wed 16:44]--[2015-12-09 Wed 16:53] =>  0:09
     CLOCK: [2015-12-09 Wed 15:42]--[2015-12-09 Wed 15:55] =>  0:13
 
 We need to understand how btmorph is able to visualise SWC
@@ -140,7 +147,9 @@ files. First get it to work, then parse the source.
 *** Add SWC validation support                                        :story:
 
 We need to perform some basic validation on the SWC file. For an
-example in python see [[https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model%3D168858&file%3D%255CCoskrenEtAl2015%255CHHmodel%255CScripts%255CPython%255Clib%255CSwc.py][this reader]].
+example in python see
+[[https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model%3D168858&file%3D%255CCoskrenEtAl2015%255CHHmodel%255CScripts%255CPython%255Clib%255CSwc.py][this
+reader]].
 
 - ID's must be unique.
 - parent id's must exist in file.
@@ -170,8 +179,8 @@ the required infrastructure (debian packages, CMake files, etc).
 
 *** Add support for VTK                                               :story:
 
-We need to get a simple VTK example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
+We need to get a simple VTK example to compile and run, adding all the
+required infrastructure (debian packages, CMake files, etc).
 
 We should create a very simple Qt gui.
 
@@ -187,5 +196,6 @@ start collecting all the terminology, etc in a blog post.
 
 *** Create a very simple polygon mesh using CGAL                      :story:
 
-Get the sample from Ben of a very simple model and using the [[http://doc.cgal.org/latest/Mesh_3/][3D Mesh
-Generation]] documentation, try to generate a simple mesh.
+Get the sample from Ben of a very simple model and using the
+[[http://doc.cgal.org/latest/Mesh_3/][3D Mesh Generation]]
+documentation, try to generate a simple mesh.

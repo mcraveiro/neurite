@@ -88,9 +88,6 @@ endif()
 # parameters for boost tests
 set(boost_test_parameters "")
 
-message("${Qt5Core_INCLUDE_DIRS}")
-message("${Qt5Gui_INCLUDE_DIRS}")
-
 # user includes
 include_directories(
     # third party

@@ -18,15 +18,17 @@
 # MA 02110-1301, USA.
 #
 set(all_files "")
-file(GLOB_RECURSE all_files RELATIVE
-    "${CMAKE_CURRENT_SOURCE_DIR}/"
-    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
-
-add_executable(soma ${all_files})
+file(GLOB UI_FILES *.ui)
+file(GLOB QT_WRAP *.h)
+file(GLOB CXX_FILES *.cpp)
+ 
+qt5_wrap_ui(UISrcs ${UI_FILES})
+  
+add_executable(soma MACOSX_BUNDLE ${CXX_FILES} ${UISrcs} ${QT_WRAP})
+qt5_use_modules(soma Core Gui)
 target_link_libraries(soma
   Qt5::Core
   Qt5::Widgets
-  # ${Qt5Core_LIBRARIES},
-  # ${Qt5Gui_LIBRARIES},
+  ${VTK_LIBRARIES}
   ${Boost_LIBRARIES})
 set_target_properties(soma PROPERTIES OUTPUT_NAME neurite_soma)

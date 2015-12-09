@@ -18,12 +18,21 @@
  * MA 02110-1301, USA.
  *
  */
-#include <qt5/QtWidgets/QApplication>
-#include "neurite/soma/application.hpp"
+#ifndef NEURITE_SOMA_APPLICATION_HPP
+#define NEURITE_SOMA_APPLICATION_HPP
 
-int main(int argc, char **argv) {
-    QApplication app(argc, argv);
-    application app;
-    app.show();
-    return app.exec();
-}
+#include <qt5/QtWidgets/QMainWindow>
+#include <vtkSmartPointer.h>
+#include "ui_application.hpp"
+
+class application : public QMainWindow, private ui::application {
+    Q_OBJECT
+
+public:
+    application();
+
+public slots:
+    virtual void slotExit();
+};
+
+#endif
