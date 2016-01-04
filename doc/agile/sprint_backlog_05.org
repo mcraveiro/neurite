@@ -1,0 +1,127 @@
+#+title: Sprint Backlog 05
+#+options: date:nil toc:nil author:nil num:nil
+#+todo: STARTED | COMPLETED CANCELLED POSTPONED
+#+tags: { story(s) spike(p) }
+
+* Mission
+
+- Integrate VTK with CGAL
+- Create a mesh wit CGAL
+
+* Stories
+
+** Active
+
+#+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
+#+CAPTION: Clock summary at [2015-12-09 Wed 18:11]
+| <75>                                                                        |         |       |      |
+| Headline                                                                    | Time    |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| *Total time*                                                                | *11:00* |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| Stories                                                                     | 11:00   |       |      |
+| Active                                                                      |         | 11:00 |      |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:31 |
+| COMPLETED Implement basic SWC support                                       |         |       | 5:40 |
+| STARTED Create a VTK setup from github                                      |         |       | 3:40 |
+| STARTED Parse btmorph's source                                              |         |       | 0:22 |
+| STARTED Create a blog post on SWC                                           |         |       | 0:47 |
+#+end:
+
+*** STARTED Sprint and product backlog grooming                       :story:
+    CLOCK: [2016-01-04 Mon 17:19]
+
+Updates to sprint and product backlog.
+
+*** Journal club and other activities                                 :story:
+
+Time spent in generic tasks.
+
+*** Create a VTK setup from github                                    :story:
+
+It seems the debian packages are a bit outdated. Build from source.
+
+- [[http://www.vtk.org/Wiki/VTK/Building/Linux][VTK/Building/Linux]]
+- [[http://www.vtk.org/Wiki/VTK/Tutorials/QtSetup][VTK/Tutorials/QtSetup]]
+- [[https://www.youtube.com/watch?v%3Dsb5FTVGqhPo][Building Qt-enabled VTK applications]]
+- [[http://mitk.org/wiki/MITK][The Medical Imaging Interaction Toolkit (MITK)]]
+- [[http://docs.mitk.org/2015.05/Architecture.html][MITK Artchitecture]]
+- [[http://www.commontk.org/index.php/Main_Page][CTK - The Common Toolkit]]
+
+: sudo apt-get install qtbase5-dev qttools5-dev
+: git clone git@github.com:Kitware/VTK.git
+: cd VTK
+: mkdir build
+: cd build
+: CMAKE_INCLUDE_PATH=/usr/local/personal/include CMAKE_LIBRARY_PATH=/usr/local/personal/lib cmake -DCMAKE_INSTALL_PREFIX=/home/marco/Development/phd/local -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
+: cd ~/Development/phd/neurite/build/output/gcc-5/ && CMAKE_INCLUDE_PATH=/usr/local/personal/include:/home/marco/Development/phd/local/include CMAKE_LIBRARY_PATH=/usr/local/personal/lib:/home/marco/Development/phd/local/lib CC=gcc-5 CXX=g++-5 CMAKE_PROGRAM_PATH=/home/marco/Development/DomainDrivenConsulting/dogen/build/output/gcc-5/stage/bin VTK_DIR=/home/marco/Development/phd/local/lib/cmake/vtk-6.3/ cmake -DVERBOSE=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ../../../ -G Ninja && ninja -j2 soma
+: cmake -DVTK_QT_VERSION:STRING=5 -DVTK_Group_Qt:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -G Ninja ..
+
+*** Parse btmorph's source                                            :story:
+
+We need to understand how btmorph is able to visualise SWC
+files. First get it to work, then parse the source.
+
+: apt-get install python-matplotlib python-numpy python-scipy
+: git clone https://bitbucket.org/btorb/btmorph.git
+: cd btmorph/btmorph
+: export PYTHONPATH=$(pwd):$PYTHONPATH
+: import btmorph
+: import numpy
+: import matplotlib.pyplot as plt
+: btmorph.plot_2D_SWC("neurite/test_data/swc/ball_and_stick.swc")
+
+*** Create a blog post on SWC                                         :story:
+
+- describe format
+- describe the reconstruction and generative processes
+
+*** Add SWC validation support                                        :story:
+
+We need to perform some basic validation on the SWC file. For an
+example in python see
+[[https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model%3D168858&file%3D%255CCoskrenEtAl2015%255CHHmodel%255CScripts%255CPython%255Clib%255CSwc.py][this
+reader]].
+
+- ID's must be unique.
+- parent id's must exist in file.
+- there must be one and only one soma.
+- there must be one and only one root. Root must be soma?
+- types must be well-defined - warning only?
+- all nodes must be reachable from root.
+- graph must be acyclic
+
+*** Create a presentation on 3D neuronal morphologies                 :story:
+
+We need to explain the processes around it: how do they come about,
+what are they used for, existing formats. Actually one way of tackling
+this is to create a blog post first and then summarise it in the
+presentation.
+
+*** Add support for CGAL                                              :story:
+
+We need to get a simple CGAL example to compile and run, adding all
+the required infrastructure (debian packages, CMake files, etc).
+
+*** Add support for VTK                                               :story:
+
+We need to get a simple VTK example to compile and run, adding all the
+required infrastructure (debian packages, CMake files, etc).
+
+We should create a very simple Qt gui.
+
+*** Add XSD tool support to neurite                                   :story:
+
+Create a simple XSD schema and get it to code generate to C++ using
+the [[http://www.codesynthesis.com/products/xsd/][XSD tool]].
+
+*** Start a blog post talking about polygon meshes                    :story:
+
+We don't necessarily need to finish it this sprint but we need to
+start collecting all the terminology, etc in a blog post.
+
+*** Create a very simple polygon mesh using CGAL                      :story:
+
+Get the sample from Ben of a very simple model and using the
+[[http://doc.cgal.org/latest/Mesh_3/][3D Mesh Generation]]
+documentation, try to generate a simple mesh.

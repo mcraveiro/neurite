@@ -31,7 +31,6 @@
 *** STARTED Sprint and product backlog grooming                       :story:
     CLOCK: [2015-12-04 Fri 13:55]--[2015-12-04 Fri 14:26] =>  0:31
 
-
 Updates to sprint and product backlog.
 
 *** COMPLETED Implement basic SWC support                             :story:
