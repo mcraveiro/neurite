@@ -33,6 +33,7 @@ Updates to sprint and product backlog.
 Time spent in generic tasks.
 
 *** STARTED Get Qt5/VTK6 code to build                                :story:
+    CLOCK: [2016-01-05 Tue 16:51]--[2016-01-05 Tue 17:08] =>  0:17
     CLOCK: [2016-01-05 Tue 16:34]--[2016-01-05 Tue 16:50] =>  0:16
     CLOCK: [2016-01-05 Tue 15:15]--[2016-01-05 Tue 16:33] =>  1:18
 
