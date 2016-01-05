@@ -25,7 +25,7 @@ compiler:
 
 before_install:
   # debian testing
-  - sudo add-apt-repository "http://ftp.us.debian.org/debian testing main contrib non-free"
+  - echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -qq
   - sudo apt-get install -qq qtbase5-dev libvtk6-dev libvtk6-qt-dev 
 
