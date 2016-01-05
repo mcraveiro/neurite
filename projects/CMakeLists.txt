@@ -14,7 +14,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
     endif()
 
     # issue all the warnings demanded by strict iso c and iso c++
-    set(warning_flags "${warning_flags} -pedantic")
+    # set(warning_flags "${warning_flags} -pedantic")
 
     # treat warnings as errors
     set(warning_flags "${warning_flags} -Werror")

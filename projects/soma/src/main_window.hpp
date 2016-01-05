@@ -18,18 +18,16 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SOMA_APPLICATION_HPP
-#define NEURITE_SOMA_APPLICATION_HPP
+#ifndef NEURITE_SOMA_MAIN_WINDOW_HPP
+#define NEURITE_SOMA_MAIN_WINDOW_HPP
 
 #include <qt5/QtWidgets/QMainWindow>
-#include <vtkSmartPointer.h>
-#include "ui_application.hpp"
 
-class application : public QMainWindow, private ui::application {
+class main_window : public QMainWindow {
     Q_OBJECT
 
 public:
-    application();
+    main_window();
 
 public slots:
     virtual void slotExit();

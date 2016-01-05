@@ -38,7 +38,13 @@ find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})
 
 # qt
+
+# Find includes in corresponding build directories
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# Instruct CMake to run moc automatically when needed.
+SET(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
+
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)

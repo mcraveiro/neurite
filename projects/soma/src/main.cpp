@@ -19,11 +19,14 @@
  *
  */
 #include <qt5/QtWidgets/QApplication>
-#include "neurite/soma/application.hpp"
+#include "main_window.hpp"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
-    application app;
-    app.show();
+    app.setApplicationName("Soma");
+
+    main_window mw;
+    mw.show();
+
     return app.exec();
 }

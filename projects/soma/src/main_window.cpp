@@ -18,6 +18,7 @@
  * MA 02110-1301, USA.
  *
  */
+#include <QVTKWidget.h>
 #include <vtkDataObjectToTable.h>
 #include <vtkElevationFilter.h>
 #include <vtkPolyDataMapper.h>
@@ -27,10 +28,10 @@
 #include <vtkSphereSource.h>
 #include <vtkCubeSource.h>
 #include <vtkSmartPointer.h>
-#include "neurite/soma/application.h"
+#include "main_window.hpp"
 
-application::application() {
-    this->setupUi(this);
+main_window::main_window() {
+    // this->setupUi(this);
 
     // Sphere
     vtkSmartPointer<vtkSphereSource> sphereSource =
@@ -65,14 +66,18 @@ application::application() {
     // Add Actor to renderer
     rightRenderer->AddActor(cubeActor);
 
+    QVTKWidget *widget = new QVTKWidget;
+    this->setCentralWidget(widget);
+    widget->GetRenderWindow()->AddRenderer(leftRenderer);
+
     // VTK/Qt wedded
-    this->qvtkWidgetLeft->GetRenderWindow()->AddRenderer(leftRenderer);
-    this->qvtkWidgetRight->GetRenderWindow()->AddRenderer(rightRenderer);
+    // this->qvtkWidgetLeft->GetRenderWindow()->AddRenderer(leftRenderer);
+    // this->qvtkWidgetRight->GetRenderWindow()->AddRenderer(rightRenderer);
 
     // Set up action signals and slots
-    connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
+    // connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
 }
 
-void application::slotExit() {
-  qApp->exit();
+void main_window::slotExit() {
+    // qApp->exit();
 }
