@@ -1,4 +1,5 @@
 #include <QVTKWidget.h>
+#include <vtkCylinderSource.h>
 #include <vtkDataObjectToTable.h>
 #include <vtkElevationFilter.h>
 #include <vtkPolyDataMapper.h>
@@ -14,6 +15,36 @@
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
+
+    auto cylinderSource(vtkSmartPointer<vtkCylinderSource>::New());
+    cylinderSource->SetCenter(0.0, 0.0, 0.0);
+    cylinderSource->SetRadius(5.0);
+    cylinderSource->SetHeight(7.0);
+    cylinderSource->SetResolution(100);
+
+    auto mapper(vtkSmartPointer<vtkPolyDataMapper>::New());
+    mapper->SetInputConnection(cylinderSource->GetOutputPort());
+    auto cylinderActor(vtkSmartPointer<vtkActor>::New());
+    cylinderActor->SetMapper(mapper);
+
+    // //Create a renderer, render window, and interactor
+    // vtkSmartPointer<vtkRenderer> renderer =
+    //   vtkSmartPointer<vtkRenderer>::New();
+    // vtkSmartPointer<vtkRenderWindow> renderWindow =
+    //   vtkSmartPointer<vtkRenderWindow>::New();
+    // renderWindow->AddRenderer(renderer);
+    // vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+    //   vtkSmartPointer<vtkRenderWindowInteractor>::New();
+    // renderWindowInteractor->SetRenderWindow(renderWindow);
+
+    // // Add the actor to the scene
+    // renderer->AddActor(actor);
+    // renderer->SetBackground(.1, .3,.2); // Background color dark green
+
+    // // Render and interact
+    // renderWindow->SetWindowName(argv[0]);
+    // renderWindow->Render();
+    // renderWindowInteractor->Start();
 
     // Sphere
     auto sphereSource(vtkSmartPointer<vtkSphereSource>::New());
@@ -33,7 +64,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // VTK Renderer
     auto leftRenderer(vtkSmartPointer<vtkRenderer>::New());
-    leftRenderer->AddActor(sphereActor);
+    // leftRenderer->AddActor(sphereActor);
+    leftRenderer->AddActor(cylinderActor);
 
     auto rightRenderer(vtkSmartPointer<vtkRenderer>::New());
 

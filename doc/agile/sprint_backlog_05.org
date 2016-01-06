@@ -13,32 +13,56 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-05 Tue 16:36]
+#+CAPTION: Clock summary at [2016-01-06 Wed 14:33]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *1:18* |      |      |
+| *Total time*                                                                | *1:51* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 1:18   |      |      |
-| Active                                                                      |        | 1:18 |      |
-| STARTED Get Qt5/VTK6 code to build                                          |        |      | 1:18 |
+| Stories                                                                     | 1:51   |      |      |
+| Active                                                                      |        | 1:51 |      |
+| STARTED Get Qt5/VTK6 code to build                                          |        |      | 1:51 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
 
 Updates to sprint and product backlog.
 
-*** Journal club and other activities                                 :story:
+*** STARTED Journal club and other activities                         :story:
+    CLOCK: [2016-01-06 Wed 16:34]--[2016-01-06 Wed 16:44] =>  0:10
 
 Time spent in generic tasks.
 
-*** STARTED Get Qt5/VTK6 code to build                                :story:
+*** COMPLETED Chat with btn                                           :story:
+    CLOSED: [2016-01-06 Wed 16:46]
+    CLOCK: [2016-01-06 Wed 15:53]--[2016-01-06 Wed 16:34] =>  0:41
+
+- update on VTK progress
+- a couple of suggestions on work to try out.
+
+*** COMPLETED Add support for VTK                                     :story:
+    CLOSED: [2016-01-06 Wed 16:49]
+
+We need to get a simple VTK example to compile and run, adding all the
+required infrastructure (debian packages, CMake files, etc).
+
+We should create a very simple Qt gui.
+
+*** COMPLETED Get Qt5/VTK6 code to build                              :story:
+    CLOSED: [2016-01-06 Wed 16:45]
+    CLOCK: [2016-01-05 Tue 17:09]--[2016-01-05 Tue 18:15] =>  1:06
     CLOCK: [2016-01-05 Tue 16:51]--[2016-01-05 Tue 17:08] =>  0:17
     CLOCK: [2016-01-05 Tue 16:34]--[2016-01-05 Tue 16:50] =>  0:16
     CLOCK: [2016-01-05 Tue 15:15]--[2016-01-05 Tue 16:33] =>  1:18
 
 As debian testing now has Qt5 and VTK 6.2, we don't need to build from
 source any more. Use the packages to get soma to build and run.
+
+*** STARTED Create a geometric representation of ball and stick       :story:
+    CLOCK: [2016-01-06 Wed 16:45]--[2016-01-06 Wed 17:58] =>  1:13
+    CLOCK: [2016-01-06 Wed 14:32]--[2016-01-06 Wed 16:21] =>  1:49
+
+Using VTK, draw the simple SWC file.
 
 *** Parse btmorph's source                                            :story:
 
@@ -54,10 +78,30 @@ files. First get it to work, then parse the source.
 : import matplotlib.pyplot as plt
 : btmorph.plot_2D_SWC("neurite/test_data/swc/ball_and_stick.swc")
 
+Use ipython:
+
+: export PYTHONPATH=$PYTHONPATH:/home/marco/Development/phd/btmorph
+: import btmorph
+: btmorph.plot_2D_SWC('/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc')
+: btmorph.plot_3D_SWC('/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc')
+
 *** Create a blog post on SWC                                         :story:
 
 - describe format
 - describe the reconstruction and generative processes
+
+*** Create a geometric representation of the realistic SWC file       :story:
+
+Ensure the code still works on a more complex file format.
+
+*** Create a simple XML based format                                  :story:
+
+- use data from a CGAL/VTK file representing an SWC file.
+- compare the size against SWC, using different polygon scales.
+- keep in mind large sizes such as 1M
+- take into account realistic morphologies such as sourced from EM
+  where the number of "compartments" would be extremely large. This
+  could be done via scaling (e.g. EM has 1000 more compartments, etc).
 
 *** Add SWC validation support                                        :story:
 
@@ -86,17 +130,10 @@ presentation.
 We need to get a simple CGAL example to compile and run, adding all
 the required infrastructure (debian packages, CMake files, etc).
 
-*** Add support for VTK                                               :story:
-
-We need to get a simple VTK example to compile and run, adding all the
-required infrastructure (debian packages, CMake files, etc).
-
-We should create a very simple Qt gui.
-
 *** Add XSD tool support to neurite                                   :story:
 
 Create a simple XSD schema and get it to code generate to C++ using
-the [[http://www.codesynthesis.com/products/xsd/][XSD tool]].
+the [[http://www.codesynthesis.com/products/xsd/][XSD tool]]. This will be used for the XML file format.
 
 *** Start a blog post talking about polygon meshes                    :story:
 
