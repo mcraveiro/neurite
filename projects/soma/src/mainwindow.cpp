@@ -11,60 +11,43 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent)
+  : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-
     // Sphere
-    vtkSmartPointer<vtkSphereSource> sphereSource =
-      vtkSmartPointer<vtkSphereSource>::New();
+    auto sphereSource(vtkSmartPointer<vtkSphereSource>::New());
     sphereSource->Update();
-    vtkSmartPointer<vtkPolyDataMapper> sphereMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+    auto sphereMapper(vtkSmartPointer<vtkPolyDataMapper>::New());
     sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-    vtkSmartPointer<vtkActor> sphereActor =
-      vtkSmartPointer<vtkActor>::New();
+    auto sphereActor(vtkSmartPointer<vtkActor>::New());
     sphereActor->SetMapper(sphereMapper);
 
     // Cube
-    vtkSmartPointer<vtkCubeSource> cubeSource =
-      vtkSmartPointer<vtkCubeSource>::New();
+    auto cubeSource(vtkSmartPointer<vtkCubeSource>::New());
     cubeSource->Update();
-    vtkSmartPointer<vtkPolyDataMapper> cubeMapper =
-      vtkSmartPointer<vtkPolyDataMapper>::New();
+    auto cubeMapper(vtkSmartPointer<vtkPolyDataMapper>::New());
     cubeMapper->SetInputConnection(cubeSource->GetOutputPort());
-    vtkSmartPointer<vtkActor> cubeActor =
-      vtkSmartPointer<vtkActor>::New();
+    auto cubeActor(vtkSmartPointer<vtkActor>::New());
     cubeActor->SetMapper(cubeMapper);
 
     // VTK Renderer
-    vtkSmartPointer<vtkRenderer> leftRenderer =
-      vtkSmartPointer<vtkRenderer>::New();
+    auto leftRenderer(vtkSmartPointer<vtkRenderer>::New());
     leftRenderer->AddActor(sphereActor);
 
-    vtkSmartPointer<vtkRenderer> rightRenderer =
-      vtkSmartPointer<vtkRenderer>::New();
+    auto rightRenderer(vtkSmartPointer<vtkRenderer>::New());
 
     // Add Actor to renderer
     rightRenderer->AddActor(cubeActor);
 
-    QVTKWidget *widget = new QVTKWidget;
+    QVTKWidget* widget(new QVTKWidget);
     this->setCentralWidget(widget);
     widget->GetRenderWindow()->AddRenderer(leftRenderer);
 
-    // VTK/Qt wedded
-    // this->qvtkWidgetLeft->GetRenderWindow()->AddRenderer(leftRenderer);
-    // this->qvtkWidgetRight->GetRenderWindow()->AddRenderer(rightRenderer);
-
     // Set up action signals and slots
     // connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
-
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
