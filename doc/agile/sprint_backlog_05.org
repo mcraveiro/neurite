@@ -13,15 +13,19 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-06 Wed 14:33]
-| <75>                                                                        |        |      |      |
-| Headline                                                                    | Time   |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *1:51* |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 1:51   |      |      |
-| Active                                                                      |        | 1:51 |      |
-| STARTED Get Qt5/VTK6 code to build                                          |        |      | 1:51 |
+#+CAPTION: Clock summary at [2016-01-11 Mon 16:02]
+| <75>                                                                        |         |       |      |
+| Headline                                                                    | Time    |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| *Total time*                                                                | *11:32* |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| Stories                                                                     | 11:32   |       |      |
+| Active                                                                      |         | 11:32 |      |
+| STARTED Journal club and other activities                                   |         |       | 0:10 |
+| COMPLETED Chat with btn                                                     |         |       | 0:41 |
+| COMPLETED Get Qt5/VTK6 code to build                                        |         |       | 2:57 |
+| COMPLETED Setup new PC                                                      |         |       | 4:42 |
+| STARTED Create a geometric representation of ball and stick                 |         |       | 3:02 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -57,6 +61,20 @@ We should create a very simple Qt gui.
 
 As debian testing now has Qt5 and VTK 6.2, we don't need to build from
 source any more. Use the packages to get soma to build and run.
+
+*** COMPLETED Setup new PC                                            :story:
+    CLOSED: [2016-01-11 Mon 15:29]
+    CLOCK: [2016-01-11 Mon 15:30]--[2016-01-11 Mon 16:01] =>  0:31
+    CLOCK: [2016-01-11 Mon 13:50]--[2016-01-11 Mon 15:28] =>  1:38
+    CLOCK: [2016-01-08 Fri 14:27]--[2016-01-08 Fri 17:00] =>  2:33
+
+We need to install debian and setup the new box.
+
+Notes:
+
+- problems with NTP. Use systemd according to [[https://wiki.archlinux.org/index.php/systemd-timesyncd][this]] page. However we
+  still have problems and cannot connect any of the servers in the
+  debian pool. Leave it like this for now.
 
 *** STARTED Create a geometric representation of ball and stick       :story:
     CLOCK: [2016-01-06 Wed 16:45]--[2016-01-06 Wed 17:58] =>  1:13
