@@ -1,3 +1,24 @@
+/* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
+ *
+ * Copyright (C) 2014 Marco Craveiro <marco.craveiro@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ */
+#include <boost/filesystem/fstream.hpp>
 #include <QVTKWidget.h>
 #include <vtkCylinderSource.h>
 #include <vtkDataObjectToTable.h>
@@ -11,73 +32,68 @@
 #include <vtkSmartPointer.h>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "neurite/utility/log/logger.hpp"
+#include "neurite/swc/io/point_io.hpp"
+#include "neurite/swc/io/file_io.hpp"
+#include "neurite/swc/types/hydrator.hpp"
+
+namespace {
+
+using namespace neurite::utility::log;
+auto lg(logger_factory("mainwindow"));
+
+}
+
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    auto cylinderSource(vtkSmartPointer<vtkCylinderSource>::New());
-    cylinderSource->SetCenter(0.0, 0.0, 0.0);
-    cylinderSource->SetRadius(5.0);
-    cylinderSource->SetHeight(7.0);
-    cylinderSource->SetResolution(100);
+    boost::filesystem::path p("/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc");
+    neurite::swc::hydrator h;
+    boost::filesystem::ifstream s(p);
+    const auto f(h.hydrate(s));
+    BOOST_LOG_SEV(lg, debug) << f;
 
-    auto mapper(vtkSmartPointer<vtkPolyDataMapper>::New());
-    mapper->SetInputConnection(cylinderSource->GetOutputPort());
-    auto cylinderActor(vtkSmartPointer<vtkActor>::New());
-    cylinderActor->SetMapper(mapper);
+    std::vector<vtkSmartPointer<vtkCylinderSource>> sources;
+    sources.reserve(f.points().size());
+    for (const auto& p : f.points()) {
+        auto s(vtkSmartPointer<vtkCylinderSource>::New());
+        s->SetCenter(p.x(), p.y(), p.z());
+        s->SetRadius(p.radius());
+        s->SetHeight(7.0);
+        s->SetResolution(100);
+        sources.push_back(s);
+        BOOST_LOG_SEV(lg, debug) << "Created point: " << p;
+    }
 
-    // //Create a renderer, render window, and interactor
-    // vtkSmartPointer<vtkRenderer> renderer =
-    //   vtkSmartPointer<vtkRenderer>::New();
-    // vtkSmartPointer<vtkRenderWindow> renderWindow =
-    //   vtkSmartPointer<vtkRenderWindow>::New();
-    // renderWindow->AddRenderer(renderer);
-    // vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-    //   vtkSmartPointer<vtkRenderWindowInteractor>::New();
-    // renderWindowInteractor->SetRenderWindow(renderWindow);
+    std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
+    mappers.reserve(f.points().size());
+    for (unsigned long i(0); i < f.points().size(); ++i) {
+        auto m(vtkSmartPointer<vtkPolyDataMapper>::New());
+        m->SetInputConnection(sources[i]->GetOutputPort());
+        BOOST_LOG_SEV(lg, debug) << "Created mapper: " << i;
+        mappers.push_back(m);
+    }
+    
+    std::vector<vtkSmartPointer<vtkActor>> actors;
+    actors.reserve(f.points().size());
+    for (unsigned long i(0); i < f.points().size(); ++i) {
+        auto a(vtkSmartPointer<vtkActor>::New());
+        a->SetMapper(mappers[i]);
+        actors.push_back(a);
+        BOOST_LOG_SEV(lg, debug) << "Created actor: " << i;
+    }
 
-    // // Add the actor to the scene
-    // renderer->AddActor(actor);
-    // renderer->SetBackground(.1, .3,.2); // Background color dark green
-
-    // // Render and interact
-    // renderWindow->SetWindowName(argv[0]);
-    // renderWindow->Render();
-    // renderWindowInteractor->Start();
-
-    // Sphere
-    auto sphereSource(vtkSmartPointer<vtkSphereSource>::New());
-    sphereSource->Update();
-    auto sphereMapper(vtkSmartPointer<vtkPolyDataMapper>::New());
-    sphereMapper->SetInputConnection(sphereSource->GetOutputPort());
-    auto sphereActor(vtkSmartPointer<vtkActor>::New());
-    sphereActor->SetMapper(sphereMapper);
-
-    // Cube
-    auto cubeSource(vtkSmartPointer<vtkCubeSource>::New());
-    cubeSource->Update();
-    auto cubeMapper(vtkSmartPointer<vtkPolyDataMapper>::New());
-    cubeMapper->SetInputConnection(cubeSource->GetOutputPort());
-    auto cubeActor(vtkSmartPointer<vtkActor>::New());
-    cubeActor->SetMapper(cubeMapper);
-
-    // VTK Renderer
-    auto leftRenderer(vtkSmartPointer<vtkRenderer>::New());
-    // leftRenderer->AddActor(sphereActor);
-    leftRenderer->AddActor(cylinderActor);
-
-    auto rightRenderer(vtkSmartPointer<vtkRenderer>::New());
-
-    // Add Actor to renderer
-    rightRenderer->AddActor(cubeActor);
+    auto renderer(vtkSmartPointer<vtkRenderer>::New());
+    for (unsigned long i(0); i < f.points().size(); ++i) {
+        renderer->AddActor(actors[i]);
+        BOOST_LOG_SEV(lg, debug) << "Added actor to renderer: " << i;
+    }
 
     QVTKWidget* widget(new QVTKWidget);
     this->setCentralWidget(widget);
-    widget->GetRenderWindow()->AddRenderer(leftRenderer);
-
-    // Set up action signals and slots
-    // connect(this->actionExit, SIGNAL(triggered()), this, SLOT(slotExit()));
+    widget->GetRenderWindow()->AddRenderer(renderer);
 }
 
 MainWindow::~MainWindow() {

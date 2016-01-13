@@ -26,6 +26,8 @@ add_executable(soma ${all_files})
 target_link_libraries(soma
     Qt5::Core
     Qt5::Widgets
+    swc
+    utility
     ${VTK_LIBRARIES}
     ${Boost_LIBRARIES})
 set_target_properties(soma PROPERTIES OUTPUT_NAME neurite_soma)

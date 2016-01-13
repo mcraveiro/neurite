@@ -13,19 +13,20 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-11 Mon 16:02]
+#+CAPTION: Clock summary at [2016-01-13 Wed 17:59]
 | <75>                                                                        |         |       |      |
 | Headline                                                                    | Time    |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *11:32* |       |      |
+| *Total time*                                                                | *21:33* |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 11:32   |       |      |
-| Active                                                                      |         | 11:32 |      |
+| Stories                                                                     | 21:33   |       |      |
+| Active                                                                      |         | 21:33 |      |
 | STARTED Journal club and other activities                                   |         |       | 0:10 |
 | COMPLETED Chat with btn                                                     |         |       | 0:41 |
 | COMPLETED Get Qt5/VTK6 code to build                                        |         |       | 2:57 |
-| COMPLETED Setup new PC                                                      |         |       | 4:42 |
-| STARTED Create a geometric representation of ball and stick                 |         |       | 3:02 |
+| COMPLETED Setup new PC                                                      |         |       | 9:42 |
+| COMPLETED Sort out monitoring form                                          |         |       | 0:42 |
+| STARTED Create a geometric representation of ball and stick                 |         |       | 7:21 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -64,6 +65,9 @@ source any more. Use the packages to get soma to build and run.
 
 *** COMPLETED Setup new PC                                            :story:
     CLOSED: [2016-01-11 Mon 15:29]
+    CLOCK: [2016-01-13 Wed 14:20]--[2016-01-13 Wed 15:30] =>  1:10
+    CLOCK: [2016-01-12 Tue 14:20]--[2016-01-12 Tue 16:10] =>  1:50
+    CLOCK: [2016-01-11 Mon 16:02]--[2016-01-11 Mon 18:02] =>  2:00
     CLOCK: [2016-01-11 Mon 15:30]--[2016-01-11 Mon 16:01] =>  0:31
     CLOCK: [2016-01-11 Mon 13:50]--[2016-01-11 Mon 15:28] =>  1:38
     CLOCK: [2016-01-08 Fri 14:27]--[2016-01-08 Fri 17:00] =>  2:33
@@ -76,7 +80,15 @@ Notes:
   still have problems and cannot connect any of the servers in the
   debian pool. Leave it like this for now.
 
+*** COMPLETED Sort out monitoring form                                :story:
+    CLOSED: [2016-01-13 Wed 16:12]
+    CLOCK: [2016-01-13 Wed 15:30]--[2016-01-13 Wed 16:12] =>  0:42
+
+Get all sigs and give it to reception.
+
 *** STARTED Create a geometric representation of ball and stick       :story:
+    CLOCK: [2016-01-13 Wed 15:31]--[2016-01-13 Wed 17:59] =>  2:28
+    CLOCK: [2016-01-12 Tue 16:10]--[2016-01-12 Tue 18:01] =>  1:51
     CLOCK: [2016-01-06 Wed 16:45]--[2016-01-06 Wed 17:58] =>  1:13
     CLOCK: [2016-01-06 Wed 14:32]--[2016-01-06 Wed 16:21] =>  1:49
 
