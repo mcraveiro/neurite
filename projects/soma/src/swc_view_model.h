@@ -18,25 +18,26 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef SWC_VIEW_MODEL
+#define SWC_VIEW_MODEL
 
-#include <QMainWindow>
+#include <string>
+#include <QWidget>
+#include "neurite/swc/types/file.hpp"
 
-namespace Ui {
-class MainWindow;
-}
-
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
-
+class SwcViewModel {
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit SwcViewModel(const std::string& path);
 
 private:
-    Ui::MainWindow *ui;
+    neurite::swc::file LoadSwcFile() const;
+    
+public:
+    QWidget* Bind() const;
+
+private:
+    const std::string path_;
 };
 
-#endif // MAINWINDOW_H
+#endif // SWC_VIEW
+
