@@ -7,5 +7,10 @@
 This document contains the product backlog for Neurite.
 
 ** In next few sprints
+
+*** Add version support to soma                                       :story:
+
+We need to know the version and commit of the application on the log file.
+
 ** Tooling, infrastructure, blog posts, etc.
 ** Visionary work and random ideas
