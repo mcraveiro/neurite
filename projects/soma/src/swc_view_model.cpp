@@ -29,6 +29,7 @@
 #include <vtkQtTableView.h>
 #include <vtkCubeSource.h>
 #include <vtkRenderer.h>
+#include <vtkProperty.h>
 #include <QVTKWidget.h>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/types/hydrator.hpp"
@@ -39,7 +40,7 @@
 namespace {
 
 using namespace neurite::utility::log;
-auto lg(logger_factory("swc_view_model"));
+auto lg(logger_factory("soma.swc_view_model"));
 
 }
 
@@ -56,48 +57,41 @@ neurite::swc::file SwcViewModel::LoadSwcFile() const {
 
 QWidget* SwcViewModel::Bind() const {
     const auto f(LoadSwcFile());
-    // const auto soma(neurite::swc::structure_identifier_types::soma);
-
-    std::vector<vtkSmartPointer<vtkCylinderSource>> sources;
-    sources.reserve(f.points().size());
-    for (const auto& p : f.points()) {
-        // if (p.parent_sample() == -1 &&
-        //     p.structure_identifier() == soma) {
-        //     auto sphereSource(vtkSmartPointer<vtkSphereSource>::New());
-        //     sphereSource->Update();
-        // }
-        
-        auto s(vtkSmartPointer<vtkCylinderSource>::New());
-        s->SetCenter(p.x(), p.y(), p.z());
-        s->SetRadius(p.radius());
-        s->SetHeight(1.0);
-        s->SetResolution(100);
-        sources.push_back(s);
-        BOOST_LOG_SEV(lg, debug) << "Created point: " << p;
-    }
-
-    std::vector<vtkSmartPointer<vtkPolyDataMapper>> mappers;
-    mappers.reserve(f.points().size());
-    for (unsigned long i(0); i < f.points().size(); ++i) {
-        auto m(vtkSmartPointer<vtkPolyDataMapper>::New());
-        m->SetInputConnection(sources[i]->GetOutputPort());
-        BOOST_LOG_SEV(lg, debug) << "Created mapper: " << i;
-        mappers.push_back(m);
-    }
-    
-    std::vector<vtkSmartPointer<vtkActor>> actors;
-    actors.reserve(f.points().size());
-    for (unsigned long i(0); i < f.points().size(); ++i) {
-        auto a(vtkSmartPointer<vtkActor>::New());
-        a->SetMapper(mappers[i]);
-        actors.push_back(a);
-        BOOST_LOG_SEV(lg, debug) << "Created actor: " << i;
-    }
-
+    const auto soma(neurite::swc::structure_identifier_types::soma);
     auto renderer(vtkSmartPointer<vtkRenderer>::New());
-    for (unsigned long i(0); i < f.points().size(); ++i) {
-        renderer->AddActor(actors[i]);
-        BOOST_LOG_SEV(lg, debug) << "Added actor to renderer: " << i;
+    for (const auto& p : f.points()) {
+        BOOST_LOG_SEV(lg, debug) << "Processing point: " << p;
+
+        const auto sn(p.sample_number());
+        auto m(vtkSmartPointer<vtkPolyDataMapper>::New());
+        if (p.parent_sample() == -1 && p.structure_identifier() == soma) {
+            auto s(vtkSmartPointer<vtkSphereSource>::New());
+            s->SetCenter(p.x(), p.y(), p.z());
+            s->SetRadius(p.radius());
+            s->SetThetaResolution(20);
+            s->SetPhiResolution(20);
+            BOOST_LOG_SEV(lg, debug) << "Created sphere: " << sn;
+
+            m->SetInputConnection(s->GetOutputPort());
+            BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
+        } else {            
+            auto s(vtkSmartPointer<vtkCylinderSource>::New());
+            s->SetCenter(p.x(), p.y(), p.z());
+            s->SetRadius(p.radius());
+            s->SetHeight(1.0);
+            s->SetResolution(100);
+            BOOST_LOG_SEV(lg, debug) << "Created cylinder: " << sn;
+
+            m->SetInputConnection(s->GetOutputPort());
+            BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
+        }
+
+        auto a(vtkSmartPointer<vtkActor>::New());
+        a->SetMapper(m);
+        BOOST_LOG_SEV(lg, debug) << "Created actor for point: " << sn;
+        
+        renderer->AddActor(a);
+        BOOST_LOG_SEV(lg, debug) << "Added actor to renderer: " << sn;
     }
 
     QVTKWidget* r(new QVTKWidget);

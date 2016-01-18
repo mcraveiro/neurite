@@ -26,7 +26,7 @@
 namespace {
 
 using namespace neurite::utility::log;
-auto lg(logger_factory("main_window"));
+auto lg(logger_factory("soma.main_window"));
 
 }
 
