@@ -13,17 +13,17 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-18 Mon 17:21]
+#+CAPTION: Clock summary at [2016-01-18 Mon 17:58]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *3:32* |      |      |
+| *Total time*                                                                | *4:10* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 3:32   |      |      |
-| Active                                                                      |        | 3:32 |      |
+| Stories                                                                     | 4:10   |      |      |
+| Active                                                                      |        | 4:10 |      |
 | STARTED Sprint and product backlog grooming                                 |        |      | 0:22 |
 | STARTED Journal club and other activities                                   |        |      | 0:25 |
-| STARTED Place objects in correct locations in space                         |        |      | 2:45 |
+| STARTED Place objects in correct locations in space                         |        |      | 3:23 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -44,6 +44,7 @@ Time spent in generic tasks.
 Any time spent with updates.
 
 *** STARTED Place objects in correct locations in space               :story:
+    CLOCK: [2016-01-18 Mon 17:21]--[2016-01-18 Mon 17:59] =>  0:38
     CLOCK: [2016-01-18 Mon 16:56]--[2016-01-18 Mon 17:20] =>  0:24
     CLOCK: [2016-01-18 Mon 16:15]--[2016-01-18 Mon 16:56] =>  0:41
     CLOCK: [2016-01-18 Mon 14:55]--[2016-01-18 Mon 16:08] =>  1:13
@@ -56,25 +57,7 @@ representation correct.
 Notes:
 
 - what should the height of the cylinder be?
-- when we rotate the cylinder,
-
-Colors:
-
-: vtkFloatArray cylColor1 = vtkFloatArray.New();
-: cylColor1.SetNumberOfComponents(3);
-: cylColor1.SetName("Color1");
-:
-: for (int i = 0; i < catheter.GetOutput().GetNumberOfPoints(); i++) {
-:         cylColor1.InsertTuple3(i, 255, 0, 0);
-:  }
-: catheter.GetOutput().GetPointData().SetScalars(cylColor1);
-:
-: vtkSmartPointer<vtkUnsignedCharArray> colors =
-:     vtkSmartPointer<vtkUnsignedCharArray>::New();
-: colors->SetNumberOfComponents(3);
-: colors->SetName("Colors")
-: unsigned char red[3] = {255, 0, 0};
-: colors->InsertNextTupleValue(red);
+- rotation and translation: [[http://www.paraview.org/Wiki/VTK/Examples/Cxx/PolyData/TransformOrderDemo][TransformOrderDemo.cxx]]
 
 *** Parse btmorph's source                                            :story:
 

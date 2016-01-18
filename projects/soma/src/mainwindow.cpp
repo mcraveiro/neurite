@@ -30,20 +30,20 @@ auto lg(logger_factory("soma.main_window"));
 
 }
 
-
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    BOOST_LOG_SEV(lg, debug) << "Soma ";
+    BOOST_LOG_SEV(lg, debug) << "Started Soma.";
 
     const std::string p(
         "/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc");
     SwcViewModel vm(p);
     this->setCentralWidget(vm.Bind());
+    this->repaint();
 }
 
 MainWindow::~MainWindow() {
-    BOOST_LOG_SEV(lg, debug) << "Started Soma";
+    BOOST_LOG_SEV(lg, debug) << "Finished Soma";
     delete ui;
 }

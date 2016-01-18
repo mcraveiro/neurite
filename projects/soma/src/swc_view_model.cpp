@@ -27,7 +27,9 @@
 #include <vtkRenderWindow.h>
 #include <vtkSphereSource.h>
 #include <vtkQtTableView.h>
+#include <vtkNamedColors.h>
 #include <vtkCubeSource.h>
+#include <vtkTransform.h>
 #include <vtkRenderer.h>
 #include <vtkProperty.h>
 #include <QVTKWidget.h>
@@ -58,10 +60,13 @@ neurite::swc::file SwcViewModel::LoadSwcFile() const {
 QWidget* SwcViewModel::Bind() const {
     const auto f(LoadSwcFile());
     const auto soma(neurite::swc::structure_identifier_types::soma);
+    auto colors(vtkSmartPointer<vtkNamedColors>::New());
     auto renderer(vtkSmartPointer<vtkRenderer>::New());
+
     for (const auto& p : f.points()) {
         BOOST_LOG_SEV(lg, debug) << "Processing point: " << p;
 
+        double rgba[4];
         const auto sn(p.sample_number());
         auto m(vtkSmartPointer<vtkPolyDataMapper>::New());
         if (p.parent_sample() == -1 && p.structure_identifier() == soma) {
@@ -72,29 +77,48 @@ QWidget* SwcViewModel::Bind() const {
             s->SetPhiResolution(20);
             BOOST_LOG_SEV(lg, debug) << "Created sphere: " << sn;
 
+            colors->GetColor("Red", rgba);
+
             m->SetInputConnection(s->GetOutputPort());
             BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
-        } else {            
+        } else {
             auto s(vtkSmartPointer<vtkCylinderSource>::New());
             s->SetCenter(p.x(), p.y(), p.z());
             s->SetRadius(p.radius());
-            s->SetHeight(1.0);
+            s->SetHeight(10.0);
             s->SetResolution(100);
             BOOST_LOG_SEV(lg, debug) << "Created cylinder: " << sn;
 
+            colors->GetColor("Blue", rgba);
+            
             m->SetInputConnection(s->GetOutputPort());
             BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
         }
 
         auto a(vtkSmartPointer<vtkActor>::New());
-        a->SetMapper(m);
+        a->SetMapper(m);        
+        a->GetProperty()->SetColor(rgba[0], rgba[1], rgba[2]);
+        if (sn == 2) {
+            auto t(vtkSmartPointer<vtkTransform>::New());
+            // t->PostMultiply();
+            t->Translate(0.0, -5.0, 0.0);
+            a->SetUserTransform(t);
+            BOOST_LOG_SEV(lg, debug) << "rotating: " << sn;
+            // t->Translate(10.0, 0.0, 0.0);
+            // a->RotateX(90.0);
+            // a->RotateY(-90.0);
+        }
+
         BOOST_LOG_SEV(lg, debug) << "Created actor for point: " << sn;
         
         renderer->AddActor(a);
+        colors->GetColor("Gray", rgba);
+        renderer->SetBackground(rgba[0], rgba[1], rgba[2]);
         BOOST_LOG_SEV(lg, debug) << "Added actor to renderer: " << sn;
     }
 
     QVTKWidget* r(new QVTKWidget);
     r->GetRenderWindow()->AddRenderer(renderer);
+    r->update();
     return r;
 }
