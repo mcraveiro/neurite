@@ -12,5 +12,18 @@ This document contains the product backlog for Neurite.
 
 We need to know the version and commit of the application on the log file.
 
+*** Fix Qt warnings about TopLevelScreen                              :story:
+
+At present when we exit soma we see loads of these:
+
+: a0xb02190 void QWindowPrivate::setTopLevelScreen(QScreen*, bool) ( QScreen(0xa66d40) ): Attempt to set a screen on a child window.
+: 0xc3aec0 void QWindowPrivate::setTopLevelScreen(QScreen*, bool) ( QScreen(0xa66d40) ): Attempt to set a screen on a child window.
+: 0xc623c0 void QWindowPrivate::setTopLevelScreen(QScreen*, bool) ( QScreen(0xa66d40) ): Attempt to set a screen on a child window.
+: 0xc4de30 void QWindowPrivate::setTopLevelScreen(QScreen*, bool) ( QScreen(0xa66d40) ): Attempt to set a screen on a child window.
+
+Apparently this is due to a bug in Qt:
+
+[[http://stackoverflow.com/questions/33545006/qt5-attempt-to-set-a-screen-on-a-child-window-many-runtime-warning-messages][Qt5 “Attempt to set a screen on a child window” many runtime warning messages]]
+
 ** Tooling, infrastructure, blog posts, etc.
 ** Visionary work and random ideas
