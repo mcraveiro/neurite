@@ -112,7 +112,27 @@ QWidget* SwcViewModel::Bind() const {
                 filter->SetTransform(t); 
                 filter->Update();
                 m->SetInputConnection(filter->GetOutputPort());
+            } else if (sn == 4 || sn == 5) {
+                auto t(vtkSmartPointer<vtkTransform>::New());
+                BOOST_LOG_SEV(lg, debug) << "rotating point: " << sn;
+                const auto center(s->GetCenter());
+                t->Translate(-center[0], -center[1], -center[2]);
+                t->PostMultiply();
+                // t->RotateX(10.0);
+                // t->RotateY(45.0);
+                t->RotateZ(90.0);
+                t->Translate(+center[0], +center[1], +center[2]);
+                // t->RotateY(20.0);
+
+                auto filter(vtkSmartPointer<vtkTransformPolyDataFilter>::New());
+                filter->SetInputConnection(s->GetOutputPort());
+                filter->SetTransform(t); 
+                filter->Update();
+                m->SetInputConnection(filter->GetOutputPort());
+            } else {
+                m->SetInputConnection(s->GetOutputPort());
             }
+
             BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
         }
 
@@ -128,7 +148,7 @@ QWidget* SwcViewModel::Bind() const {
         BOOST_LOG_SEV(lg, debug) << "Added actor to renderer: " << sn;
     }
 
-    QVTKWidget* r(new QVTKWidget);
+    auto r(new QVTKWidget);
     r->GetRenderWindow()->AddRenderer(renderer);
     r->update();
     return r;
