@@ -19,10 +19,11 @@
  *
  */
 #include <boost/filesystem/fstream.hpp>
-#include <vtkCylinderSource.h>
+#include <vtkTransformPolyDataFilter.h>
 #include <vtkDataObjectToTable.h>
 #include <vtkElevationFilter.h>
 #include <vtkPolyDataMapper.h>
+#include <vtkCylinderSource.h>
 #include <vtkSmartPointer.h>
 #include <vtkRenderWindow.h>
 #include <vtkSphereSource.h>
@@ -90,24 +91,34 @@ QWidget* SwcViewModel::Bind() const {
             BOOST_LOG_SEV(lg, debug) << "Created cylinder: " << sn;
 
             colors->GetColor("Blue", rgba);
-            
-            m->SetInputConnection(s->GetOutputPort());
+
+            if (sn == 2) {
+                auto t(vtkSmartPointer<vtkTransform>::New());
+                BOOST_LOG_SEV(lg, debug) << "translating point: " << sn;
+                t->Translate(0.0, -5.0, 0.0);
+
+                auto filter(vtkSmartPointer<vtkTransformPolyDataFilter>::New());
+                filter->SetInputConnection(s->GetOutputPort());
+                filter->SetTransform(t); 
+                filter->Update();
+                m->SetInputConnection(filter->GetOutputPort());
+            } else if (sn == 3) {
+                auto t(vtkSmartPointer<vtkTransform>::New());
+                BOOST_LOG_SEV(lg, debug) << "translating point: " << sn;
+                t->Translate(0.0, 5.0, 0.0);
+
+                auto filter(vtkSmartPointer<vtkTransformPolyDataFilter>::New());
+                filter->SetInputConnection(s->GetOutputPort());
+                filter->SetTransform(t); 
+                filter->Update();
+                m->SetInputConnection(filter->GetOutputPort());
+            }
             BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
         }
 
         auto a(vtkSmartPointer<vtkActor>::New());
         a->SetMapper(m);        
         a->GetProperty()->SetColor(rgba[0], rgba[1], rgba[2]);
-        if (sn == 2) {
-            auto t(vtkSmartPointer<vtkTransform>::New());
-            // t->PostMultiply();
-            t->Translate(0.0, -5.0, 0.0);
-            a->SetUserTransform(t);
-            BOOST_LOG_SEV(lg, debug) << "rotating: " << sn;
-            // t->Translate(10.0, 0.0, 0.0);
-            // a->RotateX(90.0);
-            // a->RotateY(-90.0);
-        }
 
         BOOST_LOG_SEV(lg, debug) << "Created actor for point: " << sn;
         

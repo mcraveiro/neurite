@@ -13,17 +13,18 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-18 Mon 17:58]
+#+CAPTION: Clock summary at [2016-01-19 Tue 15:33]
 | <75>                                                                        |        |      |      |
 | Headline                                                                    | Time   |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *4:10* |      |      |
+| *Total time*                                                                | *5:32* |      |      |
 |-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 4:10   |      |      |
-| Active                                                                      |        | 4:10 |      |
+| Stories                                                                     | 5:32   |      |      |
+| Active                                                                      |        | 5:32 |      |
 | STARTED Sprint and product backlog grooming                                 |        |      | 0:22 |
 | STARTED Journal club and other activities                                   |        |      | 0:25 |
-| STARTED Place objects in correct locations in space                         |        |      | 3:23 |
+| COMPLETED Setup access to bio-computation irc channel                       |        |      | 0:25 |
+| STARTED Place objects in correct locations in space                         |        |      | 4:20 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -43,7 +44,45 @@ Time spent in generic tasks.
 
 Any time spent with updates.
 
+*** COMPLETED Setup access to bio-computation irc channel             :story:
+    CLOSED: [2016-01-19 Tue 15:11]
+    CLOCK: [2016-01-19 Tue 14:46]--[2016-01-19 Tue 15:11] =>  0:25
+
+Biocomputation has a gitter IRC channel. We should join it using
+emacs.
+
+Notes:
+
+- [[http://www.emacswiki.org/emacs/ErcSSL][ERC with SSL support]]
+- [[http://emacs.stackexchange.com/questions/3846/how-can-i-use-erc-with-an-irc-offered-over-ssl/3855#3855][How can I use ERC with an IRC offered over SSL?]]
+
+: (require 'tls)
+:
+: (setq tls-program '("openssl s_client -connect %h:%p -no_ssl2 -ign_eof
+:                                        -CAfile /home/ootput/.private/certs/CAs.pem
+:                                        -cert /home/ootput/.private/certs/nick.pem"
+:                     "gnutls-cli --priority secure256
+:                                  --x509cafile /home/ootput/.private/certs/CAs.pem
+:                                  --x509certfile /home/ootput/.private/certs/nick.pem -p %p %h"
+:                     "gnutls-cli --priority secure256 -p %p %h"))
+:
+: (defun start-irc ()
+:   "Connect to IRC."
+:   (interactive)
+:   (erc-tls :server "irc.gitter.im" :port 6697
+:            :nick "mcraveiro" :full-name "Marco Craveiro")
+:   (erc :server "irc.freenode.net" :port 6667
+:        :nick "ootput" :full-name "ootput")
+:   (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#screen" "#ion")
+:                                       ("oftc.net" "#debian"))))
+:
+:
+: (require 'erc)
+: (erc-tls :server "irc.gitter.im" :port 6667) ;; M-x erc-tls -> irc.gitter.im -> accept default PORT.
+
 *** STARTED Place objects in correct locations in space               :story:
+    CLOCK: [2016-01-19 Tue 15:11]--[2016-01-19 Tue 15:33] =>  0:22
+    CLOCK: [2016-01-19 Tue 14:10]--[2016-01-19 Tue 14:45] =>  0:35
     CLOCK: [2016-01-18 Mon 17:21]--[2016-01-18 Mon 17:59] =>  0:38
     CLOCK: [2016-01-18 Mon 16:56]--[2016-01-18 Mon 17:20] =>  0:24
     CLOCK: [2016-01-18 Mon 16:15]--[2016-01-18 Mon 16:56] =>  0:41
