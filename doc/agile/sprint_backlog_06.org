@@ -6,28 +6,30 @@
 * Mission
 
 - Integrate VTK with CGAL
-- Create a mesh wit CGAL
+- Provide a realistic visualisation of SWC files.
 
 * Stories
 
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-19 Tue 17:51]
-| <75>                                                                        |        |      |      |
-| Headline                                                                    | Time   |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| *Total time*                                                                | *8:13* |      |      |
-|-----------------------------------------------------------------------------+--------+------+------|
-| Stories                                                                     | 8:13   |      |      |
-| Active                                                                      |        | 8:13 |      |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:44 |
-| STARTED Journal club and other activities                                   |        |      | 0:25 |
-| COMPLETED Setup access to bio-computation irc channel                       |        |      | 0:25 |
-| STARTED Place objects in correct locations in space                         |        |      | 6:39 |
+#+CAPTION: Clock summary at [2016-01-20 Wed 17:09]
+| <75>                                                                        |         |       |      |
+| Headline                                                                    | Time    |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| *Total time*                                                                | *10:44* |       |      |
+|-----------------------------------------------------------------------------+---------+-------+------|
+| Stories                                                                     | 10:44   |       |      |
+| Active                                                                      |         | 10:44 |      |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:54 |
+| STARTED Journal club and other activities                                   |         |       | 0:25 |
+| COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |
+| COMPLETED Design a simple project structure for use cases                   |         |       | 2:21 |
+| STARTED Place objects in correct locations in space                         |         |       | 6:39 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
+    CLOCK: [2016-01-20 Wed 16:59]--[2016-01-20 Wed 17:09] =>  0:10
     CLOCK: [2016-01-19 Tue 17:33]--[2016-01-19 Tue 17:55] =>  0:17
     CLOCK: [2016-01-18 Mon 13:50]--[2016-01-18 Mon 14:12] =>  0:22
 
@@ -80,6 +82,22 @@ Notes:
 :
 : (require 'erc)
 : (erc-tls :server "irc.gitter.im" :port 6667) ;; M-x erc-tls -> irc.gitter.im -> accept default PORT.
+*** COMPLETED Design a simple project structure for use cases         :story:
+    CLOSED: [2016-01-20 Wed 16:58]
+    CLOCK: [2016-01-20 Wed 14:35]--[2016-01-20 Wed 16:56] =>  2:21
+
+We need to encapsulate all of the VTK processing into its own project,
+with very few Qt dependencies (the VTK widget and QWidget) . We will
+need:
+
+- a transformer to convert a SWC point into the equivalent VTK
+  representation.
+- a workflow to create the QWidget.
+
+We also should create a project to encapsulate all of the geometric
+objects. Originally we looked into using Boost.Geometry or CGAL
+natively for this, but none of them seem to have the polyhedra that we
+need for VTK.
 
 *** STARTED Place objects in correct locations in space               :story:
     CLOCK: [2016-01-19 Tue 16:58]--[2016-01-19 Tue 17:32] =>  0:34
@@ -107,17 +125,32 @@ Notes:
 - this can be done but it requires calculating distances between
   points to obtain the correct height and rotation angle. For this we
   need for all the data to be organised correctly.
+*
 
-*** Add progress bar for operations                                   :story:
+*** Create the =geometry= project                                     :story:
 
-We should have some way of monitoring SWC loading progress as well as
-VTK conversion progress. Find a UI for this.
+We need a very simple project with the basic polyhedra.
 
-*** Create a processor in =swc= to organise the points                :story:
+*** Create the =geometry.swc= project                                 :story:
 
-We need to take a raw SWC file and create a map by sample number.
+We need a very simple converter that takes an =swc::model= and
+converts it into a =geometry::plane=. To start off with we can
+hard-code the algorithm.
 
-*** Create a =swc.cgal= project                                       :story:
+*** Add support for CGAL                                              :story:
+
+We need to get a simple CGAL example to compile and run, adding all
+the required infrastructure (debian packages, CMake files, etc).
+
+*** Create a processor in =geometry.swc= to organise the points       :story:
+
+We need to compute all of the required transformations to get the
+polyhedra in the correct orientation. This will require:
+
+- some kind of container of points by parent so we can find them.
+- CGAL support so we can figure out the orientation.
+
+Notes on CGAL:
 
 This is not yet clear, but it seems useful to have a stand alone
 project with the CGAL dependency. At present we just need a way to
@@ -132,106 +165,32 @@ could be stored in =swc= data structures.
 It is not clear if we should just add a dependency to CGAL in =swc= or
 create a stand alone project.
 
-*** Create a =swc.vtk= project                                        :story:
+*** Create a =vtk.geometry= project                                   :story:
 
-We need to encapsulate all of the VTK processing into its own project,
-with very few Qt dependencies (the VTK widget and QWidget) . We will
-need:
+We need a trivial project that takes a plane and converts it into a
+VTK pipeline and a QT VTK widget.
 
-- a transformer to convert a SWC point into the equivalent VTK
-  representation.
-- a workflow to create the QWidget.
+*** Update =soma= to use the new infrastructure                       :story:
 
-*** Add menu to soma and find file                                    :story:
+To start off with we should just create a class in =soma= that acts as
+glue and orchestrates all of the other components.
 
-We need a way to load up different SWC files from the command line.
-
-*** Ignore comments on SWC                                            :story:
+*** Ignore comments on =swc=                                          :story:
 
 At present we are choking on our data files due to the headers. Do a
 simple hack on the parser to ignore comments.
-
-*** Parse btmorph's source                                            :story:
-
-We need to understand how btmorph is able to visualise SWC
-files. First get it to work, then parse the source.
-
-: apt-get install python-matplotlib python-numpy python-scipy
-: git clone https://bitbucket.org/btorb/btmorph.git
-: cd btmorph/btmorph
-: export PYTHONPATH=$(pwd):$PYTHONPATH
-: import btmorph
-: import numpy
-: import matplotlib.pyplot as plt
-: btmorph.plot_2D_SWC("neurite/test_data/swc/ball_and_stick.swc")
-
-Use ipython:
-
-: export PYTHONPATH=$PYTHONPATH:/home/marco/Development/phd/btmorph
-: import btmorph
-: btmorph.plot_2D_SWC('/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc')
-: btmorph.plot_3D_SWC('/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc')
 
 *** Create a blog post on SWC                                         :story:
 
 - describe format
 - describe the reconstruction and generative processes
 
-*** Create a geometric representation of the realistic SWC file       :story:
+*** Validate geometric work with realistic SWC models                 :story:
 
-Ensure the code still works on a more complex file format.
+Ensure the code still works when using more complex SWC models. We
+have one at present but we should download several, with different
+sizes, e.g. 5K points, 50k points, and so on.
 
-*** Create a simple XML based format                                  :story:
-
-- use data from a CGAL/VTK file representing an SWC file.
-- compare the size against SWC, using different polygon scales.
-- keep in mind large sizes such as 1M
-- take into account realistic morphologies such as sourced from EM
-  where the number of "compartments" would be extremely large. This
-  could be done via scaling (e.g. EM has 1000 more compartments, etc).
-
-*** Add SWC validation support                                        :story:
-
-We need to perform some basic validation on the SWC file. For an
-example in python see
-[[https://senselab.med.yale.edu/modeldb/ShowModel.cshtml?model%3D168858&file%3D%255CCoskrenEtAl2015%255CHHmodel%255CScripts%255CPython%255Clib%255CSwc.py][this
-reader]].
-
-- ID's must be unique.
-- parent id's must exist in file.
-- there must be one and only one soma.
-- there must be one and only one root. Root must be soma?
-- types must be well-defined - warning only?
-- all nodes must be reachable from root.
-- graph must be acyclic
-
-*** Create a presentation on 3D neuronal morphologies                 :story:
-
-We need to explain the processes around it: how do they come about,
-what are they used for, existing formats. Actually one way of tackling
-this is to create a blog post first and then summarise it in the
-presentation.
-
-*** Add support for CGAL                                              :story:
-
-We need to get a simple CGAL example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
-
-*** Add XSD tool support to neurite                                   :story:
-
-Create a simple XSD schema and get it to code generate to C++ using
-the [[http://www.codesynthesis.com/products/xsd/][XSD tool]]. This will be used for the XML file format.
-
-*** Start a blog post talking about polygon meshes                    :story:
-
-We don't necessarily need to finish it this sprint but we need to
-start collecting all the terminology, etc in a blog post.
-
-*** Create a very simple polygon mesh using CGAL                      :story:
-
-Get the sample from Ben of a very simple model and using the
-[[http://doc.cgal.org/latest/Mesh_3/][3D Mesh Generation]]
-documentation, try to generate a simple mesh.
 ** Deprecated
 *** CANCELLED Create a VTK setup from github                          :story:
     CLOSED: [2016-01-05 Tue 16:35]
