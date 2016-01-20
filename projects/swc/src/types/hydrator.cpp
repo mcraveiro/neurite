@@ -115,8 +115,8 @@ process_point_line(const std::string& s, const unsigned int line_number) const {
     }
 }
 
-file hydrator::hydrate(std::istream& is) const {
-    file r;
+model hydrator::hydrate(std::istream& is) const {
+    model r;
 
     std::string input_line;
     unsigned int line_number(0);
@@ -144,7 +144,7 @@ file hydrator::hydrate(std::istream& is) const {
     return r;
 }
 
-file hydrator::hydrate(const boost::filesystem::path& p) const {
+model hydrator::hydrate(const boost::filesystem::path& p) const {
     const auto gs(p.generic_string());
     BOOST_LOG_SEV(lg, debug) << "Parsing file: " << gs;
     boost::filesystem::ifstream s(p);

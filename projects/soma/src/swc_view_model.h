@@ -23,14 +23,14 @@
 
 #include <string>
 #include <QWidget>
-#include "neurite/swc/types/file.hpp"
+#include "neurite/swc/types/model.hpp"
 
 class SwcViewModel {
 public:
     explicit SwcViewModel(const std::string& path);
 
 private:
-    neurite::swc::file LoadSwcFile() const;
+    neurite::swc::model LoadSwc() const;
     
 public:
     QWidget* Bind() const;

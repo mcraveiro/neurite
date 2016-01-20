@@ -29,7 +29,7 @@
 #include <iosfwd>
 #include <boost/filesystem/path.hpp>
 #include "neurite/swc/types/point.hpp"
-#include "neurite/swc/types/file.hpp"
+#include "neurite/swc/types/model.hpp"
 
 namespace neurite {
 namespace swc {
@@ -48,8 +48,8 @@ private:
         const unsigned int line_number) const;
 
 public:
-    file hydrate(std::istream& is) const;
-    file hydrate(const boost::filesystem::path& p) const;
+    model hydrate(std::istream& is) const;
+    model hydrate(const boost::filesystem::path& p) const;
 };
 
 } }

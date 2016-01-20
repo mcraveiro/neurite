@@ -26,8 +26,8 @@
 #include "neurite/utility/test/exception_checkers.hpp"
 #include "neurite/swc/types/hydration_error.hpp"
 #include "neurite/swc/types/hydrator.hpp"
-#include "neurite/swc/types/file.hpp"
-#include "neurite/swc/io/file_io.hpp"
+#include "neurite/swc/types/model.hpp"
+#include "neurite/swc/io/model_io.hpp"
 
 namespace {
 

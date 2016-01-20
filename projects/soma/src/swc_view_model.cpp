@@ -37,7 +37,7 @@
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/types/hydrator.hpp"
 #include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/file_io.hpp"
+#include "neurite/swc/io/model_io.hpp"
 #include "swc_view_model.h"
 
 namespace {
@@ -49,7 +49,7 @@ auto lg(logger_factory("soma.swc_view_model"));
 
 SwcViewModel::SwcViewModel(const std::string& path) : path_(path) { }
 
-neurite::swc::file SwcViewModel::LoadSwcFile() const {
+neurite::swc::model SwcViewModel::LoadSwc() const {
     boost::filesystem::path p(path_);
     neurite::swc::hydrator h;
     boost::filesystem::ifstream s(p);
@@ -59,12 +59,12 @@ neurite::swc::file SwcViewModel::LoadSwcFile() const {
 }
 
 QWidget* SwcViewModel::Bind() const {
-    const auto f(LoadSwcFile());
+    const auto m(LoadSwc());
     const auto soma(neurite::swc::structure_identifier_types::soma);
     auto colors(vtkSmartPointer<vtkNamedColors>::New());
     auto renderer(vtkSmartPointer<vtkRenderer>::New());
 
-    for (const auto& p : f.points()) {
+    for (const auto& p : m.points()) {
         BOOST_LOG_SEV(lg, debug) << "Processing point: " << p;
 
         double rgba[4];
