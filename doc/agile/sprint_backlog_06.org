@@ -13,20 +13,21 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-20 Wed 17:29]
+#+CAPTION: Clock summary at [2016-01-20 Wed 17:54]
 | <75>                                                                        |         |       |      |
 | Headline                                                                    | Time    |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *11:02* |       |      |
+| *Total time*                                                                | *11:31* |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 11:02   |       |      |
-| Active                                                                      |         | 11:02 |      |
+| Stories                                                                     | 11:31   |       |      |
+| Active                                                                      |         | 11:31 |      |
 | STARTED Sprint and product backlog grooming                                 |         |       | 0:54 |
 | STARTED Journal club and other activities                                   |         |       | 0:25 |
 | COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |
 | COMPLETED Design a simple project structure for use cases                   |         |       | 2:32 |
 | COMPLETED Rename =swc::file= to =swc::model=                                |         |       | 0:07 |
 | STARTED Place objects in correct locations in space                         |         |       | 6:39 |
+| STARTED Create the =geometry.swc= project                                   |         |       | 0:29 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -136,26 +137,21 @@ Notes:
   need for all the data to be organised correctly.
 *
 
-*** Create a feature for QT/VTK                                       :story:
-
-At present the build is broken because travis does not support QT5 and
-VTK6. We should wrap this code with a feature and not use it on the
-build machine so that at least we can run other tests.
-
-*** Create the =geometry= project                                     :story:
-
-We need a very simple project with the basic polyhedra.
-
-*** Create the =geometry.swc= project                                 :story:
+*** STARTED Create the =geometry.swc= project                         :story:
+    CLOCK: [2016-01-20 Wed 17:30]--[2016-01-20 Wed 17:59] =>  0:29
 
 We need a very simple converter that takes an =swc::model= and
 converts it into a =geometry::plane=. To start off with we can
 hard-code the algorithm.
 
-*** Add support for CGAL                                              :story:
+*** Create the =geometry= project                                     :story:
 
-We need to get a simple CGAL example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
+We need a very simple project with the basic polyhedra.
+
+*** Create a =vtk.geometry= project                                   :story:
+
+We need a trivial project that takes a plane and converts it into a
+VTK pipeline and a QT VTK widget.
 
 *** Create a processor in =geometry.swc= to organise the points       :story:
 
@@ -180,10 +176,16 @@ could be stored in =swc= data structures.
 It is not clear if we should just add a dependency to CGAL in =swc= or
 create a stand alone project.
 
-*** Create a =vtk.geometry= project                                   :story:
+*** Create a feature for QT/VTK                                       :story:
 
-We need a trivial project that takes a plane and converts it into a
-VTK pipeline and a QT VTK widget.
+At present the build is broken because travis does not support QT5 and
+VTK6. We should wrap this code with a feature and not use it on the
+build machine so that at least we can run other tests.
+
+*** Add support for CGAL                                              :story:
+
+We need to get a simple CGAL example to compile and run, adding all
+the required infrastructure (debian packages, CMake files, etc).
 
 *** Update =soma= to use the new infrastructure                       :story:
 
