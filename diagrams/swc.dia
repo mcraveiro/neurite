@@ -97,7 +97,7 @@
             <dia:string>#@brief Implementation of the SWC model, with import
 and expot support.
 
-#DOGEN dia.comment=true
+#DOGEN yarn.dia.comment=true
 #DOGEN licence_name=gpl_v3
 #DOGEN copyright_notice=Copyright (C) 2015-2016 Marco Craveiro &lt;marco.craveiro@gmail.com&gt;
 #DOGEN modeline_group_name=emacs

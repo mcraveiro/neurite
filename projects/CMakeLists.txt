@@ -102,6 +102,9 @@ include_directories(
     # ${CMAKE_SOURCE_DIR}/projects/ohms_law/include
     ${CMAKE_SOURCE_DIR}/projects/swc/include
     ${CMAKE_SOURCE_DIR}/projects/soma/include
+    ${CMAKE_SOURCE_DIR}/projects/geometry/include
+    ${CMAKE_SOURCE_DIR}/projects/geometry.swc/include
+    ${CMAKE_SOURCE_DIR}/projects/vtk.geometry/include
     ${CMAKE_SOURCE_DIR}/projects/utility/include
     )
 
@@ -111,4 +114,7 @@ include_directories(
 # add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ohms_law/src)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/swc)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/soma)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry.swc)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vtk.geometry)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility/src)

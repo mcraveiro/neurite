@@ -13,18 +13,18 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-20 Wed 17:17]
+#+CAPTION: Clock summary at [2016-01-20 Wed 17:29]
 | <75>                                                                        |         |       |      |
 | Headline                                                                    | Time    |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *10:51* |       |      |
+| *Total time*                                                                | *11:02* |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 10:51   |       |      |
-| Active                                                                      |         | 10:51 |      |
+| Stories                                                                     | 11:02   |       |      |
+| Active                                                                      |         | 11:02 |      |
 | STARTED Sprint and product backlog grooming                                 |         |       | 0:54 |
 | STARTED Journal club and other activities                                   |         |       | 0:25 |
 | COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |
-| COMPLETED Design a simple project structure for use cases                   |         |       | 2:21 |
+| COMPLETED Design a simple project structure for use cases                   |         |       | 2:32 |
 | COMPLETED Rename =swc::file= to =swc::model=                                |         |       | 0:07 |
 | STARTED Place objects in correct locations in space                         |         |       | 6:39 |
 #+end:
@@ -85,6 +85,7 @@ Notes:
 : (erc-tls :server "irc.gitter.im" :port 6667) ;; M-x erc-tls -> irc.gitter.im -> accept default PORT.
 *** COMPLETED Design a simple project structure for use cases         :story:
     CLOSED: [2016-01-20 Wed 16:58]
+    CLOCK: [2016-01-20 Wed 17:18]--[2016-01-20 Wed 17:29] =>  0:11
     CLOCK: [2016-01-20 Wed 14:35]--[2016-01-20 Wed 16:56] =>  2:21
 
 We need to encapsulate all of the VTK processing into its own project,

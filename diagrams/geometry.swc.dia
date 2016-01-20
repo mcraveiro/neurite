@@ -96,7 +96,7 @@
           <dia:attribute name="string">
             <dia:string>#@brief Comverts SWC diagrams into geometry objects.
 
-#DOGEN dia.comment=true
+#DOGEN yarn.dia.comment=true
 #DOGEN licence_name=gpl_v3
 #DOGEN copyright_notice=Copyright (C) 2015-2016 Marco Craveiro &lt;marco.craveiro@gmail.com&gt;
 #DOGEN modeline_group_name=emacs
@@ -125,7 +125,7 @@
         <dia:point val="30,19"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="29.95,18.95;50.57,21.85"/>
+        <dia:rectangle val="29.95,18.95;50.57,22.65"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="30,19"/>
@@ -134,13 +134,13 @@
         <dia:real val="20.52"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="2.7999999999999998"/>
+        <dia:real val="3.6000000000000001"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#workflow#</dia:string>
       </dia:attribute>
       <dia:attribute name="stereotype">
-        <dia:string>##</dia:string>
+        <dia:string>#service#</dia:string>
       </dia:attribute>
       <dia:attribute name="comment">
         <dia:string>##</dia:string>
