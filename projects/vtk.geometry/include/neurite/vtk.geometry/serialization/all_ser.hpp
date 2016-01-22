@@ -26,6 +26,5 @@
 #endif
 
 #include "neurite/vtk.geometry/serialization/registrar_ser.hpp"
-#include "neurite/vtk.geometry/serialization/widget_factory_ser.hpp"
 
 #endif

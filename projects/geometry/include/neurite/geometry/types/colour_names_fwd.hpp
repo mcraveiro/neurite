@@ -18,20 +18,18 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/vtk.geometry/hash/widget_factory_hash.hpp"
+#ifndef NEURITE_GEOMETRY_TYPES_COLOUR_NAMES_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_COLOUR_NAMES_FWD_HPP
 
-namespace {
-
-
-}
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
 namespace neurite {
-namespace vtk {
 namespace geometry {
 
-std::size_t widget_factory_hasher::hash(const widget_factory&) {
-    std::size_t seed(0);
-    return seed;
-}
+enum class colour_names : unsigned int;
 
-} } }
+} }
+
+#endif

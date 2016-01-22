@@ -24,12 +24,15 @@ file(GLOB_RECURSE all_files RELATIVE
 
 add_executable(soma ${all_files})
 target_link_libraries(soma
+    utility
+    swc
+    geometry
+    geometry_swc
+    vtk_geometry
     Qt5::Core
     Qt5::Widgets
-    swc
-    utility
-    ${VTK_LIBRARIES}
-    ${Boost_LIBRARIES})
+    ${Boost_LIBRARIES}
+    ${VTK_LIBRARIES})
 set_target_properties(soma PROPERTIES OUTPUT_NAME neurite_soma)
 
 add_custom_target(run_soma

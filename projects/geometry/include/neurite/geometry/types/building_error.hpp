@@ -18,26 +18,34 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef SWC_VIEW_MODEL
-#define SWC_VIEW_MODEL
+#ifndef NEURITE_GEOMETRY_TYPES_BUILDING_ERROR_HPP
+#define NEURITE_GEOMETRY_TYPES_BUILDING_ERROR_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
 #include <string>
-#include <QWidget>
-#include "neurite/swc/types/model.hpp"
+#include <boost/exception/info.hpp>
 
-class SwcViewModel {
+namespace neurite {
+namespace geometry {
+
+class building_error : public virtual std::exception, public virtual boost::exception {
 public:
-    explicit SwcViewModel(const std::string& path);
+    building_error() = default;
+    ~building_error() noexcept = default;
+
+public:
+    building_error(const std::string& message) : message_(message) { }
+
+public:
+    const char* what() const noexcept { return(message_.c_str()); }
 
 private:
-    neurite::swc::model LoadSwc() const;
-    
-public:
-    QWidget* Bind() const;
-
-private:
-    const std::string path_;
+    const std::string message_;
 };
 
-#endif // SWC_VIEW
+} }
 
+#endif

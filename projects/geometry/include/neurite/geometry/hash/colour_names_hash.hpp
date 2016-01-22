@@ -18,22 +18,26 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_SERIALIZATION_ALL_SER_HPP
-#define NEURITE_GEOMETRY_SERIALIZATION_ALL_SER_HPP
+#ifndef NEURITE_GEOMETRY_HASH_COLOUR_NAMES_HASH_HPP
+#define NEURITE_GEOMETRY_HASH_COLOUR_NAMES_HASH_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/geometry/serialization/plane_ser.hpp"
-#include "neurite/geometry/serialization/point_ser.hpp"
-#include "neurite/geometry/serialization/colour_ser.hpp"
-#include "neurite/geometry/serialization/object_ser.hpp"
-#include "neurite/geometry/serialization/sphere_ser.hpp"
-#include "neurite/geometry/serialization/cylinder_ser.hpp"
-#include "neurite/geometry/serialization/registrar_ser.hpp"
-#include "neurite/geometry/serialization/colour_names_ser.hpp"
-#include "neurite/geometry/serialization/transformation_ser.hpp"
-#include "neurite/geometry/serialization/transformation_types_ser.hpp"
+#include <functional>
+#include "neurite/geometry/types/colour_names.hpp"
+
+namespace std {
+
+template<>
+struct hash<neurite::geometry::colour_names> {
+public:
+    size_t operator()(const neurite::geometry::colour_names& v) const {
+        return std::hash<unsigned int>()(static_cast<unsigned int>(v));
+    }
+};
+
+}
 
 #endif

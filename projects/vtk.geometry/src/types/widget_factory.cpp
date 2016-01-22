@@ -18,14 +18,24 @@
  * MA 02110-1301, USA.
  *
  */
+#include <QVTKWidget.h>
+#include <vtkRenderWindow.h>
+#include "neurite/vtk.geometry/types/renderer_factory.hpp"
 #include "neurite/vtk.geometry/types/widget_factory.hpp"
 
 namespace neurite {
 namespace vtk {
 namespace geometry {
 
-bool widget_factory::operator==(const widget_factory& /*rhs*/) const {
-    return true;
+QWidget* widget_factory::make(const neurite::geometry::plane& p) const {
+    renderer_factory f;
+    auto renderer(f.make(p));
+
+    auto r(new QVTKWidget);
+    r->GetRenderWindow()->AddRenderer(renderer);
+    r->update();
+
+    return r;
 }
 
 } } }

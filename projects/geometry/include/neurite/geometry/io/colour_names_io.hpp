@@ -18,37 +18,21 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_VTK_GEOMETRY_TEST_DATA_WIDGET_FACTORY_TD_HPP
-#define NEURITE_VTK_GEOMETRY_TEST_DATA_WIDGET_FACTORY_TD_HPP
+#ifndef NEURITE_GEOMETRY_IO_COLOUR_NAMES_IO_HPP
+#define NEURITE_GEOMETRY_IO_COLOUR_NAMES_IO_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/vtk.geometry/types/widget_factory.hpp"
+#include <iosfwd>
+#include "neurite/geometry/types/colour_names.hpp"
 
 namespace neurite {
-namespace vtk {
 namespace geometry {
 
-class widget_factory_generator {
-public:
-    widget_factory_generator();
+std::ostream& operator<<(std::ostream& s, const colour_names& v);
 
-public:
-    typedef neurite::vtk::geometry::widget_factory result_type;
-
-public:
-    static void populate(const unsigned int position, result_type& v);
-    static result_type create(const unsigned int position);
-    result_type operator()();
-
-private:
-    unsigned int position_;
-public:
-    static result_type* create_ptr(const unsigned int position);
-};
-
-} } }
+} }
 
 #endif

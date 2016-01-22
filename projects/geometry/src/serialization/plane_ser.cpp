@@ -31,6 +31,7 @@
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
 #include "neurite/geometry/serialization/plane_ser.hpp"
+#include "neurite/geometry/serialization/colour_ser.hpp"
 #include "neurite/geometry/serialization/object_ser.hpp"
 
 namespace boost {
@@ -43,6 +44,7 @@ void save(Archive& ar,
     ar << make_nvp("id", v.id_);
     ar << make_nvp("name", v.name_);
     ar << make_nvp("objects", v.objects_);
+    ar << make_nvp("colour", v.colour_);
 }
 
 template<typename Archive>
@@ -52,6 +54,7 @@ void load(Archive& ar,
     ar >> make_nvp("id", v.id_);
     ar >> make_nvp("name", v.name_);
     ar >> make_nvp("objects", v.objects_);
+    ar >> make_nvp("colour", v.colour_);
 }
 
 } }

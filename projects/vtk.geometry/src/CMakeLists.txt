@@ -23,7 +23,13 @@ file(GLOB_RECURSE all_files RELATIVE
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 add_library(vtk_geometry STATIC ${all_files})
-target_link_libraries(vtk_geometry ${Boost_LIBRARIES})
+target_link_libraries(vtk_geometry
+    utility
+    geometry
+    Qt5::Core
+    Qt5::Widgets
+    ${Boost_LIBRARIES}
+    ${VTK_LIBRARIES})
 
 set_target_properties(vtk_geometry PROPERTIES OUTPUT_NAME neurite.vtk.geometry)
 

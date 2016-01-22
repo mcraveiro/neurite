@@ -19,6 +19,7 @@
  *
  */
 #include "neurite/geometry/hash/plane_hash.hpp"
+#include "neurite/geometry/hash/colour_hash.hpp"
 #include "neurite/geometry/hash/object_hash.hpp"
 
 namespace {
@@ -54,6 +55,7 @@ std::size_t plane_hasher::hash(const plane& v) {
     combine(seed, v.id());
     combine(seed, v.name());
     combine(seed, hash_std_list_boost_shared_ptr_neurite_geometry_object_(v.objects()));
+    combine(seed, v.colour());
 
     return seed;
 }

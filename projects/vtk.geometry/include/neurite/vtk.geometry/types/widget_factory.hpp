@@ -25,8 +25,8 @@
 #pragma once
 #endif
 
-#include <algorithm>
-#include "neurite/vtk.geometry/serialization/widget_factory_fwd_ser.hpp"
+#include <QWidget>
+#include "neurite/geometry/types/plane.hpp"
 
 namespace neurite {
 namespace vtk {
@@ -34,25 +34,7 @@ namespace geometry {
 
 class widget_factory final {
 public:
-    widget_factory() = default;
-    widget_factory(const widget_factory&) = default;
-    widget_factory(widget_factory&&) = default;
-    ~widget_factory() = default;
-    widget_factory& operator=(const widget_factory&) = default;
-
-private:
-    template<typename Archive>
-    friend void boost::serialization::save(Archive& ar, const widget_factory& v, unsigned int version);
-
-    template<typename Archive>
-    friend void boost::serialization::load(Archive& ar, widget_factory& v, unsigned int version);
-
-public:
-    bool operator==(const widget_factory& rhs) const;
-    bool operator!=(const widget_factory& rhs) const {
-        return !this->operator==(rhs);
-    }
-
+    QWidget* make(const neurite::geometry::plane& p) const;
 };
 
 } } }

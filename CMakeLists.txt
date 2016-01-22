@@ -88,7 +88,7 @@ string(STRIP ${GIT_COMMIT_COUNT} GIT_COMMIT_COUNT)
 # setup dogen knitter
 # set CMAKE_PROGRAM_PATH accordingly
 #
-find_program(DOGEN_KNITTER_COMMAND NAMES dogen_knitter)
+find_program(DOGEN_KNITTER_COMMAND NAMES dogen.knitter)
 if(NOT DEFINED DOGEN_KNITTER_COMMAND)
     message(FATAL_ERROR "dogen knitter not found.")
 endif()

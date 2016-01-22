@@ -22,8 +22,12 @@
 #include <boost/make_shared.hpp>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/io/point_io.hpp"
+#include "neurite/geometry/types/plane.hpp"
+#include "neurite/geometry/io/plane_io.hpp"
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/cylinder.hpp"
+#include "neurite/geometry/types/colour_names.hpp"
+#include "neurite/geometry/types/colour_factory.hpp"
 #include "neurite/geometry/types/transformation.hpp"
 #include "neurite/geometry.swc/types/workflow.hpp"
 
@@ -40,6 +44,8 @@ namespace swc {
 
 geometry::plane workflow::execute(const neurite::swc::model& m) const {
     geometry::plane r;
+    geometry::colour_factory f;
+    r.colour(f.make(colour_names::gray));
 
     const auto soma(neurite::swc::structure_identifier_types::soma);
     for (const auto& p : m.points()) {
@@ -52,9 +58,8 @@ geometry::plane workflow::execute(const neurite::swc::model& m) const {
             s->centre().y(p.y());
             s->centre().z(p.z());
             s->radius(p.radius());
+            s->colour(f.make(colour_names::red));
             BOOST_LOG_SEV(lg, debug) << "Created sphere: " << sn;
-
-            // colors->GetColor("Red", rgba);
             r.objects().push_back(s);
         } else {
             auto c(boost::make_shared<neurite::geometry::cylinder>());
@@ -63,10 +68,9 @@ geometry::plane workflow::execute(const neurite::swc::model& m) const {
             c->centre().z(p.z());
             c->radius(p.radius());
             c->height(10.0);
+            c->colour(f.make(colour_names::blue));
             r.objects().push_back(c);
             BOOST_LOG_SEV(lg, debug) << "Created cylinder: " << sn;
-
-            // colors->GetColor("Blue", rgba);
 
             if (sn == 2) {
                 neurite::geometry::transformation t;
@@ -95,7 +99,8 @@ geometry::plane workflow::execute(const neurite::swc::model& m) const {
 
             BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
         }
-    }    
+    }
+    BOOST_LOG_SEV(lg, debug) << "Plane: " << r;
     return r;
 }
 

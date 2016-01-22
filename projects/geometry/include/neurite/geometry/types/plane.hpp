@@ -29,6 +29,7 @@
 #include <string>
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
+#include "neurite/geometry/types/colour.hpp"
 #include "neurite/geometry/types/object_fwd.hpp"
 #include "neurite/geometry/serialization/plane_fwd_ser.hpp"
 
@@ -51,7 +52,8 @@ public:
     plane(
         const int id,
         const std::string& name,
-        const std::list<boost::shared_ptr<neurite::geometry::object> >& objects);
+        const std::list<boost::shared_ptr<neurite::geometry::object> >& objects,
+        const neurite::geometry::colour& colour);
 
 private:
     template<typename Archive>
@@ -79,6 +81,11 @@ public:
     void objects(const std::list<boost::shared_ptr<neurite::geometry::object> >& v);
     void objects(const std::list<boost::shared_ptr<neurite::geometry::object> >&& v);
 
+    const neurite::geometry::colour& colour() const;
+    neurite::geometry::colour& colour();
+    void colour(const neurite::geometry::colour& v);
+    void colour(const neurite::geometry::colour&& v);
+
 public:
     bool operator==(const plane& rhs) const;
     bool operator!=(const plane& rhs) const {
@@ -93,6 +100,7 @@ private:
     int id_;
     std::string name_;
     std::list<boost::shared_ptr<neurite::geometry::object> > objects_;
+    neurite::geometry::colour colour_;
 };
 
 } }

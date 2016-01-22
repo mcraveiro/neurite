@@ -18,25 +18,20 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_VTK_GEOMETRY_SERIALIZATION_WIDGET_FACTORY_SER_HPP
-#define NEURITE_VTK_GEOMETRY_SERIALIZATION_WIDGET_FACTORY_SER_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_BUILDING_ERROR_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_BUILDING_ERROR_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <boost/serialization/split_free.hpp>
-#include "neurite/vtk.geometry/types/widget_factory.hpp"
+#include <string>
+#include <boost/exception/info.hpp>
 
-BOOST_SERIALIZATION_SPLIT_FREE(neurite::vtk::geometry::widget_factory)
-namespace boost {
-namespace serialization {
+namespace neurite {
+namespace geometry {
 
-template<typename Archive>
-void save(Archive& ar, const neurite::vtk::geometry::widget_factory& v, unsigned int version);
-
-template<typename Archive>
-void load(Archive& ar, neurite::vtk::geometry::widget_factory& v, unsigned int version);
+class building_error;
 
 } }
 

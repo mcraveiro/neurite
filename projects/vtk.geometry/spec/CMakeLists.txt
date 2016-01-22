@@ -27,9 +27,12 @@ set(binary_name "neurite.vtk.geometry.spec")
 set_target_properties(vtk_geometry_spec PROPERTIES OUTPUT_NAME ${binary_name})
 
 target_link_libraries(vtk_geometry_spec
-    vtk_geometry
     utility
+    vtk_geometry
+    Qt5::Core
+    Qt5::Widgets
     ${Boost_LIBRARIES}
+    ${VTK_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT})
 
 set(vtk_geometry_spec_cmd ${stage_bin_dir}/${binary_name} ${boost_test_parameters})

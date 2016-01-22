@@ -18,36 +18,36 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_VTK_GEOMETRY_HASH_WIDGET_FACTORY_HASH_HPP
-#define NEURITE_VTK_GEOMETRY_HASH_WIDGET_FACTORY_HASH_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
-
-#include <functional>
-#include "neurite/vtk.geometry/types/widget_factory.hpp"
+#include <string>
+#include <ostream>
+#include <stdexcept>
+#include "neurite/geometry/io/colour_names_io.hpp"
 
 namespace neurite {
-namespace vtk {
 namespace geometry {
 
-struct widget_factory_hasher {
-public:
-    static std::size_t hash(const widget_factory& v);
-};
+std::ostream& operator<<(std::ostream& s, const colour_names& v) {
+    s << "{ " << "\"__type__\": " << "\"colour_names\", " << "\"value\": ";
 
-} } }
-
-namespace std {
-
-template<>
-struct hash<neurite::vtk::geometry::widget_factory> {
-public:
-    size_t operator()(const neurite::vtk::geometry::widget_factory& v) const {
-        return neurite::vtk::geometry::widget_factory_hasher::hash(v);
+    std::string attr;
+    switch (v) {
+    case colour_names::invalid:
+        attr = "\"invalid\"";
+        break;
+    case colour_names::red:
+        attr = "\"red\"";
+        break;
+    case colour_names::blue:
+        attr = "\"blue\"";
+        break;
+    case colour_names::gray:
+        attr = "\"gray\"";
+        break;
+    default:
+        throw std::invalid_argument("Invalid value for colour_names");
     }
-};
-
+    s << attr << " }";
+    return s;
 }
-#endif
+
+} }

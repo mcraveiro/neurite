@@ -39,22 +39,26 @@ plane::plane()
 plane::plane(
     const int id,
     const std::string& name,
-    const std::list<boost::shared_ptr<neurite::geometry::object> >& objects)
+    const std::list<boost::shared_ptr<neurite::geometry::object> >& objects,
+    const neurite::geometry::colour& colour)
     : id_(id),
       name_(name),
-      objects_(objects) { }
+      objects_(objects),
+      colour_(colour) { }
 
 void plane::swap(plane& other) noexcept {
     using std::swap;
     swap(id_, other.id_);
     swap(name_, other.name_);
     swap(objects_, other.objects_);
+    swap(colour_, other.colour_);
 }
 
 bool plane::operator==(const plane& rhs) const {
     return id_ == rhs.id_ &&
         name_ == rhs.name_ &&
-        objects_ == rhs.objects_;
+        objects_ == rhs.objects_ &&
+        colour_ == rhs.colour_;
 }
 
 plane& plane::operator=(plane other) {
@@ -101,6 +105,22 @@ void plane::objects(const std::list<boost::shared_ptr<neurite::geometry::object>
 
 void plane::objects(const std::list<boost::shared_ptr<neurite::geometry::object> >&& v) {
     objects_ = std::move(v);
+}
+
+const neurite::geometry::colour& plane::colour() const {
+    return colour_;
+}
+
+neurite::geometry::colour& plane::colour() {
+    return colour_;
+}
+
+void plane::colour(const neurite::geometry::colour& v) {
+    colour_ = v;
+}
+
+void plane::colour(const neurite::geometry::colour&& v) {
+    colour_ = std::move(v);
 }
 
 } }

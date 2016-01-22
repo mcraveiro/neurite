@@ -21,6 +21,7 @@
 #include <ostream>
 #include <boost/algorithm/string.hpp>
 #include "neurite/geometry/io/plane_io.hpp"
+#include "neurite/geometry/io/colour_io.hpp"
 #include "neurite/geometry/io/object_io.hpp"
 
 inline std::string tidy_up_string(std::string s) {
@@ -68,7 +69,8 @@ std::ostream& operator<<(std::ostream& s, const plane& v) {
       << "\"__type__\": " << "\"neurite::geometry::plane\"" << ", "
       << "\"id\": " << v.id() << ", "
       << "\"name\": " << "\"" << tidy_up_string(v.name()) << "\"" << ", "
-      << "\"objects\": " << v.objects()
+      << "\"objects\": " << v.objects() << ", "
+      << "\"colour\": " << v.colour()
       << " }";
     return(s);
 }

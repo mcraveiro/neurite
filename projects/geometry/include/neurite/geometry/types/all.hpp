@@ -32,6 +32,8 @@
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/cylinder.hpp"
 #include "neurite/geometry/types/geometry.hpp"
+#include "neurite/geometry/types/colour_names.hpp"
+#include "neurite/geometry/types/building_error.hpp"
 #include "neurite/geometry/types/colour_factory.hpp"
 #include "neurite/geometry/types/object_visitor.hpp"
 #include "neurite/geometry/types/transformation.hpp"

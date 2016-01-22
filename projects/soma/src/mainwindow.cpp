@@ -18,16 +18,29 @@
  * MA 02110-1301, USA.
  *
  */
-#include "swc_view_model.h"
+#include <boost/filesystem/fstream.hpp>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "neurite/utility/log/logger.hpp"
+#include "neurite/swc/types/hydrator.hpp"
+#include "neurite/swc/io/point_io.hpp"
+#include "neurite/swc/io/model_io.hpp"
+#include "neurite/geometry.swc/types/workflow.hpp"
+#include "neurite/vtk.geometry/types/widget_factory.hpp"
 
 namespace {
 
 using namespace neurite::utility::log;
 auto lg(logger_factory("soma.main_window"));
 
+}
+
+neurite::swc::model load_swc_model(const boost::filesystem::path p) {
+    neurite::swc::hydrator h;
+    boost::filesystem::ifstream s(p);
+    const auto r(h.hydrate(s));
+    BOOST_LOG_SEV(lg, debug) << r;
+    return r;
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -38,8 +51,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     const std::string p(
         "/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc");
-    SwcViewModel vm(p);
-    this->setCentralWidget(vm.Bind());
+    const auto m(load_swc_model(p));
+    
+    neurite::geometry::swc::workflow w;
+    const auto plane(w.execute(m));
+    
+    neurite::vtk::geometry::widget_factory f;
+    auto widget(f.make(plane));
+
+    this->setCentralWidget(widget);
     this->repaint();
 }
 

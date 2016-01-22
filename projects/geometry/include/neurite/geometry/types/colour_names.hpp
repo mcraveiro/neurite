@@ -18,34 +18,23 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/vtk.geometry/test_data/widget_factory_td.hpp"
+#ifndef NEURITE_GEOMETRY_TYPES_COLOUR_NAMES_HPP
+#define NEURITE_GEOMETRY_TYPES_COLOUR_NAMES_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
 namespace neurite {
-namespace vtk {
 namespace geometry {
 
-widget_factory_generator::widget_factory_generator() : position_(0) { }
+enum class colour_names : unsigned int {
+    invalid = 0, ///< Represents an uninitialised enum
+    red = 1,
+    blue = 2,
+    gray = 3
+};
 
-void widget_factory_generator::
-populate(const unsigned int /*position*/, result_type& /*v*/) {
-}
+} }
 
-widget_factory_generator::result_type
-widget_factory_generator::create(const unsigned int/*position*/) {
-    widget_factory r;
-    return r;
-}
-
-widget_factory_generator::result_type*
-widget_factory_generator::create_ptr(const unsigned int position) {
-    widget_factory* p = new widget_factory();
-    widget_factory_generator::populate(position, *p);
-    return p;
-}
-
-widget_factory_generator::result_type
-widget_factory_generator::operator()() {
-    return create(position_++);
-}
-
-} } }
+#endif

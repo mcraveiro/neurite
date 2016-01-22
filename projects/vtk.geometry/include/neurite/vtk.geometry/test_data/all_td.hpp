@@ -25,6 +25,4 @@
 #pragma once
 #endif
 
-#include "neurite/vtk.geometry/test_data/widget_factory_td.hpp"
-
 #endif

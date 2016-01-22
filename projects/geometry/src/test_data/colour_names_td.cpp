@@ -18,24 +18,27 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_VTK_GEOMETRY_SERIALIZATION_WIDGET_FACTORY_FWD_SER_HPP
-#define NEURITE_VTK_GEOMETRY_SERIALIZATION_WIDGET_FACTORY_FWD_SER_HPP
+#include "neurite/geometry/test_data/colour_names_td.hpp"
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
+namespace neurite {
+namespace geometry {
 
-#include "neurite/vtk.geometry/types/widget_factory_fwd.hpp"
+colour_names_generator::colour_names_generator() : position_(0) { }
+void colour_names_generator::
+populate(const unsigned int position, result_type& v) {
+    v = static_cast<colour_names>(position % 4);
+}
 
-namespace boost {
-namespace serialization {
+colour_names_generator::result_type
+colour_names_generator::create(const unsigned int  position) {
+    result_type r;
+    colour_names_generator::populate(position, r);
+    return r;
+}
 
-template<class Archive>
-void save(Archive& ar, const neurite::vtk::geometry::widget_factory& v, unsigned int version);
-
-template<class Archive>
-void load(Archive& ar, neurite::vtk::geometry::widget_factory& v, unsigned int version);
+colour_names_generator::result_type
+colour_names_generator::operator()() {
+    return create(position_++);
+}
 
 } }
-
-#endif

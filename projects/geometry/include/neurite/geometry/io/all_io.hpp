@@ -31,6 +31,7 @@
 #include "neurite/geometry/io/object_io.hpp"
 #include "neurite/geometry/io/sphere_io.hpp"
 #include "neurite/geometry/io/cylinder_io.hpp"
+#include "neurite/geometry/io/colour_names_io.hpp"
 #include "neurite/geometry/io/transformation_io.hpp"
 #include "neurite/geometry/io/transformation_types_io.hpp"
 
