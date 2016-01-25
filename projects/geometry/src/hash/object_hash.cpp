@@ -19,7 +19,6 @@
  *
  */
 #include "neurite/geometry/hash/point_hash.hpp"
-#include "neurite/geometry/hash/colour_hash.hpp"
 #include "neurite/geometry/hash/object_hash.hpp"
 #include "neurite/geometry/hash/transformation_hash.hpp"
 

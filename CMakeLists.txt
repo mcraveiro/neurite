@@ -14,7 +14,7 @@ find_package(Threads REQUIRED)
 
 # boost
 add_definitions(-DBOOST_ALL_DYN_LINK)
-find_package(Boost 1.55 REQUIRED COMPONENTS
+find_package(Boost 1.59 REQUIRED COMPONENTS
     system
     chrono
     serialization

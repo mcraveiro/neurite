@@ -5,4 +5,4 @@
   :name "Neurite Project"
   :version "0.0.1"
   :file (expand-file-name ".neurite.ede")
-  :compdb-file (expand-file-name "build/output/clang-3.7/compile_commands.json")))
+  :compdb-file (expand-file-name "build/output/gcc-5/compile_commands.json")))

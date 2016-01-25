@@ -33,7 +33,7 @@ sphere::sphere(
     const int id,
     const int parent_id,
     const neurite::geometry::point& centre,
-    const neurite::geometry::colour& colour,
+    const std::string& colour,
     const std::list<neurite::geometry::transformation>& transformations,
     const double radius)
     : neurite::geometry::object(

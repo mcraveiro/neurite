@@ -19,8 +19,8 @@
  *
  */
 #include <ostream>
+#include <boost/algorithm/string.hpp>
 #include "neurite/geometry/io/point_io.hpp"
-#include "neurite/geometry/io/colour_io.hpp"
 #include "neurite/geometry/io/object_io.hpp"
 #include "neurite/geometry/io/transformation_io.hpp"
 

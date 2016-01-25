@@ -27,12 +27,10 @@
 
 #include "neurite/geometry/serialization/plane_ser.hpp"
 #include "neurite/geometry/serialization/point_ser.hpp"
-#include "neurite/geometry/serialization/colour_ser.hpp"
 #include "neurite/geometry/serialization/object_ser.hpp"
 #include "neurite/geometry/serialization/sphere_ser.hpp"
 #include "neurite/geometry/serialization/cylinder_ser.hpp"
 #include "neurite/geometry/serialization/registrar_ser.hpp"
-#include "neurite/geometry/serialization/colour_names_ser.hpp"
 #include "neurite/geometry/serialization/transformation_ser.hpp"
 #include "neurite/geometry/serialization/transformation_types_ser.hpp"
 

@@ -20,7 +20,6 @@
  */
 #include <sstream>
 #include "neurite/geometry/test_data/plane_td.hpp"
-#include "neurite/geometry/test_data/colour_td.hpp"
 #include "neurite/geometry/test_data/object_td.hpp"
 
 namespace {
@@ -55,11 +54,6 @@ std::list<boost::shared_ptr<neurite::geometry::object> > create_std_list_boost_s
     return r;
 }
 
-neurite::geometry::colour
-create_neurite_geometry_colour(const unsigned int position) {
-    return neurite::geometry::colour_generator::create(position);
-}
-
 }
 
 namespace neurite {
@@ -72,7 +66,7 @@ populate(const unsigned int position, result_type& v) {
     v.id(create_int(position + 0));
     v.name(create_std_string(position + 1));
     v.objects(create_std_list_boost_shared_ptr_neurite_geometry_object_(position + 2));
-    v.colour(create_neurite_geometry_colour(position + 3));
+    v.colour(create_std_string(position + 3));
 }
 
 plane_generator::result_type

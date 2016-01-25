@@ -40,7 +40,7 @@ plane::plane(
     const int id,
     const std::string& name,
     const std::list<boost::shared_ptr<neurite::geometry::object> >& objects,
-    const neurite::geometry::colour& colour)
+    const std::string& colour)
     : id_(id),
       name_(name),
       objects_(objects),
@@ -107,19 +107,19 @@ void plane::objects(const std::list<boost::shared_ptr<neurite::geometry::object>
     objects_ = std::move(v);
 }
 
-const neurite::geometry::colour& plane::colour() const {
+const std::string& plane::colour() const {
     return colour_;
 }
 
-neurite::geometry::colour& plane::colour() {
+std::string& plane::colour() {
     return colour_;
 }
 
-void plane::colour(const neurite::geometry::colour& v) {
+void plane::colour(const std::string& v) {
     colour_ = v;
 }
 
-void plane::colour(const neurite::geometry::colour&& v) {
+void plane::colour(const std::string&& v) {
     colour_ = std::move(v);
 }
 

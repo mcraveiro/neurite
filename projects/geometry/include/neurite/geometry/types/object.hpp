@@ -27,9 +27,9 @@
 
 #include <list>
 #include <iosfwd>
+#include <string>
 #include <algorithm>
 #include "neurite/geometry/types/point.hpp"
-#include "neurite/geometry/types/colour.hpp"
 #include "neurite/geometry/types/object_visitor.hpp"
 #include "neurite/geometry/types/transformation.hpp"
 #include "neurite/geometry/serialization/object_fwd_ser.hpp"
@@ -52,7 +52,7 @@ public:
         const int id,
         const int parent_id,
         const neurite::geometry::point& centre,
-        const neurite::geometry::colour& colour,
+        const std::string& colour,
         const std::list<neurite::geometry::transformation>& transformations);
 
 private:
@@ -93,10 +93,10 @@ public:
     void centre(const neurite::geometry::point& v);
     void centre(const neurite::geometry::point&& v);
 
-    const neurite::geometry::colour& colour() const;
-    neurite::geometry::colour& colour();
-    void colour(const neurite::geometry::colour& v);
-    void colour(const neurite::geometry::colour&& v);
+    const std::string& colour() const;
+    std::string& colour();
+    void colour(const std::string& v);
+    void colour(const std::string&& v);
 
     const std::list<neurite::geometry::transformation>& transformations() const;
     std::list<neurite::geometry::transformation>& transformations();
@@ -115,7 +115,7 @@ private:
     int id_;
     int parent_id_;
     neurite::geometry::point centre_;
-    neurite::geometry::colour colour_;
+    std::string colour_;
     std::list<neurite::geometry::transformation> transformations_;
 };
 

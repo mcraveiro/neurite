@@ -19,10 +19,17 @@
  *
  */
 #include <ostream>
+#include <boost/algorithm/string.hpp>
 #include "neurite/geometry/io/point_io.hpp"
-#include "neurite/geometry/io/colour_io.hpp"
 #include "neurite/geometry/types/object.hpp"
 #include "neurite/geometry/io/transformation_io.hpp"
+
+inline std::string tidy_up_string(std::string s) {
+    boost::replace_all(s, "\r\n", "<new_line>");
+    boost::replace_all(s, "\n", "<new_line>");
+    boost::replace_all(s, "\"", "<quote>");
+    return s;
+}
 
 namespace std {
 
@@ -49,7 +56,7 @@ object::object(
     const int id,
     const int parent_id,
     const neurite::geometry::point& centre,
-    const neurite::geometry::colour& colour,
+    const std::string& colour,
     const std::list<neurite::geometry::transformation>& transformations)
     : id_(id),
       parent_id_(parent_id),
@@ -63,7 +70,7 @@ void object::to_stream(std::ostream& s) const {
       << "\"id\": " << id_ << ", "
       << "\"parent_id\": " << parent_id_ << ", "
       << "\"centre\": " << centre_ << ", "
-      << "\"colour\": " << colour_ << ", "
+      << "\"colour\": " << "\"" << tidy_up_string(colour_) << "\"" << ", "
       << "\"transformations\": " << transformations_
       << " }";
 }
@@ -117,19 +124,19 @@ void object::centre(const neurite::geometry::point&& v) {
     centre_ = std::move(v);
 }
 
-const neurite::geometry::colour& object::colour() const {
+const std::string& object::colour() const {
     return colour_;
 }
 
-neurite::geometry::colour& object::colour() {
+std::string& object::colour() {
     return colour_;
 }
 
-void object::colour(const neurite::geometry::colour& v) {
+void object::colour(const std::string& v) {
     colour_ = v;
 }
 
-void object::colour(const neurite::geometry::colour&& v) {
+void object::colour(const std::string&& v) {
     colour_ = std::move(v);
 }
 

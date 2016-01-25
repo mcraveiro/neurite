@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
+#include <sstream>
 #include "neurite/geometry/test_data/point_td.hpp"
-#include "neurite/geometry/test_data/colour_td.hpp"
 #include "neurite/geometry/test_data/object_td.hpp"
 #include "neurite/geometry/test_data/sphere_td.hpp"
 #include "neurite/geometry/test_data/cylinder_td.hpp"
@@ -36,9 +36,10 @@ create_neurite_geometry_point(const unsigned int position) {
     return neurite::geometry::point_generator::create(position);
 }
 
-neurite::geometry::colour
-create_neurite_geometry_colour(const unsigned int position) {
-    return neurite::geometry::colour_generator::create(position);
+std::string create_std_string(const unsigned int position) {
+    std::ostringstream s;
+    s << "a_string_" << position;
+    return s.str();
 }
 
 neurite::geometry::transformation
@@ -64,7 +65,7 @@ populate(const unsigned int position, result_type& v) {
     v.id(create_int(position + 0));
     v.parent_id(create_int(position + 1));
     v.centre(create_neurite_geometry_point(position + 2));
-    v.colour(create_neurite_geometry_colour(position + 3));
+    v.colour(create_std_string(position + 3));
     v.transformations(create_std_list_neurite_geometry_transformation(position + 4));
 }
 

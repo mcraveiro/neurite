@@ -19,7 +19,6 @@
  *
  */
 #include "neurite/geometry/hash/plane_hash.hpp"
-#include "neurite/geometry/hash/colour_hash.hpp"
 #include "neurite/geometry/hash/object_hash.hpp"
 
 namespace {

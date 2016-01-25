@@ -20,6 +20,7 @@
  */
 #include <vtkActor.h>
 #include <vtkProperty.h>
+#include <vtkNamedColors.h>
 #include <vtkRenderWindow.h>
 #include <vtkSphereSource.h>
 #include <vtkCylinderSource.h>
@@ -28,7 +29,6 @@
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/cylinder.hpp"
 #include "neurite/geometry/types/object_visitor.hpp"
-#include "neurite/geometry/io/colour_io.hpp"
 #include "neurite/vtk.geometry/types/transformer.hpp"
 #include "neurite/vtk.geometry/types/renderer_factory.hpp"
 
@@ -44,10 +44,12 @@ namespace vtk {
 namespace geometry {
 
 class actor_factory final : public neurite::geometry::object_visitor {
+ public:
+    explicit actor_factory(vtkNamedColors& palette) : palette_(palette) { }
 private:
     void setup_actor(const neurite::geometry::object& o,
         vtkSmartPointer<vtkPolyDataAlgorithm> a);
-    
+
 public:
     using neurite::geometry::object_visitor::visit;
     virtual void visit(const neurite::geometry::cylinder& c) override;
@@ -55,8 +57,9 @@ public:
 
 public:
     vtkSmartPointer<vtkActor> make(const neurite::geometry::object& o);
-    
-public:
+
+private:
+    vtkNamedColors& palette_;
     vtkSmartPointer<vtkActor> actor_;
 };
 
@@ -67,12 +70,14 @@ void actor_factory::setup_actor(const neurite::geometry::object& o,
     m->SetInputConnection(a->GetOutputPort());
     BOOST_LOG_SEV(lg, debug) << "Created mapper for object: " << o.id();
 
-    actor_->SetMapper(m);        
-    actor_->GetProperty()->SetColor(o.colour().red(), o.colour().green(), o.colour().blue());
+    double rgba[4];
+    palette_.GetColor(o.colour(), rgba);
+    actor_->GetProperty()->SetColor(rgba[0], rgba[1], rgba[2]);
+    actor_->SetMapper(m);
     BOOST_LOG_SEV(lg, debug) << "Setup actor for object: " << o.id();
 }
 
-void actor_factory::visit(const neurite::geometry::cylinder& c) {        
+void actor_factory::visit(const neurite::geometry::cylinder& c) {
     transformer t;
     setup_actor(c, t.transform(c));
 }
@@ -82,18 +87,27 @@ void actor_factory::visit(const neurite::geometry::sphere& s) {
     setup_actor(s, t.transform(s));
 }
 
-vtkSmartPointer<vtkActor> actor_factory::make(const neurite::geometry::object& o) {
+vtkSmartPointer<vtkActor>
+actor_factory::make(const neurite::geometry::object& o) {
     actor_ = vtkSmartPointer<vtkActor>::New();
     o.accept(*this);
     return actor_;
 }
 
-vtkSmartPointer<vtkRenderer> renderer_factory::make(const neurite::geometry::plane& p) const {
+vtkSmartPointer<vtkRenderer>
+renderer_factory::make(const neurite::geometry::plane& p) const {
     auto r(vtkSmartPointer<vtkRenderer>::New());
-    BOOST_LOG_SEV(lg, debug) << "Setting renderer background colour: " << p.colour();
-    r->SetBackground(p.colour().red(), p.colour().green(), p.colour().blue());
+    BOOST_LOG_SEV(lg, debug) << "Setting renderer background colour: "
+                             << p.colour();
 
-    actor_factory f;
+    auto palette(vtkSmartPointer<vtkNamedColors>::New());
+    double rgba[4];
+    palette->GetColor(p.colour(), rgba);
+    r->GradientBackgroundOn();
+    r->SetBackground2(0, 0, 0);
+    r->SetBackground(rgba[0], rgba[1], rgba[2]);
+
+    actor_factory f(*palette);
     for (const auto& o : p.objects())
         r->AddActor(f.make(*o));
 

@@ -27,11 +27,9 @@
 
 #include "neurite/geometry/hash/plane_hash.hpp"
 #include "neurite/geometry/hash/point_hash.hpp"
-#include "neurite/geometry/hash/colour_hash.hpp"
 #include "neurite/geometry/hash/object_hash.hpp"
 #include "neurite/geometry/hash/sphere_hash.hpp"
 #include "neurite/geometry/hash/cylinder_hash.hpp"
-#include "neurite/geometry/hash/colour_names_hash.hpp"
 #include "neurite/geometry/hash/transformation_hash.hpp"
 #include "neurite/geometry/hash/transformation_types_hash.hpp"
 

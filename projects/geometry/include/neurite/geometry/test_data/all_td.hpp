@@ -27,11 +27,9 @@
 
 #include "neurite/geometry/test_data/plane_td.hpp"
 #include "neurite/geometry/test_data/point_td.hpp"
-#include "neurite/geometry/test_data/colour_td.hpp"
 #include "neurite/geometry/test_data/object_td.hpp"
 #include "neurite/geometry/test_data/sphere_td.hpp"
 #include "neurite/geometry/test_data/cylinder_td.hpp"
-#include "neurite/geometry/test_data/colour_names_td.hpp"
 #include "neurite/geometry/test_data/transformation_td.hpp"
 #include "neurite/geometry/test_data/transformation_types_td.hpp"
 
