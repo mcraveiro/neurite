@@ -1,0 +1,167 @@
+diff --git a/projects/soma/src/mainwindow.cpp b/projects/soma/src/mainwindow.cpp
+index e931082..be7892a 100644
+--- a/projects/soma/src/mainwindow.cpp
++++ b/projects/soma/src/mainwindow.cpp
+@@ -50,12 +50,12 @@ MainWindow::MainWindow(QWidget *parent)
+     BOOST_LOG_SEV(lg, debug) << "Started Soma.";
+ 
+     const std::string p(
+-        "/home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc");
++        "/home/marco/Development/phd/neurite/test_data/swc/l10.swc");
+     const auto m(load_swc_model(p));
+-    
++
+     neurite::geometry::swc::workflow w;
+     const auto plane(w.execute(m));
+-    
++
+     neurite::vtk::geometry::widget_factory f;
+     auto widget(f.make(plane));
+ 
+diff --git a/projects/vtk.geometry/src/types/renderer_factory.cpp b/projects/vtk.geometry/src/types/renderer_factory.cpp
+index 939612e..32c322b 100644
+--- a/projects/vtk.geometry/src/types/renderer_factory.cpp
++++ b/projects/vtk.geometry/src/types/renderer_factory.cpp
+@@ -25,6 +25,9 @@
+ #include <vtkSphereSource.h>
+ #include <vtkCylinderSource.h>
+ #include <vtkPolyDataMapper.h>
++#include <vtkMultiBlockDataSet.h>
++#include <vtkCompositePolyDataMapper2.h>
++#include <vtkCompositeDataGeometryFilter.h>
+ #include "neurite/utility/log/logger.hpp"
+ #include "neurite/geometry/types/sphere.hpp"
+ #include "neurite/geometry/types/cylinder.hpp"
+@@ -45,10 +48,15 @@ namespace geometry {
+ 
+ class actor_factory final : public neurite::geometry::object_visitor {
+  public:
+-    explicit actor_factory(vtkNamedColors& palette) : palette_(palette) { }
++    explicit actor_factory(vtkNamedColors& palette,
++        const unsigned int number_of_objects) :
++        palette_(palette),
++        current_block_number_(0),
++        blocks_(vtkSmartPointer<vtkMultiBlockDataSet>::New()) {
++        blocks_->SetNumberOfBlocks(number_of_objects);
++    }
+ private:
+-    void setup_actor(const neurite::geometry::object& o,
+-        vtkSmartPointer<vtkPolyDataAlgorithm> a);
++    void add(vtkSmartPointer<vtkPolyDataAlgorithm> a);
+ 
+ public:
+     using neurite::geometry::object_visitor::visit;
+@@ -56,42 +64,53 @@ public:
+     virtual void visit(const neurite::geometry::sphere& s) override;
+ 
+ public:
+-    vtkSmartPointer<vtkActor> make(const neurite::geometry::object& o);
++    void add(const neurite::geometry::object& o);
++    vtkSmartPointer<vtkActor> make();
+ 
+ private:
+     vtkNamedColors& palette_;
+-    vtkSmartPointer<vtkActor> actor_;
++    unsigned int current_block_number_;
++    vtkSmartPointer<vtkMultiBlockDataSet> blocks_;
+ };
+ 
+-void actor_factory::setup_actor(const neurite::geometry::object& o,
+-    vtkSmartPointer<vtkPolyDataAlgorithm> a) {
+-
+-    auto m(vtkSmartPointer<vtkPolyDataMapper>::New());
+-    m->SetInputConnection(a->GetOutputPort());
+-    BOOST_LOG_SEV(lg, debug) << "Created mapper for object: " << o.id();
+-
+-    double rgba[4];
+-    palette_.GetColor(o.colour(), rgba);
+-    actor_->GetProperty()->SetColor(rgba[0], rgba[1], rgba[2]);
+-    actor_->SetMapper(m);
+-    BOOST_LOG_SEV(lg, debug) << "Setup actor for object: " << o.id();
++void actor_factory::add(vtkSmartPointer<vtkPolyDataAlgorithm> a) {
++    blocks_->SetBlock(current_block_number_, a->GetOutput());
++    blocks_ ->Modified();
++    ++current_block_number_;
+ }
+ 
+ void actor_factory::visit(const neurite::geometry::cylinder& c) {
+     transformer t;
+-    setup_actor(c, t.transform(c));
++    add(t.transform(c));
+ }
+ 
+ void actor_factory::visit(const neurite::geometry::sphere& s) {
+     transformer t;
+-    setup_actor(s, t.transform(s));
++    add(t.transform(s));
+ }
+ 
+-vtkSmartPointer<vtkActor>
+-actor_factory::make(const neurite::geometry::object& o) {
+-    actor_ = vtkSmartPointer<vtkActor>::New();
++void actor_factory::add(const neurite::geometry::object& o) {
++    BOOST_LOG_SEV(lg, debug) << "Setting up actor. ";
+     o.accept(*this);
+-    return actor_;
++}
++
++vtkSmartPointer<vtkActor> actor_factory::make() {
++    auto g(vtkSmartPointer<vtkCompositeDataGeometryFilter>::New());
++    g->SetInput(blocks_);
++    g->Update();
++
++    auto m(vtkSmartPointer<vtkCompositePolyDataMapper2>::New());
++    m->SetInputConnection(0, g->GetOutputPort(0));
++
++    auto r(vtkSmartPointer<vtkActor>::New());
++    r->SetMapper(m);
++
++    double rgba[4];
++    palette_.GetColor("Blue", rgba);
++    r->GetProperty()->SetColor(rgba[0], rgba[1], rgba[2]);
++    r->SetMapper(m);
++
++    return r;
+ }
+ 
+ vtkSmartPointer<vtkRenderer>
+@@ -107,9 +126,10 @@ renderer_factory::make(const neurite::geometry::plane& p) const {
+     r->SetBackground(rgba[0], rgba[1], rgba[2]);
+     r->SetBackground2(0, 0, 0);
+ 
+-    actor_factory f(*palette);
++    actor_factory f(*palette, p.objects().size());
+     for (const auto& o : p.objects())
+-        r->AddActor(f.make(*o));
++        f.add(*o);
++    r->AddActor(f.make());
+ 
+     return r;
+ }
+diff --git a/test_data/swc/l10.swc b/test_data/swc/l10.swc
+index 0f49ec5..7688817 100644
+--- a/test_data/swc/l10.swc
++++ b/test_data/swc/l10.swc
+@@ -1,22 +1,3 @@
+-# ORIGINAL_SOURCE Neurolucida
+-# CREATURE rat F344
+-# REGION Hippocampus
+-# FIELD/LAYER CA3
+-# TYPE CA3a Pyramidal Cell in vivo young
+-# CONTRIBUTOR Buzsaki_G & Turner_DA
+-# REFERENCE J. Comp. Neurol. 356: 580-594, 1995
+-# RAW l16.asc
+-# EXTRAS Turner_P.CA3
+-# SOMA_AREA 1.04E3
+-# SHRINKAGE_CORRECTION 1.33 1.33 2.5
+-# VERSION_NUMBER 2.0
+-# VERSION_DATE 1998-03-27
+-# *********************************************
+-# SCALE 1.33  1.33  2.5  
+-# 
+-# 
+-# 
+-# 
+  1 1 3.087 7.342 -21.875 8.209  -1 
+  2 1 4.071 2.48 -14.53 7.741  1 
+  3 1 5.054 -2.379 -7.188 5.362  2 
