@@ -19,12 +19,12 @@
  *
  */
 #include <boost/serialization/nvp.hpp>
-#include <boost/serialization/list.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/optional.hpp>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/polymorphic_iarchive.hpp>
@@ -50,7 +50,7 @@ void save(Archive& ar,
     ar << make_nvp("parent_id", v.parent_id_);
     ar << make_nvp("centre", v.centre_);
     ar << make_nvp("colour", v.colour_);
-    ar << make_nvp("transformations", v.transformations_);
+    ar << make_nvp("transformation", v.transformation_);
 }
 
 template<typename Archive>
@@ -61,7 +61,7 @@ void load(Archive& ar,
     ar >> make_nvp("parent_id", v.parent_id_);
     ar >> make_nvp("centre", v.centre_);
     ar >> make_nvp("colour", v.colour_);
-    ar >> make_nvp("transformations", v.transformations_);
+    ar >> make_nvp("transformation", v.transformation_);
 }
 
 } }

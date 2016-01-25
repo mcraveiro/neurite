@@ -20,6 +20,7 @@
  */
 #include <iostream>
 #include <boost/lexical_cast.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/algorithm/string/trim.hpp>

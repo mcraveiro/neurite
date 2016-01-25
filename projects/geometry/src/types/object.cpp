@@ -31,15 +31,16 @@ inline std::string tidy_up_string(std::string s) {
     return s;
 }
 
-namespace std {
+namespace boost {
 
-inline std::ostream& operator<<(std::ostream& s, const std::list<neurite::geometry::transformation>& v) {
-    s << "[ ";
-    for (auto i(v.begin()); i != v.end(); ++i) {
-        if (i != v.begin()) s << ", ";
-        s << *i;
-    }
-    s << "] ";
+inline std::ostream& operator<<(std::ostream& s, const boost::optional<neurite::geometry::transformation>& v) {
+    s << "{ " << "\"__type__\": " << "\"boost::optional\"" << ", ";
+
+    if (v)
+        s << "\"data\": " << *v;
+    else
+        s << "\"data\": ""\"<empty>\"";
+    s << " }";
     return s;
 }
 
@@ -52,17 +53,24 @@ object::object()
     : id_(static_cast<int>(0)),
       parent_id_(static_cast<int>(0)) { }
 
+object::object(object&& rhs)
+    : id_(std::move(rhs.id_)),
+      parent_id_(std::move(rhs.parent_id_)),
+      centre_(std::move(rhs.centre_)),
+      colour_(std::move(rhs.colour_)),
+      transformation_(std::move(rhs.transformation_)) { }
+
 object::object(
     const int id,
     const int parent_id,
     const neurite::geometry::point& centre,
     const std::string& colour,
-    const std::list<neurite::geometry::transformation>& transformations)
+    const boost::optional<neurite::geometry::transformation>& transformation)
     : id_(id),
       parent_id_(parent_id),
       centre_(centre),
       colour_(colour),
-      transformations_(transformations) { }
+      transformation_(transformation) { }
 
 void object::to_stream(std::ostream& s) const {
     s << " { "
@@ -71,7 +79,7 @@ void object::to_stream(std::ostream& s) const {
       << "\"parent_id\": " << parent_id_ << ", "
       << "\"centre\": " << centre_ << ", "
       << "\"colour\": " << "\"" << tidy_up_string(colour_) << "\"" << ", "
-      << "\"transformations\": " << transformations_
+      << "\"transformation\": " << transformation_
       << " }";
 }
 
@@ -81,7 +89,7 @@ void object::swap(object& other) noexcept {
     swap(parent_id_, other.parent_id_);
     swap(centre_, other.centre_);
     swap(colour_, other.colour_);
-    swap(transformations_, other.transformations_);
+    swap(transformation_, other.transformation_);
 }
 
 bool object::compare(const object& rhs) const {
@@ -89,7 +97,7 @@ bool object::compare(const object& rhs) const {
         parent_id_ == rhs.parent_id_ &&
         centre_ == rhs.centre_ &&
         colour_ == rhs.colour_ &&
-        transformations_ == rhs.transformations_;
+        transformation_ == rhs.transformation_;
 }
 
 int object::id() const {
@@ -140,20 +148,20 @@ void object::colour(const std::string&& v) {
     colour_ = std::move(v);
 }
 
-const std::list<neurite::geometry::transformation>& object::transformations() const {
-    return transformations_;
+const boost::optional<neurite::geometry::transformation>& object::transformation() const {
+    return transformation_;
 }
 
-std::list<neurite::geometry::transformation>& object::transformations() {
-    return transformations_;
+boost::optional<neurite::geometry::transformation>& object::transformation() {
+    return transformation_;
 }
 
-void object::transformations(const std::list<neurite::geometry::transformation>& v) {
-    transformations_ = v;
+void object::transformation(const boost::optional<neurite::geometry::transformation>& v) {
+    transformation_ = v;
 }
 
-void object::transformations(const std::list<neurite::geometry::transformation>&& v) {
-    transformations_ = std::move(v);
+void object::transformation(const boost::optional<neurite::geometry::transformation>&& v) {
+    transformation_ = std::move(v);
 }
 
 } }

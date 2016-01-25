@@ -18,7 +18,13 @@
  * MA 02110-1301, USA.
  *
  */
+#include <boost/throw_exception.hpp>
+#include <vtkTransform.h>
+#include <vtkSphereSource.h>
+#include <vtkCylinderSource.h>
+#include <vtkTransformPolyDataFilter.h>
 #include "neurite/utility/log/logger.hpp"
+#include "neurite/vtk.geometry/types/transformation_error.hpp"
 #include "neurite/vtk.geometry/types/transformer.hpp"
 
 namespace {
@@ -26,24 +32,62 @@ namespace {
 using namespace neurite::utility::log;
 auto lg(logger_factory("vtk.geometry.transformer"));
 
+const std::string unsupported_transformation(
+    "Transformation is not supported: ");
+
 }
 
 namespace neurite {
 namespace vtk {
 namespace geometry {
 
-vtkSmartPointer<vtkCylinderSource> transformer::transform(const neurite::geometry::cylinder& c) {
-    auto r(vtkSmartPointer<vtkCylinderSource>::New());
-    r->SetCenter(c.centre().x(), c.centre().y(), c.centre().z());
-    r->SetRadius(c.radius());
-    r->SetHeight(10.0);
-    r->SetResolution(100);
+vtkSmartPointer<vtkPolyDataAlgorithm>
+transformer::transform(const neurite::geometry::cylinder& c) {
+    BOOST_LOG_SEV(lg, debug) << "Creating cylinder: " << c.id();
 
-    BOOST_LOG_SEV(lg, debug) << "Created cylinder: " << c.id();
-    return r;
+    auto cylinder(vtkSmartPointer<vtkCylinderSource>::New());
+    cylinder->SetCenter(c.centre().x(), c.centre().y(), c.centre().z());
+    cylinder->SetRadius(c.radius());
+    cylinder->SetHeight(10.0);
+    cylinder->SetResolution(100);
+
+    if (!c.transformation())
+        return cylinder;
+
+    switch (c.transformation()->type()) {
+    case neurite::geometry::transformation_types::translation: {
+        auto transform(vtkSmartPointer<vtkTransform>::New());
+        transform->Translate(c.transformation()->x(),
+            c.transformation()->y(), c.transformation()->z());
+
+        auto filter(vtkSmartPointer<vtkTransformPolyDataFilter>::New());
+        filter->SetInputConnection(cylinder->GetOutputPort());
+        filter->SetTransform(transform);
+        filter->Update();
+        return filter;
+    } case neurite::geometry::transformation_types::rotation: {
+          auto transform(vtkSmartPointer<vtkTransform>::New());
+          const auto center(cylinder->GetCenter());
+          transform->Translate(-center[0], -center[1], -center[2]);
+          transform->PostMultiply();
+          transform->RotateX(c.transformation()->x());
+          transform->RotateY(c.transformation()->y());
+          transform->RotateZ(c.transformation()->z());
+          transform->Translate(+center[0], +center[1], +center[2]);
+
+          auto filter(vtkSmartPointer<vtkTransformPolyDataFilter>::New());
+          filter->SetInputConnection(cylinder->GetOutputPort());
+          filter->SetTransform(transform);
+          filter->Update();
+          return filter;
+      } default:
+        BOOST_LOG_SEV(lg, error) << unsupported_transformation;
+        BOOST_THROW_EXCEPTION(transformation_error(unsupported_transformation));
+    }
 }
 
-vtkSmartPointer<vtkSphereSource> transformer::transform(const neurite::geometry::sphere& s) {
+vtkSmartPointer<vtkPolyDataAlgorithm>
+transformer::transform(const neurite::geometry::sphere& s) {
     auto r(vtkSmartPointer<vtkSphereSource>::New());
     r->SetCenter(s.centre().x(), s.centre().y(), s.centre().z());
     r->SetRadius(s.radius());

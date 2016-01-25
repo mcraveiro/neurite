@@ -34,14 +34,14 @@ sphere::sphere(
     const int parent_id,
     const neurite::geometry::point& centre,
     const std::string& colour,
-    const std::list<neurite::geometry::transformation>& transformations,
+    const boost::optional<neurite::geometry::transformation>& transformation,
     const double radius)
     : neurite::geometry::object(
       id,
       parent_id,
       centre,
       colour,
-      transformations),
+      transformation),
       radius_(radius) { }
 
 void sphere::to_stream(std::ostream& s) const {

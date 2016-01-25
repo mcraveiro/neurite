@@ -30,11 +30,13 @@ inline void combine(std::size_t& seed, const HashableType& value) {
     seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
-inline std::size_t hash_std_list_neurite_geometry_transformation(const std::list<neurite::geometry::transformation>& v) {
+inline std::size_t hash_boost_optional_neurite_geometry_transformation(const boost::optional<neurite::geometry::transformation>& v) {
     std::size_t seed(0);
-    for (const auto i : v) {
-        combine(seed, i);
-    }
+
+    if (!v)
+        return seed;
+
+    combine(seed, *v);
     return seed;
 }
 
@@ -50,7 +52,7 @@ std::size_t object_hasher::hash(const object& v) {
     combine(seed, v.parent_id());
     combine(seed, v.centre());
     combine(seed, v.colour());
-    combine(seed, hash_std_list_neurite_geometry_transformation(v.transformations()));
+    combine(seed, hash_boost_optional_neurite_geometry_transformation(v.transformation()));
 
     return seed;
 }

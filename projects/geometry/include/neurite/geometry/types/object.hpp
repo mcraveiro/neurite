@@ -25,10 +25,10 @@
 #pragma once
 #endif
 
-#include <list>
 #include <iosfwd>
 #include <string>
 #include <algorithm>
+#include <boost/optional.hpp>
 #include "neurite/geometry/types/point.hpp"
 #include "neurite/geometry/types/object_visitor.hpp"
 #include "neurite/geometry/types/transformation.hpp"
@@ -40,7 +40,6 @@ namespace geometry {
 class object {
 public:
     object(const object&) = default;
-    object(object&&) = default;
 
 public:
     object();
@@ -48,12 +47,15 @@ public:
     virtual ~object() noexcept = 0;
 
 public:
+    object(object&& rhs);
+
+public:
     object(
         const int id,
         const int parent_id,
         const neurite::geometry::point& centre,
         const std::string& colour,
-        const std::list<neurite::geometry::transformation>& transformations);
+        const boost::optional<neurite::geometry::transformation>& transformation);
 
 private:
     template<typename Archive>
@@ -98,10 +100,10 @@ public:
     void colour(const std::string& v);
     void colour(const std::string&& v);
 
-    const std::list<neurite::geometry::transformation>& transformations() const;
-    std::list<neurite::geometry::transformation>& transformations();
-    void transformations(const std::list<neurite::geometry::transformation>& v);
-    void transformations(const std::list<neurite::geometry::transformation>&& v);
+    const boost::optional<neurite::geometry::transformation>& transformation() const;
+    boost::optional<neurite::geometry::transformation>& transformation();
+    void transformation(const boost::optional<neurite::geometry::transformation>& v);
+    void transformation(const boost::optional<neurite::geometry::transformation>&& v);
 
 protected:
     bool compare(const object& rhs) const;
@@ -116,7 +118,7 @@ private:
     int parent_id_;
     neurite::geometry::point centre_;
     std::string colour_;
-    std::list<neurite::geometry::transformation> transformations_;
+    boost::optional<neurite::geometry::transformation> transformation_;
 };
 
 inline object::~object() noexcept { }

@@ -25,11 +25,12 @@
 #pragma once
 #endif
 
+#include <boost/optional.hpp>
 #include <vtkSmartPointer.h>
-#include <vtkSphereSource.h>
-#include <vtkCylinderSource.h>
+#include <vtkPolyDataAlgorithm.h>
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/cylinder.hpp"
+#include "neurite/geometry/types/transformation.hpp"
 
 namespace neurite {
 namespace vtk {
@@ -37,8 +38,11 @@ namespace geometry {
 
 class transformer {
 public:
-    vtkSmartPointer<vtkCylinderSource> transform(const neurite::geometry::cylinder& c);
-    vtkSmartPointer<vtkSphereSource> transform(const neurite::geometry::sphere& s);
+    vtkSmartPointer<vtkPolyDataAlgorithm>
+    transform(const neurite::geometry::cylinder& c);
+
+    vtkSmartPointer<vtkPolyDataAlgorithm>
+    transform(const neurite::geometry::sphere& s);
 };
 
 } } }

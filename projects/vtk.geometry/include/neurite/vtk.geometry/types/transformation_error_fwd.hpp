@@ -18,17 +18,22 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_VTK_GEOMETRY_TYPES_ALL_HPP
-#define NEURITE_VTK_GEOMETRY_TYPES_ALL_HPP
+#ifndef NEURITE_VTK_GEOMETRY_TYPES_TRANSFORMATION_ERROR_FWD_HPP
+#define NEURITE_VTK_GEOMETRY_TYPES_TRANSFORMATION_ERROR_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/vtk.geometry/types/geometry.hpp"
-#include "neurite/vtk.geometry/types/transformer.hpp"
-#include "neurite/vtk.geometry/types/widget_factory.hpp"
-#include "neurite/vtk.geometry/types/renderer_factory.hpp"
-#include "neurite/vtk.geometry/types/transformation_error.hpp"
+#include <string>
+#include <boost/exception/info.hpp>
+
+namespace neurite {
+namespace vtk {
+namespace geometry {
+
+class transformation_error;
+
+} } }
 
 #endif

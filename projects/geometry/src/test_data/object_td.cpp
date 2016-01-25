@@ -47,11 +47,10 @@ create_neurite_geometry_transformation(const unsigned int position) {
     return neurite::geometry::transformation_generator::create(position);
 }
 
-std::list<neurite::geometry::transformation> create_std_list_neurite_geometry_transformation(unsigned int position) {
-    std::list<neurite::geometry::transformation> r;
-    for (unsigned int i(0); i < 4; ++i) {
-        r.push_back(create_neurite_geometry_transformation(position + i));
-    }
+boost::optional<neurite::geometry::transformation>
+create_boost_optional_neurite_geometry_transformation(unsigned int position) {
+    boost::optional<neurite::geometry::transformation> r(
+        create_neurite_geometry_transformation(position));
     return r;
 }
 
@@ -66,7 +65,7 @@ populate(const unsigned int position, result_type& v) {
     v.parent_id(create_int(position + 1));
     v.centre(create_neurite_geometry_point(position + 2));
     v.colour(create_std_string(position + 3));
-    v.transformations(create_std_list_neurite_geometry_transformation(position + 4));
+    v.transformation(create_boost_optional_neurite_geometry_transformation(position + 4));
 }
 
 object_generator::result_type*

@@ -75,6 +75,7 @@ geometry::plane workflow::execute(const neurite::swc::model& m) const {
                 t.x(0.0);
                 t.y(-5.0);
                 t.z(0.0);
+                c->transformation(t);
                 BOOST_LOG_SEV(lg, debug) << "translating point: " << sn;
             } else if (sn == 3) {
                 neurite::geometry::transformation t;
@@ -82,13 +83,15 @@ geometry::plane workflow::execute(const neurite::swc::model& m) const {
                 t.x(0.0);
                 t.y(5.0);
                 t.z(0.0);
+                c->transformation(t);
                 BOOST_LOG_SEV(lg, debug) << "translating point: " << sn;
             } else if (sn == 4 || sn == 5) {
                 neurite::geometry::transformation t;
                 t.type(neurite::geometry::transformation_types::rotation);
                 t.x(0.0);
-                t.y(5.0);
-                t.z(0.0);
+                t.y(0.0);
+                t.z(90.0);
+                c->transformation(t);
                 BOOST_LOG_SEV(lg, debug) << "rotating point: " << sn;
             } else {
                 BOOST_LOG_SEV(lg, debug) << "point untouched: " << sn;

@@ -104,8 +104,8 @@ renderer_factory::make(const neurite::geometry::plane& p) const {
     double rgba[4];
     palette->GetColor(p.colour(), rgba);
     r->GradientBackgroundOn();
-    r->SetBackground2(0, 0, 0);
     r->SetBackground(rgba[0], rgba[1], rgba[2]);
+    r->SetBackground2(0, 0, 0);
 
     actor_factory f(*palette);
     for (const auto& o : p.objects())
