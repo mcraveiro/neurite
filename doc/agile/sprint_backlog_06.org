@@ -13,14 +13,14 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-25 Mon 21:33]
+#+CAPTION: Clock summary at [2016-01-25 Mon 22:39]
 | <75>                                                                        |         |       |      |
 | Headline                                                                    | Time    |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *17:52* |       |      |
+| *Total time*                                                                | *18:57* |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 17:52   |       |      |
-| Active                                                                      |         | 17:52 |      |
+| Stories                                                                     | 18:57   |       |      |
+| Active                                                                      |         | 18:57 |      |
 | STARTED Sprint and product backlog grooming                                 |         |       | 0:59 |
 | STARTED Journal club and other activities                                   |         |       | 2:25 |
 | COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |
@@ -29,6 +29,7 @@
 | COMPLETED Create the =geometry.swc= project                                 |         |       | 2:38 |
 | COMPLETED Refactor code to fit the new project structure                    |         |       | 2:07 |
 | COMPLETED Understand the fundamentals of placing objects in space           |         |       | 6:39 |
+| STARTED Render a realistic SWC file                                         |         |       | 1:05 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -169,6 +170,30 @@ Notes:
 - this can be done but it requires calculating distances between
   points to obtain the correct height and rotation angle. For this we
   need for all the data to be organised correctly.
+
+*** STARTED Render a realistic SWC file                               :story:
+    CLOCK: [2016-01-25 Mon 21:34]--[2016-01-25 Mon 22:39] =>  1:05
+
+We need to make sure we can use the code to render realistic SWC
+files. We also need to find fixes to the performance issues when we do
+this.
+
+Links:
+
+- [[http://www.vtk.org/pipermail/vtkusers/2011-June/068115.html][{vtkusers} Large number of actors]]: How to render using over 5K x 1K
+  poly data.
+- [[http://www.paraview.org/Wiki/VTK/Tutorials/Composite_Datasets][VTK/Tutorials/Composite Datasets]]
+
+Notes:
+
+- we could use a vtkMultiBlockDataSet, reusing mappers and actors.
+- seems like this is not what we want: [[http://public.kitware.com/pipermail/vtkusers/2013-August/081502.html][Rendering huge amount of
+  polyData with 1 actor and
+  vtkMultiBlockDataSet/vtkCompositePolyDataMapper2]]
+- we just need the transformations to be done once; there must be a
+  way of applying a transformation and then removing it from
+  pipeline. Perhaps we are already doing that since we are applying
+  the transform to the poly data rather than the actor.
 
 *** Create a processor in =geometry.swc= to organise the points       :story:
 
