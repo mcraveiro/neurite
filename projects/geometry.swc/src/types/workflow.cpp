@@ -20,6 +20,7 @@
  */
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
+#include <CGAL/Simple_cartesian.h>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/io/point_io.hpp"
 #include "neurite/geometry/types/plane.hpp"
@@ -36,11 +37,49 @@ auto lg(logger_factory("geometry.swc"));
 
 }
 
+typedef CGAL::Simple_cartesian<double> Kernel;
+typedef Kernel::Point_2 Point_2;
+typedef Kernel::Segment_2 Segment_2;
+
 namespace neurite {
 namespace geometry {
 namespace swc {
 
 geometry::plane workflow::execute(const neurite::swc::model& m) const {
+    /*Point p1, p2, p3; 
+    Vector v1 = p1-p2; 
+    v1 = v1 / std::sqrt( v1 * v1); 
+    Vector v2 = p3-p2; 
+    v2 = v2 / std::sqrt( v2 * v2); 
+    */
+    {
+        Point_2 p(1,1), q(10,10);
+        BOOST_LOG_SEV(lg, debug) <<  "p = " << p;
+        BOOST_LOG_SEV(lg, debug) <<  "q = " << q.x() << " " << q.y();
+        BOOST_LOG_SEV(lg, debug) <<  "sqdist(p,q) = " 
+                                 << CGAL::squared_distance(p,q);
+  
+        Segment_2 s(p,q);
+        Point_2 m(5, 9);
+  
+        BOOST_LOG_SEV(lg, debug) <<  "m = " << m;
+        BOOST_LOG_SEV(lg, debug) <<  "sqdist(Segment_2(p,q), m) = "
+                                 << CGAL::squared_distance(s,m);
+        BOOST_LOG_SEV(lg, debug) <<  "p, q, and m ";
+        switch (CGAL::orientation(p,q,m)){
+        case CGAL::COLLINEAR: 
+            BOOST_LOG_SEV(lg, debug) <<  "are collinear\n";
+            break;
+        case CGAL::LEFT_TURN:
+            BOOST_LOG_SEV(lg, debug) <<  "make a left turn\n";
+            break;
+        case CGAL::RIGHT_TURN: 
+            BOOST_LOG_SEV(lg, debug) <<  "make a right turn\n";
+            break;
+        }
+        BOOST_LOG_SEV(lg, debug) <<  " midpoint(p,q) = " << CGAL::midpoint(p,q);
+    }
+    
     geometry::plane r;
     r.colour("Gray");
 

@@ -13,14 +13,14 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-25 Mon 22:39]
+#+CAPTION: Clock summary at [2016-01-26 Tue 17:29]
 | <75>                                                                        |         |       |      |
 | Headline                                                                    | Time    |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *18:57* |       |      |
+| *Total time*                                                                | *22:49* |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 18:57   |       |      |
-| Active                                                                      |         | 18:57 |      |
+| Stories                                                                     | 22:49   |       |      |
+| Active                                                                      |         | 22:49 |      |
 | STARTED Sprint and product backlog grooming                                 |         |       | 0:59 |
 | STARTED Journal club and other activities                                   |         |       | 2:25 |
 | COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |
@@ -29,7 +29,9 @@
 | COMPLETED Create the =geometry.swc= project                                 |         |       | 2:38 |
 | COMPLETED Refactor code to fit the new project structure                    |         |       | 2:07 |
 | COMPLETED Understand the fundamentals of placing objects in space           |         |       | 6:39 |
-| STARTED Render a realistic SWC file                                         |         |       | 1:05 |
+| COMPLETED Get a basic understanding of required maths terminology           |         |       | 2:41 |
+| COMPLETED Add support for CGAL                                              |         |       | 0:58 |
+| STARTED Render a realistic SWC file                                         |         |       | 1:18 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -171,7 +173,194 @@ Notes:
   points to obtain the correct height and rotation angle. For this we
   need for all the data to be organised correctly.
 
+*** COMPLETED Get a basic understanding of required maths terminology :story:
+    CLOSED: [2016-01-26 Tue 16:53]
+
+We need to make sure we understand the basics in terms of maths
+terminology for geometry.
+
+**** Notes
+     CLOCK: [2016-01-26 Tue 15:54]--[2016-01-26 Tue 16:53] =>  0:59
+     CLOCK: [2016-01-26 Tue 14:10]--[2016-01-26 Tue 15:32] =>  1:22
+
+- [[https://en.wikipedia.org/wiki/Finitary_relation][relation]]: n mathematics, a finitary relation has a finite number of
+  "places". In set theory and logic, a relation is a property that
+  assigns truth values to k-tuples of individuals. Typically, the
+  property describes a possible connection between the components of a
+  k-tuple. For a given set of k-tuples, a truth value is assigned to
+  each k-tuple according to whether the property does or does not
+  hold.
+
+  A [[http://mathworld.wolfram.com/Relation.html][relation]] is any subset of a Cartesian product. For instance, a
+  subset of A×B, called a "binary relation from A to B," is a
+  collection of ordered pairs (a,b) with first components from A and
+  second components from B, and, in particular, a subset of A×A is
+  called a "relation on A." For a binary relation R, one often writes
+  aRb to mean that (a,b) is in R×R.
+
+- [[https://en.wikipedia.org/wiki/Binary_relation][binary relation]]: binary relation on a set A is a collection of
+  ordered pairs of elements of A. In other words, it is a subset of
+  the Cartesian product A2 = A × A. More generally, a binary relation
+  between two sets A and B is a subset of A × B.
+
+  Given a set of objects S, a [[http://mathworld.wolfram.com/BinaryRelation.html][binary relation]] is a subset of the
+  Cartesian product S tensor S.
+
+- [[https://en.wikipedia.org/wiki/Function_(mathematics)#Binary_operations][function]]: In mathematics, a function[1] is a relation between a set
+  of inputs and a set of permissible outputs with the property that
+  each input is related to exactly one output.
+
+  [[http://isites.harvard.edu/fs/docs/icb.topic1524705.files/Relations%2520and%2520functions.pdf][Binary relations and Functions]]
+
+- [[https://en.wikipedia.org/wiki/Arity][arity]]: In logic, mathematics, and computer science, the arity
+  Listeni/ˈærᵻti/ of a function or operation is the number of
+  arguments or operands that the function takes. The arity of a
+  relation (or predicate) is the dimension of the domain in the
+  corresponding Cartesian product. (A function of arity n thus has
+  arity n+1 considered as a relation.)
+
+- operation: An operation ω is a function of the form ω : V → Y, where
+  V ⊂ X1 × … × Xk. The sets Xk are called the domains of the
+  operation, the set Y is called the codomain of the operation, and
+  the fixed non-negative integer k (the number of arguments) is called
+  the type or arity of the operation. Thus a unary operation has arity
+  one, and a binary operation has arity two. An operation of arity
+  zero, called a nullary operation, is simply an element of the
+  codomain Y. An operation of arity k is called a k-ary
+  operation. Thus a k-ary operation is a (k+1)-ary relation that is
+  functional on its first k domains.
+
+- [[http://math.stackexchange.com/questions/168378/operator-vs-function][operation vs function]]: A binary operation on a set S x S is a
+  special kind of function; namely, it is a function S×S→S x S×S→S. That
+  is, it takes as input two elements of SS and returns another element
+  of SS. We can denote such an operation by a symbol such as a⋆ba⋆b
+  and then demand various additional properties of this operation,
+  such as
+
+  associativity: (a⋆b)⋆c=a⋆(b⋆c)(a⋆b)⋆c=a⋆(b⋆c),
+  commutativity: a⋆b=b⋆aa⋆b=b⋆a
+
+  and so forth. On the other hand, an arbitrary function f:A→Bf:A→B
+  between two sets only takes a single input and returns an output which
+  is not necessarily of the same type, so one can't speak of
+  associativity or commutativity for such a thing. One might call a
+  function f:A→Af:A→A a unary operation but one still can't speak of
+  associativity or commutativity for such a thing.
+
+- [[http://mathworld.wolfram.com/Set.html][set]]: finite or infinite collection of objects in which order has no
+  significance, and multiplicity is generally also ignored. Members of
+  a set are often referred to as elements and the notation a in A is
+  used to denote that a is an element of a set A.
+
+- [[http://mathworld.wolfram.com/Ring.html][ring]]: a set S together with two binary operators + and * satisfying
+  the following conditions:
+  1. Additive associativity: For all a,b,c in S, (a+b)+c=a+(b+c),
+  2. Additive commutativity: For all a,b in S, a+b=b+a,
+  3. Additive identity: There exists an element 0 in S such that for
+     all a in S, 0+a=a+0=a,
+  4. Additive inverse: For every a in S there exists  -a in S such
+     that a+(-a)=(-a)+a=0,
+  5. Left and right distributivity: For all a,b,c in S,
+     a*(b+c)=(a*b)+(a*c) and (b+c)*a=(b*a)+(c*a),
+  6. Multiplicative associativity: For all a,b,c in S, (a*b)*c=a*(b*c)
+     (a ring satisfying this property is sometimes explicitly termed
+     an associative ring).
+- [[http://mathworld.wolfram.com/Field.html][field]]: A field is any set of elements that satisfies the field
+  axioms for both addition and multiplication and is a commutative
+  division algebra.
+  7. Multiplicative commutativity: For all a,b in S, a*b=b*a (a ring
+     satisfying this property is termed a commutative ring),
+  8. Multiplicative identity: There exists an element 1 in S such that
+     for all a!=0 in S, 1*a=a*1=a (a ring satisfying this property is
+     termed a unit ring, or sometimes a "ring with identity"),
+  9. Multiplicative inverse: For each a!=0 in S, there exists an
+     element a^(-1) in S such that for all a!=0 in S,
+     a*a^(-1)=a^(-1)*a=1, where 1 is the identity element.
+
+- [[https://en.wikipedia.org/wiki/Plane_(geometry)][plane]]: In mathematics, a plane is a flat, two-dimensional surface
+  that extends infinitely far. A plane is the two-dimensional analogue
+  of a point (zero dimensions), a line (one dimension) and
+  three-dimensional space. Planes can arise as subspaces of some
+  higher-dimensional space, as with a room's walls extended infinitely
+  far, or they may enjoy an independent existence in their own right,
+  as in the setting of Euclidean geometry.
+
+  When working exclusively in two-dimensional Euclidean space, the
+  definite article is used, so, the plane refers to the whole
+  space. Many fundamental tasks in mathematics, geometry,
+  trigonometry, graph theory and graphing are performed in a
+  two-dimensional space, or in other words, in the plane.
+
+- [[https://en.wikipedia.org/wiki/Euclidean_space][Euclidean space]]: encompasses the two-dimensional Euclidean plane,
+  the three-dimensional space of Euclidean geometry, and certain other
+  spaces. It is named after the Ancient Greek mathematician Euclid of
+  Alexandria. The term "Euclidean" distinguishes these spaces from
+  other types of spaces considered in modern geometry. Euclidean
+  spaces also generalize to higher dimensions.
+
+- [[http://mathworld.wolfram.com/Space.html][space]]: The concept of a space is an extremely general and important
+  mathematical construct. Members of the space obey certain addition
+  properties. Spaces which have been investigated and found to be of
+  interest are usually named after one or more of their
+  investigators. This practice unfortunately leads to names which give
+  very little insight into the relevant properties of a given space.
+
+  [[https://en.wikipedia.org/wiki/Space_(mathematics)][space]]: In mathematics, a space is a set (sometimes called a
+  universe) with some added structure. In mathematics, a structure on
+  a set, or more generally a type, consists of additional mathematical
+  objects that, in some manner, attach (or relate) to the set,
+  endowing the collection with meaning or significance.
+
+  A partial list of possible structures are measures, algebraic
+  structures (groups, fields, etc.), ...
+
+- [[https://en.wikipedia.org/wiki/Vector_space][vector space]]: A vector space (also called a linear space) is a
+  collection of objects called vectors, which may be added together
+  and multiplied ("scaled") by numbers, called scalars in this
+  context. Scalars are often taken to be real numbers, but there are
+  also vector spaces with scalar multiplication by complex numbers,
+  rational numbers, or generally any field. The operations of vector
+  addition and scalar multiplication must satisfy certain
+  requirements.
+
+  Vector spaces are the subject of linear algebra and are well
+  understood from this point of view since vector spaces are
+  characterized by their dimension, which, roughly speaking, specifies
+  the number of independent directions in the space.
+
+- vectors:
+
+  [[http://tutorial.math.lamar.edu/Classes/CalcII/Vectors_Basics.aspx][Vectors: The Basics]]
+
+- [[http://mathworld.wolfram.com/NormalizedVector.html][Normalized Vector]]: The normalized vector of X is a vector in the
+  same direction but with norm (length) 1. It is denoted  X^^ and
+  given by
+
+  X^^=(X)/(|X|),
+
+  where |X| is the norm of X. It is also called a unit vector.
+
+**** Chat with ND
+     CLOCK: [2016-01-26 Tue 15:33]--[2016-01-26 Tue 15:53] =>  0:20
+
+- length of vector, euclidian distance
+- put vector into normal form: divide by length.
+- when vectors are normalised, the dot products will be 1 for
+  parallel, zero for right-angle.
+- angle: tan(theta) = B / A.
+
+*** COMPLETED Add support for CGAL                                    :story:
+    CLOSED: [2016-01-26 Tue 17:28]
+    CLOCK: [2016-01-26 Tue 16:54]--[2016-01-26 Tue 17:28] =>  0:34
+    CLOCK: [2016-01-26 Tue 13:45]--[2016-01-26 Tue 14:09] =>  0:24
+
+We need to get a simple CGAL example to compile and run, adding all
+the required infrastructure (debian packages, CMake files, etc).
+
+- manual: [[http://mati-repa-repo.googlecode.com/svn/trunk/tesis/impl/tutoriales/CGAL%2520Arrangements.pdf][CGAL Arrangements and Their Applications]]
+
 *** STARTED Render a realistic SWC file                               :story:
+    CLOCK: [2016-01-26 Tue 13:31]--[2016-01-26 Tue 13:44] =>  0:13
     CLOCK: [2016-01-25 Mon 21:34]--[2016-01-25 Mon 22:39] =>  1:05
 
 We need to make sure we can use the code to render realistic SWC
@@ -225,11 +414,6 @@ At present the build is broken because travis does not support QT5 and
 VTK6. We should wrap this code with a feature and not use it on the
 build machine so that at least we can run other tests.
 
-*** Add support for CGAL                                              :story:
-
-We need to get a simple CGAL example to compile and run, adding all
-the required infrastructure (debian packages, CMake files, etc).
-
 *** Update =soma= to use the new infrastructure                       :story:
 
 To start off with we should just create a class in =soma= that acts as
@@ -250,6 +434,11 @@ simple hack on the parser to ignore comments.
 Ensure the code still works when using more complex SWC models. We
 have one at present but we should download several, with different
 sizes, e.g. 5K points, 50k points, and so on.
+
+*** Create a blog post on basic maths terminology                     :story:
+
+Now we understood the basics, we should apply the usual Feynman
+technique and write a blog post about it.
 
 ** Deprecated
 *** CANCELLED Create a VTK setup from github                          :story:

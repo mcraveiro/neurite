@@ -30,6 +30,9 @@ if(Boost_FOUND)
     include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 endif()
 
+# cgal
+find_package(CGAL 4.7)
+
 # wt
 # find_package(Wt REQUIRED)
 

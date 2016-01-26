@@ -23,7 +23,10 @@ file(GLOB_RECURSE all_files RELATIVE
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 add_library(geometry_swc STATIC ${all_files})
-target_link_libraries(geometry_swc ${Boost_LIBRARIES})
+target_link_libraries(geometry_swc
+  ${Boost_LIBRARIES}
+  ${CGAL_LIBRARIES}
+  )
 
 set_target_properties(geometry_swc PROPERTIES OUTPUT_NAME neurite.geometry.swc)
 
