@@ -13,14 +13,14 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-27 Wed 15:28]
+#+CAPTION: Clock summary at [2016-01-27 Wed 17:52]
 | <75>                                                                        |         |       |      |
 | Headline                                                                    | Time    |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *24:38* |       |      |
+| *Total time*                                                                | *27:07* |       |      |
 |-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 24:38   |       |      |
-| Active                                                                      |         | 24:38 |      |
+| Stories                                                                     | 27:07   |       |      |
+| Active                                                                      |         | 27:07 |      |
 | STARTED Sprint and product backlog grooming                                 |         |       | 0:59 |
 | STARTED Journal club and other activities                                   |         |       | 2:25 |
 | COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |
@@ -32,7 +32,7 @@
 | COMPLETED Get a basic understanding of required maths terminology           |         |       | 3:01 |
 | COMPLETED Add support for CGAL                                              |         |       | 0:58 |
 | STARTED Render a realistic SWC file                                         |         |       | 1:18 |
-| STARTED Create a processor in =geometry.swc= to organise the points         |         |       | 1:29 |
+| STARTED Create a processor in =geometry.swc= to organise the points         |         |       | 3:58 |
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
@@ -413,6 +413,7 @@ Notes:
   the transform to the poly data rather than the actor.
 
 *** STARTED Create a processor in =geometry.swc= to organise the points :story:
+    CLOCK: [2016-01-27 Wed 15:28]--[2016-01-27 Wed 17:57] =>  2:29
     CLOCK: [2016-01-27 Wed 15:00]--[2016-01-27 Wed 15:28] =>  0:28
     CLOCK: [2016-01-27 Wed 14:10]--[2016-01-27 Wed 15:00] =>  0:50
     CLOCK: [2016-01-26 Tue 17:29]--[2016-01-26 Tue 17:40] =>  0:11

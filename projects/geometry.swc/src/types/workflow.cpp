@@ -18,8 +18,10 @@
  * MA 02110-1301, USA.
  *
  */
+#include <unordered_map>
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/math/constants/constants.hpp>
 #include <CGAL/Simple_cartesian.h>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/io/point_io.hpp"
@@ -38,8 +40,9 @@ auto lg(logger_factory("geometry.swc"));
 }
 
 typedef CGAL::Simple_cartesian<double> Kernel;
-typedef Kernel::Point_2 Point_2;
-typedef Kernel::Segment_2 Segment_2;
+typedef Kernel::Point_3 Point_3;
+typedef Kernel::Vector_3 Vector_3;
+// typedef Kernel::Segment_3 Segment_3;
 
 namespace neurite {
 namespace geometry {
@@ -52,7 +55,7 @@ geometry::space workflow::execute(const neurite::swc::model& m) const {
     Vector v2 = p3-p2; 
     v2 = v2 / std::sqrt( v2 * v2); 
     */
-    {
+    /*{
         Point_2 p(1,1), q(10,10);
         BOOST_LOG_SEV(lg, debug) <<  "p = " << p;
         BOOST_LOG_SEV(lg, debug) <<  "q = " << q.x() << " " << q.y();
@@ -78,11 +81,16 @@ geometry::space workflow::execute(const neurite::swc::model& m) const {
             break;
         }
         BOOST_LOG_SEV(lg, debug) <<  " midpoint(p,q) = " << CGAL::midpoint(p,q);
-    }
+        }*/
     
     geometry::space r;
     r.colour("Gray");
 
+    const double cylinder_height(10);
+    std::unordered_map<int, neurite::swc::point> id_to_point;
+    for (const auto& p : m.points())
+      id_to_point[p.sample_number()] = p;
+    
     const auto soma(neurite::swc::structure_identifier_types::soma);
     for (const auto& p : m.points()) {
         BOOST_LOG_SEV(lg, debug) << "Processing point: " << p;
@@ -98,12 +106,36 @@ geometry::space workflow::execute(const neurite::swc::model& m) const {
             BOOST_LOG_SEV(lg, debug) << "Created sphere: " << sn;
             r.objects().push_back(s);
         } else {
+            Point_3 point(p.x(), p.y(), p.z());
+            BOOST_LOG_SEV(lg, debug) <<  "point = " << point;
+
+            Point_3 other(p.x(), p.y() + cylinder_height, p.z());
+            BOOST_LOG_SEV(lg, debug) <<  "other = " << other;
+
+            Vector_3 v1(other - point);
+            v1 = v1 / std::sqrt(v1 * v1);
+            BOOST_LOG_SEV(lg, debug) <<  "vector 1 = " << v1;
+
+            const auto i(id_to_point.find(p.parent_sample()));
+            if (i != id_to_point.end()) {
+                Point_3 parent(i->second.x(), i->second.y(), i->second.z());
+                BOOST_LOG_SEV(lg, debug) <<  "parent = " << parent;
+
+                Vector_3 v2(parent - point);
+                v2 = v2 / std::sqrt(v2 * v2);
+                BOOST_LOG_SEV(lg, debug) << "vector 2 = " << v2;
+
+                const double pi(boost::math::constants::pi<double>());
+                auto angle(std::acos(v2 * v1) * 180.0 / pi);
+                BOOST_LOG_SEV(lg, debug) << "angle = " << angle;
+            }
+          
             auto c(boost::make_shared<neurite::geometry::cylinder>());
             c->centre().x(p.x());
             c->centre().y(p.y());
             c->centre().z(p.z());
             c->radius(p.radius());
-            c->height(10.0);
+            c->height(cylinder_height);
             c->colour("Blue");
             r.objects().push_back(c);
             BOOST_LOG_SEV(lg, debug) << "Created cylinder: " << sn;
