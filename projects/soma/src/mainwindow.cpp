@@ -54,10 +54,10 @@ MainWindow::MainWindow(QWidget *parent)
     const auto m(load_swc_model(p));
     
     neurite::geometry::swc::workflow w;
-    const auto plane(w.execute(m));
+    const auto space(w.execute(m));
     
     neurite::vtk::geometry::widget_factory f;
-    auto widget(f.make(plane));
+    auto widget(f.make(space));
 
     this->setCentralWidget(widget);
     this->repaint();

@@ -18,23 +18,25 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_SERIALIZATION_PLANE_FWD_SER_HPP
-#define NEURITE_GEOMETRY_SERIALIZATION_PLANE_FWD_SER_HPP
+#ifndef NEURITE_GEOMETRY_SERIALIZATION_SPACE_SER_HPP
+#define NEURITE_GEOMETRY_SERIALIZATION_SPACE_SER_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/geometry/types/plane_fwd.hpp"
+#include <boost/serialization/split_free.hpp>
+#include "neurite/geometry/types/space.hpp"
 
+BOOST_SERIALIZATION_SPLIT_FREE(neurite::geometry::space)
 namespace boost {
 namespace serialization {
 
-template<class Archive>
-void save(Archive& ar, const neurite::geometry::plane& v, unsigned int version);
+template<typename Archive>
+void save(Archive& ar, const neurite::geometry::space& v, unsigned int version);
 
-template<class Archive>
-void load(Archive& ar, neurite::geometry::plane& v, unsigned int version);
+template<typename Archive>
+void load(Archive& ar, neurite::geometry::space& v, unsigned int version);
 
 } }
 

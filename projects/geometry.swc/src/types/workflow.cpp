@@ -23,8 +23,8 @@
 #include <CGAL/Simple_cartesian.h>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/io/point_io.hpp"
-#include "neurite/geometry/types/plane.hpp"
-#include "neurite/geometry/io/plane_io.hpp"
+#include "neurite/geometry/types/space.hpp"
+#include "neurite/geometry/io/space_io.hpp"
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/cylinder.hpp"
 #include "neurite/geometry/types/transformation.hpp"
@@ -45,7 +45,7 @@ namespace neurite {
 namespace geometry {
 namespace swc {
 
-geometry::plane workflow::execute(const neurite::swc::model& m) const {
+geometry::space workflow::execute(const neurite::swc::model& m) const {
     /*Point p1, p2, p3; 
     Vector v1 = p1-p2; 
     v1 = v1 / std::sqrt( v1 * v1); 
@@ -80,7 +80,7 @@ geometry::plane workflow::execute(const neurite::swc::model& m) const {
         BOOST_LOG_SEV(lg, debug) <<  " midpoint(p,q) = " << CGAL::midpoint(p,q);
     }
     
-    geometry::plane r;
+    geometry::space r;
     r.colour("Gray");
 
     const auto soma(neurite::swc::structure_identifier_types::soma);
@@ -139,7 +139,7 @@ geometry::plane workflow::execute(const neurite::swc::model& m) const {
             BOOST_LOG_SEV(lg, debug) << "Created mapper for point: " << sn;
         }
     }
-    BOOST_LOG_SEV(lg, debug) << "Plane: " << r;
+    BOOST_LOG_SEV(lg, debug) << "Space: " << r;
     return r;
 }
 

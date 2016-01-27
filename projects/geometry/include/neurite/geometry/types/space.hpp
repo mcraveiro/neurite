@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_PLANE_HPP
-#define NEURITE_GEOMETRY_TYPES_PLANE_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_SPACE_HPP
+#define NEURITE_GEOMETRY_TYPES_SPACE_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
@@ -30,7 +30,7 @@
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
 #include "neurite/geometry/types/object_fwd.hpp"
-#include "neurite/geometry/serialization/plane_fwd_ser.hpp"
+#include "neurite/geometry/serialization/space_fwd_ser.hpp"
 
 namespace neurite {
 namespace geometry {
@@ -38,17 +38,17 @@ namespace geometry {
 /**
  * @brief Container for objects.
  */
-class plane final {
+class space final {
 public:
-    plane(const plane&) = default;
-    plane(plane&&) = default;
-    ~plane() = default;
+    space(const space&) = default;
+    space(space&&) = default;
+    ~space() = default;
 
 public:
-    plane();
+    space();
 
 public:
-    plane(
+    space(
         const int id,
         const std::string& name,
         const std::list<boost::shared_ptr<neurite::geometry::object> >& objects,
@@ -56,14 +56,14 @@ public:
 
 private:
     template<typename Archive>
-    friend void boost::serialization::save(Archive& ar, const plane& v, unsigned int version);
+    friend void boost::serialization::save(Archive& ar, const space& v, unsigned int version);
 
     template<typename Archive>
-    friend void boost::serialization::load(Archive& ar, plane& v, unsigned int version);
+    friend void boost::serialization::load(Archive& ar, space& v, unsigned int version);
 
 public:
     /**
-     * @brief Identity of the plane. Always the same for all planes.
+     * @brief Identity of the space. Always the same for all spaces.
      */
     /**@{*/
     int id() const;
@@ -86,14 +86,14 @@ public:
     void colour(const std::string&& v);
 
 public:
-    bool operator==(const plane& rhs) const;
-    bool operator!=(const plane& rhs) const {
+    bool operator==(const space& rhs) const;
+    bool operator!=(const space& rhs) const {
         return !this->operator==(rhs);
     }
 
 public:
-    void swap(plane& other) noexcept;
-    plane& operator=(plane other);
+    void swap(space& other) noexcept;
+    space& operator=(space other);
 
 private:
     int id_;
@@ -108,8 +108,8 @@ namespace std {
 
 template<>
 inline void swap(
-    neurite::geometry::plane& lhs,
-    neurite::geometry::plane& rhs) {
+    neurite::geometry::space& lhs,
+    neurite::geometry::space& rhs) {
     lhs.swap(rhs);
 }
 

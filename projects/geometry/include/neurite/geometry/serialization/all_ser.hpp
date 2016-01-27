@@ -25,8 +25,8 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/serialization/plane_ser.hpp"
 #include "neurite/geometry/serialization/point_ser.hpp"
+#include "neurite/geometry/serialization/space_ser.hpp"
 #include "neurite/geometry/serialization/object_ser.hpp"
 #include "neurite/geometry/serialization/sphere_ser.hpp"
 #include "neurite/geometry/serialization/cylinder_ser.hpp"

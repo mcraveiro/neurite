@@ -26,7 +26,7 @@
 #endif
 
 #include "neurite/swc/types/model.hpp"
-#include "neurite/geometry/types/plane.hpp"
+#include "neurite/geometry/types/space.hpp"
 
 namespace neurite {
 namespace geometry {
@@ -34,7 +34,7 @@ namespace swc {
 
 class workflow final {
 public:
-    geometry::plane execute(const neurite::swc::model& m) const;
+    geometry::space execute(const neurite::swc::model& m) const;
 };
 
 } } }

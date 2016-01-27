@@ -18,7 +18,7 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/geometry/types/plane.hpp"
+#include "neurite/geometry/types/space.hpp"
 #include "neurite/geometry/types/object.hpp"
 
 namespace boost {
@@ -33,10 +33,10 @@ const boost::shared_ptr<neurite::geometry::object>& rhs) {
 namespace neurite {
 namespace geometry {
 
-plane::plane()
+space::space()
     : id_(static_cast<int>(0)) { }
 
-plane::plane(
+space::space(
     const int id,
     const std::string& name,
     const std::list<boost::shared_ptr<neurite::geometry::object> >& objects,
@@ -46,7 +46,7 @@ plane::plane(
       objects_(objects),
       colour_(colour) { }
 
-void plane::swap(plane& other) noexcept {
+void space::swap(space& other) noexcept {
     using std::swap;
     swap(id_, other.id_);
     swap(name_, other.name_);
@@ -54,72 +54,72 @@ void plane::swap(plane& other) noexcept {
     swap(colour_, other.colour_);
 }
 
-bool plane::operator==(const plane& rhs) const {
+bool space::operator==(const space& rhs) const {
     return id_ == rhs.id_ &&
         name_ == rhs.name_ &&
         objects_ == rhs.objects_ &&
         colour_ == rhs.colour_;
 }
 
-plane& plane::operator=(plane other) {
+space& space::operator=(space other) {
     using std::swap;
     swap(*this, other);
     return *this;
 }
 
-int plane::id() const {
+int space::id() const {
     return id_;
 }
 
-void plane::id(const int v) {
+void space::id(const int v) {
     id_ = v;
 }
 
-const std::string& plane::name() const {
+const std::string& space::name() const {
     return name_;
 }
 
-std::string& plane::name() {
+std::string& space::name() {
     return name_;
 }
 
-void plane::name(const std::string& v) {
+void space::name(const std::string& v) {
     name_ = v;
 }
 
-void plane::name(const std::string&& v) {
+void space::name(const std::string&& v) {
     name_ = std::move(v);
 }
 
-const std::list<boost::shared_ptr<neurite::geometry::object> >& plane::objects() const {
+const std::list<boost::shared_ptr<neurite::geometry::object> >& space::objects() const {
     return objects_;
 }
 
-std::list<boost::shared_ptr<neurite::geometry::object> >& plane::objects() {
+std::list<boost::shared_ptr<neurite::geometry::object> >& space::objects() {
     return objects_;
 }
 
-void plane::objects(const std::list<boost::shared_ptr<neurite::geometry::object> >& v) {
+void space::objects(const std::list<boost::shared_ptr<neurite::geometry::object> >& v) {
     objects_ = v;
 }
 
-void plane::objects(const std::list<boost::shared_ptr<neurite::geometry::object> >&& v) {
+void space::objects(const std::list<boost::shared_ptr<neurite::geometry::object> >&& v) {
     objects_ = std::move(v);
 }
 
-const std::string& plane::colour() const {
+const std::string& space::colour() const {
     return colour_;
 }
 
-std::string& plane::colour() {
+std::string& space::colour() {
     return colour_;
 }
 
-void plane::colour(const std::string& v) {
+void space::colour(const std::string& v) {
     colour_ = v;
 }
 
-void plane::colour(const std::string&& v) {
+void space::colour(const std::string&& v) {
     colour_ = std::move(v);
 }
 

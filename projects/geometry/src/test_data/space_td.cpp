@@ -19,7 +19,7 @@
  *
  */
 #include <sstream>
-#include "neurite/geometry/test_data/plane_td.hpp"
+#include "neurite/geometry/test_data/space_td.hpp"
 #include "neurite/geometry/test_data/object_td.hpp"
 
 namespace {
@@ -59,9 +59,9 @@ std::list<boost::shared_ptr<neurite::geometry::object> > create_std_list_boost_s
 namespace neurite {
 namespace geometry {
 
-plane_generator::plane_generator() : position_(0) { }
+space_generator::space_generator() : position_(0) { }
 
-void plane_generator::
+void space_generator::
 populate(const unsigned int position, result_type& v) {
     v.id(create_int(position + 0));
     v.name(create_std_string(position + 1));
@@ -69,22 +69,22 @@ populate(const unsigned int position, result_type& v) {
     v.colour(create_std_string(position + 3));
 }
 
-plane_generator::result_type
-plane_generator::create(const unsigned int position) {
-    plane r;
-    plane_generator::populate(position, r);
+space_generator::result_type
+space_generator::create(const unsigned int position) {
+    space r;
+    space_generator::populate(position, r);
     return r;
 }
 
-plane_generator::result_type*
-plane_generator::create_ptr(const unsigned int position) {
-    plane* p = new plane();
-    plane_generator::populate(position, *p);
+space_generator::result_type*
+space_generator::create_ptr(const unsigned int position) {
+    space* p = new space();
+    space_generator::populate(position, *p);
     return p;
 }
 
-plane_generator::result_type
-plane_generator::operator()() {
+space_generator::result_type
+space_generator::operator()() {
     return create(position_++);
 }
 

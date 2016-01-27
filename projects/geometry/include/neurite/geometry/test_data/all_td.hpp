@@ -25,8 +25,8 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/test_data/plane_td.hpp"
 #include "neurite/geometry/test_data/point_td.hpp"
+#include "neurite/geometry/test_data/space_td.hpp"
 #include "neurite/geometry/test_data/object_td.hpp"
 #include "neurite/geometry/test_data/sphere_td.hpp"
 #include "neurite/geometry/test_data/cylinder_td.hpp"

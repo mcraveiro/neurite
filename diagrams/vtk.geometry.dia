@@ -259,7 +259,7 @@
                 <dia:string>#p#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#const geometry::plane&amp;#</dia:string>
+                <dia:string>#const geometry::space&amp;#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
@@ -418,7 +418,7 @@
                 <dia:string>#p#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#const geometry::plane&amp;#</dia:string>
+                <dia:string>#const geometry::space&amp;#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>

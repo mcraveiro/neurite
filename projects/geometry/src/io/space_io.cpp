@@ -20,7 +20,7 @@
  */
 #include <ostream>
 #include <boost/algorithm/string.hpp>
-#include "neurite/geometry/io/plane_io.hpp"
+#include "neurite/geometry/io/space_io.hpp"
 #include "neurite/geometry/io/object_io.hpp"
 
 inline std::string tidy_up_string(std::string s) {
@@ -63,9 +63,9 @@ inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_p
 namespace neurite {
 namespace geometry {
 
-std::ostream& operator<<(std::ostream& s, const plane& v) {
+std::ostream& operator<<(std::ostream& s, const space& v) {
     s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::plane\"" << ", "
+      << "\"__type__\": " << "\"neurite::geometry::space\"" << ", "
       << "\"id\": " << v.id() << ", "
       << "\"name\": " << "\"" << tidy_up_string(v.name()) << "\"" << ", "
       << "\"objects\": " << v.objects() << ", "

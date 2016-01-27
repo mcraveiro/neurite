@@ -32,7 +32,7 @@ namespace neurite {
 namespace geometry {
 
 /**
- * @brief Point in a 3D plane.
+ * @brief Point in a 3D space.
  */
 class point final {
 public:

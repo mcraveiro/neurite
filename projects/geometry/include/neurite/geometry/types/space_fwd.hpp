@@ -18,35 +18,18 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_HASH_PLANE_HASH_HPP
-#define NEURITE_GEOMETRY_HASH_PLANE_HASH_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_SPACE_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_SPACE_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <functional>
-#include "neurite/geometry/types/plane.hpp"
-
 namespace neurite {
 namespace geometry {
 
-struct plane_hasher {
-public:
-    static std::size_t hash(const plane& v);
-};
+class space;
 
 } }
 
-namespace std {
-
-template<>
-struct hash<neurite::geometry::plane> {
-public:
-    size_t operator()(const neurite::geometry::plane& v) const {
-        return neurite::geometry::plane_hasher::hash(v);
-    }
-};
-
-}
 #endif

@@ -18,35 +18,22 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TEST_DATA_PLANE_TD_HPP
-#define NEURITE_GEOMETRY_TEST_DATA_PLANE_TD_HPP
+#ifndef NEURITE_GEOMETRY_IO_SPACE_IO_HPP
+#define NEURITE_GEOMETRY_IO_SPACE_IO_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/geometry/types/plane.hpp"
+#include <iosfwd>
+#include "neurite/geometry/types/space.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class plane_generator {
-public:
-    plane_generator();
-
-public:
-    typedef neurite::geometry::plane result_type;
-
-public:
-    static void populate(const unsigned int position, result_type& v);
-    static result_type create(const unsigned int position);
-    result_type operator()();
-
-private:
-    unsigned int position_;
-public:
-    static result_type* create_ptr(const unsigned int position);
-};
+std::ostream&
+operator<<(std::ostream& s,
+     const neurite::geometry::space& v);
 
 } }
 

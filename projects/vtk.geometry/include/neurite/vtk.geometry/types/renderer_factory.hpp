@@ -27,7 +27,7 @@
 
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
-#include "neurite/geometry/types/plane.hpp"
+#include "neurite/geometry/types/space.hpp"
 
 namespace neurite {
 namespace vtk {
@@ -35,7 +35,7 @@ namespace geometry {
 
 class renderer_factory {
 public:
-    vtkSmartPointer<vtkRenderer> make(const neurite::geometry::plane& p) const;
+    vtkSmartPointer<vtkRenderer> make(const neurite::geometry::space& s) const;
 };
 
 } } }

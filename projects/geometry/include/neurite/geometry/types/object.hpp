@@ -75,7 +75,7 @@ public:
 
 public:
     /**
-     * @brief Identifies an object within a plane.
+     * @brief Identifies an object within a space.
      */
     /**@{*/
     int id() const;

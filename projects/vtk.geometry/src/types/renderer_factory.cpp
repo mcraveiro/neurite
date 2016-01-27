@@ -95,20 +95,20 @@ actor_factory::make(const neurite::geometry::object& o) {
 }
 
 vtkSmartPointer<vtkRenderer>
-renderer_factory::make(const neurite::geometry::plane& p) const {
+renderer_factory::make(const neurite::geometry::space& s) const {
     auto r(vtkSmartPointer<vtkRenderer>::New());
     BOOST_LOG_SEV(lg, debug) << "Setting renderer background colour: "
-                             << p.colour();
+                             << s.colour();
 
     auto palette(vtkSmartPointer<vtkNamedColors>::New());
     double rgba[4];
-    palette->GetColor(p.colour(), rgba);
+    palette->GetColor(s.colour(), rgba);
     r->GradientBackgroundOn();
     r->SetBackground(rgba[0], rgba[1], rgba[2]);
     r->SetBackground2(0, 0, 0);
 
     actor_factory f(*palette);
-    for (const auto& o : p.objects())
+    for (const auto& o : s.objects())
         r->AddActor(f.make(*o));
 
     return r;

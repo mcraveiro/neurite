@@ -18,7 +18,7 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/geometry/hash/plane_hash.hpp"
+#include "neurite/geometry/hash/space_hash.hpp"
 #include "neurite/geometry/hash/object_hash.hpp"
 
 namespace {
@@ -48,7 +48,7 @@ inline std::size_t hash_std_list_boost_shared_ptr_neurite_geometry_object_(const
 namespace neurite {
 namespace geometry {
 
-std::size_t plane_hasher::hash(const plane& v) {
+std::size_t space_hasher::hash(const space& v) {
     std::size_t seed(0);
 
     combine(seed, v.id());

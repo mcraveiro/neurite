@@ -18,26 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_SERIALIZATION_PLANE_SER_HPP
-#define NEURITE_GEOMETRY_SERIALIZATION_PLANE_SER_HPP
+#ifndef NEURITE_GEOMETRY_HASH_SPACE_HASH_HPP
+#define NEURITE_GEOMETRY_HASH_SPACE_HASH_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <boost/serialization/split_free.hpp>
-#include "neurite/geometry/types/plane.hpp"
+#include <functional>
+#include "neurite/geometry/types/space.hpp"
 
-BOOST_SERIALIZATION_SPLIT_FREE(neurite::geometry::plane)
-namespace boost {
-namespace serialization {
+namespace neurite {
+namespace geometry {
 
-template<typename Archive>
-void save(Archive& ar, const neurite::geometry::plane& v, unsigned int version);
-
-template<typename Archive>
-void load(Archive& ar, neurite::geometry::plane& v, unsigned int version);
+struct space_hasher {
+public:
+    static std::size_t hash(const space& v);
+};
 
 } }
 
+namespace std {
+
+template<>
+struct hash<neurite::geometry::space> {
+public:
+    size_t operator()(const neurite::geometry::space& v) const {
+        return neurite::geometry::space_hasher::hash(v);
+    }
+};
+
+}
 #endif

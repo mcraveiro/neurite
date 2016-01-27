@@ -26,7 +26,7 @@
 #endif
 
 #include <QWidget>
-#include "neurite/geometry/types/plane.hpp"
+#include "neurite/geometry/types/space.hpp"
 
 namespace neurite {
 namespace vtk {
@@ -34,7 +34,7 @@ namespace geometry {
 
 class widget_factory final {
 public:
-    QWidget* make(const neurite::geometry::plane& p) const;
+    QWidget* make(const neurite::geometry::space& s) const;
 };
 
 } } }

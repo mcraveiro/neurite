@@ -27,9 +27,9 @@ namespace neurite {
 namespace vtk {
 namespace geometry {
 
-QWidget* widget_factory::make(const neurite::geometry::plane& p) const {
+QWidget* widget_factory::make(const neurite::geometry::space& s) const {
     renderer_factory f;
-    auto renderer(f.make(p));
+    auto renderer(f.make(s));
 
     auto r(new QVTKWidget);
     r->GetRenderWindow()->AddRenderer(renderer);

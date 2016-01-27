@@ -25,8 +25,8 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/hash/plane_hash.hpp"
 #include "neurite/geometry/hash/point_hash.hpp"
+#include "neurite/geometry/hash/space_hash.hpp"
 #include "neurite/geometry/hash/object_hash.hpp"
 #include "neurite/geometry/hash/sphere_hash.hpp"
 #include "neurite/geometry/hash/cylinder_hash.hpp"

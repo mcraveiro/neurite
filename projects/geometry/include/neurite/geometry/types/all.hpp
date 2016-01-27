@@ -25,8 +25,8 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/types/plane.hpp"
 #include "neurite/geometry/types/point.hpp"
+#include "neurite/geometry/types/space.hpp"
 #include "neurite/geometry/types/object.hpp"
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/cylinder.hpp"
