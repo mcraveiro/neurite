@@ -27,7 +27,7 @@ before_install:
   # debian testing
   # - echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -qq
-  - sudo apt-get install -qq qtbase5-dev libvtk6-dev libvtk6-qt-dev 
+  # - sudo apt-get install -qq qtbase5-dev libvtk6-dev libvtk6-qt-dev
 
   # ninja
   - sudo apt-get install ninja-build
@@ -55,7 +55,7 @@ before_install:
 
 install:
   # boost. install all for now.
-  - sudo apt-get install libboost1.55-all-dev 
+  - sudo apt-get install libboost1.55-all-dev
 
   # ninja
   - sudo apt-get install ninja-build
@@ -95,7 +95,7 @@ notifications:
 
   webhooks:
     urls:
-      - https://webhooks.gitter.im/e/f65b7ca790d29439491d
+      - https://webhooks.gitter.im/e/a6bf97d75bc4f88f8d0c
     on_success: always
     on_failure: always
 
