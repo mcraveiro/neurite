@@ -1,6 +1,6 @@
 #+CAPTION: Project Licence
 #+ATTR_HTML: :align center
-[[https://raw.githubusercontent.com/DomainDrivenConsulting/dogen/master/LICENCE][https://img.shields.io/badge/license-GPL_3-green.svg?dummy]] [[https://travis-ci.org/mcraveiro/neurite][https://travis-ci.org/mcraveiro/neurite.svg?branch=master]] [[https://gitter.im/mcraveiro/neurite?utm_source%3Dbadge&utm_medium%3Dbadge&utm_campaign%3Dpr-badge&utm_content%3Dbadge][https://badges.gitter.im/Join Chat.svg]]
+[[https://raw.githubusercontent.com/DomainDrivenConsulting/dogen/master/LICENCE][https://img.shields.io/badge/license-GPL_3-green.svg?dummy]] [[https://travis-ci.org/UHBiocomputation/neurite][https://travis-ci.org/UHBiocomputation/neurite.svg?branch=master]] [[https://gitter.im/mcraveiro/neurite?utm_source%3Dbadge&utm_medium%3Dbadge&utm_campaign%3Dpr-badge&utm_content%3Dbadge][https://badges.gitter.im/Join Chat.svg]]
 
 * Overview
 
