@@ -12,30 +12,35 @@
 
 ** Active
 
-#+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75
-#+CAPTION: Clock summary at [2016-01-27 Wed 17:52]
-| <75>                                                                        |         |       |      |
-| Headline                                                                    | Time    |       |      |
-|-----------------------------------------------------------------------------+---------+-------+------|
-| *Total time*                                                                | *27:07* |       |      |
-|-----------------------------------------------------------------------------+---------+-------+------|
-| Stories                                                                     | 27:07   |       |      |
-| Active                                                                      |         | 27:07 |      |
-| STARTED Sprint and product backlog grooming                                 |         |       | 0:59 |
-| STARTED Journal club and other activities                                   |         |       | 2:25 |
-| COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |
-| COMPLETED Design a simple project structure for use cases                   |         |       | 2:32 |
-| COMPLETED Rename =swc::file= to =swc::model=                                |         |       | 0:07 |
-| COMPLETED Create the =geometry.swc= project                                 |         |       | 2:38 |
-| COMPLETED Refactor code to fit the new project structure                    |         |       | 2:07 |
-| COMPLETED Understand the fundamentals of placing objects in space           |         |       | 6:39 |
-| COMPLETED Get a basic understanding of required maths terminology           |         |       | 3:01 |
-| COMPLETED Add support for CGAL                                              |         |       | 0:58 |
-| STARTED Render a realistic SWC file                                         |         |       | 1:18 |
-| STARTED Create a processor in =geometry.swc= to organise the points         |         |       | 3:58 |
+#+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
+#+CAPTION: Clock summary at [2016-02-01 Mon 14:38]
+| <75>                                                                        |         |       |      |       |
+| Headline                                                                    | Time    |       |      |     % |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| *Total time*                                                                | *31:07* |       |      | 100.0 |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| Stories                                                                     | 31:07   |       |      | 100.0 |
+| Active                                                                      |         | 31:07 |      | 100.0 |
+| COMPLETED Sprint and product backlog grooming                               |         |       | 0:59 |   3.2 |
+| COMPLETED Journal club and lectures                                         |         |       | 2:25 |   7.8 |
+| COMPLETED Socialising                                                       |         |       | 2:00 |   6.4 |
+| COMPLETED Sprint review                                                     |         |       | 1:10 |   3.7 |
+| COMPLETED Setup access to bio-computation irc channel                       |         |       | 0:25 |   1.3 |
+| COMPLETED Design a simple project structure for use cases                   |         |       | 2:32 |   8.1 |
+| COMPLETED Rename =swc::file= to =swc::model=                                |         |       | 0:07 |   0.4 |
+| COMPLETED Create the =geometry.swc= project                                 |         |       | 2:38 |   8.5 |
+| COMPLETED Refactor code to fit the new project structure                    |         |       | 2:07 |   6.8 |
+| COMPLETED Understand the fundamentals of placing objects in space           |         |       | 6:39 |  21.4 |
+| COMPLETED Get a basic understanding of required maths terminology           |         |       | 3:01 |   9.7 |
+| COMPLETED Add support for CGAL                                              |         |       | 0:58 |   3.1 |
+| COMPLETED Move to bio organisation                                          |         |       | 0:50 |   2.7 |
+| POSTPONED Render a realistic SWC file                                       |         |       | 1:18 |   4.2 |
+| POSTPONED Create a processor in =geometry.swc= to organise the points       |         |       | 3:58 |  12.7 |
+#+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
-*** STARTED Sprint and product backlog grooming                       :story:
+*** COMPLETED Sprint and product backlog grooming                     :story:
+    CLOSED: [2016-02-01 Mon 14:29]
     CLOCK: [2016-01-25 Mon 21:28]--[2016-01-25 Mon 21:33] =>  0:05
     CLOCK: [2016-01-20 Wed 16:59]--[2016-01-20 Wed 17:09] =>  0:10
     CLOCK: [2016-01-19 Tue 17:33]--[2016-01-19 Tue 17:55] =>  0:17
@@ -43,8 +48,10 @@
 
 Updates to sprint and product backlog.
 
-*** STARTED Journal club and other activities                         :story:
-    CLOCK: [2016-01-22 Fri 16:01]--[2016-01-22 Fri 18:01] =>  2:00
+*** COMPLETED Journal club and lectures                               :story:
+    CLOSED: [2016-02-01 Mon 14:29]
+    CLOCK: [2016-01-29 Fri 16:01]--[2016-01-29 Fri 17:01] =>  1:00
+    CLOCK: [2016-01-22 Fri 16:01]--[2016-01-22 Fri 17:01] =>  1:00
     CLOCK: [2016-01-18 Mon 16:03]--[2016-01-18 Mon 16:14] =>  0:11
     CLOCK: [2016-01-18 Mon 14:41]--[2016-01-18 Mon 14:55] =>  0:14
 
@@ -52,9 +59,18 @@ Time spent in generic tasks.
 
 - sorting out supervision.
 
-*** Chat with btn                                                     :story:
+*** COMPLETED Socialising                                             :story:
+    CLOSED: [2016-02-01 Mon 14:29]
+    CLOCK: [2016-01-29 Fri 17:01]--[2016-01-29 Fri 18:01] =>  1:00
+    CLOCK: [2016-01-22 Fri 17:01]--[2016-01-22 Fri 18:01] =>  1:00
 
-Any time spent with updates.
+Any events during work hours not directly connected to work.
+
+*** COMPLETED Sprint review                                           :story:
+    CLOSED: [2016-02-01 Mon 14:30]
+    CLOCK: [2016-01-29 Fri 14:00]--[2016-01-29 Fri 15:10] =>  1:10
+
+Review of the sprint.
 
 *** COMPLETED Setup access to bio-computation irc channel             :story:
     CLOSED: [2016-01-19 Tue 15:11]
@@ -387,7 +403,15 @@ the required infrastructure (debian packages, CMake files, etc).
 - [[https://raw.githubusercontent.com/pgRouting/pgrouting/master/cmake/FindCGAL.cmake][FindCgal]] from pgRouting project
 - [[https://cel.archives-ouvertes.fr/file/index/docid/340448/filename/whole-course.pdf][CGAL - the Computational Geometry Algorithms Library]]
 
-*** STARTED Render a realistic SWC file                               :story:
+*** COMPLETED Move to bio organisation                                :story:
+    CLOSED: [2016-02-01 Mon 14:31]
+    CLOCK: [2016-01-29 Fri 15:10]--[2016-01-29 Fri 16:00] =>  0:50
+
+We need to move our repo into the bio organisation in github. This
+includes gitter, travis, etc.
+
+*** POSTPONED Render a realistic SWC file                             :story:
+    CLOSED: [2016-02-01 Mon 14:34]
     CLOCK: [2016-01-26 Tue 13:31]--[2016-01-26 Tue 13:44] =>  0:13
     CLOCK: [2016-01-25 Mon 21:34]--[2016-01-25 Mon 22:39] =>  1:05
 
@@ -412,7 +436,8 @@ Notes:
   pipeline. Perhaps we are already doing that since we are applying
   the transform to the poly data rather than the actor.
 
-*** STARTED Create a processor in =geometry.swc= to organise the points :story:
+*** POSTPONED Create a processor in =geometry.swc= to organise the points :story:
+    CLOSED: [2016-02-01 Mon 14:35]
     CLOCK: [2016-01-27 Wed 15:28]--[2016-01-27 Wed 17:57] =>  2:29
     CLOCK: [2016-01-27 Wed 15:00]--[2016-01-27 Wed 15:28] =>  0:28
     CLOCK: [2016-01-27 Wed 14:10]--[2016-01-27 Wed 15:00] =>  0:50
@@ -447,38 +472,6 @@ Notes:
 - [[http://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Point__3.html#a13fbe61503fadf1ea7f66d34652353d1][point 3d operator-]]: Creating vectors by subtracting two points.
 - [[http://cgal-discuss.949826.n4.nabble.com/Calculate-angle-td950283.html][calculating angles from points]]
 - [[https://www.mathsisfun.com/algebra/vectors-dot-product.html][dot product]]
-
-*** Create a feature for QT/VTK                                       :story:
-
-At present the build is broken because travis does not support QT5 and
-VTK6. We should wrap this code with a feature and not use it on the
-build machine so that at least we can run other tests.
-
-*** Update =soma= to use the new infrastructure                       :story:
-
-To start off with we should just create a class in =soma= that acts as
-glue and orchestrates all of the other components.
-
-*** Ignore comments on =swc=                                          :story:
-
-At present we are choking on our data files due to the headers. Do a
-simple hack on the parser to ignore comments.
-
-*** Create a blog post on SWC                                         :story:
-
-- describe format
-- describe the reconstruction and generative processes
-
-*** Validate geometric work with realistic SWC models                 :story:
-
-Ensure the code still works when using more complex SWC models. We
-have one at present but we should download several, with different
-sizes, e.g. 5K points, 50k points, and so on.
-
-*** Create a blog post on basic maths terminology                     :story:
-
-Now we understood the basics, we should apply the usual Feynman
-technique and write a blog post about it.
 
 ** Deprecated
 *** CANCELLED Create a VTK setup from github                          :story:
