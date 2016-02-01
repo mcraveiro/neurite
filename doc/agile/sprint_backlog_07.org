@@ -13,16 +13,17 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-02-01 Mon 14:49]
+#+CAPTION: Clock summary at [2016-02-01 Mon 17:33]
 | <75>                                                                        |        |      |      |       |
 | Headline                                                                    | Time   |      |      |     % |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *0:47* |      |      | 100.0 |
+| *Total time*                                                                | *3:30* |      |      | 100.0 |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 0:47   |      |      | 100.0 |
-| Active                                                                      |        | 0:47 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:27 |  57.4 |
-| STARTED Socialising                                                         |        |      | 0:20 |  42.6 |
+| Stories                                                                     | 3:30   |      |      | 100.0 |
+| Active                                                                      |        | 3:30 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |        |      | 0:27 |  12.9 |
+| STARTED Socialising                                                         |        |      | 0:20 |   9.5 |
+| STARTED Get a green build on travis                                         |        |      | 2:43 |  77.6 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -46,10 +47,25 @@ Any events during work hours not directly connected to work.
 
 Review of the sprint.
 
-*** Get a green build on travis                                       :story:
+*** STARTED Get a green build on travis                               :story:
+    CLOCK: [2016-02-01 Mon 17:32]--[2016-02-01 Mon 17:33] =>  0:01
+    CLOCK: [2016-02-01 Mon 14:49]--[2016-02-01 Mon 17:31] =>  2:42
 
 At present the build fails due to VTK/Qt/CGAL dependencies. We need to
 find a workaround for now.
+
+Investigated a docker image based setup:
+
+: docker build -t neurite-devel .
+: docker login --username=mcraveiro --email=marco.craveiro@gmail.com
+: docker push mcraveiro/neurite-devel
+
+However, images are very large (> 2GB). Its still not clear:
+
+- if the imagine has all of the required dependencies.
+- if the images will work with travis. [[https://docs.travis-ci.com/user/docker/][This document]] seems to imply
+  they will.
+- if the 2GB size is to big given the ~1h window for the build.
 
 *** STARTED Render a realistic SWC file                               :story:
 

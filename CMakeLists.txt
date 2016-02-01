@@ -16,16 +16,13 @@ find_package(Threads REQUIRED)
 add_definitions(-DBOOST_ALL_DYN_LINK)
 find_package(Boost 1.59 REQUIRED COMPONENTS
     system
-    chrono
+    exception
     serialization
-    date_time
-    thread
     log
     filesystem
     program_options
-    iostreams
-    )
-
+    iostreams)
+  
 if(Boost_FOUND)
     include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 endif()
