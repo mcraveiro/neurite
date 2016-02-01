@@ -13,17 +13,18 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-02-01 Mon 17:33]
+#+CAPTION: Clock summary at [2016-02-01 Mon 18:04]
 | <75>                                                                        |        |      |      |       |
 | Headline                                                                    | Time   |      |      |     % |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *3:30* |      |      | 100.0 |
+| *Total time*                                                                | *4:00* |      |      | 100.0 |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 3:30   |      |      | 100.0 |
-| Active                                                                      |        | 3:30 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:27 |  12.9 |
-| STARTED Socialising                                                         |        |      | 0:20 |   9.5 |
-| STARTED Get a green build on travis                                         |        |      | 2:43 |  77.6 |
+| Stories                                                                     | 4:00   |      |      | 100.0 |
+| Active                                                                      |        | 4:00 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |        |      | 0:27 |  11.2 |
+| STARTED Socialising                                                         |        |      | 0:20 |   8.3 |
+| STARTED Get a green build on travis                                         |        |      | 2:43 |  67.9 |
+| STARTED Create a blog post on SWC                                           |        |      | 0:30 |  12.5 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -122,6 +123,12 @@ Notes:
 - [[http://cgal-discuss.949826.n4.nabble.com/Calculate-angle-td950283.html][calculating angles from points]]
 - [[https://www.mathsisfun.com/algebra/vectors-dot-product.html][dot product]]
 
+*** STARTED Create a blog post on SWC                                 :story:
+    CLOCK: [2016-02-01 Mon 17:34]--[2016-02-01 Mon 18:04] =>  0:30
+
+- describe format
+- describe the reconstruction and generative processes
+
 *** Create a feature for QT/VTK                                       :story:
 
 At present the build is broken because travis does not support QT5 and
@@ -137,11 +144,6 @@ glue and orchestrates all of the other components.
 
 At present we are choking on our data files due to the headers. Do a
 simple hack on the parser to ignore comments.
-
-*** Create a blog post on SWC                                         :story:
-
-- describe format
-- describe the reconstruction and generative processes
 
 *** Validate geometric work with realistic SWC models                 :story:
 

@@ -1,12 +1,64 @@
 #+title: Nerd Food: Tooling in Computational Neuroscience - Part III: SWC
 #+options: date:nil toc:nil author:nil num:nil title:nil
 
+#+begin_html
+<table border="0">
+<tr>
+<td width="50%"></td>
+<td width="50%"><p class="verse" style="text-align:left">
+<small>
+In God we trust; all others must bring data. <i>-- <a href="https://en.wikipedia.org/wiki/W._Edwards_Deming">W. Edwards Deming</a></i>
+</small>
+</p></td>
+</tr>
+</table>
+#+end_html
+
 Welcome to yet another instalment of the series of posts about tooling
 in Computational Neuroscience! If you haven't done so already, you
 probably should read [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][Part I]] and [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational_30.html][part II]] for this part to make
 sense. Previously we discussed simulators (and a [[https://en.wikipedia.org/wiki/Neuron_(software)][popular one]] in
-particular) and microscopes. Now we shall cover a file format, and one
-of the many (many) tools that can be used to parse it.
+particular) and microscopes. Now we shall cover a file format, and
+some of the tools that can be used to parse it. But first lets start
+out incursion by looking at the problem of data interchange.
+
+* Neuroinformatics
+
+As you can imagine, Computational Neuroscience by itself is not
+particularly interesting if there are no inputs to the models we
+carefully craft nor if there are no outputs to show us what the models
+are doing. But how exactly should those inputs and outputs be
+represented? Similarly, one needs to be able to use experimental data
+to inform our modeling choices and in order to baseline
+expectations. In all of these cases - and others more - there is a
+problem of data interchange.
+
+As it happens, the management of data in Neuroscience is so complex it
+is a field on its own right, called [[https://en.wikipedia.org/wiki/Neuroinformatics][Neuroinformatics]]. Wikipedia tells
+us that:
+
+#+begin_quote
+Neuroinformatics is a research field concerned with the organization
+of neuroscience data by the application of computational models and
+analytical tools. These areas of research are important for the
+integration and analysis of increasingly large-volume,
+high-dimensional, and fine-grain experimental
+data. Neuroinformaticians provide computational tools, mathematical
+models, and create interoperable databases for clinicians and research
+scientists.
+#+end_quote
+
+In layman's terms, Neuroinformatics concerns itself with Neuroscience
+data and knowledge databases - and thus with a variety of /kinds/ of
+data - as well as the tools that are needed for the acquisition of
+said data, its analysis and visualisation. As you can see, there is a
+big overlap between Computational Neuroscience - the modeling - and
+Neuroinformatics - the inputs and outputs and conceivably the model
+/itself/ when viewed as data.[fn:Neuroinformatics]
+
+
+
+
 
 * The Age of Data and Databases
 
@@ -18,25 +70,14 @@ apparent in the nineties with the rise of the Internet. Since then, a
 growing number of labs have published their data online so that other
 labs could reproduce and improve upon their research. But the notion
 that there should be some kind of organisation of the neuroscience
-data is older than that, and in fact it is a field on its own right
-called [[https://en.wikipedia.org/wiki/Neuroinformatics][Neuroinformatics]]. Wikipedia tells us that:
-
-#+begin_quote
-Neuroinformatics is a research field concerned with the organization
-of neuroscience data by the application of computational models and
-analytical tools.
-#+end_quote
-
-So Neuroinformatics concerns itself with neuroscience data and
-knowledge databases - and thus with a variety of /kinds/ of data - as
-well as the tools that are needed for the acquisition of said data,
-its analysis and visualisation. As you can see, there is a big overlap
-between Computational Neuroscience - the modeling - and
-Neuroinformatics - the inputs and outputs and conceivably the model
-/itself/ when viewed as data.[fn:Neuroinformatics]
+data is older than that, and in fact it is a
 
 At any rate, a number of databases have evolved, storing all kinds of
 useful data.
+
+
+
+
 
 [fn:Neuroinformatics] For a bit more details on the two fields see
 [[https://www.maths.nottingham.ac.uk/personal/sc/cnn/CNN2A.pdf][What are Computational Neuroscience and Neuroinformatics?]]
