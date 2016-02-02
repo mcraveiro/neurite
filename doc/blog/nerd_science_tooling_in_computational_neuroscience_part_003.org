@@ -1,4 +1,4 @@
-#+title: Nerd Food: Tooling in Computational Neuroscience - Part III: SWC
+#+title: Nerd Food: Tooling in Computational Neuroscience - Part III: Data
 #+options: date:nil toc:nil author:nil num:nil title:nil
 
 #+begin_html
@@ -16,26 +16,51 @@ In God we trust; all others must bring data. <i>-- <a href="https://en.wikipedia
 
 Welcome to yet another instalment of the series of posts about tooling
 in Computational Neuroscience! If you haven't done so already, you
-probably should read [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][Part I]] and [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational_30.html][part II]] for this part to make
-sense. Previously we discussed simulators (and a [[https://en.wikipedia.org/wiki/Neuron_(software)][popular one]] in
-particular) and microscopes. Now we shall cover a file format, and
-some of the tools that can be used to parse it. But first lets start
-out incursion by looking at the problem of data interchange.
+probably should read [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][Part I]] and [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational_30.html][part II]] to understand the context of
+the material discussed here in Part III. Previously, we discussed
+simulators - a [[https://en.wikipedia.org/wiki/Neuron_(software)][popular one]], in particular - and microscopes. Now we
+shall talk about /data/ and file formats.
 
-* Neuroinformatics
+* Data and Specifications
 
 As you can imagine, Computational Neuroscience by itself is not
 particularly interesting if there are no inputs to the models we
-carefully craft nor if there are no outputs to show us what the models
-are doing. But how exactly should those inputs and outputs be
-represented? Similarly, one needs to be able to use experimental data
-to inform our modeling choices and in order to baseline
-expectations. In all of these cases - and others more - there is a
-problem of data interchange.
+carefully craft nor if there are no detailed outputs to allow us to
+know what the models are doing. Similarly, one needs to be able to use
+experimental data to inform our modeling choices and in order to
+baseline expectations; if this data is not available, one cannot tell
+how close or how far models are from the real thing. Data is of
+crucial importance, as it is in so many other fields.
 
-As it happens, the management of data in Neuroscience is so complex it
-is a field on its own right, called [[https://en.wikipedia.org/wiki/Neuroinformatics][Neuroinformatics]]. Wikipedia tells
-us that:
+Once we've gone past the data availability problem, we soon hit
+another: how should the data be encoded? Clearly, in order for the
+data to be useful, it must be accompanied by a formal or informal
+specification of the data format, or else users will not know how to
+interpret it. Alas, given the highly technical nature of the data in
+question, the specification must be very precise or the data becomes
+useless. Thus, it is just not practical to allow everyone to come up
+with their own data formats:
+
+- writing a clear and concise specification for data interchange is
+  hard work, and requires a lot of experience on both the domain and
+  the specification process in general. The first attempts would
+  probably prove to be incomplete, inconsistent or impractical.
+- writing code to read and write files according to a specification is
+  also difficult engineering work.
+- writing code to convert from one data specification to another is
+  even more difficult because it requires intimate knowledge of both.
+- some data is generated directly by hardware, making it impractical
+  to adapt to different requirements.
+
+These difficulties are of course not unique to Computational
+Neuroscience or to Neuroscience as a whole, but the complexity of the
+domain has the effect of greatly exacerbating the problem. In fact,
+the management of data in Neuroscience is so complex it is a /field/
+on its own right, called [[https://en.wikipedia.org/wiki/Neuroinformatics][Neuroinformatics]].
+
+* Neuroinformatics
+
+Wikipedia tells us that:
 
 #+begin_quote
 Neuroinformatics is a research field concerned with the organization
@@ -56,15 +81,134 @@ big overlap between Computational Neuroscience - the modeling - and
 Neuroinformatics - the inputs and outputs and conceivably the model
 /itself/ when viewed as data.[fn:Neuroinformatics]
 
+In truth, there rarely are clear cut separations between the branches
+of science at this level. I personally think of Neuroinformatics as a
+hat you don on as and when your Computational Science work
+requires. The definition is there to allows to think of the separation
+between the analytical work in modeling and the data storage and
+retrieval work as separate things, nothing more. So, for the purposes
+of this article, we'll continue to refer to the Neuroinformatics
+Scientist and the Computational Neuroscientist personas, but bear in
+mind they may resolve to the same person in practice.
+
+Before we move on, I'd like to point out one interesting challenge
+Neuroinformatics has to address - common to any data in the Medical
+Sciences - and that is the need to handle human-derived data very
+carefully. After all, making data sets available widely must not have
+implications for the original patients, so its often a requirement
+that the data is de-identified, or in the cases where the data is
+patient sensitive, additional requirements may be made to users of the
+data to avoid leaking this information. This illustrates the peculiar
+nature of Neuroinformatics, with the constant tension between making
+data as widely available as possible but at the same time having to
+ensure there are no side-effects of doing so.
+
+* Databases, Repositories and Archives
+
+Thanks to the efforts of Neuroinformatics, there is now a wealth of
+Neuroscience data available to all on the Internet. The roots of this
+growth were sowed in the nineties when labs started sharing research
+results online. Sharing always existed in one way or another, of
+course, but the rise of the Internet simply changed the magnitude of
+the process. It soon became apparent that there was a need to organise
+central repositories of data, and to ensure the consistency of the
+shared data. Papers with a distinct Neuroinformatics tone were
+written, such as [[http://www.ncbi.nlm.nih.gov/pubmed/9821633][An on-line archive of reconstructed hippocampal
+neurons]] (1999). Repositories grew, multiplied, morphed and in many
+cases died, as these things do, and the evolutionary process left us
+with the survivors. I'd like to highlight some of the ones I have
+bumped into so far are (with descriptions on their own words):
+
+- [[https://senselab.med.yale.edu/modeldb/][ModelDB]]: "ModelDB provides an accessible location for storing and
+  efficiently retrieving computational neuroscience models. ModelDB is
+  tightly coupled with NeuronDB. Models can be coded in any language
+  for any environment. Model code can be viewed before downloading and
+  browsers can be set to auto-launch the models."
+- [[http://neuromorpho.org/][NeuroMorpho]]: "NeuroMorpho.Org is a centrally curated inventory of
+  digitally reconstructed neurons associated with peer-reviewed
+  publications. It contains contributions from over 100 laboratories
+  worldwide and is continuously updated as new morphological
+  reconstructions are collected, published, and shared. To date,
+  NeuroMorpho.Org is the largest collection of publicly accessible 3D
+  neuronal reconstructions and associated metadata."
+- [[http://fcon_1000.projects.nitrc.org/][Functional Connectomes Project]]: "Following the precedent of full
+  unrestricted data sharing, which has become the norm in molecular
+  genetics, the FCP entailed the aggregation and public release (via
+  www.nitrc.org) of over 1200 resting state fMRI (R-fMRI) datasets
+  collected from 33 sites around the world."
+- [[https://openfmri.org/][OpenfMRI]]: "[...] project dedicated to the free and open sharing of
+  functional magnetic resonance imaging (fMRI) datasets, including raw
+  data."
+- [[http://www.opensourcebrain.org/projects][Open Source Brain]]: "resource for sharing and collaboratively
+  developing computational models of neural systems."
+- [[http://www.neuinfo.org/about/index.shtm][Neuroscience Information Framework]]: "[...] [a] dynamic inventory of
+  Web-based neuroscience resources: data, materials, and tools
+  accessible via any computer connected to the Internet. An initiative
+  of the NIH Blueprint for Neuroscience Research, NIF advances
+  neuroscience research by enabling discovery and access to public
+  research data and tools worldwide through an open source, networked
+  environment."
+
+As you can see from this small list - rather incomplete, I'm sure -
+there is a wealth of information out there, covering all sorts of
+aspects of the brain. We never had so much data as we do today. And,
+in many ways, this is fast becoming a problem.
+
+* Drowning in a Sea of Data
+
+There are several problems with the current state of affairs, which
+hamper researchers. The first is a lack of widely adopted standards
+for data interchange. This is a problem in several ways.
+
+- lack of established standards that cover both morphology and
+  biophysical models;
+- lack of established standards for data capture on sources such as
+  EM, MRI, etc.
+- lack of integration between the different standards so that you can
+  reference resources.
+
+
+
+To the untrained eye, the name "Neuroscience" hides a plethora of
+divisions or sub-fields if you like, and these are not designed to
+talk to each other. Data obtained from Electron Microscopy (EM) is
+disconnected from data obtained by Magnetic resonance imaging (MRI),
+which is also totally separate from connectome
+information[fn:connectome] and so forth. It is not as if someone sat down
+and generated a well defined set of file formats for data interchange,
+covering all different aspects of the areas under study.
+
+Instead, what emerged was a multitude of file formats in each
+sub-field, all calling out for attention, and all of them designed for
+the immediate goal at hand - rather than the greater good of
+Neuroscience. From a Software Engineering perspective, this makes
+perfect sense; after all, the [[http://c2.com/cgi/wiki?MakeItWorkMakeItRightMakeItFast][Real Programmers had said]]: "first make
+it work, then make it right, and, finally, make it fast." In many
+ways, we are reaching the "make it right" phase, with an increasing
+number of efforts being directed towards the creation of broader
+standards.
+
+
+
+Anything to do with the brain gets pretty complex pretty quickly, and
+this manifests itself in the data dimension by having ever larger data
+sets with greater levels of detail. On the plus side, thanks to
+Moore's Law [[https://en.wikipedia.org/wiki/Sigmoid_function][sigmoid]], detailed information at all levels is allowing us
+to answer questions that were unanswerable not so long ago. For
+example, the resolution of the data coming out of microscopy is now so
+high that a single data set is in the 500 TB ballpark, and it captures
+microstructures in the nanometre range. And of course, not only are
+individual data sets getting larger and larger, but we are able to
+generate more of them at ever increasing rates because the processes
+are more streamlined. It is a fire-hose of data.
 
 
 
 
-* The Age of Data and Databases
 
-Computational Neuroscience is in a quest for the standardisation of
-data. The need it has is similar to all other fields: its very
-difficult to exchange information if everyone keeps using their own
+
+
+
 file formats. This is a perennial problem, but became much more
 apparent in the nineties with the rise of the Internet. Since then, a
 growing number of labs have published their data online so that other
@@ -81,3 +225,11 @@ useful data.
 
 [fn:Neuroinformatics] For a bit more details on the two fields see
 [[https://www.maths.nottingham.ac.uk/personal/sc/cnn/CNN2A.pdf][What are Computational Neuroscience and Neuroinformatics?]]
+
+[fn:connectome] "A connectome is a comprehensive map of neural
+connections in the brain, and may be thought of as its "wiring
+diagram". From [[https://en.wikipedia.org/wiki/Connectome][this]] page.
+
+
+[[http://www.neuinfo.org/about/publications/nif_knowledge_environment.pdf][The Neuroscience Information Framework: A Data and Knowledge
+Environment for Neuroscience]]

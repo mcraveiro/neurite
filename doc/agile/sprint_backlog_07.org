@@ -13,18 +13,18 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-02-01 Mon 18:04]
+#+CAPTION: Clock summary at [2016-02-02 Tue 17:45]
 | <75>                                                                        |        |      |      |       |
 | Headline                                                                    | Time   |      |      |     % |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *4:00* |      |      | 100.0 |
+| *Total time*                                                                | *7:44* |      |      | 100.0 |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 4:00   |      |      | 100.0 |
-| Active                                                                      |        | 4:00 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:27 |  11.2 |
-| STARTED Socialising                                                         |        |      | 0:20 |   8.3 |
-| STARTED Get a green build on travis                                         |        |      | 2:43 |  67.9 |
-| STARTED Create a blog post on SWC                                           |        |      | 0:30 |  12.5 |
+| Stories                                                                     | 7:44   |      |      | 100.0 |
+| Active                                                                      |        | 7:44 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |        |      | 0:27 |   5.8 |
+| STARTED Socialising                                                         |        |      | 0:46 |   9.9 |
+| STARTED Create a blog post on SWC                                           |        |      | 3:48 |  49.1 |
+| Create a docker image to build neurite                                      |        |      | 2:43 |  35.1 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -40,35 +40,48 @@ Time spent in generic tasks.
 - sorting out supervision.
 
 *** STARTED Socialising                                               :story:
+    CLOCK: [2016-02-02 Tue 16:10]--[2016-02-02 Tue 16:36] =>  0:26
     CLOCK: [2016-02-01 Mon 14:00]--[2016-02-01 Mon 14:20] =>  0:20
 
 Any events during work hours not directly connected to work.
+
+*** STARTED Create a blog post on SWC                                 :story:
+    CLOCK: [2016-02-02 Tue 16:36]--[2016-02-02 Tue 17:45] =>  1:09
+    CLOCK: [2016-02-02 Tue 14:00]--[2016-02-02 Tue 16:09] =>  2:09
+    CLOCK: [2016-02-01 Mon 17:34]--[2016-02-01 Mon 18:04] =>  0:30
+
+- describe format
+- describe the reconstruction and generative processes
 
 *** Sprint review                                                     :story:
 
 Review of the sprint.
 
-*** STARTED Get a green build on travis                               :story:
+*** Create a docker image to build neurite                            :story:
     CLOCK: [2016-02-01 Mon 17:32]--[2016-02-01 Mon 17:33] =>  0:01
     CLOCK: [2016-02-01 Mon 14:49]--[2016-02-01 Mon 17:31] =>  2:42
 
-At present the build fails due to VTK/Qt/CGAL dependencies. We need to
-find a workaround for now.
-
-Investigated a docker image based setup:
+It would be nice to be able to build neurite by just obtaining a
+docker image and building it from the container.
 
 : docker build -t neurite-devel .
 : docker login --username=mcraveiro --email=marco.craveiro@gmail.com
 : docker push mcraveiro/neurite-devel
 
-However, images are very large (> 2GB). Its still not clear:
+However, images are very large (> 2Gb virtual, 700Mb actual image
+size). Its still not clear:
 
 - if the imagine has all of the required dependencies.
 - if the images will work with travis. [[https://docs.travis-ci.com/user/docker/][This document]] seems to imply
   they will.
-- if the 2GB size is to big given the ~1h window for the build.
+- if the size is to big given the ~1h window for the travis builds.
 
-*** STARTED Render a realistic SWC file                               :story:
+*** Get a green build on travis                                       :story:
+
+At present the build fails due to VTK/Qt/CGAL dependencies. We need to
+find a workaround for now.
+
+*** Render a realistic SWC file                                       :story:
 
 We need to make sure we can use the code to render realistic SWC
 files. We also need to find fixes to the performance issues when we do
@@ -91,7 +104,7 @@ Notes:
   pipeline. Perhaps we are already doing that since we are applying
   the transform to the poly data rather than the actor.
 
-*** STARTED Create a processor in =geometry.swc= to organise the points :story:
+*** Create a processor in =geometry.swc= to organise the points       :story:
 
 Now we understand how to place objects in space, we need to compute
 all of the required transformations to get the polyhedra in the
@@ -122,12 +135,6 @@ Notes:
 - [[http://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Point__3.html#a13fbe61503fadf1ea7f66d34652353d1][point 3d operator-]]: Creating vectors by subtracting two points.
 - [[http://cgal-discuss.949826.n4.nabble.com/Calculate-angle-td950283.html][calculating angles from points]]
 - [[https://www.mathsisfun.com/algebra/vectors-dot-product.html][dot product]]
-
-*** STARTED Create a blog post on SWC                                 :story:
-    CLOCK: [2016-02-01 Mon 17:34]--[2016-02-01 Mon 18:04] =>  0:30
-
-- describe format
-- describe the reconstruction and generative processes
 
 *** Create a feature for QT/VTK                                       :story:
 
