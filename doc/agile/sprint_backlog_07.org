@@ -13,18 +13,20 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-02-02 Tue 17:45]
-| <75>                                                                        |        |      |      |       |
-| Headline                                                                    | Time   |      |      |     % |
-|-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *7:44* |      |      | 100.0 |
-|-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 7:44   |      |      | 100.0 |
-| Active                                                                      |        | 7:44 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:27 |   5.8 |
-| STARTED Socialising                                                         |        |      | 0:46 |   9.9 |
-| STARTED Create a blog post on SWC                                           |        |      | 3:48 |  49.1 |
-| Create a docker image to build neurite                                      |        |      | 2:43 |  35.1 |
+#+CAPTION: Clock summary at [2016-02-03 Wed 17:59]
+| <75>                                                                        |         |       |      |       |
+| Headline                                                                    | Time    |       |      |     % |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| *Total time*                                                                | *11:42* |       |      | 100.0 |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| Stories                                                                     | 11:42   |       |      | 100.0 |
+| Active                                                                      |         | 11:42 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:27 |   3.8 |
+| COMPLETED Organise all of the papers we already downloaded                  |         |       | 2:28 |  21.1 |
+| COMPLETED Sort out problems with PC                                         |         |       | 0:15 |   2.1 |
+| STARTED Socialising                                                         |         |       | 0:46 |   6.6 |
+| STARTED Create a blog post on SWC                                           |         |       | 5:03 |  43.2 |
+| Create a docker image to build neurite                                      |         |       | 2:43 |  23.2 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -39,6 +41,25 @@ Time spent in generic tasks.
 
 - sorting out supervision.
 
+*** COMPLETED Organise all of the papers we already downloaded        :story:
+    CLOSED: [2016-02-03 Wed 16:43]
+    CLOCK: [2016-02-03 Wed 14:15]--[2016-02-03 Wed 16:43] =>  2:28
+
+At present our paper library is a big mess: one folder with all the
+papers. Its impossible to find anything. We need a tool to organise
+the papers by tags and we need git support so that we can clone the
+library and take it somewhere else.
+
+Tool: [[https://en.wikipedia.org/wiki/Referencer][gnome referencer]]
+
+Add support for git cloning so we can take the papers to other machines.
+
+*** COMPLETED Sort out problems with PC                               :story:
+    CLOSED: [2016-02-03 Wed 16:44]
+    CLOCK: [2016-02-02 Tue 17:46]--[2016-02-02 Tue 18:01] =>  0:15
+
+Time spent sorting out PC problems.
+
 *** STARTED Socialising                                               :story:
     CLOCK: [2016-02-02 Tue 16:10]--[2016-02-02 Tue 16:36] =>  0:26
     CLOCK: [2016-02-01 Mon 14:00]--[2016-02-01 Mon 14:20] =>  0:20
@@ -46,6 +67,8 @@ Time spent in generic tasks.
 Any events during work hours not directly connected to work.
 
 *** STARTED Create a blog post on SWC                                 :story:
+    CLOCK: [2016-02-03 Wed 17:06]--[2016-02-03 Wed 17:59] =>  0:53
+    CLOCK: [2016-02-03 Wed 16:44]--[2016-02-03 Wed 17:06] =>  0:22
     CLOCK: [2016-02-02 Tue 16:36]--[2016-02-02 Tue 17:45] =>  1:09
     CLOCK: [2016-02-02 Tue 14:00]--[2016-02-02 Tue 16:09] =>  2:09
     CLOCK: [2016-02-01 Mon 17:34]--[2016-02-01 Mon 18:04] =>  0:30
@@ -162,5 +185,18 @@ sizes, e.g. 5K points, 50k points, and so on.
 
 Now we understood the basics, we should apply the usual Feynman
 technique and write a blog post about it.
+
+*** Document the state of play of different formats and repositories  :story:
+
+We should write some notes down on the information we find about
+different initiatives, file formats, repositories etc.
+
+- [[http://blogs.biomedcentral.com/gigablog/2013/05/09/the-difficulties-sharing-neuroscience-data-can-data-publishing-help/][The difficulties sharing neuroscience data: can data publishing help?]]
+- [[http://www.incf.org/][International Neuroinformatics Coordination Facility]]
+- [[http://www.kavlifoundation.org/science-spotlights/breaking-down-data-barriers-neuroscience#.VrDswbKLRhF][Breaking Down the Data Barriers in Neuroscience]]
+- [[https://github.com/NeurodataWithoutBorders/specification][Neurodata Without Borders specification]]
+- [[https://confluence.crbs.ucsd.edu/display/NIF/Download%2BNIF%2BOntologies][NIF Ontologies and Terminologies]]
+- [[http://www.neuinfo.org/about/index.shtm][Neuroscience Information Framework]]
+- [[https://en.wikipedia.org/wiki/Neuroscience_Information_Framework][Neuroscience Information Framework wikipedia]]
 
 ** Deprecated
