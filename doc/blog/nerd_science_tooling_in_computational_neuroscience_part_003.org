@@ -14,41 +14,49 @@ In God we trust; all others must bring data. <i>-- <a href="https://en.wikipedia
 </table>
 #+end_html
 
-Welcome to yet another instalment of the series of posts about tooling
-in Computational Neuroscience! If you haven't done so already, you
-probably should read [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][Part I]] and [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational_30.html][part II]] to understand the context of
-the material discussed here in Part III. Previously, we discussed
-simulators - a [[https://en.wikipedia.org/wiki/Neuron_(software)][popular one]], in particular - and microscopes. Now we
-shall talk about /data/ and file formats.
+Welcome to yet another instalment in our series of posts about tooling
+in Computational Neuroscience. Previously, we have discussed
+[[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational.html][simulators]] - a [[https://en.wikipedia.org/wiki/Neuron_(software)][popular one]], in particular - and [[http://mcraveiro.blogspot.co.uk/2015/11/nerd-food-tooling-in-computational_30.html][microscopes]]. We shall
+now talk about /data/ in Computational Neuroscience, a seemingly broad
+and somewhat mundane topic but one which is central to any attempt in
+understanding the /status quo/ of the discipline. The target audience
+remains as it was - the lay person - but I'm afraid things are getting
+increasingly technical.
 
-* Data and Specifications
+* We Need More Data!
 
-As you can imagine, Computational Neuroscience by itself is not
-particularly interesting if there are no inputs to the models we
-carefully craft nor if there are no detailed outputs to allow us to
-know what the models are doing. Similarly, one needs to be able to use
-experimental data to inform our modeling choices and in order to
-baseline expectations; if this data is not available, one cannot tell
-how close or how far models are from the real thing. Data is of
-crucial importance, as it is in so many other fields.
+Computational Neuroscience by itself is not particularly interesting
+if there are no inputs to the models we carefully craft nor if there
+are no detailed outputs to allow us to know what the models are
+doing. Similarly, one needs to be able to use experimental data to
+inform our modeling choices and in order to baseline expectations; if
+this data is not available, one cannot tell how close or how far
+models are from the real thing. As everywhere else, data is of crucial
+importance here; we need lots of it and of many different kinds.
 
-Once we've gone past the data availability problem, we soon hit
-another: how should the data be encoded? Clearly, in order for the
-data to be useful, it must be accompanied by a formal or informal
-specification of the data format, or else users will not know how to
-interpret it. Alas, given the highly technical nature of the data in
+Once you need data, you soon need to worry about data representation:
+how should information be encoded? Clearly, in order for the data to
+be useful in a general sense, it must be accompanied by a formal or
+informal specification or else users will not know how to interpret
+it. Furthermore, given the highly technical nature of the data in
 question, the specification must be very precise or the data becomes
-useless. Thus, it is just not practical to allow everyone to come up
-with their own data formats:
+useless or even dangerous; "Was that in microns or nanometres?" is not
+the sort of question you want to be asking. In a world where producers
+and consumers of data can be anywhere geographically, the
+specification assumes an ever larger degree of importance.
+
+By the same token, it is just not practical to allow everyone to come
+up with their own data formats:
 
 - writing a clear and concise specification for data interchange is
   hard work, and requires a lot of experience on both the domain and
   the specification process in general. The first attempts would
   probably prove to be incomplete, inconsistent or impractical.
 - writing code to read and write files according to a specification is
-  also difficult engineering work.
+  also demanding engineering work.
 - writing code to convert from one data specification to another is
-  even more difficult because it requires intimate knowledge of both.
+  even more complicated because it requires intimate knowledge of
+  both.
 - some data is generated directly by hardware, making it impractical
   to adapt to different requirements.
 
@@ -74,34 +82,41 @@ scientists.
 #+end_quote
 
 In layman's terms, Neuroinformatics concerns itself with Neuroscience
-data and knowledge databases - and thus with a variety of /kinds/ of
-data - as well as the tools that are needed for the acquisition of
-said data, its analysis and visualisation. As you can see, there is a
-big overlap between Computational Neuroscience - the modeling - and
-Neuroinformatics - the inputs and outputs and conceivably the model
-/itself/ when viewed as data.[fn:Neuroinformatics]
+data and the places where said that is to be stored. It is also
+implied that one has to deal with a variety of /types/ of data:
+experimental data (of which there are many kinds), model inputs, model
+outputs, the models themselves and so on. Finally, Neuroinformatics
+also is responsible for the tooling necessary to acquire the data,
+manipulate it, analyse it, visualise it and so on. As you can see,
+given such a broad definition, one concludes that there is a big
+overlap between Computational Neuroscience - the modeling activity -
+and Neuroinformatics - the management of inputs, outputs and
+conceivably the model itself when viewed as data.
 
-In truth, there rarely are clear cut separations between the branches
+This confusion is common in science, particularly as new fields
+develop; there rarely are clear cut separations between the branches
 of science at this level. I personally think of Neuroinformatics as a
-hat you don on as and when your Computational Science work
-requires. The definition is there to allows to think of the separation
-between the analytical work in modeling and the data storage and
-retrieval work as separate things, nothing more. So, for the purposes
-of this article, we'll continue to refer to the Neuroinformatics
-Scientist and the Computational Neuroscientist personas, but bear in
-mind they may resolve to the same person in practice.
+hat you don on as and when your Computational Science work requires;
+definitions are there to allow one to think of the separation between
+the analytic work in modeling and the data storage and retrieval work
+as separate things, nothing more. So, for the purposes of this
+article, we'll continue to refer to the Neuroinformatics Scientist and
+the Computational Neuroscientist personas, but bear in mind they may
+resolve to the same person in practice.[fn:Neuroinformatics]
 
 Before we move on, I'd like to point out one interesting challenge
 Neuroinformatics has to address - common to any data in the Medical
 Sciences - and that is the need to handle human-derived data very
 carefully. After all, making data sets available widely must not have
 implications for the original patients, so its often a requirement
-that the data is de-identified, or in the cases where the data is
+that the data is /de-identified/; in the cases where the data is
 patient sensitive, additional requirements may be made to users of the
-data to avoid leaking this information. This illustrates the peculiar
-nature of Neuroinformatics, with the constant tension between making
-data as widely available as possible but at the same time having to
-ensure there are no side-effects of doing so.
+data to avoid leaking this information, such as requiring a
+registration and so on. This illustrates the peculiar nature of
+Neuroinformatics, with the constant tension between making data as
+widely available as possible but at the same time having to ensure
+there are no side-effects of doing so. Presumably, /Primum non
+nocere/ - first, do no harm.
 
 * Databases, Repositories and Archives
 
