@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace='http://www.brainml.org/xbml'
+      xmlns="http://www.brainml.org/xbml"
+      elementFormDefault="qualified">
+
+<xsd:complexType name='lexicons'>
+    <xsd:sequence>
+        <xsd:element ref='lexicon' minOccurs='0' maxOccurs='unbounded'/>
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name='lexicons' type='lexicons' />
+
+<xsd:complexType name='lexicon'>
+	<xsd:sequence>
+		<xsd:element name='name' type='xsd:string' minOccurs='0'/>
+		<xsd:element ref='term' minOccurs='0' maxOccurs='unbounded'/>
+	</xsd:sequence>
+	<xsd:attribute name='id' type='xsd:ID' />
+</xsd:complexType>
+<xsd:element name='lexicon' type='lexicon'/>
+
+<xsd:complexType name='term'>
+	<xsd:sequence>
+		<xsd:element name='name' type='xsd:string' minOccurs='0'/>
+		<xsd:element ref='term' minOccurs='0' maxOccurs='unbounded'/>
+	</xsd:sequence>
+	<xsd:attribute name='key' type='xsd:NMTOKEN' />
+	<xsd:attribute name='id' type='xsd:NMTOKEN' />
+</xsd:complexType>
+<xsd:element name='term' type='term'/>
+
+<xsd:complexType name="term-path">
+	<xsd:simpleContent>
+		<xsd:extension base='xsd:string'>
+			<xsd:attribute name="lexicon-base-url" type="xsd:string"/>
+			<xsd:attribute name="lexicon-ref" type="xsd:Name"/>
+		</xsd:extension>
+	</xsd:simpleContent>
+</xsd:complexType>
+<xsd:element name='term-path' type='term-path' />
+
+</xsd:schema>
+

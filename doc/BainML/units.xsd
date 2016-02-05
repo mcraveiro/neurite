@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace='http://www.brainml.org/xbml'
+      xmlns="http://www.brainml.org/xbml"
+      elementFormDefault="qualified">
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - SIMPLE TYPES
+ - - Limit vocabulary of structured units to well-known values
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:simpleType name="si-prefix-name">
+	<xsd:restriction base="xsd:ID">
+		<xsd:enumeration value="none"/> 
+		<xsd:enumeration value="exa"/> 
+		<xsd:enumeration value="peta"/> 
+		<xsd:enumeration value="tera"/> 
+		<xsd:enumeration value="giga"/> 
+		<xsd:enumeration value="mega"/> 
+		<xsd:enumeration value="kilo"/> 
+		<xsd:enumeration value="hecto"/> 
+		<xsd:enumeration value="deca"/> 
+		<xsd:enumeration value="deci"/> 
+		<xsd:enumeration value="centi"/> 
+		<xsd:enumeration value="milli"/> 
+		<xsd:enumeration value="micro"/> 
+		<xsd:enumeration value="nano"/> 
+		<xsd:enumeration value="pico"/> 
+		<xsd:enumeration value="femto"/> 
+		<xsd:enumeration value="atto"/> 
+	</xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="si-unit-name"> 
+	<xsd:restriction base="xsd:Name">
+		<xsd:enumeration value="metre"/>				<!-- length -->
+		<xsd:enumeration value="kilogram"/> 			<!-- mass -->
+		<xsd:enumeration value="second"/> 				<!-- time -->
+		<xsd:enumeration value="ampere"/> 				<!-- current -->
+		<xsd:enumeration value="kelvin"/> 				<!-- temperature  (thermodynamic) -->
+		<xsd:enumeration value="mole"/> 				<!-- substance-amount -->
+		<xsd:enumeration value="candela"/> 				<!-- luminous-intensity -->
+		<xsd:enumeration value="radian"/> 				<!-- plane-angle -->
+		<xsd:enumeration value="steradian"/> 			<!-- solid angle -->
+		<xsd:enumeration value="joule"/> 				<!-- energy -->
+		<xsd:enumeration value="newton"/> 				<!-- force -->
+		<xsd:enumeration value="pascal"/> 				<!-- pressure -->
+		<xsd:enumeration value="watt"/> 				<!-- power -->
+		<xsd:enumeration value="coulomb"/> 				<!-- charge (electric) -->
+		<xsd:enumeration value="volt"/> 				<!-- potential  (electric) -->
+		<xsd:enumeration value="farad"/> 				<!-- capacitance  (electric) -->
+		<xsd:enumeration value="ohm"/> 					<!-- resistance  (electric) -->
+		<xsd:enumeration value="siemens"/> 				<!-- conductance  (electric) -->
+		<xsd:enumeration value="weber"/> 				<!-- magnetic-flux -->
+		<xsd:enumeration value="henry"/> 				<!-- inductance -->
+		<xsd:enumeration value="tesla"/> 				<!-- magnetic-flux-density -->
+		<xsd:enumeration value="lumen"/>				<!-- luminous-flux  -->
+		<xsd:enumeration value="lux"/> 					<!-- illuminance -->
+		<xsd:enumeration value="hertz"/> 				<!-- frequency -->
+		<xsd:enumeration value="becquerel"/> 			<!-- activity (radioactive) -->
+		<xsd:enumeration value="gray"/>					<!-- absorbed-dose -->
+		<xsd:enumeration value="dimensionless"/>		<!-- dimensionless -->
+	</xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="si-unit-class"> 
+	<xsd:restriction base="xsd:ID">
+		<xsd:enumeration value="length"/>				<!-- metre -->
+		<xsd:enumeration value="mass"/>					<!-- kilogram -->
+		<xsd:enumeration value="time"/>					<!-- second -->
+		<xsd:enumeration value="current"/>				<!-- ampere -->
+		<xsd:enumeration value="temperature"/>			<!-- kelvin -->
+		<xsd:enumeration value="substance-amount"/>		<!-- mole -->
+		<xsd:enumeration value="luminous-intensity"/>	<!-- candela -->
+		<xsd:enumeration value="plane-angle"/>			<!-- radian -->
+		<xsd:enumeration value="solid-angle"/>			<!-- steradian -->
+		<xsd:enumeration value="energy"/>				<!-- joule -->
+		<xsd:enumeration value="force"/>				<!-- newton -->
+		<xsd:enumeration value="pressure"/>				<!-- pascal -->
+		<xsd:enumeration value="power"/>				<!-- watt -->
+		<xsd:enumeration value="electric-charge"/>		<!-- coulomb -->
+		<xsd:enumeration value="electric-potential"/>	<!-- volt -->
+		<xsd:enumeration value="electric-capacitance"/>	<!-- farad -->
+		<xsd:enumeration value="electric-resistance"/>	<!-- ohm -->
+		<xsd:enumeration value="electric-conductance"/>	<!-- siemens -->
+		<xsd:enumeration value="magnetic-flux"/>		<!-- weber -->
+		<xsd:enumeration value="inductance"/>			<!-- henry -->
+		<xsd:enumeration value="magnetic-flux-density"/><!-- tesla -->
+<!--		<xsd:enumeration value="luminous-flux "/>		<!- - lumen -->
+		<xsd:enumeration value="illuminance"/>			<!-- lux -->
+		<xsd:enumeration value="frequency"/>			<!-- hertz -->
+		<xsd:enumeration value="radioactive-activity"/>	<!-- becquerel -->
+		<xsd:enumeration value="absorbed-dose"/>		<!-- gray -->
+		<xsd:enumeration value="dimensionless"/>		<!-- dimensionless -->
+	</xsd:restriction>
+</xsd:simpleType>
+
+<xsd:complexType name='si-prefix'>
+    <xsd:sequence>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          - - attribute 'name' is a holder for future i18n of naming
+          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <xsd:element name='name' type='xsd:string'/>
+        <xsd:element name='power' type='xsd:integer'/>
+    </xsd:sequence>
+    <xsd:attribute name='id' type='si-prefix-name' />
+</xsd:complexType>
+<xsd:element name='si-prefix' type='si-prefix' />
+
+<xsd:complexType name='si-prefix-ref'>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  - - si-prefix-ref should have EITHER an url or ref attribute, not
+  - - neither and not both. This is not expressible in XML Schema.
+  - - The purpose is to allow both local an external (XPointer url)
+  - - references to the defining si-prefix
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<xsd:simpleContent>
+		<xsd:extension base='xsd:string'>
+			<xsd:attribute name='prefix' type='xsd:IDREF' />
+		</xsd:extension>
+	</xsd:simpleContent>
+</xsd:complexType>
+<xsd:element name='si-prefix-ref' type='si-prefix-ref' />
+
+
+<xsd:complexType name='si-unit'>
+    <xsd:sequence>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          - - attribute 'name' is a holder for future i18n of naming
+          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <xsd:element name='name' type='xsd:string'/>
+        <xsd:element name='class' type='si-unit-class'/>
+    </xsd:sequence>
+	<xsd:attribute name='id' type='si-unit-name' />
+</xsd:complexType>
+<xsd:element name='si-unit' type='si-unit' />
+
+<xsd:complexType name='si-unit-ref'>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  - - si-unit-ref should have EITHER an url or ref attribute, not
+  - - neither and not both. This is not expressible in XML Schema.
+  - - The purpose is to allow both local an external (XPointer url)
+  - - references to the defining si-prefix
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<xsd:simpleContent>
+		<xsd:extension base='xsd:string'>
+			<xsd:attribute name='unit' type='xsd:IDREF' />
+		</xsd:extension>
+	</xsd:simpleContent>
+</xsd:complexType>
+<xsd:element name='si-unit-ref' type='si-unit-ref' />
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - BASE schema declarations
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<xsd:complexType name='base-definitions'>
+    <xsd:sequence>
+        <xsd:element ref='si-prefix' maxOccurs='unbounded'/>
+        <xsd:element ref='si-unit' maxOccurs='unbounded'/>
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name='base-definitions' type='base-definitions' />
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - UNIT schema declarations
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<xsd:complexType name='unit-definitions'>
+    <xsd:sequence>
+        <xsd:element ref='base-definitions' minOccurs='0'/>
+        <xsd:element ref='unit-definition' minOccurs='0' maxOccurs='unbounded'/>
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name='unit-definitions' type='unit-definitions' />
+
+<xsd:complexType name='unit-definition' abstract='true'>
+    <xsd:sequence>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          - - attribute 'name' is a holder for future i18n of naming
+          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <xsd:element name='name' type='xsd:string'/>
+    </xsd:sequence>
+    <xsd:attribute name='id' type='xsd:ID' />
+</xsd:complexType>
+<xsd:element name='unit-definition' type='unit-definition' />
+
+<xsd:complexType name='prefixed-unit'>
+	<xsd:complexContent>
+		<xsd:extension base='unit-definition'>
+			<xsd:sequence>
+        <xsd:element ref='si-prefix-ref' />
+				<xsd:element ref='si-unit-ref' />
+			</xsd:sequence>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+<xsd:element name='prefixed-unit' type='prefixed-unit' substitutionGroup='unit-definition' />
+
+<xsd:complexType name='derived-unit'>
+	<xsd:complexContent>
+		<xsd:extension base='unit-definition'>
+			<xsd:sequence>
+                <xsd:element name='component' type='derivation-component' minOccurs='0' maxOccurs='unbounded' />
+			</xsd:sequence>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+<xsd:element name='derived-unit' type='derived-unit' substitutionGroup='unit-definition' />
+
+<xsd:complexType name='derivation-component'>
+    <xsd:attribute name='unit' type='xsd:IDREF' />
+    <xsd:attribute name='url' type='xsd:string' />
+    <xsd:attribute name='base-url' type='xsd:string' default='http://www.brainml.org/brainmetal/units.xml' />
+    <xsd:attribute name='unitref' type='xsd:Name' /> <!-- relative to base-url -->
+    <xsd:attribute name='power' type='xsd:integer' default='1' />
+</xsd:complexType>
+
+
+<xsd:complexType name='unit-ref'>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  - - unit-ref should have EITHER an url or ref attribute, not
+  - - neither and not both. This is not expressible in XML Schema.
+  - - The purpose is to allow both local an external (XPointer url)
+  - - references to the unit-definition
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <xsd:attribute name='unit' type='xsd:IDREF' />
+    <xsd:attribute name='url' type='xsd:string' />
+</xsd:complexType>
+<xsd:element name='unit-ref' type='si-unit-ref' />
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  - - element/type for use
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name='units'>
+
+	<xsd:simpleContent>
+		<xsd:extension base='xsd:string'>
+			<!-- local units def -->
+			<xsd:attribute name='ref' type='xsd:IDREF' />
+			
+			<!-- external units def via full url w/xpointer -->
+			<xsd:attribute name='url' type='xsd:string' />
+			
+			<!-- external units def via separate url and xpointer ref as separate attributes -->
+			<xsd:attribute name='base-url' type='xsd:string' default='http://www.brainml.org/brainmetal/units.xml' />
+		</xsd:extension>
+	</xsd:simpleContent>
+    
+</xsd:complexType>
+<xsd:element name='units' type='units' />
+
+
+</xsd:schema>
+

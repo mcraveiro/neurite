@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.brainml.org"
+            xmlns="http://www.brainml.org"
+            xmlns:xbml="http://www.brainml.org"
+            elementFormDefault="qualified">
+
+<xsd:include schemaLocation='brainmetal.xsd' />
+<xsd:include schemaLocation='units.xsd' />
+<xsd:include schemaLocation='hav.xsd' />
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - experiment-role restricts elements to top-level of data-element
+ - - hierarchy with only view-role elements as children. NOTE: '-role'
+ - - indicates a element-type sub-type that restricts structure. The
+ - - concrete element-type will be from sub-types that extend the -role
+ - - to include attributes and non-'data-element' sub-elements.
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="experiment-role" abstract='true'>
+	<xsd:complexContent>
+		<xsd:restriction base='data-element-type'>
+			<xsd:sequence minOccurs='0' maxOccurs='unbounded'>
+				<xsd:element ref='view' />
+			</xsd:sequence>
+		</xsd:restriction>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - view-role restricts elements to be children of experiment-role
+ - - hierarchy with only trace-role elements as children.
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="view-role" abstract='true'>
+	<xsd:complexContent>
+		<xsd:restriction base='data-element-type'>
+			<xsd:sequence minOccurs='0' maxOccurs='unbounded'>
+				<xsd:element ref='trace' />
+			</xsd:sequence>
+		</xsd:restriction>
+	</xsd:complexContent>
+</xsd:complexType>
+<xsd:element name='view-role' type='view-role' />
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - trace-role restricts elements to be children of experiment-role
+ - - hierarchy with only data-set elements as children.
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="trace-role" abstract='true'>
+	<xsd:complexContent>
+		<xsd:restriction base='data-element-type'>
+			<xsd:sequence>
+				<xsd:element ref='data-set' minOccurs='1' maxOccurs='1' />
+			</xsd:sequence>
+		</xsd:restriction>
+	</xsd:complexContent>
+</xsd:complexType>
+<xsd:element name='trace-role' type='trace-role' />
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - experiment-type extends experiment-role, adding an annotation 
+ - - element and two attributes, ip-address and data-stamp
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="experiment-type">
+	<xsd:complexContent>
+		<xsd:extension base='experiment-role'>
+			<xsd:sequence>
+				<xsd:element name='annotation' type='xsd:string' minOccurs='0' />
+			</xsd:sequence>
+			<xsd:attribute name="ip-address" type="xsd:string"/>
+				<!-- 2DO: refine pattern type to [0-9]+.[0-9]+.[0-9]+.[0-9]+ -->
+			<xsd:attribute name="date-stamp" type="xsd:date"/>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - view-type extends view-role, adding element 'label'
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="view-type">
+	<xsd:complexContent>
+		<xsd:extension base='view-role'>
+			<xsd:sequence>
+				<xsd:element name='label' type='xsd:string' minOccurs='0' />
+			</xsd:sequence>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - trace-type extends trace-role, adding elements 'label' and
+ - - 'recording-technique'
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="trace-type">
+	<xsd:complexContent>
+		<xsd:extension base='trace-role'>
+			<xsd:sequence>
+				<xsd:element name='label' type='xsd:string' minOccurs='0' />
+			</xsd:sequence>
+			<xsd:attribute name='recording-technique' type='lexicon-ref' />
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="time-series-trace-type">
+	<xsd:complexContent>
+		<xsd:extension base='trace-type'>
+			<xsd:sequence>
+				<xsd:element name='label' type='xsd:string' minOccurs='0' />
+				<xsd:element name='vertical-units' type='named-unit-ref' />
+			</xsd:sequence>
+			<xsd:attribute name="time-rate" type="xsd:decimal" />
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="spike-train-trace-type">
+	<xsd:complexContent>
+		<xsd:extension base='trace-type'>
+			<xsd:attribute name="is-stimulus" type="xsd:boolean" />
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name='experiment' type='experiment-type' substitutionGroup='data-element' />
+<xsd:element name='view' type='view-type' substitutionGroup='data-element' />
+<xsd:element name='trace' type='trace-type' substitutionGroup='data-element' />
+<xsd:element name='spike-train-trace' type='spike-train-trace-type' substitutionGroup='trace' />
+<xsd:element name='time-series-trace' type='time-series-trace-type' substitutionGroup='trace'>
+<!-- future binding to unit-definitions-pk
+	<xsd:keyref name='vertical-units-fk' refer='unit-definitions-pk'>
+		<xsd:selector xpath='.' />
+		<xsd:field xpath='xbml:vertical-units' />
+	</xsd:keyref>
+-->
+</xsd:element>
+
+<xsd:complexType name="data-trace-type">
+	<xsd:complexContent>
+		<xsd:restriction base='data-set-type'>
+			<xsd:sequence minOccurs='0' maxOccurs='unbounded'>
+				<xsd:element ref="datum" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:restriction>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="datum-type">
+	<xsd:simpleContent>
+		<xsd:extension base='xsd:decimal'>
+			<xsd:attribute name='label' type='xsd:string'/>
+		</xsd:extension>
+	</xsd:simpleContent>
+</xsd:complexType>
+
+<xsd:element name='data-trace' type='data-trace-type' substitutionGroup='data-set' />
+<xsd:element name='datum' type='datum-type' substitutionGroup='datom' />
+
+
+<xsd:complexType name='cterm-type'>
+	<xsd:complexContent>
+		<xsd:extension base='term-type'>
+			<xsd:sequence>
+				<xsd:element name="label" type='xsd:string' minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+<xsd:element name='cterm' type='cterm-type' substitutionGroup='term' />
+
+</xsd:schema>

@@ -1,0 +1,38 @@
+* BrainML
+
+Site no longer available. Can be reached on WayBackMachine [[http://web.archive.org/web/20040608045418/http://brainml.org/index.html][here]].
+
+* Purpose of BrainML
+
+BrainML when complete will serve as:
+
+an open and non-formal functional ontology for neuroscience
+a data description language for interoperability among neuroscience resources
+an interface for exchange of data, metadata, queries, tools, and models
+a substrate for describing the contents of journal articles
+a link to other XML-based description languages for scientific interchange
+
+* Design and Architecture of BrainML
+
+BrainML is being designed around several key modules and technologies:
+
+- a design and semantics determined by the standards and practices of neuroscience
+- our Quintessence type hierarchies: for data, entities, references, models, and methods
+- BrainMetaL, a metalanguage embodying abstract semantics for
+  scientific data attribute-specific datatype slots, attributes, and
+  hierarchies, to give is-a and has-a context and selectable
+  specificity
+- XML, for universality and available tools
+- XML namespaces, to enable interconvertible dialects
+- XML Schema, to provide layered extensibility
+
+** BrainML Architecture
+
+The architecture of BrainML is shown in this schematic representation:
+
+- Neuroscienctist users see and exchange the instance documents shown
+  on the top layer, and groups devlelop resource- and domain-specific
+  data models, as well as compatible user tools. These in turn are
+  based on BrainML type libraries.
+- All BrainML instance documents and schemas are in turn based on the
+  BrainMetaL metalanguage, XML Schema, and XML 1.0 itself.

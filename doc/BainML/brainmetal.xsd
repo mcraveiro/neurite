@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace='http://www.brainml.org/xbml'
+            xmlns="http://www.brainml.org/xbml"
+            elementFormDefault="qualified">
+
+<xsd:include schemaLocation='units.xsd' />
+<xsd:include schemaLocation='hav.xsd' />
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - PUBLIC quintessence top-level abstract types
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<xsd:complexType name="data-element-type" abstract='true'>
+	<xsd:annotation><xsd:documentation>
+		[2DO: functional def of data-element]
+		Structured and/or marked up data set(s)
+		reference-able?
+		unit of data, potentially including multiple datasets and various
+		meta-data definine them
+	</xsd:documentation></xsd:annotation>
+	<xsd:choice minOccurs='0' maxOccurs='unbounded'>
+		<xsd:element ref='data-element' />
+		<xsd:element ref='data-container' />
+	</xsd:choice>
+</xsd:complexType>
+
+<xsd:complexType name="method-element-type" abstract='true'>
+	<xsd:annotation><xsd:documentation>
+		[2DO: functional def of method-element]
+	</xsd:documentation></xsd:annotation>
+</xsd:complexType>
+
+<xsd:complexType name="model-element-type" abstract='true'>
+	<xsd:annotation><xsd:documentation>
+		[2DO: functional def of model-element]
+	</xsd:documentation></xsd:annotation>
+</xsd:complexType>
+
+<xsd:complexType name="entity-element-type" abstract='true'>
+	<xsd:annotation><xsd:documentation>
+		[2DO: functional def of entity-element]
+	</xsd:documentation></xsd:annotation>
+</xsd:complexType>
+
+<xsd:complexType name="reference-element-type" abstract='true'>
+	<xsd:annotation><xsd:documentation>
+		[2DO: functional def of reference-element]
+	</xsd:documentation></xsd:annotation>
+</xsd:complexType>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - PUBLIC quintessence top-level elements
+ - - NOTE: These types are not instantiable. They are here so that 
+ - - concrete DM elements can be defined of types derived from the
+ - - quintessence types and declared to be in the substitution group
+ - - of these elements. See sample-dm.xsd and sample.xml for examples.
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:element name='data-element' type='data-element-type' />
+<xsd:element name='method-element' type='method-element-type' />
+<xsd:element name='model-element' type='model-element-type' />
+<xsd:element name='entity-element' type='entity-element-type' />
+<xsd:element name='reference-element' type='reference-element-type' />
+
+
+
+
+<!-- possibly break document here: start entity.xsd -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - ABSTRACT ENTITY TYPES
+ - - These types create two conceptual base subclasses of 
+ - - entity-element-type from which a concrete DM may extend
+ - - 2DO: annotate types with functional definition & intention
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="site-element-type" abstract='true'>
+	<xsd:complexContent>
+		<xsd:extension base='entity-element-type'>
+			<xsd:sequence>
+				<xsd:element ref="site-location"/>
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="molecule-element-type" abstract='true'>
+	<xsd:complexContent>
+		<xsd:extension base='entity-element-type'>
+			<xsd:sequence>
+				<xsd:element ref="molecule-structure"/>
+				<xsd:element ref="molecule-function"/>
+				<xsd:element ref="molecule-class"/>
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - ABSTRACT ENTITY ELEMENTS
+ - - These elements represent substitution groups to be defined in
+ - - the concrete DM
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:element name='site-location' type='xsd:anyType' abstract='true' />
+<xsd:element name='molecule-structure' type='xsd:anyType' abstract='true' />
+<xsd:element name='molecule-function' type='xsd:anyType' abstract='true' />
+<xsd:element name='molecule-class' type='xsd:anyType' abstract='true' />
+
+
+
+<!-- possibly break document here: start data.xsd -->
+<xsd:complexType name="data-container-type" abstract='true'>
+	<xsd:annotation><xsd:documentation>
+		An abstract type representing a logically coherent collection 
+		of data. At this level, no assumptions whatsoever are made on
+		the structure of that data.
+	</xsd:documentation></xsd:annotation>
+</xsd:complexType>
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - ELEMENT TYPE data-set-type
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:complexType name="data-set-type">
+	<xsd:complexContent>
+		<xsd:extension base='data-container-type'>
+			<xsd:annotation><xsd:documentation>
+				A generic container, possibly hierarchical, of data points. 
+				It is expected (but cannot be mechanically required) that concrete DMs
+				will sub-type if they wish to explicitly represent hierarchies, eg:
+				multi-dimensional vectors of data. The dimensional structure may 
+				alternatively be captured in the attributes of the data_list with
+				the data listed as datum elements directly inside the datum_list.
+				The latter is similiar to multi-dimensional arrays in high-level
+				programming languages, such as C/C++ or Java.
+				The default implementation is analogous to a C-family array, ie: a 
+				contiguous list of similar values, in which the lowest order is a
+				simple list, the next order is a list of lists, the next a list of
+				list of lists, etc. and the simple multiplicative arithmetic that
+				maps a container index set to an array offset.
+			</xsd:documentation></xsd:annotation>
+			
+			<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+			 - - ELEMENT LIST data_point
+			 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+			<xsd:sequence>
+				<xsd:element ref="datom" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			
+			<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+			 - - ATTRIBUTE order (opt)
+			 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+			<xsd:attribute name="order" type="xsd:positiveInteger" use="optional" default='1' >
+				
+				<xsd:annotation><xsd:documentation>
+					The number of axes in this trace.
+					
+					An order == 1 Trace is a stream of Datum values.
+					
+					An order == 2 Trace is either a stream of vectors are a single array,
+					depending on interpretation.
+					
+					An order == 3 Trace is either a 3-tensor or a stream of arrays, etc.
+					
+					The order is commonly refered to as the "dimension", except that in the
+					context of this class, the concept of "dim" refers instead to the number
+					of slots on each axis of the order n Trace. This does or does not correspond
+					to conventional usage depending on how the Trace is being interpreted.
+				</xsd:documentation></xsd:annotation>
+				
+			</xsd:attribute>
+			
+			<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+			 - - ATTRIBUTE dimensions (opt)
+			 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+			<xsd:attribute name="dimensions" use="optional">
+				<xsd:annotation><xsd:documentation>
+					The number of data points or sub-datasets along each axis.
+				</xsd:documentation></xsd:annotation>
+				<xsd:simpleType>
+					<xsd:list itemType="xsd:nonNegativeInteger" />
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:anyAttribute/>
+		</xsd:extension>
+	</xsd:complexContent>
+</xsd:complexType>
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ - - ELEMENT DECLARATIONS - these serve as substitution group ref elements
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<xsd:element name='data-container' type='data-container-type' />
+<xsd:element name='data-set' type='data-set-type' />
+<xsd:element name="datom" type="xsd:anyType"/>
+
+
+</xsd:schema>
+
