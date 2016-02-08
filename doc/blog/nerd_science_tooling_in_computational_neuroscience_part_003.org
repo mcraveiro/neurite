@@ -26,13 +26,13 @@ increasingly technical.
 * More Data! We Need More Data!
 
 Computational Neuroscience by itself is not particularly interesting
-if there are no inputs to the models we carefully craft nor if there
-are no detailed outputs to allow us to know what the models are
-doing. Similarly, one needs to be able to use experimental data to
-inform our modeling choices and in order to baseline expectations; if
-this data is not available, one cannot tell how close or how far
-models are from the real thing. As everywhere else, data is of crucial
-importance here; we need lots of it and of many different kinds.
+if there are no inputs to the models we carefully craft nor detailed
+outputs to allow us to know what the models are doing. Similarly, one
+needs to be able to use experimental data to inform our modeling
+choices and in order to baseline expectations; if this data is not
+available, one cannot tell how close or how far models are from the
+real thing. As everywhere else, data is of crucial importance here; we
+need lots of it and of many different kinds.
 
 Once you need data, you soon need to worry about data representation:
 how should information be encoded? Clearly, in order for the data to
@@ -67,19 +67,19 @@ pretty complex pretty quickly, and this manifests itself in the data
 dimension by having ever larger data sets with greater levels of
 detail. On the plus side, thanks to Moore's Law [[https://en.wikipedia.org/wiki/Sigmoid_function][sigmoid]], detailed
 information at all levels is allowing us to answer questions that were
-unanswerable not so long ago. For example, the resolution of the data
-coming out of microscopy is now so high that a single data set is in
-the 500 TB ballpark, and it captures microstructures in the nanometre
-range. And of course, not only are individual data sets getting larger
-and larger, but we are able to generate more of them at ever
-increasing rates because the processes are more streamlined. It is a
-fire-hose of data.
+unanswerable not so long ago. The flip side is that all those details
+come at a cost: the data sets are becoming /huge/. For example, the
+resolution of the data coming out of microscopy is now so high that a
+single data set can take as much as 500 TB. And of course, not only
+are individual data sets getting larger and larger, but we are able to
+generate more of them at an ever increasing pace because the processes
+are more streamlined. It is a fire-hose of data.
 
 All of these difficulties are not unique to Computational Neuroscience
 or even to Neuroscience as a whole, but the complexity of the domain
 has the effect of greatly exacerbating an already thorny problem.
 
-* Enter Neuroinformatics
+* Neuroinformatics to the Rescue
 
 If you think we're exaggerating then think again. The management of
 data in Neuroscience is so complex /it is a field on its own right/,
@@ -149,13 +149,19 @@ written, such as [[http://www.ncbi.nlm.nih.gov/pubmed/9821633][An on-line archiv
 neurons]] (1999). Repositories grew, multiplied, morphed and in many
 cases died, as these things do, and the evolutionary process left us
 with the survivors. I'd like to highlight some of the ones I have
-bumped into so far are (with descriptions on their own words):
+bumped into so far are (with descriptions in their own words):
 
 - [[https://senselab.med.yale.edu/modeldb/][ModelDB]]: "ModelDB provides an accessible location for storing and
   efficiently retrieving computational neuroscience models. ModelDB is
   tightly coupled with NeuronDB. Models can be coded in any language
   for any environment. Model code can be viewed before downloading and
   browsers can be set to auto-launch the models."
+- [[https://senselab.med.yale.edu/neurondb/][NeuronDB]]: "NeuronDB provides a dynamically searchable database of
+  three types of neuronal properties: voltage gated conductances,
+  neurotransmitter receptors, and neurotransmitter substances. It
+  contains tools that provide for integration of these properties in a
+  given type of neuron and compartment, and for comparison of
+  properties across different types of neurons and compartments."
 - [[http://neuromorpho.org/][NeuroMorpho]]: "NeuroMorpho.Org is a centrally curated inventory of
   digitally reconstructed neurons associated with peer-reviewed
   publications. It contains contributions from over 100 laboratories
@@ -173,13 +179,6 @@ bumped into so far are (with descriptions on their own words):
   data."
 - [[http://www.opensourcebrain.org/projects][Open Source Brain]]: "resource for sharing and collaboratively
   developing computational models of neural systems."
-- [[http://www.neuinfo.org/about/index.shtm][Neuroscience Information Framework]]: "[...] [a] dynamic inventory of
-  Web-based neuroscience resources: data, materials, and tools
-  accessible via any computer connected to the Internet. An initiative
-  of the NIH Blueprint for Neuroscience Research, NIF advances
-  neuroscience research by enabling discovery and access to public
-  research data and tools worldwide through an open source, networked
-  environment."
 
 As you can see from this small list - rather incomplete, I'm sure -
 there is a wealth of information out there, covering all sorts of
@@ -213,10 +212,10 @@ make it work, then make it right, and, finally, make it fast." In many
 ways, we are reaching the "make it right" phase, with an increasing
 interest in efforts towards the creation of broad standards. There
 have been several papers and initiatives on the subject, such as the
-Neuroscience Information Framework, or NIF, described in this paper:
-[[http://www.neuinfo.org/about/publications/nif_knowledge_environment.pdf][The Neuroscience Information Framework: A Data and Knowledge
-Environment for Neuroscience]]. The paper outlined a lot of the problems
-that are hampering research, such as:
+Neuroscience Information Framework, or NIF, described in a paper: [[http://www.neuinfo.org/about/publications/nif_knowledge_environment.pdf][The
+Neuroscience Information Framework: A Data and Knowledge Environment
+for Neuroscience]]. The paper outlined a lot of the problems that are
+hampering research, such as:
 
 - the need for specialised search engines that are domain aware, and
   advanced query tools too;
@@ -236,11 +235,11 @@ that are hampering research, such as:
   maintenance load;
 - a need for an online repository for all tooling, to avoid
   reinventing the wheel;
-- the need to create a multi-domain standard vocabulary;
+- the need to create a multi-domain standard vocabulary.
 
-There are many points of interest in that paper, and it is highly
+There are many worthwhile points in this paper, and it is highly
 recommended to anyone interested in the subject matter. For instance,
-the section discussion the design of the NIF also covers the
+the section discussing the design of the NIF also covers the
 requirements for any specification that wishes to solve the problems
 outlined above. They are worth highlighting as - in my humble and lay
 opinion - they are very well thought out.
@@ -263,14 +262,16 @@ opinion - they are very well thought out.
   all aspects of the process such as user interfaces, terminologies,
   formats, etc.
 
-The NIF initiative appears to the untrained eye as a great effort to
-solve fundamental problems in the field. It also seems to have spawned
-many useful and lasting resources such as [[http://neuromorpho.org/][NeuroMorpho]]. However, one
-cannot help but think that it didn't quite fulfil all of its
-potential. I am keenly looking for up-to-date documents that describe
-the current status of the initiative in its many aspects, but alas
-have not yet succeeded. If the initiative did peter out, it did
-highlight a few potential problems for anyone working in this space:
+To the untrained eye, the NIF initiative appears to be a great effort
+to solve fundamental problems in the field. It also seems to have
+spawned and/or helped popularise many useful and lasting resources
+such as [[http://neuromorpho.org/][NeuroMorpho]]. However, the impression one gets from the outside
+is that the NIF didn't quite fulfil all of its potential. Having said
+that, I am keenly looking for up-to-date documents that describe the
+current status across all of its many aspects - alas, I have not yet
+succeeded in finding any such document. If indeed it is the case that
+the initiative petered out, it did highlight a few potential problems
+for anyone working in this space:
 
 - large undertakings are hard to pull off; small, organic, incremental
   changes are easier to do, but of course, that is why we have the
@@ -295,7 +296,7 @@ paper: [[http://www.brains-minds-media.org/archive/228#documentContent][XML for 
 components of the XML Suite are (with descriptions on their own words,
 copied from the above paper and a link for more details):
 
-- [[http://lems.github.io/LEMS/][LEMS]]: "the Low Entropy Model Specification [...] s being developed
+- [[http://lems.github.io/LEMS/][LEMS]]: "the Low Entropy Model Specification [...] is being developed
   to provide a compact, minimally redundant, human-readable,
   human-writable, declarative way of expressing models of biological
   systems. It differs from other systems such as CellML or SBML in its
@@ -339,7 +340,8 @@ want to spend time on work that is not contributing directly to their
 research and so the developer pool to do fundamental work on the file
 formats is limited. Once the developer pool becomes too limited, the
 file format ends up with a small user base because it is not fit for
-purpose.
+purpose, and thus starts a downward spiral. This appears to have been
+the fate of projects such as BrainML.
 
 * Conclusion
 

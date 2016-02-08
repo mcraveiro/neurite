@@ -13,22 +13,22 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-02-08 Mon 17:53]
+#+CAPTION: Clock summary at [2016-02-08 Mon 21:47]
 | <75>                                                                        |         |       |      |       |
 | Headline                                                                    | Time    |       |      |     % |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| *Total time*                                                                | *19:10* |       |      | 100.0 |
+| *Total time*                                                                | *20:02* |       |      | 100.0 |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| Stories                                                                     | 19:10   |       |      | 100.0 |
-| Active                                                                      |         | 19:10 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |         |       | 0:27 |   2.3 |
-| STARTED Journal club and lectures                                           |         |       | 1:12 |   6.3 |
-| COMPLETED Organise all of the papers we already downloaded                  |         |       | 2:28 |  12.9 |
-| COMPLETED Sort out problems with PC                                         |         |       | 0:15 |   1.3 |
-| STARTED Socialising                                                         |         |       | 1:02 |   5.4 |
-| STARTED Create a blog post on neuroinformatics                              |         |       | 9:02 |  47.1 |
-| Research on the current state of file formats                               |         |       | 2:01 |  10.5 |
-| Create a docker image to build neurite                                      |         |       | 2:43 |  14.2 |
+| Stories                                                                     | 20:02   |       |      | 100.0 |
+| Active                                                                      |         | 20:02 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:27 |   2.2 |
+| STARTED Journal club and lectures                                           |         |       | 1:12 |   6.0 |
+| STARTED Socialising                                                         |         |       | 1:02 |   5.2 |
+| COMPLETED Organise all of the papers we already downloaded                  |         |       | 2:28 |  12.3 |
+| COMPLETED Sort out problems with PC                                         |         |       | 0:15 |   1.2 |
+| COMPLETED Create a blog post on neuroinformatics                            |         |       | 9:54 |  49.4 |
+| Research on the current state of file formats                               |         |       | 2:01 |  10.1 |
+| Create a docker image to build neurite                                      |         |       | 2:43 |  13.6 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -43,6 +43,13 @@ Updates to sprint and product backlog.
 Time spent in generic tasks.
 
 - sorting out supervision.
+
+*** STARTED Socialising                                               :story:
+    CLOCK: [2016-02-08 Mon 14:32]--[2016-02-08 Mon 14:48] =>  0:16
+    CLOCK: [2016-02-02 Tue 16:10]--[2016-02-02 Tue 16:36] =>  0:26
+    CLOCK: [2016-02-01 Mon 14:00]--[2016-02-01 Mon 14:20] =>  0:20
+
+Any events during work hours not directly connected to work.
 
 *** COMPLETED Organise all of the papers we already downloaded        :story:
     CLOSED: [2016-02-03 Wed 16:43]
@@ -63,14 +70,9 @@ Add support for git cloning so we can take the papers to other machines.
 
 Time spent sorting out PC problems.
 
-*** STARTED Socialising                                               :story:
-    CLOCK: [2016-02-08 Mon 14:32]--[2016-02-08 Mon 14:48] =>  0:16
-    CLOCK: [2016-02-02 Tue 16:10]--[2016-02-02 Tue 16:36] =>  0:26
-    CLOCK: [2016-02-01 Mon 14:00]--[2016-02-01 Mon 14:20] =>  0:20
-
-Any events during work hours not directly connected to work.
-
-*** STARTED Create a blog post on neuroinformatics                    :story:
+*** COMPLETED Create a blog post on neuroinformatics                  :story:
+    CLOSED: [2016-02-08 Mon 21:47]
+    CLOCK: [2016-02-08 Mon 20:55]--[2016-02-08 Mon 21:47] =>  0:52
     CLOCK: [2016-02-08 Mon 14:48]--[2016-02-08 Mon 17:52] =>  3:04
     CLOCK: [2016-02-08 Mon 14:15]--[2016-02-08 Mon 14:31] =>  0:16
     CLOCK: [2016-02-05 Fri 14:26]--[2016-02-05 Fri 15:58] =>  1:32
