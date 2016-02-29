@@ -13,22 +13,25 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-02-08 Mon 21:47]
-| <75>                                                                        |         |       |      |       |
-| Headline                                                                    | Time    |       |      |     % |
-|-----------------------------------------------------------------------------+---------+-------+------+-------|
-| *Total time*                                                                | *20:02* |       |      | 100.0 |
-|-----------------------------------------------------------------------------+---------+-------+------+-------|
-| Stories                                                                     | 20:02   |       |      | 100.0 |
-| Active                                                                      |         | 20:02 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |         |       | 0:27 |   2.2 |
-| STARTED Journal club and lectures                                           |         |       | 1:12 |   6.0 |
-| STARTED Socialising                                                         |         |       | 1:02 |   5.2 |
-| COMPLETED Organise all of the papers we already downloaded                  |         |       | 2:28 |  12.3 |
-| COMPLETED Sort out problems with PC                                         |         |       | 0:15 |   1.2 |
-| COMPLETED Create a blog post on neuroinformatics                            |         |       | 9:54 |  49.4 |
-| Research on the current state of file formats                               |         |       | 2:01 |  10.1 |
-| Create a docker image to build neurite                                      |         |       | 2:43 |  13.6 |
+#+CAPTION: Clock summary at [2016-02-29 Mon 15:08]
+| <75>                                                                        |         |       |       |       |
+| Headline                                                                    | Time    |       |       |     % |
+|-----------------------------------------------------------------------------+---------+-------+-------+-------|
+| *Total time*                                                                | *24:08* |       |       | 100.0 |
+|-----------------------------------------------------------------------------+---------+-------+-------+-------|
+| Stories                                                                     | 24:08   |       |       | 100.0 |
+| Active                                                                      |         | 24:08 |       | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |         |       |  0:27 |   1.9 |
+| COMPLETED Journal club and lectures                                         |         |       |  2:17 |   9.5 |
+| STARTED Socialising                                                         |         |       |  1:02 |   4.3 |
+| COMPLETED Organise all of the papers we already downloaded                  |         |       |  2:28 |  10.2 |
+| COMPLETED Sort out problems with PC                                         |         |       |  0:15 |   1.0 |
+| COMPLETED Create a blog post on neuroinformatics                            |         |       |  0:52 |   3.6 |
+| COMPLETED Socialising                                                       |         |       |  1:02 |   4.3 |
+| COMPLETED Create a blog post on neuroinformatics                            |         |       | 10:01 |  41.5 |
+| COMPLETED Research on the current state of file formats                     |         |       |  2:01 |   8.4 |
+| COMPLETED Sprint review                                                     |         |       |  1:00 |   4.1 |
+| Create a docker image to build neurite                                      |         |       |  2:43 |  11.3 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -37,7 +40,9 @@
 
 Updates to sprint and product backlog.
 
-*** STARTED Journal club and lectures                                 :story:
+*** COMPLETED Journal club and lectures                               :story:
+    CLOSED: [2016-02-29 Mon 14:55]
+    CLOCK: [2016-02-12 Fri 16:00]--[2016-02-12 Fri 17:05] =>  1:05
     CLOCK: [2016-02-05 Fri 15:58]--[2016-02-05 Fri 17:10] =>  1:12
 
 Time spent in generic tasks.
@@ -70,8 +75,17 @@ Add support for git cloning so we can take the papers to other machines.
 
 Time spent sorting out PC problems.
 
+*** COMPLETED Socialising                                             :story:
+    CLOSED: [2016-02-29 Mon 14:57]
+    CLOCK: [2016-02-08 Mon 14:32]--[2016-02-08 Mon 14:48] =>  0:16
+    CLOCK: [2016-02-02 Tue 16:10]--[2016-02-02 Tue 16:36] =>  0:26
+    CLOCK: [2016-02-01 Mon 14:00]--[2016-02-01 Mon 14:20] =>  0:20
+
+Any events during work hours not directly connected to work.
+
 *** COMPLETED Create a blog post on neuroinformatics                  :story:
-    CLOSED: [2016-02-08 Mon 21:47]
+    CLOSED: [2016-02-29 Mon 14:51]
+    CLOCK: [2016-02-12 Fri 15:01]--[2016-02-12 Fri 16:00] =>  0:59
     CLOCK: [2016-02-08 Mon 20:55]--[2016-02-08 Mon 21:47] =>  0:52
     CLOCK: [2016-02-08 Mon 14:48]--[2016-02-08 Mon 17:52] =>  3:04
     CLOCK: [2016-02-08 Mon 14:15]--[2016-02-08 Mon 14:31] =>  0:16
@@ -84,9 +98,12 @@ Time spent sorting out PC problems.
 General chat about the state of affairs of neuroinformatics and
 perhaps some explanation of main file formats.
 
-*** Research on the current state of file formats                     :story:
+*** COMPLETED Research on the current state of file formats           :story:
+    CLOSED: [2016-02-29 Mon 14:54]
     CLOCK: [2016-02-05 Fri 13:15]--[2016-02-05 Fri 14:23] =>  1:08
     CLOCK: [2016-02-03 Wed 17:06]--[2016-02-03 Wed 17:59] =>  0:53
+
+*Rationale:* Current blog post is sufficient.
 
 We should probably come up with an inventory of the available file
 formats, their abilities and so on, and try to figure out where we'd
@@ -98,7 +115,9 @@ Material:
   Environment for Neuroscience]]
 - [[http://www.brains-minds-media.org/archive/228#documentContent][XML for Model Specification in Neuroscience]]
 
-*** Sprint review                                                     :story:
+*** COMPLETED Sprint review                                           :story:
+    CLOSED: [2016-02-29 Mon 14:53]
+    CLOCK: [2016-02-12 Mon 14:01]--[2016-02-12 Mon 15:01] =>  1:00
 
 Review of the sprint.
 
