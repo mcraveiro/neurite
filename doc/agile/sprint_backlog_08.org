@@ -12,21 +12,24 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-02-29 Mon 15:01]
+#+CAPTION: Clock summary at [2016-03-14 Mon 12:05]
 | <75>                                                                        |        |      |      |       |
 | Headline                                                                    | Time   |      |      |     % |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *2:20* |      |      | 100.0 |
+| *Total time*                                                                | *6:13* |      |      | 100.0 |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 2:20   |      |      | 100.0 |
-| Active                                                                      |        | 2:20 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:20 |  14.3 |
-| STARTED Journal club and lectures                                           |        |      | 1:10 |  50.0 |
-| STARTED Socialising                                                         |        |      | 0:50 |  35.7 |
+| Stories                                                                     | 6:13   |      |      | 100.0 |
+| Active                                                                      |        | 6:13 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |        |      | 0:26 |   7.0 |
+| STARTED Journal club and lectures                                           |        |      | 1:10 |  18.8 |
+| STARTED Socialising                                                         |        |      | 0:50 |  13.4 |
+| STARTED Read up on the basics of geometry and meshes                        |        |      | 2:49 |  45.3 |
+| STARTED Create a polygon mesh with the simple SWC file                      |        |      | 0:58 |  15.5 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
 *** STARTED Sprint and product backlog grooming                       :story:
+    CLOCK: [2016-03-14 Mon 11:00]--[2016-03-14 Mon 11:06] =>  0:06
     CLOCK: [2016-02-29 Mon 14:15]--[2016-02-29 Mon 14:35] =>  0:20
 
 Updates to sprint and product backlog.
@@ -42,6 +45,35 @@ Time spent in generic tasks.
     CLOCK: [2016-02-19 Fri 17:11]--[2016-02-19 Fri 18:01] =>  0:50
 
 Any events during work hours not directly connected to work.
+
+*** STARTED Read up on the basics of geometry and meshes              :story:
+    CLOCK: [2016-03-14 Mon 08:10]--[2016-03-14 Mon 10:59] =>  2:52
+
+In order to understand the CGAL API we need to understand the basics
+of geometry applied to CG. A good website for this is [[http://www.scratchapixel.com/][Scratch
+Pixel]]. Go through the basic lessons.
+
+Geometry:
+
+- [[http://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/points-vectors-and-normals][Points, Vectors and Normals]]
+- [[http://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/coordinate-systems][Coordinate Systems]]
+- [[http://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/math-operations-on-points-and-vectors][Math Operations on Points and Vectors]]
+- [[http://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/matrices][Matrices]]
+- [[http://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/how-does-matrix-work-part-1][How Does Matrix Work: Part 1]]
+- [[http://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/how-does-matrix-work-part-2][How does matrix work: part 2]]
+
+Meshes
+
+- [[http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh][Introduction to polygon meshes]]
+- [[http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh/polygon-mesh-file-formats][File Formats to Store Polygon Meshes: OBJ, FBX, RenderMan, etc.]]
+
+*** STARTED Create a polygon mesh with the simple SWC file            :story:
+    CLOCK: [2016-03-14 Mon 11:07]--[2016-03-14 Mon 12:05] =>  0:58
+
+We need to create a polygon mesh representation of the simple ball and
+stick SWC file.
+
+- [[http://doc.cgal.org/latest/Mesh_3/index.html][CGAL 4.7 - 3D Mesh Generation]]
 
 *** Sprint review                                                     :story:
 
@@ -146,11 +178,6 @@ Ensure the code still works when using more complex SWC models. We
 have one at present but we should download several, with different
 sizes, e.g. 5K points, 50k points, and so on.
 
-*** Create a blog post on basic maths terminology                     :story:
-
-Now we understood the basics, we should apply the usual Feynman
-technique and write a blog post about it.
-
 *** Document the state of play of different formats and repositories  :story:
 
 We should write some notes down on the information we find about
@@ -165,3 +192,11 @@ different initiatives, file formats, repositories etc.
 - [[https://en.wikipedia.org/wiki/Neuroscience_Information_Framework][Neuroscience Information Framework wikipedia]]
 
 ** Deprecated
+*** CANCELLED Create a blog post on basic maths terminology           :story:
+    CLOSED: [2016-03-14 Mon 11:05]
+
+*Rationale*: Actually it seems ScratchPixel is already a good resource
+for this so there is no need to create a post on this.
+
+Now we understood the basics, we should apply the usual Feynman
+technique and write a blog post about it.

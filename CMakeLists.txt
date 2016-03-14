@@ -18,6 +18,7 @@ find_package(Boost 1.59 REQUIRED COMPONENTS
     system
     exception
     serialization
+    thread
     log
     filesystem
     program_options
