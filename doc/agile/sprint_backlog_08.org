@@ -12,19 +12,20 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-03-14 Mon 12:05]
-| <75>                                                                        |        |      |      |       |
-| Headline                                                                    | Time   |      |      |     % |
-|-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *6:13* |      |      | 100.0 |
-|-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 6:13   |      |      | 100.0 |
-| Active                                                                      |        | 6:13 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |        |      | 0:26 |   7.0 |
-| STARTED Journal club and lectures                                           |        |      | 1:10 |  18.8 |
-| STARTED Socialising                                                         |        |      | 0:50 |  13.4 |
-| STARTED Read up on the basics of geometry and meshes                        |        |      | 2:49 |  45.3 |
-| STARTED Create a polygon mesh with the simple SWC file                      |        |      | 0:58 |  15.5 |
+#+CAPTION: Clock summary at [2016-03-16 Wed 20:59]
+| <75>                                                                        |         |       |      |       |
+| Headline                                                                    | Time    |       |      |     % |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| *Total time*                                                                | *12:11* |       |      | 100.0 |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| Stories                                                                     | 12:11   |       |      | 100.0 |
+| Active                                                                      |         | 12:11 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:26 |   3.6 |
+| STARTED Journal club and lectures                                           |         |       | 1:10 |   9.6 |
+| STARTED Socialising                                                         |         |       | 0:50 |   6.8 |
+| STARTED Read up on the basics of geometry and meshes                        |         |       | 4:20 |  35.6 |
+| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 3:51 |  31.6 |
+| STARTED Read McGregor's paper                                               |         |       | 1:34 |  12.9 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -47,6 +48,7 @@ Time spent in generic tasks.
 Any events during work hours not directly connected to work.
 
 *** STARTED Read up on the basics of geometry and meshes              :story:
+    CLOCK: [2016-03-16 Wed 10:15]--[2016-03-16 Wed 11:46] =>  1:31
     CLOCK: [2016-03-14 Mon 08:10]--[2016-03-14 Mon 10:59] =>  2:52
 
 In order to understand the CGAL API we need to understand the basics
@@ -68,12 +70,60 @@ Meshes
 - [[http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh/polygon-mesh-file-formats][File Formats to Store Polygon Meshes: OBJ, FBX, RenderMan, etc.]]
 
 *** STARTED Create a polygon mesh with the simple SWC file            :story:
+    CLOCK: [2016-03-15 Tue 09:43]--[2016-03-15 Tue 12:13] =>  2:30
+    CLOCK: [2016-03-15 Tue 09:20]--[2016-03-15 Tue 09:43] =>  0:23
     CLOCK: [2016-03-14 Mon 11:07]--[2016-03-14 Mon 12:05] =>  0:58
 
 We need to create a polygon mesh representation of the simple ball and
 stick SWC file.
 
 - [[http://doc.cgal.org/latest/Mesh_3/index.html][CGAL 4.7 - 3D Mesh Generation]]
+
+Notes:
+
+- Delaunay refinement:
+- restricted Delaunay triangulation:
+- requirements on the input domain: The domain to be meshed is assumed
+  to be bounded and representable as a pure 3D complex. A 3D complex
+  is a set of faces with dimension 0, 1, 2 and 3 such that all faces
+  are pairwise interior disjoint, and the boundary of each face of the
+  complex is the union of faces of the complex. The 3D complex is
+  pure, meaning that each face is included in a face of dimension 3,
+  so that the complex is entirely described by the set of its 3D faces
+  and their subfaces.
+- output mesh: This means that each subdomain is approximated by the
+  union of the tetrahedral cells whose circumcenters are located
+  inside the domain (or subdomain). Each surface patch is approximated
+  by the union of the Delaunay mesh facets whose dual Voronoi edges
+  intersect the surface patch. Such mesh facets are called surface
+  facets in the following. The 1-dimensional exposed features are
+  approximated by sequences of mesh edges and the 0-dimensional
+  exposed features are represented by mesh vertices.
+- The mesh density refers to the number of mesh vertices and cells,
+  i.e. to the complexity of the mesh. The mesh quality referred to
+  here is measured by the radius edge ratio of surface facets end mesh
+  cells, where the radius edge ratio of a simplex (triangle or
+  tetrahedron) is the the ratio between its circumradius and its
+  shortest edge.
+- [[http://cgal-discuss.949826.n4.nabble.com/newbie-question-3D-meshing-of-geometric-objects-cylinder-box-etc-amp-boolean-ops-td4657492.html][Meshing of geometric objects (cylinder, box, etc) & boolean ops]]:
+  CGAL allows to mesh a domain whose boundary is defined by one of
+  several implicit surfaces. See the example in subsection 3.5.2 of
+  chapter 3D Mesh Generation of the user manual. However if the
+  surfaces intersect and if you want the mesh to precisely reproduce
+  the intersection curves you have to previously detect those
+  intersections.
+- [[http://stackoverflow.com/questions/33197841/create-parameterized-3d-primitives-with-cgal][Create parameterized 3D primitives with cgal]]
+
+*** STARTED Read McGregor's paper                                     :story:
+    CLOCK: [2016-03-16 Wed 11:46]--[2016-03-16 Wed 13:20] =>  1:34
+
+Now we understand the need for a CSG representation, McGregor's paper
+on CTNG makes a lot more sense. Parse the paper.
+
+Notes:
+
+- simply abutting frusta as is often done for pure electrophysiology
+  simulations is inadequate
 
 *** Sprint review                                                     :story:
 
