@@ -12,20 +12,21 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-03-16 Wed 20:59]
+#+CAPTION: Clock summary at [2016-03-29 Tue 13:33]
 | <75>                                                                        |         |       |      |       |
 | Headline                                                                    | Time    |       |      |     % |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| *Total time*                                                                | *12:11* |       |      | 100.0 |
+| *Total time*                                                                | *26:05* |       |      | 100.0 |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| Stories                                                                     | 12:11   |       |      | 100.0 |
-| Active                                                                      |         | 12:11 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |         |       | 0:26 |   3.6 |
-| STARTED Journal club and lectures                                           |         |       | 1:10 |   9.6 |
-| STARTED Socialising                                                         |         |       | 0:50 |   6.8 |
-| STARTED Read up on the basics of geometry and meshes                        |         |       | 4:20 |  35.6 |
-| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 3:51 |  31.6 |
-| STARTED Read McGregor's paper                                               |         |       | 1:34 |  12.9 |
+| Stories                                                                     | 26:05   |       |      | 100.0 |
+| Active                                                                      |         | 26:05 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |         |       | 0:26 |   1.7 |
+| STARTED Journal club and lectures                                           |         |       | 1:10 |   4.5 |
+| STARTED Socialising                                                         |         |       | 0:50 |   3.2 |
+| STARTED Read up on the basics of geometry and meshes                        |         |       | 6:29 |  24.9 |
+| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 3:51 |  14.8 |
+| STARTED Read McGregor's paper                                               |         |       | 3:50 |  14.7 |
+| STARTED Review OpenScad code                                                |         |       | 9:29 |  36.4 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -48,6 +49,7 @@ Time spent in generic tasks.
 Any events during work hours not directly connected to work.
 
 *** STARTED Read up on the basics of geometry and meshes              :story:
+    CLOCK: [2016-03-28 Mon 08:01]--[2016-03-28 Mon 10:10] =>  2:09
     CLOCK: [2016-03-16 Wed 10:15]--[2016-03-16 Wed 11:46] =>  1:31
     CLOCK: [2016-03-14 Mon 08:10]--[2016-03-14 Mon 10:59] =>  2:52
 
@@ -68,6 +70,13 @@ Meshes
 
 - [[http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh][Introduction to polygon meshes]]
 - [[http://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh/polygon-mesh-file-formats][File Formats to Store Polygon Meshes: OBJ, FBX, RenderMan, etc.]]
+
+CGAL:
+
+- [[https://www.youtube.com/watch?v%3D3DLfkWWw_Tg][CGAL: The Open Source Computational Geometry Algorithms Library]]
+- [[https://www.youtube.com/watch?v%3DMk-NH2-_hMo][CGAL --- Part 1 of N --- Introduction]]
+- [[https://www.youtube.com/watch?v%3DR8hlJCR4xO0][CGAL --- Part 2 of N --- Polygon Meshes]]
+- [[https://www.youtube.com/watch?v%3Dt_zvp9dTTBY][CGAL -- Part 3 of N --- Subdivision Surface Methods]]
 
 *** STARTED Create a polygon mesh with the simple SWC file            :story:
     CLOCK: [2016-03-15 Tue 09:43]--[2016-03-15 Tue 12:13] =>  2:30
@@ -115,6 +124,7 @@ Notes:
 - [[http://stackoverflow.com/questions/33197841/create-parameterized-3d-primitives-with-cgal][Create parameterized 3D primitives with cgal]]
 
 *** STARTED Read McGregor's paper                                     :story:
+    CLOCK: [2016-03-18 Fri 09:04]--[2016-03-18 Fri 11:20] =>  2:16
     CLOCK: [2016-03-16 Wed 11:46]--[2016-03-16 Wed 13:20] =>  1:34
 
 Now we understand the need for a CSG representation, McGregor's paper
@@ -124,6 +134,16 @@ Notes:
 
 - simply abutting frusta as is often done for pure electrophysiology
   simulations is inadequate
+
+*** STARTED Review OpenScad code                                      :story:
+    CLOCK: [2016-03-29 Tue 09:01]--[2016-03-29 Tue 13:32] =>  4:31
+    CLOCK: [2016-03-28 Mon 16:31]--[2016-03-28 Mon 18:30] =>  1:59
+    CLOCK: [2016-03-28 Mon 12:38]--[2016-03-28 Mon 13:10] =>  0:32
+    CLOCK: [2016-03-28 Mon 10:11]--[2016-03-28 Mon 12:38] =>  2:27
+
+Now it seems clear its not possible to directly use CSG in CGAL, we
+should review existing CSG implementations and see if we can
+reuse/copy them. One such example is [[https://github.com/openscad/openscad][OpenScad]].
 
 *** Sprint review                                                     :story:
 
