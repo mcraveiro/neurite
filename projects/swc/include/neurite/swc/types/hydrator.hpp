@@ -28,7 +28,7 @@
 #include <string>
 #include <iosfwd>
 #include <boost/filesystem/path.hpp>
-#include "neurite/swc/types/point.hpp"
+#include "neurite/swc/types/sample.hpp"
 #include "neurite/swc/types/model.hpp"
 
 namespace neurite {
@@ -44,7 +44,7 @@ typedef boost::error_info<struct tag_field_number, unsigned int> error_in_field;
 class hydrator {
 private:
     structure_identifier_types to_structure_identifier_type(const int i) const;
-    point process_point_line(const std::string& s,
+    sample process_sample(const std::string& line,
         const unsigned int line_number) const;
 
 public:

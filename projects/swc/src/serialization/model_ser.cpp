@@ -30,8 +30,8 @@
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
 #include "neurite/swc/serialization/model_ser.hpp"
-#include "neurite/swc/serialization/point_ser.hpp"
 #include "neurite/swc/serialization/header_ser.hpp"
+#include "neurite/swc/serialization/sample_ser.hpp"
 
 namespace boost {
 namespace serialization {
@@ -41,7 +41,7 @@ void save(Archive& ar,
     const neurite::swc::model& v,
     const unsigned int /*version*/) {
     ar << make_nvp("header", v.header_);
-    ar << make_nvp("points", v.points_);
+    ar << make_nvp("samples", v.samples_);
 }
 
 template<typename Archive>
@@ -49,7 +49,7 @@ void load(Archive& ar,
     neurite::swc::model& v,
     const unsigned int /*version*/) {
     ar >> make_nvp("header", v.header_);
-    ar >> make_nvp("points", v.points_);
+    ar >> make_nvp("samples", v.samples_);
 }
 
 } }

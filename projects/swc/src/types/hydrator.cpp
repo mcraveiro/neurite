@@ -35,8 +35,8 @@ namespace {
 using namespace neurite::utility::log;
 auto lg(logger_factory("swc.hydrator"));
 
-const unsigned long minimum_number_of_point_fields(7);
-// const char hash('#');
+const unsigned long minimum_number_of_fields(7);
+const char hash('#');
 
 const std::string invalid_field_value("Field value is not valid");
 const std::string failed_to_open_file("Failed to open file: ");
@@ -57,7 +57,7 @@ namespace swc {
 structure_identifier_types hydrator::
 to_structure_identifier_type(const int i) const {
     switch (i) {
-    case 0: return structure_identifier_types::invalid; // FIXME
+    case 0: return structure_identifier_types::invalid;
     case 1: return structure_identifier_types::soma;
     case 2: return structure_identifier_types::axon;
     case 3: return structure_identifier_types::basal_dendrite;
@@ -68,35 +68,36 @@ to_structure_identifier_type(const int i) const {
     }
 }
 
-
-point hydrator::
-process_point_line(const std::string& s, const unsigned int line_number) const {
+sample hydrator::
+process_sample(const std::string& line, const unsigned int line_number) const {
     std::vector<std::string> tokens;
-    const auto trimmed(boost::trim_copy(s));
-    boost::split(tokens, trimmed, boost::is_space(), boost::token_compress_on);
+    boost::split(tokens, line, boost::is_space(), boost::token_compress_on);
     BOOST_LOG_SEV(lg, debug) << "Parsing line with tokens: " << tokens;
 
-    if (tokens.size() < minimum_number_of_point_fields) {
+    if (tokens.size() < minimum_number_of_fields) {
         BOOST_LOG_SEV(lg, error) << missing_fields << ". Expected: "
-                                 << minimum_number_of_point_fields
+                                 << minimum_number_of_fields
                                  << " Actual: " << tokens.size();
         BOOST_THROW_EXCEPTION(hydration_error(missing_fields));
     }
 
     unsigned int field_number(0);
     try {
-        point r;
-        r.sample_number(stoui(tokens[field_number]));
+        sample r;
+        r.number(stoui(tokens[field_number]));
 
         const auto usi(stoi(tokens[++field_number]));
         r.unparsed_structure_identifier(usi);
         r.structure_identifier(to_structure_identifier_type(usi));
 
-        r.x(stod(tokens[++field_number]));
-        r.y(stod(tokens[++field_number]));
-        r.z(stod(tokens[++field_number]));
-        r.radius(stod(tokens[++field_number]));
-        r.parent_sample(stoi(tokens[++field_number]));
+        point p;
+        p.x(stod(tokens[++field_number]));
+        p.y(stod(tokens[++field_number]));
+        p.z(stod(tokens[++field_number]));
+        p.radius(stod(tokens[++field_number]));
+        r.position(p);
+
+        r.parent(stoi(tokens[++field_number]));
         r.line_number(line_number);
         return r;
     } catch (const std::invalid_argument& e) {
@@ -123,22 +124,20 @@ model hydrator::hydrate(std::istream& is) const {
     unsigned int line_number(0);
     try {
         while (std::getline(is, input_line)) {
-            if (input_line.empty()){
-                BOOST_LOG_SEV(lg, debug) << "Ignoring empty line. Line number: "
-                                         << line_number;
-            }
+            const auto trimmed(boost::trim_copy(input_line));
+            if (!trimmed.empty() && trimmed[0] != hash) {
+                /* ignore lines starting with hash for now until we 
+                 * have support for processing headers.
+                 */
+                r.samples().push_back(process_sample(trimmed, line_number));
+            } else
+                BOOST_LOG_SEV(lg, debug) << "Ignoring line: " << line_number;
 
-            /*
-              const auto c(input_line[0]);
-              if (c == hash && in_header) {
-              process_header_line()
-              }
-            */
-            r.points().push_back(process_point_line(input_line, line_number));
             ++line_number;
         }
     } catch(boost::exception& e) {
-        BOOST_LOG_SEV(lg, error) << "Failed to parse line: " << line_number;
+        BOOST_LOG_SEV(lg, error) << "Failed to parse line: " << line_number
+                                 << " contents: " << input_line;
         e << error_in_line(line_number);
         throw;
     }

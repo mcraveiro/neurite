@@ -28,6 +28,7 @@
 #include "neurite/swc/hash/model_hash.hpp"
 #include "neurite/swc/hash/point_hash.hpp"
 #include "neurite/swc/hash/header_hash.hpp"
+#include "neurite/swc/hash/sample_hash.hpp"
 #include "neurite/swc/hash/structure_identifier_types_hash.hpp"
 
 #endif

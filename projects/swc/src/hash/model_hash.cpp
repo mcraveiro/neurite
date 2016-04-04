@@ -19,8 +19,8 @@
  *
  */
 #include "neurite/swc/hash/model_hash.hpp"
-#include "neurite/swc/hash/point_hash.hpp"
 #include "neurite/swc/hash/header_hash.hpp"
+#include "neurite/swc/hash/sample_hash.hpp"
 
 namespace {
 
@@ -40,7 +40,7 @@ inline std::size_t hash_boost_optional_neurite_swc_header(const boost::optional<
     return seed;
 }
 
-inline std::size_t hash_std_list_neurite_swc_point(const std::list<neurite::swc::point>& v) {
+inline std::size_t hash_std_list_neurite_swc_sample(const std::list<neurite::swc::sample>& v) {
     std::size_t seed(0);
     for (const auto i : v) {
         combine(seed, i);
@@ -57,7 +57,7 @@ std::size_t model_hasher::hash(const model& v) {
     std::size_t seed(0);
 
     combine(seed, hash_boost_optional_neurite_swc_header(v.header()));
-    combine(seed, hash_std_list_neurite_swc_point(v.points()));
+    combine(seed, hash_std_list_neurite_swc_sample(v.samples()));
 
     return seed;
 }

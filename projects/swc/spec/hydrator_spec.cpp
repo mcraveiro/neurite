@@ -37,16 +37,21 @@ const std::string test_suite("hydrator_spec");
 
 const std::string one_line_input(" 1 2 3.087 7.342 -21.875 8.209  -1 ");
 const std::string three_line_input(R"( 1 2 0.087 0.342 0.875 0.209  -1
- 1 2 1.087 1.342 1.875 1.209  -1
- 1 2 2.087 2.342 2.875 2.209  -1
+ 2 2 1.087 1.342 1.875 1.209  -1
+ 3 2 2.087 2.342 2.875 2.209  -1
 )");
 const std::string missing_fields_input(" 1 2 3.087 7.342 -21.875 8.209");
 const std::string bad_radius_input(" 1 2 3.087 7.342 -21.875 BAD_RADIUS  -1 ");
 const std::string bad_third_line_input(R"( 1 2 3.087 7.342 -21.875 8.209  -1
- 1 2 3.087 7.342 -21.875 8.209  -1
- 1 2 3.087 7.342 -21.875 8.209  -1
- 1 2 BAD_X 7.342 -21.875 8.209  -1
- 1 2 3.087 7.342 -21.875 8.209  -1
+ 2 2 3.087 7.342 -21.875 8.209  -1
+ 3 2 3.087 7.342 -21.875 8.209  -1
+ 4 2 BAD_X 7.342 -21.875 8.209  -1
+ 5 2 3.087 7.342 -21.875 8.209  -1
+)");
+const std::string commented_input(R"( 1 2 0.087 0.342 0.875 0.209  -1
+# some comment
+   # another comment
+ 2 2 1.087 1.342 1.875 1.209  -1
 )");
 
 const std::string invalid_file_name("INVALID_FILE_NAME");
@@ -77,57 +82,60 @@ BOOST_AUTO_TEST_CASE(hydrating_missing_fields_input_throws) {
     BOOST_CHECK_EXCEPTION(h.hydrate(is), hydration_error, c);
 }
 
-BOOST_AUTO_TEST_CASE(hydrating_one_line_input_results_in_expected_file) {
-    SETUP_TEST_LOG_SOURCE("hydrating_one_line_input_results_in_expected_file");
+BOOST_AUTO_TEST_CASE(hydrating_one_line_input_results_in_expected_model) {
+    SETUP_TEST_LOG_SOURCE("hydrating_one_line_input_results_in_expected_model");
 
     neurite::swc::hydrator h;
     std::istringstream is(one_line_input);
-    const auto f(h.hydrate(is));
+    const auto m(h.hydrate(is));
 
-    BOOST_LOG_SEV(lg, debug) << "File:" << f;
-    BOOST_CHECK(!f.header());
-    BOOST_REQUIRE(f.points().size() == 1);
+    BOOST_LOG_SEV(lg, debug) << "Model:" << m;
+    BOOST_CHECK(!m.header());
+    BOOST_REQUIRE(m.samples().size() == 1);
 
-    const auto p(f.points().front());
-    BOOST_CHECK(p.sample_number() == 1);
-    BOOST_CHECK(p.unparsed_structure_identifier() == 2);
+    const auto s(m.samples().front());
+    BOOST_CHECK(s.number() == 1);
+    BOOST_CHECK(s.unparsed_structure_identifier() == 2);
 
     using neurite::swc::structure_identifier_types;
-    BOOST_CHECK(p.structure_identifier() == structure_identifier_types::axon);
+    BOOST_CHECK(s.structure_identifier() == structure_identifier_types::axon);
+    const auto p(s.position());
     BOOST_REQUIRE_CLOSE(p.x(), 3.087, 0.000001);
     BOOST_REQUIRE_CLOSE(p.y(), 7.342, 0.000001);
     BOOST_REQUIRE_CLOSE(p.z(), -21.875, 0.000001);
     BOOST_REQUIRE_CLOSE(p.radius(), 8.209, 0.000001);
 
-    BOOST_CHECK(p.parent_sample() == -1);
-    BOOST_CHECK(p.line_number() == 0);
+    BOOST_CHECK(s.parent() == -1);
+    BOOST_CHECK(s.line_number() == 0);
 }
 
-BOOST_AUTO_TEST_CASE(hydrating_three_line_input_results_in_expected_file) {
-    SETUP_TEST_LOG_SOURCE("hydrating_one_line_input_results_in_expected_file");
+BOOST_AUTO_TEST_CASE(hydrating_three_line_input_results_in_expected_model) {
+    SETUP_TEST_LOG_SOURCE("hydrating_three_line_input_results_in_expected_model");
 
     neurite::swc::hydrator h;
     std::istringstream is(three_line_input);
-    const auto f(h.hydrate(is));
+    const auto m(h.hydrate(is));
 
-    BOOST_LOG_SEV(lg, debug) << "File:" << f;
-    BOOST_CHECK(!f.header());
-    BOOST_REQUIRE(f.points().size() == 3);
+    BOOST_LOG_SEV(lg, debug) << "File:" << m;
+    BOOST_CHECK(!m.header());
+    BOOST_REQUIRE(m.samples().size() == 3);
 
     unsigned int i(0);
-    for(const auto& p : f.points()) {
-        BOOST_CHECK(p.sample_number() == 1);
-        BOOST_CHECK(p.unparsed_structure_identifier() == 2);
+    for(const auto& s : m.samples()) {
+        BOOST_CHECK(s.number() == i + 1);
+        BOOST_CHECK(s.unparsed_structure_identifier() == 2);
 
         using ste = neurite::swc::structure_identifier_types;
-        BOOST_CHECK(p.structure_identifier() == ste::axon);
+        BOOST_CHECK(s.structure_identifier() == ste::axon);
+
+        const auto p(s.position());
         BOOST_REQUIRE_CLOSE(p.x(), i + 0.087, 0.000001);
         BOOST_REQUIRE_CLOSE(p.y(), i + 0.342, 0.000001);
         BOOST_REQUIRE_CLOSE(p.z(), i + 0.875, 0.000001);
         BOOST_REQUIRE_CLOSE(p.radius(), i + 0.209, 0.000001);
 
-        BOOST_CHECK(p.parent_sample() == -1);
-        BOOST_CHECK(p.line_number() == i);
+        BOOST_CHECK(s.parent() == -1);
+        BOOST_CHECK(s.line_number() == i);
         ++i;
     }
 }
@@ -176,13 +184,47 @@ BOOST_AUTO_TEST_CASE(hydrating_bad_third_line_input_throws) {
     }
 }
 
-BOOST_AUTO_TEST_CASE(hydrating_empty_stream_results_in_empty_file) {
-    SETUP_TEST_LOG_SOURCE("hydrating_empty_stream_results_in_empty_file");
-    /*
+BOOST_AUTO_TEST_CASE(hydrating_empty_stream_results_in_empty_model) {
+    SETUP_TEST_LOG_SOURCE("hydrating_empty_stream_results_in_empty_model");
+
+    std::istringstream is(empty);
     neurite::swc::hydrator h;
-    auto sf(h.hydrate("a/b/c.swc"));
-    BOOST_LOG_SEV(lg, debug) << sf;
-    */
+    auto m(h.hydrate(is));
+
+    BOOST_LOG_SEV(lg, debug) << "Model:" << m;
+    BOOST_CHECK(!m.header());
+    BOOST_REQUIRE(m.samples().empty());
+}
+
+BOOST_AUTO_TEST_CASE(hydrating_commented_input_input_results_in_expected_model) {
+    SETUP_TEST_LOG_SOURCE("hydrating_commented_input_input_results_in_expected_model");
+
+    neurite::swc::hydrator h;
+    std::istringstream is(commented_input);
+    const auto m(h.hydrate(is));
+
+    BOOST_LOG_SEV(lg, debug) << "File:" << m;
+    BOOST_CHECK(!m.header());
+    BOOST_REQUIRE(m.samples().size() == 2);
+
+    unsigned int i(0);
+    for(const auto& s : m.samples()) {
+        BOOST_CHECK(s.number() == i + 1);
+        BOOST_CHECK(s.unparsed_structure_identifier() == 2);
+
+        using ste = neurite::swc::structure_identifier_types;
+        BOOST_CHECK(s.structure_identifier() == ste::axon);
+
+        const auto p(s.position());
+        BOOST_REQUIRE_CLOSE(p.x(), i + 0.087, 0.000001);
+        BOOST_REQUIRE_CLOSE(p.y(), i + 0.342, 0.000001);
+        BOOST_REQUIRE_CLOSE(p.z(), i + 0.875, 0.000001);
+        BOOST_REQUIRE_CLOSE(p.radius(), i + 0.209, 0.000001);
+
+        BOOST_CHECK(s.parent() == -1);
+        BOOST_CHECK(s.line_number() == 0 || s.line_number() == 3);
+        ++i;
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

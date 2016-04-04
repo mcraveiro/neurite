@@ -18,17 +18,33 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_IO_ALL_IO_HPP
-#define NEURITE_SWC_IO_ALL_IO_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
-
-#include "neurite/swc/io/model_io.hpp"
+#include <ostream>
+#include <boost/io/ios_state.hpp>
 #include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/header_io.hpp"
 #include "neurite/swc/io/sample_io.hpp"
 #include "neurite/swc/io/structure_identifier_types_io.hpp"
 
-#endif
+namespace neurite {
+namespace swc {
+
+std::ostream& operator<<(std::ostream& s, const sample& v) {
+    boost::io::ios_flags_saver ifs(s);
+    s.setf(std::ios_base::boolalpha);
+    s.setf(std::ios::fixed, std::ios::floatfield);
+    s.precision(6);
+    s.setf(std::ios::showpoint);
+
+    s << " { "
+      << "\"__type__\": " << "\"neurite::swc::sample\"" << ", "
+      << "\"number\": " << v.number() << ", "
+      << "\"unparsed_structure_identifier\": " << v.unparsed_structure_identifier() << ", "
+      << "\"structure_identifier\": " << v.structure_identifier() << ", "
+      << "\"position\": " << v.position() << ", "
+      << "\"radius\": " << v.radius() << ", "
+      << "\"parent\": " << v.parent() << ", "
+      << "\"line_number\": " << v.line_number()
+      << " }";
+    return(s);
+}
+
+} }

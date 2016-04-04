@@ -25,23 +25,23 @@ namespace swc {
 
 model::model(model&& rhs)
     : header_(std::move(rhs.header_)),
-      points_(std::move(rhs.points_)) { }
+      samples_(std::move(rhs.samples_)) { }
 
 model::model(
     const boost::optional<neurite::swc::header>& header,
-    const std::list<neurite::swc::point>& points)
+    const std::list<neurite::swc::sample>& samples)
     : header_(header),
-      points_(points) { }
+      samples_(samples) { }
 
 void model::swap(model& other) noexcept {
     using std::swap;
     swap(header_, other.header_);
-    swap(points_, other.points_);
+    swap(samples_, other.samples_);
 }
 
 bool model::operator==(const model& rhs) const {
     return header_ == rhs.header_ &&
-        points_ == rhs.points_;
+        samples_ == rhs.samples_;
 }
 
 model& model::operator=(model other) {
@@ -66,20 +66,20 @@ void model::header(const boost::optional<neurite::swc::header>&& v) {
     header_ = std::move(v);
 }
 
-const std::list<neurite::swc::point>& model::points() const {
-    return points_;
+const std::list<neurite::swc::sample>& model::samples() const {
+    return samples_;
 }
 
-std::list<neurite::swc::point>& model::points() {
-    return points_;
+std::list<neurite::swc::sample>& model::samples() {
+    return samples_;
 }
 
-void model::points(const std::list<neurite::swc::point>& v) {
-    points_ = v;
+void model::samples(const std::list<neurite::swc::sample>& v) {
+    samples_ = v;
 }
 
-void model::points(const std::list<neurite::swc::point>&& v) {
-    points_ = std::move(v);
+void model::samples(const std::list<neurite::swc::sample>&& v) {
+    samples_ = std::move(v);
 }
 
 } }

@@ -19,8 +19,8 @@
  *
  */
 #include "neurite/swc/test_data/model_td.hpp"
-#include "neurite/swc/test_data/point_td.hpp"
 #include "neurite/swc/test_data/header_td.hpp"
+#include "neurite/swc/test_data/sample_td.hpp"
 
 namespace {
 
@@ -36,15 +36,15 @@ create_boost_optional_neurite_swc_header(unsigned int position) {
     return r;
 }
 
-neurite::swc::point
-create_neurite_swc_point(const unsigned int position) {
-    return neurite::swc::point_generator::create(position);
+neurite::swc::sample
+create_neurite_swc_sample(const unsigned int position) {
+    return neurite::swc::sample_generator::create(position);
 }
 
-std::list<neurite::swc::point> create_std_list_neurite_swc_point(unsigned int position) {
-    std::list<neurite::swc::point> r;
+std::list<neurite::swc::sample> create_std_list_neurite_swc_sample(unsigned int position) {
+    std::list<neurite::swc::sample> r;
     for (unsigned int i(0); i < 4; ++i) {
-        r.push_back(create_neurite_swc_point(position + i));
+        r.push_back(create_neurite_swc_sample(position + i));
     }
     return r;
 }
@@ -59,7 +59,7 @@ model_generator::model_generator() : position_(0) { }
 void model_generator::
 populate(const unsigned int position, result_type& v) {
     v.header(create_boost_optional_neurite_swc_header(position + 0));
-    v.points(create_std_list_neurite_swc_point(position + 1));
+    v.samples(create_std_list_neurite_swc_sample(position + 1));
 }
 
 model_generator::result_type

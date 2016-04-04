@@ -29,6 +29,7 @@
 #include "neurite/swc/types/model.hpp"
 #include "neurite/swc/types/point.hpp"
 #include "neurite/swc/types/header.hpp"
+#include "neurite/swc/types/sample.hpp"
 #include "neurite/swc/types/hydrator.hpp"
 #include "neurite/swc/types/validator.hpp"
 #include "neurite/swc/types/hydration_error.hpp"

@@ -24,7 +24,7 @@
 #include <boost/math/constants/constants.hpp>
 #include <CGAL/Simple_cartesian.h>
 #include "neurite/utility/log/logger.hpp"
-#include "neurite/swc/io/point_io.hpp"
+#include "neurite/swc/io/sample_io.hpp"
 #include "neurite/geometry/types/space.hpp"
 #include "neurite/geometry/io/space_io.hpp"
 #include "neurite/geometry/types/sphere.hpp"
@@ -87,16 +87,17 @@ geometry::space workflow::execute(const neurite::swc::model& m) const {
     r.colour("Gray");
 
     const double cylinder_height(10);
-    std::unordered_map<int, neurite::swc::point> id_to_point;
-    for (const auto& p : m.points())
-      id_to_point[p.sample_number()] = p;
+    std::unordered_map<int, neurite::swc::sample> id_to_sample;
+    for (const auto& s : m.samples())
+      id_to_sample[s.number()] = s;
     
     const auto soma(neurite::swc::structure_identifier_types::soma);
-    for (const auto& p : m.points()) {
-        BOOST_LOG_SEV(lg, debug) << "Processing point: " << p;
+    for (const auto& s : m.samples()) {
+        BOOST_LOG_SEV(lg, debug) << "Processing sample: " << s;
 
-        const auto sn(p.sample_number());
-        if (p.parent_sample() == -1 && p.structure_identifier() == soma) {
+        const auto sn(s.number());
+        const auto& p(s.position());
+        if (s.parent() == -1 && s.structure_identifier() == soma) {
             auto s(boost::make_shared<neurite::geometry::sphere>());
             s->centre().x(p.x());
             s->centre().y(p.y());
@@ -116,9 +117,11 @@ geometry::space workflow::execute(const neurite::swc::model& m) const {
             v1 = v1 / std::sqrt(v1 * v1);
             BOOST_LOG_SEV(lg, debug) <<  "vector 1 = " << v1;
 
-            const auto i(id_to_point.find(p.parent_sample()));
-            if (i != id_to_point.end()) {
-                Point_3 parent(i->second.x(), i->second.y(), i->second.z());
+            const auto i(id_to_sample.find(s.parent()));
+            if (i != id_to_sample.end()) {
+                const auto& parent_position(i->second.position());
+                Point_3 parent(parent_position.x(), parent_position.y(),
+                    parent_position.z());
                 BOOST_LOG_SEV(lg, debug) <<  "parent = " << parent;
 
                 Vector_3 v2(parent - point);

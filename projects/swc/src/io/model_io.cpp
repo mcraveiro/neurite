@@ -20,8 +20,8 @@
  */
 #include <ostream>
 #include "neurite/swc/io/model_io.hpp"
-#include "neurite/swc/io/point_io.hpp"
 #include "neurite/swc/io/header_io.hpp"
+#include "neurite/swc/io/sample_io.hpp"
 
 namespace boost {
 
@@ -40,7 +40,7 @@ inline std::ostream& operator<<(std::ostream& s, const boost::optional<neurite::
 
 namespace std {
 
-inline std::ostream& operator<<(std::ostream& s, const std::list<neurite::swc::point>& v) {
+inline std::ostream& operator<<(std::ostream& s, const std::list<neurite::swc::sample>& v) {
     s << "[ ";
     for (auto i(v.begin()); i != v.end(); ++i) {
         if (i != v.begin()) s << ", ";
@@ -59,7 +59,7 @@ std::ostream& operator<<(std::ostream& s, const model& v) {
     s << " { "
       << "\"__type__\": " << "\"neurite::swc::model\"" << ", "
       << "\"header\": " << v.header() << ", "
-      << "\"points\": " << v.points()
+      << "\"samples\": " << v.samples()
       << " }";
     return(s);
 }

@@ -28,8 +28,8 @@
 #include <list>
 #include <algorithm>
 #include <boost/optional.hpp>
-#include "neurite/swc/types/point.hpp"
 #include "neurite/swc/types/header.hpp"
+#include "neurite/swc/types/sample.hpp"
 #include "neurite/swc/serialization/model_fwd_ser.hpp"
 
 namespace neurite {
@@ -50,7 +50,7 @@ public:
 public:
     model(
         const boost::optional<neurite::swc::header>& header,
-        const std::list<neurite::swc::point>& points);
+        const std::list<neurite::swc::sample>& samples);
 
 private:
     template<typename Archive>
@@ -66,13 +66,13 @@ public:
     void header(const boost::optional<neurite::swc::header>&& v);
 
     /**
-     * @brief All points that are part of this file.
+     * @brief All samples that are part of this file.
      */
     /**@{*/
-    const std::list<neurite::swc::point>& points() const;
-    std::list<neurite::swc::point>& points();
-    void points(const std::list<neurite::swc::point>& v);
-    void points(const std::list<neurite::swc::point>&& v);
+    const std::list<neurite::swc::sample>& samples() const;
+    std::list<neurite::swc::sample>& samples();
+    void samples(const std::list<neurite::swc::sample>& v);
+    void samples(const std::list<neurite::swc::sample>&& v);
     /**@}*/
 
 public:
@@ -87,7 +87,7 @@ public:
 
 private:
     boost::optional<neurite::swc::header> header_;
-    std::list<neurite::swc::point> points_;
+    std::list<neurite::swc::sample> samples_;
 };
 
 } }

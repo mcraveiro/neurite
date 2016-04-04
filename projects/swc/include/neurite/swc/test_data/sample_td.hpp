@@ -18,30 +18,36 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/swc/hash/point_hash.hpp"
+#ifndef NEURITE_SWC_TEST_DATA_SAMPLE_TD_HPP
+#define NEURITE_SWC_TEST_DATA_SAMPLE_TD_HPP
 
-namespace {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-template <typename HashableType>
-inline void combine(std::size_t& seed, const HashableType& value) {
-    std::hash<HashableType> hasher;
-    seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-}
-
-}
+#include "neurite/swc/types/sample.hpp"
 
 namespace neurite {
 namespace swc {
 
-std::size_t point_hasher::hash(const point& v) {
-    std::size_t seed(0);
+class sample_generator {
+public:
+    sample_generator();
 
-    combine(seed, v.x());
-    combine(seed, v.y());
-    combine(seed, v.z());
-    combine(seed, v.radius());
+public:
+    typedef neurite::swc::sample result_type;
 
-    return seed;
-}
+public:
+    static void populate(const unsigned int position, result_type& v);
+    static result_type create(const unsigned int position);
+    result_type operator()();
+
+private:
+    unsigned int position_;
+public:
+    static result_type* create_ptr(const unsigned int position);
+};
 
 } }
+
+#endif

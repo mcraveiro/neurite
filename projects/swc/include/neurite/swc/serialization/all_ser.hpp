@@ -28,6 +28,7 @@
 #include "neurite/swc/serialization/model_ser.hpp"
 #include "neurite/swc/serialization/point_ser.hpp"
 #include "neurite/swc/serialization/header_ser.hpp"
+#include "neurite/swc/serialization/sample_ser.hpp"
 #include "neurite/swc/serialization/registrar_ser.hpp"
 #include "neurite/swc/serialization/structure_identifier_types_ser.hpp"
 
