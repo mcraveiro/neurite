@@ -26,12 +26,16 @@
 #endif
 
 #include "neurite/swc/types/swc.hpp"
+#include "neurite/swc/types/node.hpp"
+#include "neurite/swc/types/tree.hpp"
 #include "neurite/swc/types/model.hpp"
 #include "neurite/swc/types/point.hpp"
 #include "neurite/swc/types/header.hpp"
 #include "neurite/swc/types/sample.hpp"
 #include "neurite/swc/types/hydrator.hpp"
 #include "neurite/swc/types/validator.hpp"
+#include "neurite/swc/types/tree_factory.hpp"
+#include "neurite/swc/types/building_error.hpp"
 #include "neurite/swc/types/hydration_error.hpp"
 #include "neurite/swc/types/validation_error.hpp"
 #include "neurite/swc/types/structure_identifier_types.hpp"

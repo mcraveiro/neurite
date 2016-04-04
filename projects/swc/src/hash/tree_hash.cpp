@@ -18,19 +18,33 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_IO_ALL_IO_HPP
-#define NEURITE_SWC_IO_ALL_IO_HPP
+#include "neurite/swc/hash/node_hash.hpp"
+#include "neurite/swc/hash/tree_hash.hpp"
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
+namespace {
 
-#include "neurite/swc/io/node_io.hpp"
-#include "neurite/swc/io/tree_io.hpp"
-#include "neurite/swc/io/model_io.hpp"
-#include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/header_io.hpp"
-#include "neurite/swc/io/sample_io.hpp"
-#include "neurite/swc/io/structure_identifier_types_io.hpp"
+template <typename HashableType>
+inline void combine(std::size_t& seed, const HashableType& value) {
+    std::hash<HashableType> hasher;
+    seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}
 
-#endif
+inline std::size_t hash_boost_shared_ptr_neurite_swc_node(const boost::shared_ptr<neurite::swc::node>& v) {
+    std::size_t seed(0);
+    combine(seed, *v);
+    return seed;
+}
+
+}
+
+namespace neurite {
+namespace swc {
+
+std::size_t tree_hasher::hash(const tree& v) {
+    std::size_t seed(0);
+
+    combine(seed, hash_boost_shared_ptr_neurite_swc_node(v.root()));
+    return seed;
+}
+
+} }

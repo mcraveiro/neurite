@@ -18,19 +18,37 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_IO_ALL_IO_HPP
-#define NEURITE_SWC_IO_ALL_IO_HPP
+#ifndef NEURITE_SWC_TYPES_BUILDING_ERROR_HPP
+#define NEURITE_SWC_TYPES_BUILDING_ERROR_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/swc/io/node_io.hpp"
-#include "neurite/swc/io/tree_io.hpp"
-#include "neurite/swc/io/model_io.hpp"
-#include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/header_io.hpp"
-#include "neurite/swc/io/sample_io.hpp"
-#include "neurite/swc/io/structure_identifier_types_io.hpp"
+#include <string>
+#include <boost/exception/info.hpp>
+
+namespace neurite {
+namespace swc {
+
+/**
+ * @brief An error occurred whilst building.
+ */
+class building_error : public virtual std::exception, public virtual boost::exception {
+public:
+    building_error() = default;
+    ~building_error() noexcept = default;
+
+public:
+    building_error(const std::string& message) : message_(message) { }
+
+public:
+    const char* what() const noexcept { return(message_.c_str()); }
+
+private:
+    const std::string message_;
+};
+
+} }
 
 #endif

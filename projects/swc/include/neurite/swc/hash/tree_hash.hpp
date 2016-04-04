@@ -18,19 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_IO_ALL_IO_HPP
-#define NEURITE_SWC_IO_ALL_IO_HPP
+#ifndef NEURITE_SWC_HASH_TREE_HASH_HPP
+#define NEURITE_SWC_HASH_TREE_HASH_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/swc/io/node_io.hpp"
-#include "neurite/swc/io/tree_io.hpp"
-#include "neurite/swc/io/model_io.hpp"
-#include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/header_io.hpp"
-#include "neurite/swc/io/sample_io.hpp"
-#include "neurite/swc/io/structure_identifier_types_io.hpp"
+#include <functional>
+#include "neurite/swc/types/tree.hpp"
 
+namespace neurite {
+namespace swc {
+
+struct tree_hasher {
+public:
+    static std::size_t hash(const tree& v);
+};
+
+} }
+
+namespace std {
+
+template<>
+struct hash<neurite::swc::tree> {
+public:
+    size_t operator()(const neurite::swc::tree& v) const {
+        return neurite::swc::tree_hasher::hash(v);
+    }
+};
+
+}
 #endif

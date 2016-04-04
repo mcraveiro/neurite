@@ -18,19 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_IO_ALL_IO_HPP
-#define NEURITE_SWC_IO_ALL_IO_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
-
+#include <ostream>
 #include "neurite/swc/io/node_io.hpp"
 #include "neurite/swc/io/tree_io.hpp"
-#include "neurite/swc/io/model_io.hpp"
-#include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/header_io.hpp"
-#include "neurite/swc/io/sample_io.hpp"
-#include "neurite/swc/io/structure_identifier_types_io.hpp"
 
-#endif
+namespace boost {
+
+inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::swc::node>& v) {
+    s << "{ " << "\"__type__\": " << "\"boost::shared_ptr\"" << ", "
+      << "\"memory\": " << "\"" << static_cast<void*>(v.get()) << "\"" << ", ";
+
+    if (v)
+        s << "\"data\": " << *v;
+    else
+        s << "\"data\": ""\"<empty>\"";
+    s << " }";
+    return s;
+}
+
+}
+
+namespace neurite {
+namespace swc {
+
+std::ostream& operator<<(std::ostream& s, const tree& v) {
+    s << " { "
+      << "\"__type__\": " << "\"neurite::swc::tree\"" << ", "
+      << "\"root\": " << v.root()
+      << " }";
+    return(s);
+}
+
+} }

@@ -18,19 +18,26 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_IO_ALL_IO_HPP
-#define NEURITE_SWC_IO_ALL_IO_HPP
+#ifndef NEURITE_SWC_SERIALIZATION_TREE_SER_HPP
+#define NEURITE_SWC_SERIALIZATION_TREE_SER_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/swc/io/node_io.hpp"
-#include "neurite/swc/io/tree_io.hpp"
-#include "neurite/swc/io/model_io.hpp"
-#include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/header_io.hpp"
-#include "neurite/swc/io/sample_io.hpp"
-#include "neurite/swc/io/structure_identifier_types_io.hpp"
+#include <boost/serialization/split_free.hpp>
+#include "neurite/swc/types/tree.hpp"
+
+BOOST_SERIALIZATION_SPLIT_FREE(neurite::swc::tree)
+namespace boost {
+namespace serialization {
+
+template<typename Archive>
+void save(Archive& ar, const neurite::swc::tree& v, unsigned int version);
+
+template<typename Archive>
+void load(Archive& ar, neurite::swc::tree& v, unsigned int version);
+
+} }
 
 #endif

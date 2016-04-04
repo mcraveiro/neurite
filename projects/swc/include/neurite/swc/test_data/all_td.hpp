@@ -25,6 +25,8 @@
 #pragma once
 #endif
 
+#include "neurite/swc/test_data/node_td.hpp"
+#include "neurite/swc/test_data/tree_td.hpp"
 #include "neurite/swc/test_data/model_td.hpp"
 #include "neurite/swc/test_data/point_td.hpp"
 #include "neurite/swc/test_data/header_td.hpp"

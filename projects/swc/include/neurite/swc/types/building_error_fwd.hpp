@@ -18,19 +18,21 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_IO_ALL_IO_HPP
-#define NEURITE_SWC_IO_ALL_IO_HPP
+#ifndef NEURITE_SWC_TYPES_BUILDING_ERROR_FWD_HPP
+#define NEURITE_SWC_TYPES_BUILDING_ERROR_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/swc/io/node_io.hpp"
-#include "neurite/swc/io/tree_io.hpp"
-#include "neurite/swc/io/model_io.hpp"
-#include "neurite/swc/io/point_io.hpp"
-#include "neurite/swc/io/header_io.hpp"
-#include "neurite/swc/io/sample_io.hpp"
-#include "neurite/swc/io/structure_identifier_types_io.hpp"
+#include <string>
+#include <boost/exception/info.hpp>
+
+namespace neurite {
+namespace swc {
+
+class building_error;
+
+} }
 
 #endif
