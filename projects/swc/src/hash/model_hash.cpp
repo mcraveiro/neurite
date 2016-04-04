@@ -56,6 +56,7 @@ namespace swc {
 std::size_t model_hasher::hash(const model& v) {
     std::size_t seed(0);
 
+    combine(seed, v.name());
     combine(seed, hash_boost_optional_neurite_swc_header(v.header()));
     combine(seed, hash_std_list_neurite_swc_sample(v.samples()));
 

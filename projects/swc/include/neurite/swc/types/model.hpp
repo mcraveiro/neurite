@@ -26,6 +26,7 @@
 #endif
 
 #include <list>
+#include <string>
 #include <algorithm>
 #include <boost/optional.hpp>
 #include "neurite/swc/types/header.hpp"
@@ -49,6 +50,7 @@ public:
 
 public:
     model(
+        const std::string& name,
         const boost::optional<neurite::swc::header>& header,
         const std::list<neurite::swc::sample>& samples);
 
@@ -60,6 +62,20 @@ private:
     friend void boost::serialization::load(Archive& ar, model& v, unsigned int version);
 
 public:
+    /**
+     * @brief Name of the model.
+     *
+     * May be empty depending how the model was generated. If the model was
+     * sourced from a file, this is normally the file name sans  extension. Mainly
+     * useful for debug purposes.
+     */
+    /**@{*/
+    const std::string& name() const;
+    std::string& name();
+    void name(const std::string& v);
+    void name(const std::string&& v);
+    /**@}*/
+
     const boost::optional<neurite::swc::header>& header() const;
     boost::optional<neurite::swc::header>& header();
     void header(const boost::optional<neurite::swc::header>& v);
@@ -86,6 +102,7 @@ public:
     model& operator=(model other);
 
 private:
+    std::string name_;
     boost::optional<neurite::swc::header> header_;
     std::list<neurite::swc::sample> samples_;
 };

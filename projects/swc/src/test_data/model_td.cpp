@@ -18,11 +18,18 @@
  * MA 02110-1301, USA.
  *
  */
+#include <sstream>
 #include "neurite/swc/test_data/model_td.hpp"
 #include "neurite/swc/test_data/header_td.hpp"
 #include "neurite/swc/test_data/sample_td.hpp"
 
 namespace {
+
+std::string create_std_string(const unsigned int position) {
+    std::ostringstream s;
+    s << "a_string_" << position;
+    return s.str();
+}
 
 neurite::swc::header
 create_neurite_swc_header(const unsigned int position) {
@@ -58,8 +65,9 @@ model_generator::model_generator() : position_(0) { }
 
 void model_generator::
 populate(const unsigned int position, result_type& v) {
-    v.header(create_boost_optional_neurite_swc_header(position + 0));
-    v.samples(create_std_list_neurite_swc_sample(position + 1));
+    v.name(create_std_string(position + 0));
+    v.header(create_boost_optional_neurite_swc_header(position + 1));
+    v.samples(create_std_list_neurite_swc_sample(position + 2));
 }
 
 model_generator::result_type

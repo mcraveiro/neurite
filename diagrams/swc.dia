@@ -126,7 +126,7 @@ and expot support.
         <dia:point val="33,9"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="32.95,8.95;45.87,12.65"/>
+        <dia:rectangle val="32.95,8.95;45.87,13.45"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="33,9"/>
@@ -135,7 +135,7 @@ and expot support.
         <dia:real val="12.82"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="3.6000000000000001"/>
+        <dia:real val="4.4000000000000004"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#model#</dia:string>
@@ -225,6 +225,33 @@ and expot support.
         <dia:real val="0.69999999999999996"/>
       </dia:attribute>
       <dia:attribute name="attributes">
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#name#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>#std::string#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#Name of the model.
+
+May be empty depending how the model was generated. If the model was
+sourced from a file, this is normally the file name sans  extension. Mainly
+useful for debug purposes.#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
         <dia:composite type="umlattribute">
           <dia:attribute name="name">
             <dia:string>#header#</dia:string>
@@ -749,16 +776,16 @@ and expot support.
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="45.82,12.6"/>
+        <dia:point val="45.82,13.4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.07,11.85;58.0325,23.8"/>
+        <dia:rectangle val="45.07,12.65;58.0325,23.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="45.82,12.6"/>
+        <dia:point val="45.82,13.4"/>
         <dia:point val="45.82,19"/>
         <dia:point val="57.8325,19"/>
         <dia:point val="57.8325,23"/>
@@ -1097,16 +1124,16 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="33,12.6"/>
+        <dia:point val="33,13.4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="28.315,11.85;33.75,23.8"/>
+        <dia:rectangle val="28.315,12.65;33.75,23.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="33,12.6"/>
+        <dia:point val="33,13.4"/>
         <dia:point val="33,19"/>
         <dia:point val="28.365,19"/>
         <dia:point val="28.365,23"/>

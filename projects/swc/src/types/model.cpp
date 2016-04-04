@@ -24,23 +24,28 @@ namespace neurite {
 namespace swc {
 
 model::model(model&& rhs)
-    : header_(std::move(rhs.header_)),
+    : name_(std::move(rhs.name_)),
+      header_(std::move(rhs.header_)),
       samples_(std::move(rhs.samples_)) { }
 
 model::model(
+    const std::string& name,
     const boost::optional<neurite::swc::header>& header,
     const std::list<neurite::swc::sample>& samples)
-    : header_(header),
+    : name_(name),
+      header_(header),
       samples_(samples) { }
 
 void model::swap(model& other) noexcept {
     using std::swap;
+    swap(name_, other.name_);
     swap(header_, other.header_);
     swap(samples_, other.samples_);
 }
 
 bool model::operator==(const model& rhs) const {
-    return header_ == rhs.header_ &&
+    return name_ == rhs.name_ &&
+        header_ == rhs.header_ &&
         samples_ == rhs.samples_;
 }
 
@@ -48,6 +53,22 @@ model& model::operator=(model other) {
     using std::swap;
     swap(*this, other);
     return *this;
+}
+
+const std::string& model::name() const {
+    return name_;
+}
+
+std::string& model::name() {
+    return name_;
+}
+
+void model::name(const std::string& v) {
+    name_ = v;
+}
+
+void model::name(const std::string&& v) {
+    name_ = std::move(v);
 }
 
 const boost::optional<neurite::swc::header>& model::header() const {

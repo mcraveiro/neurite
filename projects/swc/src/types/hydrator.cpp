@@ -155,7 +155,8 @@ model hydrator::hydrate(const boost::filesystem::path& p) const {
     }
 
     try {
-        const auto r(hydrate(s));
+        auto r(hydrate(s));
+        r.name(p.stem().generic_string());
         BOOST_LOG_SEV(lg, debug) << "Parsed file successfully.";
         return r;
     } catch(boost::exception& e) {

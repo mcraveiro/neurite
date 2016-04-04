@@ -22,6 +22,7 @@
 #include <boost/serialization/list.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
+#include <boost/serialization/string.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/optional.hpp>
@@ -40,6 +41,7 @@ template<typename Archive>
 void save(Archive& ar,
     const neurite::swc::model& v,
     const unsigned int /*version*/) {
+    ar << make_nvp("name", v.name_);
     ar << make_nvp("header", v.header_);
     ar << make_nvp("samples", v.samples_);
 }
@@ -48,6 +50,7 @@ template<typename Archive>
 void load(Archive& ar,
     neurite::swc::model& v,
     const unsigned int /*version*/) {
+    ar >> make_nvp("name", v.name_);
     ar >> make_nvp("header", v.header_);
     ar >> make_nvp("samples", v.samples_);
 }

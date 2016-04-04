@@ -19,9 +19,17 @@
  *
  */
 #include <ostream>
+#include <boost/algorithm/string.hpp>
 #include "neurite/swc/io/model_io.hpp"
 #include "neurite/swc/io/header_io.hpp"
 #include "neurite/swc/io/sample_io.hpp"
+
+inline std::string tidy_up_string(std::string s) {
+    boost::replace_all(s, "\r\n", "<new_line>");
+    boost::replace_all(s, "\n", "<new_line>");
+    boost::replace_all(s, "\"", "<quote>");
+    return s;
+}
 
 namespace boost {
 
@@ -58,6 +66,7 @@ namespace swc {
 std::ostream& operator<<(std::ostream& s, const model& v) {
     s << " { "
       << "\"__type__\": " << "\"neurite::swc::model\"" << ", "
+      << "\"name\": " << "\"" << tidy_up_string(v.name()) << "\"" << ", "
       << "\"header\": " << v.header() << ", "
       << "\"samples\": " << v.samples()
       << " }";
