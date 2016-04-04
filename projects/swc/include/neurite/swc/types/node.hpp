@@ -45,6 +45,7 @@ public:
 public:
     node(
         const neurite::swc::sample& content,
+        const boost::shared_ptr<neurite::swc::node>& parent,
         const std::list<boost::shared_ptr<neurite::swc::node> >& children);
 
 private:
@@ -59,6 +60,11 @@ public:
     neurite::swc::sample& content();
     void content(const neurite::swc::sample& v);
     void content(const neurite::swc::sample&& v);
+
+    const boost::shared_ptr<neurite::swc::node>& parent() const;
+    boost::shared_ptr<neurite::swc::node>& parent();
+    void parent(const boost::shared_ptr<neurite::swc::node>& v);
+    void parent(const boost::shared_ptr<neurite::swc::node>&& v);
 
     const std::list<boost::shared_ptr<neurite::swc::node> >& children() const;
     std::list<boost::shared_ptr<neurite::swc::node> >& children();
@@ -77,6 +83,7 @@ public:
 
 private:
     neurite::swc::sample content_;
+    boost::shared_ptr<neurite::swc::node> parent_;
     std::list<boost::shared_ptr<neurite::swc::node> > children_;
 };
 

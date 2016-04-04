@@ -58,7 +58,8 @@ node_generator::node_generator() : position_(0) { }
 void node_generator::
 populate(const unsigned int position, result_type& v) {
     v.content(create_neurite_swc_sample(position + 0));
-    v.children(create_std_list_boost_shared_ptr_neurite_swc_node_(position + 1));
+    v.parent(create_boost_shared_ptr_neurite_swc_node(position + 1));
+    v.children(create_std_list_boost_shared_ptr_neurite_swc_node_(position + 2));
 }
 
 node_generator::result_type

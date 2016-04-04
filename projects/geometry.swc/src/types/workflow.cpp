@@ -35,7 +35,7 @@
 namespace {
 
 using namespace neurite::utility::log;
-auto lg(logger_factory("geometry.swc"));
+auto lg(logger_factory("geometry.swc.workflow"));
 
 }
 

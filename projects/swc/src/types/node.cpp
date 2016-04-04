@@ -34,18 +34,22 @@ namespace swc {
 
 node::node(
     const neurite::swc::sample& content,
+    const boost::shared_ptr<neurite::swc::node>& parent,
     const std::list<boost::shared_ptr<neurite::swc::node> >& children)
     : content_(content),
+      parent_(parent),
       children_(children) { }
 
 void node::swap(node& other) noexcept {
     using std::swap;
     swap(content_, other.content_);
+    swap(parent_, other.parent_);
     swap(children_, other.children_);
 }
 
 bool node::operator==(const node& rhs) const {
     return content_ == rhs.content_ &&
+        parent_ == rhs.parent_ &&
         children_ == rhs.children_;
 }
 
@@ -69,6 +73,22 @@ void node::content(const neurite::swc::sample& v) {
 
 void node::content(const neurite::swc::sample&& v) {
     content_ = std::move(v);
+}
+
+const boost::shared_ptr<neurite::swc::node>& node::parent() const {
+    return parent_;
+}
+
+boost::shared_ptr<neurite::swc::node>& node::parent() {
+    return parent_;
+}
+
+void node::parent(const boost::shared_ptr<neurite::swc::node>& v) {
+    parent_ = v;
+}
+
+void node::parent(const boost::shared_ptr<neurite::swc::node>&& v) {
+    parent_ = std::move(v);
 }
 
 const std::list<boost::shared_ptr<neurite::swc::node> >& node::children() const {

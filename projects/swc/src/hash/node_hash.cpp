@@ -52,6 +52,7 @@ std::size_t node_hasher::hash(const node& v) {
     std::size_t seed(0);
 
     combine(seed, v.content());
+    combine(seed, hash_boost_shared_ptr_neurite_swc_node(v.parent()));
     combine(seed, hash_std_list_boost_shared_ptr_neurite_swc_node_(v.children()));
 
     return seed;

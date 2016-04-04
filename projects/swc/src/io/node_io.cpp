@@ -59,6 +59,7 @@ std::ostream& operator<<(std::ostream& s, const node& v) {
     s << " { "
       << "\"__type__\": " << "\"neurite::swc::node\"" << ", "
       << "\"content\": " << v.content() << ", "
+      << "\"parent\": " << v.parent() << ", "
       << "\"children\": " << v.children()
       << " }";
     return(s);

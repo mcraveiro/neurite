@@ -40,6 +40,7 @@ void save(Archive& ar,
     const neurite::swc::node& v,
     const unsigned int /*version*/) {
     ar << make_nvp("content", v.content_);
+    ar << make_nvp("parent", v.parent_);
     ar << make_nvp("children", v.children_);
 }
 
@@ -48,6 +49,7 @@ void load(Archive& ar,
     neurite::swc::node& v,
     const unsigned int /*version*/) {
     ar >> make_nvp("content", v.content_);
+    ar >> make_nvp("parent", v.parent_);
     ar >> make_nvp("children", v.children_);
 }
 
