@@ -18,39 +18,39 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_TYPES_TREE_FACTORY_HPP
-#define NEURITE_SWC_TYPES_TREE_FACTORY_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
-
-#include <unordered_map>
-#include <boost/exception/error_info.hpp>
-#include "neurite/swc/types/model.hpp"
-#include "neurite/swc/types/tree.hpp"
+#include "neurite/swc/test/mock_model_factory.hpp"
 
 namespace neurite {
 namespace swc {
+namespace test {
 
-typedef boost::error_info<struct tag_line_number, int> error_at_line;
-typedef boost::error_info<struct tag_sample_number, int> error_with_sample;
+namespace {
 
-class tree_factory {
-private:
-    std::unordered_map<int, boost::shared_ptr<node>>
-    initialise_index(const model& m) const;
+sample make_soma() {
+    sample r;
+    r.number(1);
+    r.unparsed_structure_identifier(1);
+    r.structure_identifier(structure_identifier_types::soma);
+    r.position().x(0).y(0).z(0);
+    r.radius(10);
+    r.parent(-1);
+    r.line_number(1);
+    return r;
+}
 
-    void link_index(
-        std::unordered_map<int, boost::shared_ptr<node>>& index) const;
+}
 
-    boost::shared_ptr<node> get_soma(
-        const std::unordered_map<int, boost::shared_ptr<node>>& index) const;
-    
-public:
-    tree build(const model& m) const;
-};
+model mock_model_factory::make_empty_model() const {
+    model r;
+    r.name("empty");
+    return r;
+}
 
-} }
+model mock_model_factory::make_model_with_simple_soma() const {
+    model r;
+    r.name("simple soma");
+    r.samples().push_back(make_soma());
+    return r;
+}
 
-#endif
+} } }

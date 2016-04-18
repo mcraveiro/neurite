@@ -64,32 +64,36 @@ double point::x() const {
     return x_;
 }
 
-void point::x(const double v) {
+point& point::x(const double v) {
     x_ = v;
+    return *this;
 }
 
 double point::y() const {
     return y_;
 }
 
-void point::y(const double v) {
+point& point::y(const double v) {
     y_ = v;
+    return *this;
 }
 
 double point::z() const {
     return z_;
 }
 
-void point::z(const double v) {
+point& point::z(const double v) {
     z_ = v;
+    return *this;
 }
 
 double point::radius() const {
     return radius_;
 }
 
-void point::radius(const double v) {
+point& point::radius(const double v) {
     radius_ = v;
+    return *this;
 }
 
 } }

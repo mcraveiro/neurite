@@ -12,18 +12,18 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-04-15 Fri 15:58]
+#+CAPTION: Clock summary at [2016-04-18 Mon 17:38]
 | <75>                                                                        |        |      |      |       |
 | Headline                                                                    | Time   |      |      |     % |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *3:58* |      |      | 100.0 |
+| *Total time*                                                                | *7:40* |      |      | 100.0 |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 3:58   |      |      | 100.0 |
-| Active                                                                      |        | 3:58 |      | 100.0 |
-| STARTED Journal club and lectures                                           |        |      | 1:00 |  25.2 |
-| STARTED Socialising                                                         |        |      | 1:00 |  25.2 |
-| Create a polygon mesh with the simple SWC file                              |        |      | 1:27 |  36.6 |
-| STARTED Sprint review                                                       |        |      | 0:31 |  13.0 |
+| Stories                                                                     | 7:40   |      |      | 100.0 |
+| Active                                                                      |        | 7:40 |      | 100.0 |
+| STARTED Journal club and lectures                                           |        |      | 1:00 |  13.0 |
+| STARTED Socialising                                                         |        |      | 1:00 |  13.0 |
+| STARTED Create a polygon mesh with the simple SWC file                      |        |      | 5:09 |  67.2 |
+| STARTED Sprint review                                                       |        |      | 0:31 |   6.7 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -44,6 +44,7 @@ Time spent in generic tasks.
 Any events during work hours not directly connected to work.
 
 *** STARTED Create a polygon mesh with the simple SWC file            :story:
+    CLOCK: [2016-04-18 Mon 13:56]--[2016-04-18 Mon 17:38] =>  3:42
     CLOCK: [2016-04-15 Fri 14:31]--[2016-04-15 Fri 15:58] =>  1:27
 
 We need to create a polygon mesh representation of the simple ball and

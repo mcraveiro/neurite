@@ -18,39 +18,25 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_TYPES_TREE_FACTORY_HPP
-#define NEURITE_SWC_TYPES_TREE_FACTORY_HPP
+#ifndef NEURITE_SWC_TEST_MOCK_MODEL_FACTORY_HPP
+#define NEURITE_SWC_TEST_MOCK_MODEL_FACTORY_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <unordered_map>
-#include <boost/exception/error_info.hpp>
 #include "neurite/swc/types/model.hpp"
-#include "neurite/swc/types/tree.hpp"
 
 namespace neurite {
 namespace swc {
+namespace test {
 
-typedef boost::error_info<struct tag_line_number, int> error_at_line;
-typedef boost::error_info<struct tag_sample_number, int> error_with_sample;
-
-class tree_factory {
-private:
-    std::unordered_map<int, boost::shared_ptr<node>>
-    initialise_index(const model& m) const;
-
-    void link_index(
-        std::unordered_map<int, boost::shared_ptr<node>>& index) const;
-
-    boost::shared_ptr<node> get_soma(
-        const std::unordered_map<int, boost::shared_ptr<node>>& index) const;
-    
+class mock_model_factory {
 public:
-    tree build(const model& m) const;
+    model make_empty_model() const;
+    model make_model_with_simple_soma() const;
 };
 
-} }
+} } }
 
 #endif

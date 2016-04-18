@@ -60,7 +60,7 @@ public:
      */
     /**@{*/
     double x() const;
-    void x(const double v);
+    point& x(const double v);
     /**@}*/
 
     /**
@@ -68,7 +68,7 @@ public:
      */
     /**@{*/
     double y() const;
-    void y(const double v);
+    point& y(const double v);
     /**@}*/
 
     /**
@@ -76,7 +76,7 @@ public:
      */
     /**@{*/
     double z() const;
-    void z(const double v);
+    point& z(const double v);
     /**@}*/
 
     /**
@@ -84,7 +84,7 @@ public:
      */
     /**@{*/
     double radius() const;
-    void radius(const double v);
+    point& radius(const double v);
     /**@}*/
 
 public:

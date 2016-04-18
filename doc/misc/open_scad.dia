@@ -20734,7 +20734,7 @@ edges. Polygons must be convex.#</dia:string>
         <dia:point val="21.8,40.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="21.05,39.45;26.0237,48.8"/>
+        <dia:rectangle val="21.05,39.45;26.0238,48.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -22220,7 +22220,7 @@ children.#</dia:string>
         <dia:point val="116.573,44"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="114.334,39.9794;116.639,44.0669"/>
+        <dia:rectangle val="114.334,39.9794;116.64,44.0669"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>

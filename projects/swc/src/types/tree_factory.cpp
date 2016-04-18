@@ -33,73 +33,93 @@ auto lg(logger_factory("swc.tree_factory"));
 
 const int soma_sample_number(1);
 const int soma_parent_sample_number(-1);
+const std::string soma_not_found("Sample for soma could not be found: ");
 const std::string parent_not_found("Parent for sample could not be found: ");
+const std::string duplicate_sample_number("Duplicate sample number found: ");
 
 }
 
 namespace neurite {
 namespace swc {
-/*
+
 std::unordered_map<int, boost::shared_ptr<node>>
 tree_factory::initialise_index(const model& m) const {
     std::unordered_map<int, boost::shared_ptr<node>> r;
 
     for (const auto& s : m.samples()) {
-        auto i(r.find(s.number()));
-        if (i == r.end()) {
-            const auto p(std::make_pair(s.number(), boost::make_shared<node>()));
-            const auto result(r.insert(p));
-            i = result.first;
+        auto node(boost::make_shared<node>());
+        node->content(s);
+
+        const auto pair(std::make_pair(s.number(), node));
+        const auto result(r.insert(pair));
+        if (!result.second) {
+            BOOST_LOG_SEV(lg, error) << duplicate_sample_number << s.number()
+                                     << " in line: " << s.line_number();
+
+            BOOST_THROW_EXCEPTION(building_error(duplicate_sample_number)
+                << error_with_sample(s.number())
+                << error_at_line(s.line_number()));
         }
-        i->second->content(s);
     }
     return r;
 }
 
-void tree_factory::link_index(
-    std::unordered_map<int, boost::shared_ptr<node>>& index) const {
-
-    std::unordered_map<int, boost::shared_ptr<node> > r;
+void tree_factory::
+link_index(std::unordered_map<int, boost::shared_ptr<node>>& index) const {
     for (auto& pair : index) {
         auto& node(*pair.second);
         const auto& sample(node.content());
-        if (sample.number() == soma_sample_number) {
+        const auto sample_number(pair.first);
+        if (sample_number == soma_sample_number) {
             BOOST_LOG_SEV(lg, debug) << "Found soma.";
-            
+
             if (sample.parent() != soma_parent_sample_number) {
                 BOOST_LOG_SEV(lg, warn) << "Soma has an unexpected parent: "
                                         << sample.parent()
                                         << ". Ignoring linkage.";
             }
-            r.insert(pair);
             continue;
         }
 
         auto i(index.find(sample.parent()));
         if (i == index.end()) {
-                std::stringstream s;
-                s << parent_not_found << sample.number()
-                  << ". Defined in line: " << sample.line_number();
-                const auto msg(s.str());
-                
-                BOOST_LOG_SEV(lg, error) << msg;
-                BOOST_THROW_EXCEPTION(building_error(msg));                
-            }
-            node.parent(i->second);
-            i->second->children().insert(pair.second);
+            BOOST_LOG_SEV(lg, error) << parent_not_found << sample.number();
+            BOOST_THROW_EXCEPTION(building_error(parent_not_found)
+                << error_with_sample(sample.number())
+                << error_at_line(sample.line_number()));
         }
+        node.parent(i->second);
+        i->second->children().push_back(pair.second);
     }
+}
+
+boost::shared_ptr<node> tree_factory::
+get_soma(const std::unordered_map<int, boost::shared_ptr<node>>& index) const {
+
+    auto i(index.find(soma_sample_number));
+    if (i == index.end()) {
+        BOOST_LOG_SEV(lg, error) << soma_not_found << soma_sample_number;
+        BOOST_THROW_EXCEPTION(building_error(soma_not_found)
+            << error_with_sample(soma_sample_number));
+    }
+    return i->second;
 }
 
 tree tree_factory::build(const model& m) const {
     BOOST_LOG_SEV(lg, debug) << "Building tree for model: '" << m.name() << "'";
     BOOST_LOG_SEV(lg, debug) << "Tota samples: " << m.samples().size();
 
+    if (m.samples().empty())
+        return tree();
+
     auto index(initialise_index(m));
     link_index(index);
-    
-    tree r;    
+
+    tree r;
+    r.root(get_soma(index));
+    BOOST_LOG_SEV(lg, debug) << "Tree built.";
+
     return r;
 }
-*/
+
 } }
