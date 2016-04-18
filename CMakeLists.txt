@@ -29,7 +29,10 @@ if(Boost_FOUND)
 endif()
 
 # cgal
-find_package(CGAL 4.7)
+find_package(CGAL 4.7 REQUIRED)
+
+# catch
+# find_package(Catch REQUIRED)
 
 # wt
 # find_package(Wt REQUIRED)
