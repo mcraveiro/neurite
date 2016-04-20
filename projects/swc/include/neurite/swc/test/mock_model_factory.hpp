@@ -35,6 +35,8 @@ class mock_model_factory {
 public:
     model make_empty_model() const;
     model make_model_with_simple_soma() const;
+    model make_model_with_two_levels() const;
+    model make_model_with_three_levels() const;
 };
 
 } } }

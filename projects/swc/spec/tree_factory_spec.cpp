@@ -30,6 +30,7 @@
 #include "neurite/swc/types/node.hpp"
 #include "neurite/swc/types/model.hpp"
 #include "neurite/swc/io/tree_io.hpp"
+#include "neurite/swc/io/model_io.hpp"
 #include "neurite/swc/io/sample_io.hpp"
 #include "neurite/swc/types/tree_factory.hpp"
 
@@ -51,9 +52,12 @@ BOOST_AUTO_TEST_CASE(empty_model_generates_empty_tree) {
 
     neurite::swc::test::mock_model_factory mf;
     const auto m(mf.make_empty_model());
+    BOOST_LOG_SEV(lg, debug) << "Model:" << m;
 
     neurite::swc::tree_factory tf;
     const auto t(tf.build(m));
+    BOOST_LOG_SEV(lg, debug) << "Tree:" << t;
+
     BOOST_CHECK(t.root() == nullptr);
 }
 
@@ -62,14 +66,74 @@ BOOST_AUTO_TEST_CASE(model_with_simple_soma_generates_expected_tree) {
 
     neurite::swc::test::mock_model_factory mf;
     const auto m(mf.make_model_with_simple_soma());
+    BOOST_LOG_SEV(lg, debug) << "Model:" << m;
 
     neurite::swc::tree_factory tf;
     const auto t(tf.build(m));
+    BOOST_LOG_SEV(lg, debug) << "Tree:" << t;
+
     BOOST_REQUIRE(t.root() != nullptr);
+    BOOST_CHECK(t.root()->children().empty());
 
     const auto& e(m.samples().front());
     const auto& a(t.root()->content());
     BOOST_CHECK(asserter::assert_object(e, a));
+}
+
+BOOST_AUTO_TEST_CASE(model_with_two_levels_generates_expected_tree) {
+    SETUP_TEST_LOG_SOURCE("model_with_two_levels_generates_expected_tree");
+
+    neurite::swc::test::mock_model_factory mf;
+    const auto m(mf.make_model_with_two_levels());
+    BOOST_LOG_SEV(lg, debug) << "Model:" << m;
+
+    neurite::swc::tree_factory tf;
+    const auto t(tf.build(m));
+
+    BOOST_REQUIRE(t.root() != nullptr);
+    BOOST_CHECK(t.root()->parent() == nullptr);
+    BOOST_CHECK(t.root()->content().number() == 1);
+    BOOST_CHECK(t.root()->content().parent() == -1);
+    BOOST_CHECK(t.root()->children().size() == 2);
+
+    const auto front(*t.root()->children().front());
+    BOOST_CHECK(front.parent() == t.root());
+    BOOST_CHECK(front.content().parent() == 1);
+    BOOST_CHECK(front.children().empty());
+
+    const auto back(*t.root()->children().back());
+    BOOST_CHECK(back.parent() == t.root());
+    BOOST_CHECK(back.content().parent() == 1);
+    BOOST_CHECK(back.children().empty());
+}
+
+BOOST_AUTO_TEST_CASE(model_with_three_levels_generates_expected_tree) {
+    SETUP_TEST_LOG_SOURCE("model_with_three_levels_generates_expected_tree");
+
+    neurite::swc::test::mock_model_factory mf;
+    const auto m(mf.make_model_with_three_levels());
+    BOOST_LOG_SEV(lg, debug) << "Model:" << m;
+
+    neurite::swc::tree_factory tf;
+    const auto t(tf.build(m));
+
+    BOOST_REQUIRE(t.root() != nullptr);
+    BOOST_CHECK(t.root()->parent() == nullptr);
+    BOOST_CHECK(t.root()->content().number() == 1);
+    BOOST_CHECK(t.root()->content().parent() == -1);
+    BOOST_CHECK(t.root()->children().size() == 1);
+
+    const auto first(t.root()->children().front());
+    BOOST_CHECK(first->parent() == t.root());
+    BOOST_CHECK(first->content().number() == 2);
+    BOOST_CHECK(first->content().parent() == 1);
+    BOOST_REQUIRE(first->children().size() == 1);
+
+    const auto second(first->children().front());
+    BOOST_CHECK(second->parent() == first);
+    BOOST_CHECK(second->content().number() == 3);
+    BOOST_CHECK(second->content().parent() == 2);
+    BOOST_CHECK(second->children().empty());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
