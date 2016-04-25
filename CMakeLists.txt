@@ -5,6 +5,10 @@ enable_testing()
 
 project(neurite)
 
+# options
+option(WITH_DEBUG "Build the project with debug symbols" off)
+option(WITH_LATEX "Build all LaTeX documents. Requires pdflatex and beamer." off)
+
 # add our own modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/build/cmake)
 # list(APPEND CMAKE_MODULE_PATH $ENV{CMAKE_EXTERNAL_MODULE_PATH})
@@ -23,7 +27,7 @@ find_package(Boost 1.59 REQUIRED COMPONENTS
     filesystem
     program_options
     iostreams)
-  
+
 if(Boost_FOUND)
     include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 endif()
@@ -99,6 +103,23 @@ endif()
 message(STATUS "Found dogen knitter (${DOGEN_KNITTER_COMMAND})...")
 
 #
+# setup pdflatex
+#
+find_program(PDFLATEX_COMMAND NAMES pdflatex)
+if(NOT DEFINED PDFLATEX_COMMAND)
+    message(STATUS "pdflatex not found, disabling latex documents.")
+    set(WITH_LATEX "off")
+else()
+    message(STATUS "Found pdflatex (${PDFLATEX_COMMAND})...")
+endif()
+
+if(WITH_LATEX)
+    message(STATUS "Building latex documents...")
+else()
+    message(STATUS "NOT building latex documents...")
+endif()
+
+#
 # useful vars
 #
 # staging directory
@@ -144,3 +165,4 @@ add_custom_target(run_all_specs)
 add_subdirectory(${CMAKE_SOURCE_DIR}/build)
 add_subdirectory(${CMAKE_SOURCE_DIR}/diagrams)
 add_subdirectory(${CMAKE_SOURCE_DIR}/projects)
+add_subdirectory(${CMAKE_SOURCE_DIR}/doc)
