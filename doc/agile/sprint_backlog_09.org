@@ -12,20 +12,20 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-04-25 Mon 18:03]
+#+CAPTION: Clock summary at [2016-04-26 Tue 16:38]
 | <75>                                                                        |         |       |      |       |
 | Headline                                                                    | Time    |       |      |     % |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| *Total time*                                                                | *18:04* |       |      | 100.0 |
+| *Total time*                                                                | *21:12* |       |      | 100.0 |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| Stories                                                                     | 18:04   |       |      | 100.0 |
-| Active                                                                      |         | 18:04 |      | 100.0 |
-| STARTED Journal club and lectures                                           |         |       | 1:00 |   5.5 |
-| STARTED Socialising                                                         |         |       | 1:00 |   5.5 |
-| COMPLETED Build a tree from an SWC models                                   |         |       | 7:30 |  41.5 |
-| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 4:03 |  22.4 |
-| STARTED Sprint review                                                       |         |       | 0:31 |   2.9 |
-| STARTED Read and present McGregor's paper                                   |         |       | 4:00 |  22.1 |
+| Stories                                                                     | 21:12   |       |      | 100.0 |
+| Active                                                                      |         | 21:12 |      | 100.0 |
+| STARTED Journal club and lectures                                           |         |       | 1:00 |   4.7 |
+| STARTED Socialising                                                         |         |       | 1:00 |   4.7 |
+| COMPLETED Build a tree from an SWC models                                   |         |       | 7:30 |  35.4 |
+| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 4:03 |  19.1 |
+| STARTED Sprint review                                                       |         |       | 0:31 |   2.4 |
+| STARTED Read and present McGregor's paper                                   |         |       | 7:08 |  33.6 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -108,6 +108,7 @@ Notes:
 Review of the sprint.
 
 *** STARTED Read and present McGregor's paper                         :story:
+    CLOCK: [2016-04-26 Tue 13:30]--[2016-04-26 Tue 16:38] =>  3:08
     CLOCK: [2016-04-25 Mon 14:03]--[2016-04-25 Mon 18:03] =>  4:00
 
 Now we understand the need for a CSG representation, McGregor's paper

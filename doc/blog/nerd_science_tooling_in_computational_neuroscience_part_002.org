@@ -62,7 +62,7 @@ these differently sized microworlds?
 
 #+CAPTION: Example of measurements one may want to perform on a dendrite. Source: [[http://www.pnas.org/content/106/39/16877.abstract][Reversal of long-term dendritic spine alterations in Alzheimer disease models]]
 #+attr_html: :width 300px :height 300px
-http://www.pnas.org/content/106/39/16877/F1.large.jpg
+[[http://www.pnas.org/content/106/39/16877/F1_large.jpg]]
 
 * Optical Microscopy
 
