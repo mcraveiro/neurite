@@ -7,6 +7,119 @@
 This document contains the product backlog for Neurite.
 
 ** In the next few sprints
+
+*** Ignore comments on =swc=                                          :story:
+
+At present we are choking on our data files due to the headers. Do a
+simple hack on the parser to ignore comments.
+
+*** Validate geometric work with realistic SWC models                 :story:
+
+Ensure the code still works when using more complex SWC models. We
+have one at present but we should download several, with different
+sizes, e.g. 5K points, 50k points, and so on.
+
+*** Create a processor in =geometry.swc= to organise the points       :story:
+
+Now we understand how to place objects in space, we need to compute
+all of the required transformations to get the polyhedra in the
+correct orientation. This will require:
+
+- some kind of container of points by parent so we can find them.
+- CGAL support so we can figure out the orientation.
+
+Notes on CGAL:
+
+This is not yet clear, but it seems useful to have a stand alone
+project with the CGAL dependency. At present we just need a way to
+subtract 3D points:
+
+[[http://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Point__3.html#a13fbe61503fadf1ea7f66d34652353d1][CGAL::Point_3< Kernel > Class Template Reference]]
+
+We need to obtain a structure of these differences. We should also
+compute the expected heights and angles of rotation. This information
+could be stored in =swc= data structures.
+
+It is not clear if we should just add a dependency to CGAL in =swc= or
+create a stand alone project.
+
+Notes:
+
+- [[http://doc.cgal.org/latest/Kernel_23/group__normal__grp.html][normal]]
+- [[http://doc.cgal.org/latest/Manual/introduction.html][hello world example]]
+- [[http://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Point__3.html#a13fbe61503fadf1ea7f66d34652353d1][point 3d operator-]]: Creating vectors by subtracting two points.
+- [[http://cgal-discuss.949826.n4.nabble.com/Calculate-angle-td950283.html][calculating angles from points]]
+- [[https://www.mathsisfun.com/algebra/vectors-dot-product.html][dot product]]
+
+*** Create a docker image to build neurite                            :story:
+
+It would be nice to be able to build neurite by just obtaining a
+docker image and building it from the container.
+
+: docker build -t neurite-devel .
+: docker login --username=mcraveiro --email=marco.craveiro@gmail.com
+: docker push mcraveiro/neurite-devel
+
+However, images are very large (> 2Gb virtual, 700Mb actual image
+size). Its still not clear:
+
+- if the imagine has all of the required dependencies.
+- if the images will work with travis. [[https://docs.travis-ci.com/user/docker/][This document]] seems to imply
+  they will.
+- if the size is to big given the ~1h window for the travis builds.
+
+*** Get a green build on travis                                       :story:
+
+At present the build fails due to VTK/Qt/CGAL dependencies. We need to
+find a workaround for now.
+
+*** Render a realistic SWC file                                       :story:
+
+We need to make sure we can use the code to render realistic SWC
+files. We also need to find fixes to the performance issues when we do
+this.
+
+Links:
+
+- [[http://www.vtk.org/pipermail/vtkusers/2011-June/068115.html][{vtkusers} Large number of actors]]: How to render using over 5K x 1K
+  poly data.
+- [[http://www.paraview.org/Wiki/VTK/Tutorials/Composite_Datasets][VTK/Tutorials/Composite Datasets]]
+
+Notes:
+
+- we could use a vtkMultiBlockDataSet, reusing mappers and actors.
+- seems like this is not what we want: [[http://public.kitware.com/pipermail/vtkusers/2013-August/081502.html][Rendering huge amount of
+  polyData with 1 actor and
+  vtkMultiBlockDataSet/vtkCompositePolyDataMapper2]]
+- we just need the transformations to be done once; there must be a
+  way of applying a transformation and then removing it from
+  pipeline. Perhaps we are already doing that since we are applying
+  the transform to the poly data rather than the actor.
+
+*** Create a feature for QT/VTK                                       :story:
+
+At present the build is broken because travis does not support QT5 and
+VTK6. We should wrap this code with a feature and not use it on the
+build machine so that at least we can run other tests.
+
+*** Update =soma= to use the new infrastructure                       :story:
+
+To start off with we should just create a class in =soma= that acts as
+glue and orchestrates all of the other components.
+
+*** Document the state of play of different formats and repositories  :story:
+
+We should write some notes down on the information we find about
+different initiatives, file formats, repositories etc.
+
+- [[http://blogs.biomedcentral.com/gigablog/2013/05/09/the-difficulties-sharing-neuroscience-data-can-data-publishing-help/][The difficulties sharing neuroscience data: can data publishing help?]]
+- [[http://www.incf.org/][International Neuroinformatics Coordination Facility]]
+- [[http://www.kavlifoundation.org/science-spotlights/breaking-down-data-barriers-neuroscience#.VrDswbKLRhF][Breaking Down the Data Barriers in Neuroscience]]
+- [[https://github.com/NeurodataWithoutBorders/specification][Neurodata Without Borders specification]]
+- [[https://confluence.crbs.ucsd.edu/display/NIF/Download%2BNIF%2BOntologies][NIF Ontologies and Terminologies]]
+- [[http://www.neuinfo.org/about/index.shtm][Neuroscience Information Framework]]
+- [[https://en.wikipedia.org/wiki/Neuroscience_Information_Framework][Neuroscience Information Framework wikipedia]]
+
 *** Add version support to soma                                       :story:
 
 We need to know the version and commit of the application on the log file.
@@ -69,9 +182,8 @@ reader]].
 
 *** Create a very simple polygon mesh using CGAL                      :story:
 
-Get the sample from Ben of a very simple model and using the
-[[http://doc.cgal.org/latest/Mesh_3/][3D Mesh Generation]]
-documentation, try to generate a simple mesh.
+Get the sample from Ben of a very simple model and using the [[http://doc.cgal.org/latest/Mesh_3/][3D Mesh
+Generation]] documentation, try to generate a simple mesh.
 
 *** Create a simple XML based format                                  :story:
 
