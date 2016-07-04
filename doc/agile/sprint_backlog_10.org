@@ -1,0 +1,220 @@
+#+title: Sprint Backlog 10
+#+options: date:nil toc:nil author:nil num:nil
+#+todo: STARTED | COMPLETED CANCELLED POSTPONED
+#+tags: { story(s) spike(p) }
+
+* Mission
+
+- Create a simple mesh.
+
+* Stories
+
+** Active
+
+#+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
+#+CAPTION: Clock summary at [2016-04-26 Tue 16:38]
+| <75>                                                                        |         |       |      |       |
+| Headline                                                                    | Time    |       |      |     % |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| *Total time*                                                                | *21:12* |       |      | 100.0 |
+|-----------------------------------------------------------------------------+---------+-------+------+-------|
+| Stories                                                                     | 21:12   |       |      | 100.0 |
+| Active                                                                      |         | 21:12 |      | 100.0 |
+| STARTED Journal club and lectures                                           |         |       | 1:00 |   4.7 |
+| STARTED Socialising                                                         |         |       | 1:00 |   4.7 |
+| COMPLETED Build a tree from an SWC models                                   |         |       | 7:30 |  35.4 |
+| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 4:03 |  19.1 |
+| STARTED Sprint review                                                       |         |       | 0:31 |   2.4 |
+| STARTED Read and present McGregor's paper                                   |         |       | 7:08 |  33.6 |
+#+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
+#+end:
+
+*** STARTED Sprint and product backlog grooming                       :story:
+    CLOCK: [2016-07-04 Mon 14:15]--[2016-07-04 Mon 14:35] =>  0:20
+
+Updates to sprint and product backlog.
+
+*** Journal club and lectures                                         :story:
+
+Time spent in generic tasks.
+
+- sorting out supervision.
+
+*** Socialising                                                       :story:
+
+Any events during work hours not directly connected to work.
+
+*** Build a tree from an SWC models                                   :story:
+
+In order to convert the SWC model into a CSG representation, we need
+it to be in tree form. Create a tree builder in SWC to generate this
+representation and add all associated types. Add basic tests.
+
+*** STARTED Create a polygon mesh with the simple SWC file            :story:
+    CLOCK: [2016-07-04 Mon 14:35]--[2016-07-04 Mon 15:17] =>  0:42
+
+We need to create a polygon mesh representation of the simple ball and
+stick SWC file.
+
+- [[http://doc.cgal.org/latest/Mesh_3/index.html][CGAL 4.7 - 3D Mesh Generation]]
+
+Notes:
+
+- Delaunay refinement:
+- restricted Delaunay triangulation:
+- requirements on the input domain: The domain to be meshed is assumed
+  to be bounded and representable as a pure 3D complex. A 3D complex
+  is a set of faces with dimension 0, 1, 2 and 3 such that all faces
+  are pairwise interior disjoint, and the boundary of each face of the
+  complex is the union of faces of the complex. The 3D complex is
+  pure, meaning that each face is included in a face of dimension 3,
+  so that the complex is entirely described by the set of its 3D faces
+  and their subfaces.
+- output mesh: This means that each subdomain is approximated by the
+  union of the tetrahedral cells whose circumcenters are located
+  inside the domain (or subdomain). Each surface patch is approximated
+  by the union of the Delaunay mesh facets whose dual Voronoi edges
+  intersect the surface patch. Such mesh facets are called surface
+  facets in the following. The 1-dimensional exposed features are
+  approximated by sequences of mesh edges and the 0-dimensional
+  exposed features are represented by mesh vertices.
+- The mesh density refers to the number of mesh vertices and cells,
+  i.e. to the complexity of the mesh. The mesh quality referred to
+  here is measured by the radius edge ratio of surface facets end mesh
+  cells, where the radius edge ratio of a simplex (triangle or
+  tetrahedron) is the the ratio between its circumradius and its
+  shortest edge.
+- [[http://cgal-discuss.949826.n4.nabble.com/newbie-question-3D-meshing-of-geometric-objects-cylinder-box-etc-amp-boolean-ops-td4657492.html][Meshing of geometric objects (cylinder, box, etc) & boolean ops]]:
+  CGAL allows to mesh a domain whose boundary is defined by one of
+  several implicit surfaces. See the example in subsection 3.5.2 of
+  chapter 3D Mesh Generation of the user manual. However if the
+  surfaces intersect and if you want the mesh to precisely reproduce
+  the intersection curves you have to previously detect those
+  intersections.
+- [[http://stackoverflow.com/questions/33197841/create-parameterized-3d-primitives-with-cgal][Create parameterized 3D primitives with cgal]]
+
+*** Sprint review                                                     :story:
+
+Review of the sprint.
+
+*** Create a docker image to build neurite                            :story:
+
+It would be nice to be able to build neurite by just obtaining a
+docker image and building it from the container.
+
+: docker build -t neurite-devel .
+: docker login --username=mcraveiro --email=marco.craveiro@gmail.com
+: docker push mcraveiro/neurite-devel
+
+However, images are very large (> 2Gb virtual, 700Mb actual image
+size). Its still not clear:
+
+- if the imagine has all of the required dependencies.
+- if the images will work with travis. [[https://docs.travis-ci.com/user/docker/][This document]] seems to imply
+  they will.
+- if the size is to big given the ~1h window for the travis builds.
+
+*** Get a green build on travis                                       :story:
+
+At present the build fails due to VTK/Qt/CGAL dependencies. We need to
+find a workaround for now.
+
+*** Render a realistic SWC file                                       :story:
+
+We need to make sure we can use the code to render realistic SWC
+files. We also need to find fixes to the performance issues when we do
+this.
+
+Links:
+
+- [[http://www.vtk.org/pipermail/vtkusers/2011-June/068115.html][{vtkusers} Large number of actors]]: How to render using over 5K x 1K
+  poly data.
+- [[http://www.paraview.org/Wiki/VTK/Tutorials/Composite_Datasets][VTK/Tutorials/Composite Datasets]]
+
+Notes:
+
+- we could use a vtkMultiBlockDataSet, reusing mappers and actors.
+- seems like this is not what we want: [[http://public.kitware.com/pipermail/vtkusers/2013-August/081502.html][Rendering huge amount of
+  polyData with 1 actor and
+  vtkMultiBlockDataSet/vtkCompositePolyDataMapper2]]
+- we just need the transformations to be done once; there must be a
+  way of applying a transformation and then removing it from
+  pipeline. Perhaps we are already doing that since we are applying
+  the transform to the poly data rather than the actor.
+
+*** Create a processor in =geometry.swc= to organise the points       :story:
+
+Now we understand how to place objects in space, we need to compute
+all of the required transformations to get the polyhedra in the
+correct orientation. This will require:
+
+- some kind of container of points by parent so we can find them.
+- CGAL support so we can figure out the orientation.
+
+Notes on CGAL:
+
+This is not yet clear, but it seems useful to have a stand alone
+project with the CGAL dependency. At present we just need a way to
+subtract 3D points:
+
+[[http://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Point__3.html#a13fbe61503fadf1ea7f66d34652353d1][CGAL::Point_3< Kernel > Class Template Reference]]
+
+We need to obtain a structure of these differences. We should also
+compute the expected heights and angles of rotation. This information
+could be stored in =swc= data structures.
+
+It is not clear if we should just add a dependency to CGAL in =swc= or
+create a stand alone project.
+
+Notes:
+
+- [[http://doc.cgal.org/latest/Kernel_23/group__normal__grp.html][normal]]
+- [[http://doc.cgal.org/latest/Manual/introduction.html][hello world example]]
+- [[http://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Point__3.html#a13fbe61503fadf1ea7f66d34652353d1][point 3d operator-]]: Creating vectors by subtracting two points.
+- [[http://cgal-discuss.949826.n4.nabble.com/Calculate-angle-td950283.html][calculating angles from points]]
+- [[https://www.mathsisfun.com/algebra/vectors-dot-product.html][dot product]]
+
+*** Create a feature for QT/VTK                                       :story:
+
+At present the build is broken because travis does not support QT5 and
+VTK6. We should wrap this code with a feature and not use it on the
+build machine so that at least we can run other tests.
+
+*** Update =soma= to use the new infrastructure                       :story:
+
+To start off with we should just create a class in =soma= that acts as
+glue and orchestrates all of the other components.
+
+*** Ignore comments on =swc=                                          :story:
+
+At present we are choking on our data files due to the headers. Do a
+simple hack on the parser to ignore comments.
+
+*** Validate geometric work with realistic SWC models                 :story:
+
+Ensure the code still works when using more complex SWC models. We
+have one at present but we should download several, with different
+sizes, e.g. 5K points, 50k points, and so on.
+
+*** Document the state of play of different formats and repositories  :story:
+
+We should write some notes down on the information we find about
+different initiatives, file formats, repositories etc.
+
+- [[http://blogs.biomedcentral.com/gigablog/2013/05/09/the-difficulties-sharing-neuroscience-data-can-data-publishing-help/][The difficulties sharing neuroscience data: can data publishing help?]]
+- [[http://www.incf.org/][International Neuroinformatics Coordination Facility]]
+- [[http://www.kavlifoundation.org/science-spotlights/breaking-down-data-barriers-neuroscience#.VrDswbKLRhF][Breaking Down the Data Barriers in Neuroscience]]
+- [[https://github.com/NeurodataWithoutBorders/specification][Neurodata Without Borders specification]]
+- [[https://confluence.crbs.ucsd.edu/display/NIF/Download%2BNIF%2BOntologies][NIF Ontologies and Terminologies]]
+- [[http://www.neuinfo.org/about/index.shtm][Neuroscience Information Framework]]
+- [[https://en.wikipedia.org/wiki/Neuroscience_Information_Framework][Neuroscience Information Framework wikipedia]]
+
+** Deprecated
+*** CANCELLED Create a blog post on basic maths terminology           :story:
+    CLOSED: [2016-03-14 Mon 11:05]
+
+*Rationale*: Actually it seems ScratchPixel is already a good resource
+for this so there is no need to create a post on this.
+
+Now we understood the basics, we should apply the usual Feynman
+technique and write a blog post about it.
