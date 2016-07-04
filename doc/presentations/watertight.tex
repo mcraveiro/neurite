@@ -41,6 +41,7 @@
 \pause
 \item Polygon meshes
 \pause
+\item Questions / Discussion
 \end{itemize}
 \end{frame}
 
@@ -68,12 +69,10 @@
 \begin{frame}
 \frametitle{Microscopy and computational neuroscience}
 
-Example SEM (Scanning Electron Microscope) micrograph:
-
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=1.5]{../blog/images/2014_06_26_human_ipsc_derived_neuron_deerinck}
-    \caption{Human neuron. Source: New Reprogramming Method Makes Better Stem Cells
+    \includegraphics[scale=2]{../blog/images/2014_06_26_human_ipsc_derived_neuron_deerinck}
+    \caption{Human neuron from SEM (Scanning Electron Microscope) micrograph. Source: New Reprogramming Method Makes Better Stem Cells
       \url{http://ucsdnews.ucsd.edu/pressrelease/new_reprogramming_method_makes_better_stem_cells}.}
     \label{fig:3d_neuron}
 \end{figure}
@@ -93,7 +92,7 @@ Example SEM (Scanning Electron Microscope) micrograph:
 \pause
 \item Until recently these tasks were performed manually. Experienced
   lab technicians would identify and measure all of the structures in
-  the neuron. This is a very low resolution and high-error process.
+  the neuron. This is a low-resolution/high-error process.
 \pause
 \item Recently Machine Learning has been applied to the task with
   success.
@@ -180,21 +179,6 @@ with corresponding reconstruction.
 \begin{frame}
 \frametitle{SWC}
 
-Example of measurements one may want to perform on a dendrite.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.1]{../blog/images/F1_large}
-    \caption{Source: Reversal of long-term dendritic spine alterations in Alzheimer disease models.
-      \url{http://www.pnas.org/content/106/39/16877.abstract}.}
-    \label{fig:morphometry}
-\end{figure}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{SWC}
-
 SWC is a good format which has withstood the test of time, but has
 some important shortcomings.
 \pause
@@ -215,7 +199,6 @@ some important shortcomings.
 \pause
 \item SWC provides limited extensibility for annotation and tagging
   of objects, including the reconstruction itself.
-\pause
 \end{itemize}
 
 \end{frame}
@@ -225,9 +208,10 @@ some important shortcomings.
 
 \begin{itemize}
 \item For certain uses the loss of resolution may not have a
-  significant impact: ``in electrophysiological models, the space
-  constants are likely larger than geometric
-  ambiguities''\cite{mcdougal2013water}.
+  significant impact: ``in electro-physiological models, the space
+  constants are likely larger than geometric ambiguities''; however
+  ``these still show up as discrepancies in voltage
+  traces.''\cite{mcdougal2013water}.
 \pause
 \item In other cases it may be of great importance:
   \begin{itemize}
@@ -235,14 +219,30 @@ some important shortcomings.
     also involve three-dimensional reaction-diffusion, as such models
     have smaller space constants.''\cite{mcdougal2013water}
   \pause
-  \item Also, dendritic spine alterations are important in studies of
+  \item Morphometric work would benefit from a higher resolution. For
+    example, dendritic spine alterations are important in studies of
     Alzheimer's disease \cite{smith2009reversal}.
   \pause
   \end{itemize}
-\item In addition, there may be new scientific questions that will
-  only be posed when more accurate reconstructions are available.
+\item There may be new scientific questions that will only be posed
+  when more accurate reconstructions are available.
 \pause
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{SWC}
+
+Example of measurements one may want to perform on a dendrite.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.1]{../blog/images/F1_large}
+    \caption{Source: Reversal of long-term dendritic spine alterations in Alzheimer disease models.
+      \url{http://www.pnas.org/content/106/39/16877.abstract}.}
+    \label{fig:morphometry}
+\end{figure}
 
 \end{frame}
 
@@ -274,6 +274,71 @@ representations of neuronal morphologies.
 \begin{frame}
 \frametitle{Polygon meshes}
 
+Polygon meshes are popular:
+
+\pause
+
+\begin{itemize}
+\item The popularity of Computer Graphics and 3D Printing means that
+  there are many libraries, packages and applications to choose
+  from. There are also a number of file formats for meshes (OFF, STL,
+  etc).
+\pause
+\item We want to define our own file format since we want to add
+  annotations specific to neuroscience, but we also want to reuse
+  existing mesh formats.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Polygon meshes}
+
+``Water-tight membranes from neuronal morphology files'':
+
+\begin{itemize}
+\item This is not a new idea. In particular, McDougal, Hines and
+  Lytton wrote a paper\cite{mcdougal2013water} where they describe an
+  approach to convert SWC files into water-tight meshes.
+\pause
+\item It is of course not possible to reconstruct the neuron's full
+  shape from point and diameter data, the generated meshes are still
+  useful because they define a plausible reconstruction without gaps
+  and \emph{cul-de-sacs}.
+\pause
+\item Its a good starting point on the road to defining a mesh format
+  because we can compare with the original SWC and there is a wealth
+  of data available.
+\pause
+\item The end goal however is to use high-resolution microscopy data
+  as an input to the mesh generation process.
+\pause
+\item Another possibility is computer generated neurons which are
+  realistic.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Polygon meshes}
+
+McDougal et al. define the criteria for the generated meshes:
+
+\begin{itemize}
+\item They must be physically plausible: ``the same space cannot be
+  occupied by different matter, the surface must not have holes and
+  the surface must not lie inside of the
+  neuron.''\cite{mcdougal2013water}
+\pause
+\item They must be biologically plausible: ``no portion of a dendrite
+  must extend past its neighbour.''\cite{mcdougal2013water}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Polygon meshes}
+
 Meshes must be completely manifold or watertight. This is a very
 important requirement.
 \pause
@@ -287,6 +352,61 @@ important requirement.
 \item Intuitive understanding: if one were to fill in a physical
   representation of the model with water, would it have leaks.
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Polygon meshes}
+
+The mesh generation process:
+
+\begin{itemize}
+\item First step: ``fix'' the SWC file, looking for
+  inconsistencies such as missing parents, points with the same
+  position on the plane and so on.
+\pause
+\item Second step: convert SWC into a CSG (Constructive Solid Geometry)
+  representation. This has a number of primitives, defined by implicit
+  functions. At this stage we can deal with join problems.
+\pause
+\item Third step: Convert the CSG representation into a mesh
+  representation by polygonising/tessellating the CSG primitives. At
+  this stage we can deal with affine transformations.
+\pause
+\item Forth step: Ensure the validity of the surface by using CTNG
+  (Constructed Tesselated Neuronal Geometry), which removes parts of
+  the surface that lie inside of it and ensures the generation of a
+  consistent, continuous surface.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Polygon meshes}
+
+Progress:
+
+\begin{itemize}
+\item At present writing a C++ implementation of the processing
+  pipeline using the Eigen and CGAL libraries.
+\pause
+\item Whilst there are many libraries available, a lot of glue code
+  still has to be written. Coding has been slow/difficult because the
+  domain is to mathematical.
+\pause
+\item Code is very CPU-intensive and will benefit from parallelism. It
+  is being written so we can use a grid.
+\pause
+\item Once we have a basic pipeline working with a defective surface,
+  we will implement CTNG and generate water-tight meshes.
+\pause
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Questions?}
 
 \end{frame}
 
