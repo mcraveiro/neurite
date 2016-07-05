@@ -62,18 +62,21 @@ if(LIBXML2_FOUND)
 endif()
 
 if(WITH_UI)
+    # note: we find the UI packages quietly to avoid noise on the
+    # build machine.
+
     # vtk
-    find_package(VTK)
+    find_package(VTK QUIET)
     if(VTK_FOUND)
         message("Found VTK. Version:" ${VTK_VERSION}. VTK_DIR: ${VTK_DIR})
         include(${VTK_USE_FILE})
     else()
-        message(STATUS "VTK not found, not building UI")
+        message(STATUS "VTK not found.")
         set(WITH_UI off)
     endif()
 
     # qt
-    find_package(Qt5Core)
+    find_package(Qt5Core QUIET)
     if(Qt5Core_FOUND)
         # Find includes in corresponding build directories
         set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -84,13 +87,15 @@ if(WITH_UI)
 
         find_package(Qt5Gui REQUIRED)
         find_package(Qt5Widgets REQUIRED)
+    else()
+        message(STATUS "Qt not found.")
     endif()
 endif()
 
 if(WITH_UI)
     message(STATUS "Building UI...")
 else()
-    message(STATUS "NOT building UI...")
+    message(STATUS "NOT Building UI...")
 endif()
 
 #
