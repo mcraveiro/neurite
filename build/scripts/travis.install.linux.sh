@@ -23,13 +23,13 @@ if [ "$CXX" = "g++" ]; then
 fi
 
 # ninja
-sudo apt-get install ninja-build
+sudo apt-get install -qq ninja-build
 
 # eigen
-sudo apt-get install libeigen3-dev
+sudo apt-get install -qq libeigen3-dev
 
 # cgal
-sudo apt-get install libcgal-dev
+sudo apt-get install -qq libcgal-dev
 
 # deps
 version=8
