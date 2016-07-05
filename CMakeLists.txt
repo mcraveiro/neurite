@@ -1,4 +1,23 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+# -*- mode: cmake; cmake-tab-width: 4; indent-tabs-mode: nil -*-
+#
+# Copyright (C) 2015-2016 Marco Craveiro <marco.craveiro@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
 # enable ctest support
 enable_testing()
@@ -7,11 +26,12 @@ project(neurite)
 
 # options
 option(WITH_DEBUG "Build the project with debug symbols" off)
-option(WITH_LATEX "Build all LaTeX documents. Requires pdflatex and beamer." off)
+option(WITH_UI "Build the user interface. Requires VTK and Qt" on)
+option(WITH_CODEGEN "Build the user interface. Requires VTK and Qt" on)
+option(WITH_LATEX "Build LaTeX documents. Requires pdflatex and beamer." off)
 
 # add our own modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/build/cmake)
-# list(APPEND CMAKE_MODULE_PATH $ENV{CMAKE_EXTERNAL_MODULE_PATH})
 
 # threads
 find_package(Threads REQUIRED)
@@ -25,8 +45,7 @@ find_package(Boost 1.59 REQUIRED COMPONENTS
     thread
     log
     filesystem
-    program_options
-    iostreams)
+    program_options)
 
 if(Boost_FOUND)
     include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
@@ -35,28 +54,6 @@ endif()
 # cgal
 find_package(CGAL 4.7 REQUIRED)
 
-# catch
-# find_package(Catch REQUIRED)
-
-# wt
-# find_package(Wt REQUIRED)
-
-# vtk
-find_package(VTK REQUIRED)
-include(${VTK_USE_FILE})
-
-# qt
-
-# Find includes in corresponding build directories
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# Instruct CMake to run moc automatically when needed.
-SET(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-
 # libxml
 find_package(LibXml2 REQUIRED)
 if(LIBXML2_FOUND)
@@ -64,14 +61,47 @@ if(LIBXML2_FOUND)
     set(LIBS ${LIBS} ${LIBXML2_LIBRARY_DIR})
 endif()
 
+if(WITH_UI)
+    # vtk
+    find_package(VTK)
+    if(VTK_FOUND)
+        message("Found VTK. Version:" ${VTK_VERSION}. VTK_DIR: ${VTK_DIR})
+        include(${VTK_USE_FILE})
+    else()
+        message(STATUS "VTK not found, not building UI")
+        set(WITH_UI off)
+    endif()
+
+    # qt
+    find_package(Qt5Core)
+    if(Qt5Core_FOUND)
+        # Find includes in corresponding build directories
+        set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+        # Instruct CMake to run moc automatically when needed.
+        SET(CMAKE_AUTOUIC ON)
+        set(CMAKE_AUTOMOC ON)
+
+        find_package(Qt5Gui REQUIRED)
+        find_package(Qt5Widgets REQUIRED)
+    endif()
+endif()
+
+if(WITH_UI)
+    message(STATUS "Building UI...")
+else()
+    message(STATUS "NOT building UI...")
+endif()
+
 #
 # setup git
 #
 find_program(GIT_COMMAND NAMES git)
-if(NOT DEFINED GIT_COMMAND)
+if(GIT_COMMAND)
+    message(STATUS "Found git (${GIT_COMMAND})...")
+else()
     message(FATAL_ERROR "git not found.")
 endif()
-message(STATUS "Found git (${GIT_COMMAND})...")
 
 # hash of the top commit
 execute_process(COMMAND ${GIT_COMMAND} rev-list -n 1 HEAD
@@ -83,39 +113,48 @@ execute_process(COMMAND ${GIT_COMMAND} rev-list -n 1 HEAD
 
 # commit count
 execute_process(
-    COMMAND ${GIT_COMMAND} rev-list master --count
+    COMMAND ${GIT_COMMAND} rev-list --count HEAD
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     ERROR_VARIABLE git_error
     OUTPUT_VARIABLE GIT_COMMIT_COUNT
     RESULT_VARIABLE ret_var
     OUTPUT_STRIP_TRAILING_WHITESPACE)
-string(STRIP ${GIT_COMMIT_COUNT} GIT_COMMIT_COUNT)
 
 #
 # setup dogen knitter
 # set CMAKE_PROGRAM_PATH accordingly
 #
 find_program(DOGEN_KNITTER_COMMAND NAMES dogen.knitter)
-if(NOT DEFINED DOGEN_KNITTER_COMMAND)
-    message(FATAL_ERROR "dogen knitter not found.")
+if(DOGEN_KNITTER_COMMAND)
+    execute_process(
+        COMMAND ${DOGEN_KNITTER_COMMAND} --version
+        COMMAND grep ^Dogen
+        COMMAND cut -b15-
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        ERROR_VARIABLE git_error
+        OUTPUT_VARIABLE DOGEN_KNITTER_VERSION
+        RESULT_VARIABLE ret_var
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+      set(knitter "${DOGEN_KNITTER_VERSION} (${DOGEN_KNITTER_COMMAND})")
+      message(STATUS "Found dogen knitter: ${knitter}...")
+else()
+    set(WITH_CODEGEN off)
+    message(STATUS "Dogen Knitter not found, code generation disabled.")
 endif()
-message(STATUS "Found dogen knitter (${DOGEN_KNITTER_COMMAND})...")
 
 #
 # setup pdflatex
 #
-find_program(PDFLATEX_COMMAND NAMES pdflatex)
-if(NOT DEFINED PDFLATEX_COMMAND)
-    message(STATUS "pdflatex not found, disabling latex documents.")
-    set(WITH_LATEX "off")
-else()
-    message(STATUS "Found pdflatex (${PDFLATEX_COMMAND})...")
-endif()
-
 if(WITH_LATEX)
-    message(STATUS "Building latex documents...")
-else()
-    message(STATUS "NOT building latex documents...")
+    find_program(PDFLATEX_COMMAND NAMES pdflatex)
+    if(PDFLATEX_COMMAND)
+        message(STATUS "Found pdflatex (${PDFLATEX_COMMAND})...")
+        message(STATUS "Building latex documents.")
+    else()
+        message(STATUS "pdflatex not found, disabling latex documents.")
+        set(WITH_LATEX "off")
+    endif()
 endif()
 
 #

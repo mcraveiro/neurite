@@ -1,3 +1,23 @@
+# -*- mode: cmake; cmake-tab-width: 4; indent-tabs-mode: nil -*-
+#
+# Copyright (C) 2015-2016 Marco Craveiro <marco.craveiro@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+
 # compiler and linker flags
 if (CMAKE_CXX_COMPILER MATCHES ".*clang")
     set(CMAKE_COMPILER_IS_CLANGXX 1)
@@ -88,18 +108,24 @@ endif()
 # parameters for boost tests
 set(boost_test_parameters "")
 
-# user includes
+set(external_includes "")
+if(WITH_UI)
+    set(external_includes
+        ${Wt_INCLUDE_DIR}
+        ${Qt5Core_INCLUDE_DIRS}
+        ${Qt5Gui_INCLUDE_DIRS}
+        )
+endif()
+
+# includes
 include_directories(
-    # third party
-    ${Wt_INCLUDE_DIR}
-    ${Qt5Core_INCLUDE_DIRS}
-    ${Qt5Gui_INCLUDE_DIRS}
-  
+    # external
+    ${external_includes}
+
     # generated header files
     ${stage_inc_dir}/
 
     # real code
-    # ${CMAKE_SOURCE_DIR}/projects/ohms_law/include
     ${CMAKE_SOURCE_DIR}/projects/swc/include
     ${CMAKE_SOURCE_DIR}/projects/soma/include
     ${CMAKE_SOURCE_DIR}/projects/geometry/include
@@ -111,10 +137,12 @@ include_directories(
 #
 # add all other projects
 #
-# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ohms_law/src)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/swc)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/soma)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry.swc)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vtk.geometry)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility/src)
+
+if(WITH_UI)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/soma)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vtk.geometry)
+endif()
