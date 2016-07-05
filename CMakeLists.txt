@@ -197,10 +197,12 @@ endif()
 message(STATUS "Product version: ${NEURITE_VERSION}")
 
 #
-# Top-level knitter target.
+# Top-level knitter targets.
 #
-add_custom_target(knit_all)
 add_custom_target(run_all_specs)
+if(WITH_CODEGEN)
+    add_custom_target(knit_all)
+endif()
 
 #
 # include all sub directories

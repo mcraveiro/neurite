@@ -26,9 +26,9 @@ matrix:
     - os: linux
       compiler: gcc
       env: BUILD_TYPE=Release
-    # - os: linux
-    #   compiler: clang
-    #   env: BUILD_TYPE=Release
+    - os: linux
+      compiler: clang
+      env: BUILD_TYPE=Release
 
 addons:
   apt:
@@ -45,7 +45,7 @@ script:
   - cd ${GIT_REPO}/build
   - mkdir output
   - cd output
-  - CMAKE_INCLUDE_PATH=/tmp/dogen_deps/dogen_deps_gcc_5.3_linux_amd64/include CMAKE_LIBRARY_PATH=/tmp/dogen_deps/dogen_deps_gcc_5.3_linux_amd64/lib cmake ${GIT_REPO} -DWITH_MINIMAL_PACKAGING=on
+  - CMAKE_INCLUDE_PATH=/tmp/dogen_deps/dogen_deps_gcc_5.3_linux_amd64/include CMAKE_LIBRARY_PATH=/tmp/dogen_deps/dogen_deps_gcc_5.3_linux_amd64/lib cmake ${GIT_REPO}
   - make -j2 run_all_specs
 
 notifications:

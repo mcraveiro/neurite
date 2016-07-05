@@ -25,12 +25,23 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/test_data/point_td.hpp"
-#include "neurite/geometry/test_data/space_td.hpp"
-#include "neurite/geometry/test_data/object_td.hpp"
-#include "neurite/geometry/test_data/sphere_td.hpp"
-#include "neurite/geometry/test_data/cylinder_td.hpp"
-#include "neurite/geometry/test_data/transformation_td.hpp"
-#include "neurite/geometry/test_data/transformation_types_td.hpp"
+#include "neurite/geometry/test_data/tree_td.hpp"
+#include "neurite/geometry/test_data/solid_td.hpp"
+#include "neurite/geometry/test_data/polygon_td.hpp"
+#include "neurite/geometry/test_data/nef_node_td.hpp"
+#include "neurite/geometry/test_data/vector3d_td.hpp"
+#include "neurite/geometry/test_data/operation_td.hpp"
+#include "neurite/geometry/test_data/polyhedron_td.hpp"
+#include "neurite/geometry/test_data/solid_node_td.hpp"
+#include "neurite/geometry/test_data/solid_types_td.hpp"
+#include "neurite/geometry/test_data/abstract_node_td.hpp"
+#include "neurite/geometry/test_data/nef_polyhedron_td.hpp"
+#include "neurite/geometry/test_data/operation_node_td.hpp"
+#include "neurite/geometry/test_data/operation_types_td.hpp"
+#include "neurite/geometry/test_data/polyhedron_node_td.hpp"
+#include "neurite/geometry/test_data/affine_transformation_td.hpp"
+#include "neurite/geometry/test_data/affine_transformation_node_td.hpp"
+#include "neurite/geometry/test_data/affine_transformation_types_td.hpp"
+#include "neurite/geometry/test_data/affine_transformation_injector_td.hpp"
 
 #endif

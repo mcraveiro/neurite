@@ -25,12 +25,23 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/hash/point_hash.hpp"
-#include "neurite/geometry/hash/space_hash.hpp"
-#include "neurite/geometry/hash/object_hash.hpp"
-#include "neurite/geometry/hash/sphere_hash.hpp"
-#include "neurite/geometry/hash/cylinder_hash.hpp"
-#include "neurite/geometry/hash/transformation_hash.hpp"
-#include "neurite/geometry/hash/transformation_types_hash.hpp"
+#include "neurite/geometry/hash/tree_hash.hpp"
+#include "neurite/geometry/hash/solid_hash.hpp"
+#include "neurite/geometry/hash/polygon_hash.hpp"
+#include "neurite/geometry/hash/nef_node_hash.hpp"
+#include "neurite/geometry/hash/vector3d_hash.hpp"
+#include "neurite/geometry/hash/operation_hash.hpp"
+#include "neurite/geometry/hash/polyhedron_hash.hpp"
+#include "neurite/geometry/hash/solid_node_hash.hpp"
+#include "neurite/geometry/hash/solid_types_hash.hpp"
+#include "neurite/geometry/hash/abstract_node_hash.hpp"
+#include "neurite/geometry/hash/nef_polyhedron_hash.hpp"
+#include "neurite/geometry/hash/operation_node_hash.hpp"
+#include "neurite/geometry/hash/operation_types_hash.hpp"
+#include "neurite/geometry/hash/polyhedron_node_hash.hpp"
+#include "neurite/geometry/hash/affine_transformation_hash.hpp"
+#include "neurite/geometry/hash/affine_transformation_node_hash.hpp"
+#include "neurite/geometry/hash/affine_transformation_types_hash.hpp"
+#include "neurite/geometry/hash/affine_transformation_injector_hash.hpp"
 
 #endif

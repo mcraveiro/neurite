@@ -25,13 +25,24 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/serialization/point_ser.hpp"
-#include "neurite/geometry/serialization/space_ser.hpp"
-#include "neurite/geometry/serialization/object_ser.hpp"
-#include "neurite/geometry/serialization/sphere_ser.hpp"
-#include "neurite/geometry/serialization/cylinder_ser.hpp"
+#include "neurite/geometry/serialization/tree_ser.hpp"
+#include "neurite/geometry/serialization/solid_ser.hpp"
+#include "neurite/geometry/serialization/polygon_ser.hpp"
+#include "neurite/geometry/serialization/nef_node_ser.hpp"
+#include "neurite/geometry/serialization/vector3d_ser.hpp"
+#include "neurite/geometry/serialization/operation_ser.hpp"
 #include "neurite/geometry/serialization/registrar_ser.hpp"
-#include "neurite/geometry/serialization/transformation_ser.hpp"
-#include "neurite/geometry/serialization/transformation_types_ser.hpp"
+#include "neurite/geometry/serialization/polyhedron_ser.hpp"
+#include "neurite/geometry/serialization/solid_node_ser.hpp"
+#include "neurite/geometry/serialization/solid_types_ser.hpp"
+#include "neurite/geometry/serialization/abstract_node_ser.hpp"
+#include "neurite/geometry/serialization/nef_polyhedron_ser.hpp"
+#include "neurite/geometry/serialization/operation_node_ser.hpp"
+#include "neurite/geometry/serialization/operation_types_ser.hpp"
+#include "neurite/geometry/serialization/polyhedron_node_ser.hpp"
+#include "neurite/geometry/serialization/affine_transformation_ser.hpp"
+#include "neurite/geometry/serialization/affine_transformation_node_ser.hpp"
+#include "neurite/geometry/serialization/affine_transformation_types_ser.hpp"
+#include "neurite/geometry/serialization/affine_transformation_injector_ser.hpp"
 
 #endif

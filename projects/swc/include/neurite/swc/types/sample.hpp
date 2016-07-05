@@ -54,10 +54,10 @@ public:
 
 private:
     template<typename Archive>
-    friend void boost::serialization::save(Archive& ar, const sample& v, unsigned int version);
+    friend void boost::serialization::save(Archive& ar, const neurite::swc::sample& v, unsigned int version);
 
     template<typename Archive>
-    friend void boost::serialization::load(Archive& ar, sample& v, unsigned int version);
+    friend void boost::serialization::load(Archive& ar, neurite::swc::sample& v, unsigned int version);
 
 public:
     unsigned int number() const;

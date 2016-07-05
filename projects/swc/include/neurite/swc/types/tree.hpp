@@ -45,10 +45,10 @@ public:
 
 private:
     template<typename Archive>
-    friend void boost::serialization::save(Archive& ar, const tree& v, unsigned int version);
+    friend void boost::serialization::save(Archive& ar, const neurite::swc::tree& v, unsigned int version);
 
     template<typename Archive>
-    friend void boost::serialization::load(Archive& ar, tree& v, unsigned int version);
+    friend void boost::serialization::load(Archive& ar, neurite::swc::tree& v, unsigned int version);
 
 public:
     const boost::shared_ptr<neurite::swc::node>& root() const;

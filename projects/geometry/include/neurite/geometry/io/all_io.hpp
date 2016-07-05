@@ -25,12 +25,23 @@
 #pragma once
 #endif
 
-#include "neurite/geometry/io/point_io.hpp"
-#include "neurite/geometry/io/space_io.hpp"
-#include "neurite/geometry/io/object_io.hpp"
-#include "neurite/geometry/io/sphere_io.hpp"
-#include "neurite/geometry/io/cylinder_io.hpp"
-#include "neurite/geometry/io/transformation_io.hpp"
-#include "neurite/geometry/io/transformation_types_io.hpp"
+#include "neurite/geometry/io/tree_io.hpp"
+#include "neurite/geometry/io/solid_io.hpp"
+#include "neurite/geometry/io/polygon_io.hpp"
+#include "neurite/geometry/io/nef_node_io.hpp"
+#include "neurite/geometry/io/vector3d_io.hpp"
+#include "neurite/geometry/io/operation_io.hpp"
+#include "neurite/geometry/io/polyhedron_io.hpp"
+#include "neurite/geometry/io/solid_node_io.hpp"
+#include "neurite/geometry/io/solid_types_io.hpp"
+#include "neurite/geometry/io/abstract_node_io.hpp"
+#include "neurite/geometry/io/nef_polyhedron_io.hpp"
+#include "neurite/geometry/io/operation_node_io.hpp"
+#include "neurite/geometry/io/operation_types_io.hpp"
+#include "neurite/geometry/io/polyhedron_node_io.hpp"
+#include "neurite/geometry/io/affine_transformation_io.hpp"
+#include "neurite/geometry/io/affine_transformation_node_io.hpp"
+#include "neurite/geometry/io/affine_transformation_types_io.hpp"
+#include "neurite/geometry/io/affine_transformation_injector_io.hpp"
 
 #endif
