@@ -18,22 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_SOLID_TYPES_HPP
-#define NEURITE_GEOMETRY_TYPES_SOLID_TYPES_HPP
+#ifndef NEURITE_GEOMETRY_HASH_TRUNCATED_CONE_HASH_HPP
+#define NEURITE_GEOMETRY_HASH_TRUNCATED_CONE_HASH_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
+#include <functional>
+#include "neurite/geometry/types/truncated_cone.hpp"
+
 namespace neurite {
 namespace geometry {
 
-enum class solid_types : unsigned int {
-    invalid = 0, ///< Represents an uninitialised enum
-    sphere = 1,
-    truncated_cone = 2
+struct truncated_cone_hasher {
+public:
+    static std::size_t hash(const truncated_cone& v);
 };
 
 } }
 
+namespace std {
+
+template<>
+struct hash<neurite::geometry::truncated_cone> {
+public:
+    size_t operator()(const neurite::geometry::truncated_cone& v) const {
+        return neurite::geometry::truncated_cone_hasher::hash(v);
+    }
+};
+
+}
 #endif

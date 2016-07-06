@@ -26,9 +26,11 @@
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
+#include "neurite/geometry/serialization/sphere_ser.hpp"
 #include "neurite/geometry/serialization/nef_node_ser.hpp"
 #include "neurite/geometry/serialization/solid_node_ser.hpp"
 #include "neurite/geometry/serialization/union_node_ser.hpp"
+#include "neurite/geometry/serialization/truncated_cone_ser.hpp"
 #include "neurite/geometry/serialization/polyhedron_node_ser.hpp"
 #include "neurite/geometry/serialization/affine_transformation_node_ser.hpp"
 
@@ -41,6 +43,8 @@ void register_types(Archive& ar) {
     ar.template register_type<neurite::geometry::nef_node>();
     ar.template register_type<neurite::geometry::polyhedron_node>();
     ar.template register_type<neurite::geometry::solid_node>();
+    ar.template register_type<neurite::geometry::sphere>();
+    ar.template register_type<neurite::geometry::truncated_cone>();
     ar.template register_type<neurite::geometry::union_node>();
 }
 

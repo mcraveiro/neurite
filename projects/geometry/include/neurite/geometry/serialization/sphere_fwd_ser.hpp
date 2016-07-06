@@ -18,26 +18,24 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_HASH_SOLID_TYPES_HASH_HPP
-#define NEURITE_GEOMETRY_HASH_SOLID_TYPES_HASH_HPP
+#ifndef NEURITE_GEOMETRY_SERIALIZATION_SPHERE_FWD_SER_HPP
+#define NEURITE_GEOMETRY_SERIALIZATION_SPHERE_FWD_SER_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <functional>
-#include "neurite/geometry/types/solid_types.hpp"
+#include "neurite/geometry/types/sphere_fwd.hpp"
 
-namespace std {
+namespace boost {
+namespace serialization {
 
-template<>
-struct hash<neurite::geometry::solid_types> {
-public:
-    size_t operator()(const neurite::geometry::solid_types& v) const {
-        return std::hash<unsigned int>()(static_cast<unsigned int>(v));
-    }
-};
+template<class Archive>
+void save(Archive& ar, const neurite::geometry::sphere& v, unsigned int version);
 
-}
+template<class Archive>
+void load(Archive& ar, neurite::geometry::sphere& v, unsigned int version);
+
+} }
 
 #endif

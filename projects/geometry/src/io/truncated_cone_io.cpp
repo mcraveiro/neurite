@@ -19,21 +19,17 @@
  *
  */
 #include <ostream>
-#include "neurite/geometry/types/solid.hpp"
+#include <boost/io/ios_state.hpp>
+#include "neurite/geometry/io/solid_io.hpp"
+#include "neurite/geometry/io/vector3d_io.hpp"
+#include "neurite/geometry/io/truncated_cone_io.hpp"
 
 namespace neurite {
 namespace geometry {
 
-void solid::to_stream(std::ostream& s) const {
-    s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::solid\"" << " }";
-}
-
-void solid::swap(solid&) noexcept {
-}
-
-bool solid::compare(const solid& /*rhs*/) const {
-    return true;
+std::ostream& operator<<(std::ostream& s, const truncated_cone& v) {
+    v.to_stream(s);
+    return(s);
 }
 
 } }

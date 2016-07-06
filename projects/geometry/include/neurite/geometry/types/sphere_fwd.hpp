@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_SOLID_TYPES_FWD_HPP
-#define NEURITE_GEOMETRY_TYPES_SOLID_TYPES_FWD_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_SPHERE_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_SPHERE_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
@@ -28,7 +28,7 @@
 namespace neurite {
 namespace geometry {
 
-enum class solid_types : unsigned int;
+class sphere;
 
 } }
 

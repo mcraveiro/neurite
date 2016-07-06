@@ -20,28 +20,33 @@
  */
 #include <boost/make_shared.hpp>
 #include "neurite/swc/types/node.hpp"
-#include "neurite/geometry/types/solid_node.hpp"
+#include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/union_node.hpp"
+#include "neurite/geometry/types/solid_node.hpp"
+#include "neurite/geometry/types/truncated_cone.hpp"
 #include "neurite/geometry.swc/types/transformer.hpp"
 
 namespace neurite {
 namespace geometry {
 namespace swc {
 
-geometry::solid
+boost::shared_ptr<geometry::solid>
 transformer::creare_sphere(const neurite::swc::sample& s) const {
-    geometry::solid r;
-    r.type(geometry::solid_types::sphere);
-    r.centre(transform(s.position()));
+    auto r(boost::make_shared<geometry::sphere>());
+    r->centre(transform(s.position()));
+    r->radius(s.radius());
     return r;
 }
 
-geometry::solid transformer::creare_truncated_cone(
-    const neurite::swc::sample& /*s1*/, const neurite::swc::sample& /*s2*/) const {
-    geometry::solid r;
-/*    r.type(geometry::solid_types::truncated_cone);
-    r.first_radius(transform(s1.position()));
-*/
+boost::shared_ptr<geometry::solid> transformer::creare_truncated_cone(
+    const neurite::swc::sample& s1, const neurite::swc::sample& s2) const {
+    auto r(boost::make_shared<geometry::truncated_cone>());
+
+    r->first(transform(s1.position()));
+    r->first_radius(s1.radius());
+    r->second(transform(s2.position()));
+    r->second_radius(s2.radius());
+
     return r;
 }
 

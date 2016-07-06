@@ -18,34 +18,34 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TEST_DATA_SOLID_TYPES_TD_HPP
-#define NEURITE_GEOMETRY_TEST_DATA_SOLID_TYPES_TD_HPP
+#include "neurite/geometry/hash/solid_hash.hpp"
+#include "neurite/geometry/hash/vector3d_hash.hpp"
+#include "neurite/geometry/hash/truncated_cone_hash.hpp"
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
+namespace {
 
-#include "neurite/geometry/types/solid_types.hpp"
+template <typename HashableType>
+inline void combine(std::size_t& seed, const HashableType& value) {
+    std::hash<HashableType> hasher;
+    seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}
+
+}
 
 namespace neurite {
 namespace geometry {
 
-class solid_types_generator {
-public:
-    solid_types_generator();
+std::size_t truncated_cone_hasher::hash(const truncated_cone& v) {
+    std::size_t seed(0);
 
-public:
-    typedef neurite::geometry::solid_types result_type;
+    combine(seed, dynamic_cast<const neurite::geometry::solid&>(v));
 
-public:
-    static void populate(const unsigned int position, result_type& v);
-    static result_type create(const unsigned int position);
-    result_type operator()();
+    combine(seed, v.first());
+    combine(seed, v.first_radius());
+    combine(seed, v.second_radius());
+    combine(seed, v.second());
 
-private:
-    unsigned int position_;
-};
+    return seed;
+}
 
 } }
-
-#endif

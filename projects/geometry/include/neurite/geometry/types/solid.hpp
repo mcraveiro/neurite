@@ -25,30 +25,22 @@
 #pragma once
 #endif
 
+#include <iosfwd>
 #include <algorithm>
-#include "neurite/geometry/types/vector3d.hpp"
-#include "neurite/geometry/types/solid_types.hpp"
+#include "neurite/geometry/types/solid_visitor.hpp"
 #include "neurite/geometry/serialization/solid_fwd_ser.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class solid final {
+class solid {
 public:
+    solid() = default;
     solid(const solid&) = default;
     solid(solid&&) = default;
-    ~solid() = default;
+    solid& operator=(const solid&) = default;
 
-public:
-    solid();
-
-public:
-    solid(
-        const neurite::geometry::vector3d& centre,
-        const double first_radius,
-        const double second_radius,
-        const double height,
-        const neurite::geometry::solid_types type);
+    virtual ~solid() noexcept = 0;
 
 private:
     template<typename Archive>
@@ -58,52 +50,30 @@ private:
     friend void boost::serialization::load(Archive& ar, neurite::geometry::solid& v, unsigned int version);
 
 public:
-    const neurite::geometry::vector3d& centre() const;
-    neurite::geometry::vector3d& centre();
-    void centre(const neurite::geometry::vector3d& v);
-    void centre(const neurite::geometry::vector3d&& v);
-
-    double first_radius() const;
-    void first_radius(const double v);
-
-    double second_radius() const;
-    void second_radius(const double v);
-
-    double height() const;
-    void height(const double v);
-
-    neurite::geometry::solid_types type() const;
-    void type(const neurite::geometry::solid_types v);
+    virtual void accept(const solid_visitor& v) const = 0;
+    virtual void accept(solid_visitor& v) const = 0;
+    virtual void accept(const solid_visitor& v) = 0;
+    virtual void accept(solid_visitor& v) = 0;
 
 public:
-    bool operator==(const solid& rhs) const;
-    bool operator!=(const solid& rhs) const {
-        return !this->operator==(rhs);
-    }
+    virtual void to_stream(std::ostream& s) const;
 
+protected:
+    bool compare(const solid& rhs) const;
 public:
+    virtual bool equals(const solid& other) const = 0;
+
+protected:
     void swap(solid& other) noexcept;
-    solid& operator=(solid other);
 
-private:
-    neurite::geometry::vector3d centre_;
-    double first_radius_;
-    double second_radius_;
-    double height_;
-    neurite::geometry::solid_types type_;
 };
 
+inline solid::~solid() noexcept { }
+
+inline bool operator==(const solid& lhs, const solid& rhs) {
+    return lhs.equals(rhs);
+}
+
 } }
-
-namespace std {
-
-template<>
-inline void swap(
-    neurite::geometry::solid& lhs,
-    neurite::geometry::solid& rhs) {
-    lhs.swap(rhs);
-}
-
-}
 
 #endif

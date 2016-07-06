@@ -30,6 +30,12 @@ inline void combine(std::size_t& seed, const HashableType& value) {
     seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
+inline std::size_t hash_boost_shared_ptr_neurite_geometry_solid(const boost::shared_ptr<neurite::geometry::solid>& v) {
+    std::size_t seed(0);
+    combine(seed, *v);
+    return seed;
+}
+
 }
 
 namespace neurite {
@@ -40,7 +46,7 @@ std::size_t solid_node_hasher::hash(const solid_node& v) {
 
     combine(seed, dynamic_cast<const neurite::geometry::abstract_node&>(v));
 
-    combine(seed, v.solid());
+    combine(seed, hash_boost_shared_ptr_neurite_geometry_solid(v.solid()));
     return seed;
 }
 

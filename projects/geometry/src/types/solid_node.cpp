@@ -20,13 +20,39 @@
  */
 #include <ostream>
 #include "neurite/geometry/io/solid_io.hpp"
+#include "neurite/geometry/types/solid.hpp"
 #include "neurite/geometry/types/solid_node.hpp"
 #include "neurite/geometry/io/abstract_node_io.hpp"
+
+namespace boost {
+
+inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::geometry::solid>& v) {
+    s << "{ " << "\"__type__\": " << "\"boost::shared_ptr\"" << ", "
+      << "\"memory\": " << "\"" << static_cast<void*>(v.get()) << "\"" << ", ";
+
+    if (v)
+        s << "\"data\": " << *v;
+    else
+        s << "\"data\": ""\"<empty>\"";
+    s << " }";
+    return s;
+}
+
+}
+
+namespace boost {
+
+inline bool operator==(const boost::shared_ptr<neurite::geometry::solid>& lhs,
+const boost::shared_ptr<neurite::geometry::solid>& rhs) {
+    return (!lhs && !rhs) ||(lhs && rhs && (*lhs == *rhs));
+}
+
+}
 
 namespace neurite {
 namespace geometry {
 
-solid_node::solid_node(const neurite::geometry::solid& solid)
+solid_node::solid_node(const boost::shared_ptr<neurite::geometry::solid>& solid)
     : neurite::geometry::abstract_node(),
       solid_(solid) { }
 
@@ -64,19 +90,19 @@ solid_node& solid_node::operator=(solid_node other) {
     return *this;
 }
 
-const neurite::geometry::solid& solid_node::solid() const {
+const boost::shared_ptr<neurite::geometry::solid>& solid_node::solid() const {
     return solid_;
 }
 
-neurite::geometry::solid& solid_node::solid() {
+boost::shared_ptr<neurite::geometry::solid>& solid_node::solid() {
     return solid_;
 }
 
-void solid_node::solid(const neurite::geometry::solid& v) {
+void solid_node::solid(const boost::shared_ptr<neurite::geometry::solid>& v) {
     solid_ = v;
 }
 
-void solid_node::solid(const neurite::geometry::solid&& v) {
+void solid_node::solid(const boost::shared_ptr<neurite::geometry::solid>&& v) {
     solid_ = std::move(v);
 }
 

@@ -19,31 +19,17 @@
  *
  */
 #include "neurite/geometry/hash/solid_hash.hpp"
-#include "neurite/geometry/hash/vector3d_hash.hpp"
-#include "neurite/geometry/hash/solid_types_hash.hpp"
 
 namespace {
 
-template <typename HashableType>
-inline void combine(std::size_t& seed, const HashableType& value) {
-    std::hash<HashableType> hasher;
-    seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-}
 
 }
 
 namespace neurite {
 namespace geometry {
 
-std::size_t solid_hasher::hash(const solid& v) {
+std::size_t solid_hasher::hash(const solid&) {
     std::size_t seed(0);
-
-    combine(seed, v.centre());
-    combine(seed, v.first_radius());
-    combine(seed, v.second_radius());
-    combine(seed, v.height());
-    combine(seed, v.type());
-
     return seed;
 }
 

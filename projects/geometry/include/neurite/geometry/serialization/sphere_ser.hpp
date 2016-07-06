@@ -18,22 +18,37 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/types/solid.hpp"
+#ifndef NEURITE_GEOMETRY_SERIALIZATION_SPHERE_SER_HPP
+#define NEURITE_GEOMETRY_SERIALIZATION_SPHERE_SER_HPP
 
-namespace neurite {
-namespace geometry {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-void solid::to_stream(std::ostream& s) const {
-    s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::solid\"" << " }";
+#include <boost/serialization/split_free.hpp>
+#include <boost/type_traits/is_virtual_base_of.hpp>
+#include "neurite/geometry/types/sphere.hpp"
+
+namespace boost {
+
+template<>struct
+is_virtual_base_of<
+    neurite::geometry::solid,
+    neurite::geometry::sphere
+> : public mpl::true_ {};
+
 }
 
-void solid::swap(solid&) noexcept {
-}
+BOOST_SERIALIZATION_SPLIT_FREE(neurite::geometry::sphere)
+namespace boost {
+namespace serialization {
 
-bool solid::compare(const solid& /*rhs*/) const {
-    return true;
-}
+template<typename Archive>
+void save(Archive& ar, const neurite::geometry::sphere& v, unsigned int version);
+
+template<typename Archive>
+void load(Archive& ar, neurite::geometry::sphere& v, unsigned int version);
 
 } }
+
+#endif

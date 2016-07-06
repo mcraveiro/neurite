@@ -18,21 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_IO_SOLID_TYPES_IO_HPP
-#define NEURITE_GEOMETRY_IO_SOLID_TYPES_IO_HPP
+#ifndef NEURITE_GEOMETRY_HASH_SPHERE_HASH_HPP
+#define NEURITE_GEOMETRY_HASH_SPHERE_HASH_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <iosfwd>
-#include "neurite/geometry/types/solid_types.hpp"
+#include <functional>
+#include "neurite/geometry/types/sphere.hpp"
 
 namespace neurite {
 namespace geometry {
 
-std::ostream& operator<<(std::ostream& s, const solid_types& v);
+struct sphere_hasher {
+public:
+    static std::size_t hash(const sphere& v);
+};
 
 } }
 
+namespace std {
+
+template<>
+struct hash<neurite::geometry::sphere> {
+public:
+    size_t operator()(const neurite::geometry::sphere& v) const {
+        return neurite::geometry::sphere_hasher::hash(v);
+    }
+};
+
+}
 #endif

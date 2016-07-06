@@ -18,22 +18,36 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/types/solid.hpp"
+#ifndef NEURITE_GEOMETRY_TEST_DATA_SPHERE_TD_HPP
+#define NEURITE_GEOMETRY_TEST_DATA_SPHERE_TD_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
+
+#include "neurite/geometry/types/sphere.hpp"
 
 namespace neurite {
 namespace geometry {
 
-void solid::to_stream(std::ostream& s) const {
-    s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::solid\"" << " }";
-}
+class sphere_generator {
+public:
+    sphere_generator();
 
-void solid::swap(solid&) noexcept {
-}
+public:
+    typedef neurite::geometry::sphere result_type;
 
-bool solid::compare(const solid& /*rhs*/) const {
-    return true;
-}
+public:
+    static void populate(const unsigned int position, result_type& v);
+    static result_type create(const unsigned int position);
+    result_type operator()();
+
+private:
+    unsigned int position_;
+public:
+    static result_type* create_ptr(const unsigned int position);
+};
 
 } }
+
+#endif

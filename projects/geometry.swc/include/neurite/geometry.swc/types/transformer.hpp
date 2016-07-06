@@ -40,8 +40,10 @@ namespace swc {
 
 class transformer {
 private:
-    geometry::solid creare_sphere(const neurite::swc::sample& s) const;
-    geometry::solid creare_truncated_cone(
+    boost::shared_ptr<geometry::solid>
+    creare_sphere(const neurite::swc::sample& s) const;
+
+    boost::shared_ptr<geometry::solid> creare_truncated_cone(
         const neurite::swc::sample& s1, const neurite::swc::sample& s2) const;
 
     geometry::vector3d transform(const neurite::swc::point& p) const;

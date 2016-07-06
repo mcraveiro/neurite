@@ -18,33 +18,18 @@
  * MA 02110-1301, USA.
  *
  */
-#include <string>
-#include <ostream>
-#include <stdexcept>
-#include "neurite/geometry/io/solid_types_io.hpp"
+#ifndef NEURITE_GEOMETRY_TYPES_TRUNCATED_CONE_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_TRUNCATED_CONE_FWD_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
 namespace neurite {
 namespace geometry {
 
-std::ostream& operator<<(std::ostream& s, const solid_types& v) {
-    s << "{ " << "\"__type__\": " << "\"solid_types\", " << "\"value\": ";
-
-    std::string attr;
-    switch (v) {
-    case solid_types::invalid:
-        attr = "\"invalid\"";
-        break;
-    case solid_types::sphere:
-        attr = "\"sphere\"";
-        break;
-    case solid_types::truncated_cone:
-        attr = "\"truncated_cone\"";
-        break;
-    default:
-        throw std::invalid_argument("Invalid value for solid_types");
-    }
-    s << attr << " }";
-    return s;
-}
+class truncated_cone;
 
 } }
+
+#endif

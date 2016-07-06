@@ -27,7 +27,8 @@
 
 #include <iosfwd>
 #include <algorithm>
-#include "neurite/geometry/types/solid.hpp"
+#include <boost/shared_ptr.hpp>
+#include "neurite/geometry/types/solid_fwd.hpp"
 #include "neurite/geometry/types/abstract_node.hpp"
 #include "neurite/geometry/serialization/solid_node_fwd_ser.hpp"
 
@@ -43,7 +44,7 @@ public:
     virtual ~solid_node() noexcept { }
 
 public:
-    explicit solid_node(const neurite::geometry::solid& solid);
+    explicit solid_node(const boost::shared_ptr<neurite::geometry::solid>& solid);
 
 private:
     template<typename Archive>
@@ -75,10 +76,10 @@ public:
     void to_stream(std::ostream& s) const override;
 
 public:
-    const neurite::geometry::solid& solid() const;
-    neurite::geometry::solid& solid();
-    void solid(const neurite::geometry::solid& v);
-    void solid(const neurite::geometry::solid&& v);
+    const boost::shared_ptr<neurite::geometry::solid>& solid() const;
+    boost::shared_ptr<neurite::geometry::solid>& solid();
+    void solid(const boost::shared_ptr<neurite::geometry::solid>& v);
+    void solid(const boost::shared_ptr<neurite::geometry::solid>&& v);
 
 public:
     bool operator==(const solid_node& rhs) const;
@@ -94,7 +95,7 @@ public:
     solid_node& operator=(solid_node other);
 
 private:
-    neurite::geometry::solid solid_;
+    boost::shared_ptr<neurite::geometry::solid> solid_;
 };
 
 } }

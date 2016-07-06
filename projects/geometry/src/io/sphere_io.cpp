@@ -18,20 +18,18 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_SERIALIZATION_SOLID_TYPES_SER_HPP
-#define NEURITE_GEOMETRY_SERIALIZATION_SOLID_TYPES_SER_HPP
+#include <ostream>
+#include <boost/io/ios_state.hpp>
+#include "neurite/geometry/io/solid_io.hpp"
+#include "neurite/geometry/io/sphere_io.hpp"
+#include "neurite/geometry/io/vector3d_io.hpp"
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
+namespace neurite {
+namespace geometry {
 
-#include <boost/serialization/nvp.hpp>
-#include "neurite/geometry/types/solid_types.hpp"
-
-template<class Archive>
-void serialize(Archive& ar, neurite::geometry::solid_types& v, unsigned int /*version*/){
-    using boost::serialization::make_nvp;
-    ar & make_nvp("solid_types", v);
+std::ostream& operator<<(std::ostream& s, const sphere& v) {
+    v.to_stream(s);
+    return(s);
 }
 
-#endif
+} }

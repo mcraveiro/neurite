@@ -18,22 +18,24 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/types/solid.hpp"
+#ifndef NEURITE_GEOMETRY_SERIALIZATION_TRUNCATED_CONE_FWD_SER_HPP
+#define NEURITE_GEOMETRY_SERIALIZATION_TRUNCATED_CONE_FWD_SER_HPP
 
-namespace neurite {
-namespace geometry {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-void solid::to_stream(std::ostream& s) const {
-    s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::solid\"" << " }";
-}
+#include "neurite/geometry/types/truncated_cone_fwd.hpp"
 
-void solid::swap(solid&) noexcept {
-}
+namespace boost {
+namespace serialization {
 
-bool solid::compare(const solid& /*rhs*/) const {
-    return true;
-}
+template<class Archive>
+void save(Archive& ar, const neurite::geometry::truncated_cone& v, unsigned int version);
+
+template<class Archive>
+void load(Archive& ar, neurite::geometry::truncated_cone& v, unsigned int version);
 
 } }
+
+#endif

@@ -26,9 +26,12 @@
 #endif
 
 #include <boost/serialization/split_free.hpp>
+#include <boost/serialization/assume_abstract.hpp>
 #include "neurite/geometry/types/solid.hpp"
 
 BOOST_SERIALIZATION_SPLIT_FREE(neurite::geometry::solid)
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(neurite::geometry::solid)
+
 namespace boost {
 namespace serialization {
 

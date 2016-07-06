@@ -89,6 +89,7 @@ all of the legacy code including VTK, etc.
   until we do.
 
 *** STARTED Implement =swc= to =geometry= tree factory                :story:
+    CLOCK: [2016-07-06 Wed 17:34]--[2016-07-06 Wed 17:51] =>  0:17
     CLOCK: [2016-07-06 Wed 15:02]--[2016-07-06 Wed 17:33] =>  2:31
 
 Create a simple class that takes in a =swc::tree= and creates a

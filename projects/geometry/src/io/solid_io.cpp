@@ -19,29 +19,13 @@
  *
  */
 #include <ostream>
-#include <boost/io/ios_state.hpp>
 #include "neurite/geometry/io/solid_io.hpp"
-#include "neurite/geometry/io/vector3d_io.hpp"
-#include "neurite/geometry/io/solid_types_io.hpp"
 
 namespace neurite {
 namespace geometry {
 
 std::ostream& operator<<(std::ostream& s, const solid& v) {
-    boost::io::ios_flags_saver ifs(s);
-    s.setf(std::ios_base::boolalpha);
-    s.setf(std::ios::fixed, std::ios::floatfield);
-    s.precision(6);
-    s.setf(std::ios::showpoint);
-
-    s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::solid\"" << ", "
-      << "\"centre\": " << v.centre() << ", "
-      << "\"first_radius\": " << v.first_radius() << ", "
-      << "\"second_radius\": " << v.second_radius() << ", "
-      << "\"height\": " << v.height() << ", "
-      << "\"type\": " << v.type()
-      << " }";
+    v.to_stream(s);
     return(s);
 }
 

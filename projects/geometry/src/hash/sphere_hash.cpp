@@ -18,22 +18,32 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/types/solid.hpp"
+#include "neurite/geometry/hash/solid_hash.hpp"
+#include "neurite/geometry/hash/sphere_hash.hpp"
+#include "neurite/geometry/hash/vector3d_hash.hpp"
+
+namespace {
+
+template <typename HashableType>
+inline void combine(std::size_t& seed, const HashableType& value) {
+    std::hash<HashableType> hasher;
+    seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}
+
+}
 
 namespace neurite {
 namespace geometry {
 
-void solid::to_stream(std::ostream& s) const {
-    s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::solid\"" << " }";
-}
+std::size_t sphere_hasher::hash(const sphere& v) {
+    std::size_t seed(0);
 
-void solid::swap(solid&) noexcept {
-}
+    combine(seed, dynamic_cast<const neurite::geometry::solid&>(v));
 
-bool solid::compare(const solid& /*rhs*/) const {
-    return true;
+    combine(seed, v.centre());
+    combine(seed, v.radius());
+
+    return seed;
 }
 
 } }
