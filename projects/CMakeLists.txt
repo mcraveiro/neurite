@@ -140,6 +140,7 @@ include_directories(
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/swc)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry.swc)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/scader/src)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility/src)
 
 if(WITH_UI)
