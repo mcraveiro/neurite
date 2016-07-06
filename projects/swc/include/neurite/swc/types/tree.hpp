@@ -26,8 +26,7 @@
 #endif
 
 #include <algorithm>
-#include <boost/shared_ptr.hpp>
-#include "neurite/swc/types/node_fwd.hpp"
+#include "neurite/swc/types/node.hpp"
 #include "neurite/swc/serialization/tree_fwd_ser.hpp"
 
 namespace neurite {
@@ -41,7 +40,7 @@ public:
     ~tree() = default;
 
 public:
-    explicit tree(const boost::shared_ptr<neurite::swc::node>& root);
+    explicit tree(const neurite::swc::node& root);
 
 private:
     template<typename Archive>
@@ -51,10 +50,10 @@ private:
     friend void boost::serialization::load(Archive& ar, neurite::swc::tree& v, unsigned int version);
 
 public:
-    const boost::shared_ptr<neurite::swc::node>& root() const;
-    boost::shared_ptr<neurite::swc::node>& root();
-    void root(const boost::shared_ptr<neurite::swc::node>& v);
-    void root(const boost::shared_ptr<neurite::swc::node>&& v);
+    const neurite::swc::node& root() const;
+    neurite::swc::node& root();
+    void root(const neurite::swc::node& v);
+    void root(const neurite::swc::node&& v);
 
 public:
     bool operator==(const tree& rhs) const;
@@ -67,7 +66,7 @@ public:
     tree& operator=(tree other);
 
 private:
-    boost::shared_ptr<neurite::swc::node> root_;
+    neurite::swc::node root_;
 };
 
 } }

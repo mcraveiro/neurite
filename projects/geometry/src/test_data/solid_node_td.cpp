@@ -24,16 +24,9 @@
 
 namespace {
 
-neurite::geometry::solid*
-create_neurite_geometry_solid_ptr(const unsigned int position) {
-    return neurite::geometry::solid_generator::create_ptr(position);
-}
-
-boost::shared_ptr<neurite::geometry::solid>
-create_boost_shared_ptr_neurite_geometry_solid(unsigned int position) {
-    boost::shared_ptr<neurite::geometry::solid> r(
-        create_neurite_geometry_solid_ptr(position));
-    return r;
+neurite::geometry::solid
+create_neurite_geometry_solid(const unsigned int position) {
+    return neurite::geometry::solid_generator::create(position);
 }
 
 }
@@ -46,7 +39,7 @@ solid_node_generator::solid_node_generator() : position_(0) { }
 void solid_node_generator::
 populate(const unsigned int position, result_type& v) {
     neurite::geometry::abstract_node_generator::populate(position, v);
-    v.solid(create_boost_shared_ptr_neurite_geometry_solid(position + 0));
+    v.solid(create_neurite_geometry_solid(position + 0));
 }
 
 solid_node_generator::result_type

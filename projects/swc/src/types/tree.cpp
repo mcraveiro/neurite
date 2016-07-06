@@ -18,22 +18,12 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/swc/types/node.hpp"
 #include "neurite/swc/types/tree.hpp"
-
-namespace boost {
-
-inline bool operator==(const boost::shared_ptr<neurite::swc::node>& lhs,
-const boost::shared_ptr<neurite::swc::node>& rhs) {
-    return (!lhs && !rhs) ||(lhs && rhs && (*lhs == *rhs));
-}
-
-}
 
 namespace neurite {
 namespace swc {
 
-tree::tree(const boost::shared_ptr<neurite::swc::node>& root)
+tree::tree(const neurite::swc::node& root)
     : root_(root) { }
 
 void tree::swap(tree& other) noexcept {
@@ -51,19 +41,19 @@ tree& tree::operator=(tree other) {
     return *this;
 }
 
-const boost::shared_ptr<neurite::swc::node>& tree::root() const {
+const neurite::swc::node& tree::root() const {
     return root_;
 }
 
-boost::shared_ptr<neurite::swc::node>& tree::root() {
+neurite::swc::node& tree::root() {
     return root_;
 }
 
-void tree::root(const boost::shared_ptr<neurite::swc::node>& v) {
+void tree::root(const neurite::swc::node& v) {
     root_ = v;
 }
 
-void tree::root(const boost::shared_ptr<neurite::swc::node>&& v) {
+void tree::root(const neurite::swc::node&& v) {
     root_ = std::move(v);
 }
 

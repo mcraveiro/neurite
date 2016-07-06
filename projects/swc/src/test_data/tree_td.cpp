@@ -23,16 +23,9 @@
 
 namespace {
 
-neurite::swc::node*
-create_neurite_swc_node_ptr(const unsigned int position) {
-    return neurite::swc::node_generator::create_ptr(position);
-}
-
-boost::shared_ptr<neurite::swc::node>
-create_boost_shared_ptr_neurite_swc_node(unsigned int position) {
-    boost::shared_ptr<neurite::swc::node> r(
-        create_neurite_swc_node_ptr(position));
-    return r;
+neurite::swc::node
+create_neurite_swc_node(const unsigned int position) {
+    return neurite::swc::node_generator::create(position);
 }
 
 }
@@ -44,7 +37,7 @@ tree_generator::tree_generator() : position_(0) { }
 
 void tree_generator::
 populate(const unsigned int position, result_type& v) {
-    v.root(create_boost_shared_ptr_neurite_swc_node(position + 0));
+    v.root(create_neurite_swc_node(position + 0));
 }
 
 tree_generator::result_type

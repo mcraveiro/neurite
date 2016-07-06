@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_OPERATION_NODE_HPP
-#define NEURITE_GEOMETRY_TYPES_OPERATION_NODE_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_UNION_NODE_HPP
+#define NEURITE_GEOMETRY_TYPES_UNION_NODE_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
@@ -29,33 +29,30 @@
 #include <iosfwd>
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
-#include "neurite/geometry/types/operation.hpp"
 #include "neurite/geometry/types/abstract_node.hpp"
 #include "neurite/geometry/types/abstract_node_fwd.hpp"
-#include "neurite/geometry/serialization/operation_node_fwd_ser.hpp"
+#include "neurite/geometry/serialization/union_node_fwd_ser.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class operation_node final : public neurite::geometry::abstract_node {
+class union_node final : public neurite::geometry::abstract_node {
 public:
-    operation_node() = default;
-    operation_node(const operation_node&) = default;
-    operation_node(operation_node&&) = default;
+    union_node() = default;
+    union_node(const union_node&) = default;
+    union_node(union_node&&) = default;
 
-    virtual ~operation_node() noexcept { }
+    virtual ~union_node() noexcept { }
 
 public:
-    operation_node(
-        const neurite::geometry::operation& operation,
-        const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children);
+    explicit union_node(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands);
 
 private:
     template<typename Archive>
-    friend void boost::serialization::save(Archive& ar, const neurite::geometry::operation_node& v, unsigned int version);
+    friend void boost::serialization::save(Archive& ar, const neurite::geometry::union_node& v, unsigned int version);
 
     template<typename Archive>
-    friend void boost::serialization::load(Archive& ar, neurite::geometry::operation_node& v, unsigned int version);
+    friend void boost::serialization::load(Archive& ar, neurite::geometry::union_node& v, unsigned int version);
 
 public:
     using abstract_node::accept;
@@ -80,19 +77,14 @@ public:
     void to_stream(std::ostream& s) const override;
 
 public:
-    const neurite::geometry::operation& operation() const;
-    neurite::geometry::operation& operation();
-    void operation(const neurite::geometry::operation& v);
-    void operation(const neurite::geometry::operation&& v);
-
-    const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children() const;
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children();
-    void children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v);
-    void children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v);
+    const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands() const;
+    std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands();
+    void operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v);
+    void operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v);
 
 public:
-    bool operator==(const operation_node& rhs) const;
-    bool operator!=(const operation_node& rhs) const {
+    bool operator==(const union_node& rhs) const;
+    bool operator!=(const union_node& rhs) const {
         return !this->operator==(rhs);
     }
 
@@ -100,12 +92,11 @@ public:
     bool equals(const neurite::geometry::abstract_node& other) const override;
 
 public:
-    void swap(operation_node& other) noexcept;
-    operation_node& operator=(operation_node other);
+    void swap(union_node& other) noexcept;
+    union_node& operator=(union_node other);
 
 private:
-    neurite::geometry::operation operation_;
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> > children_;
+    std::list<boost::shared_ptr<neurite::geometry::abstract_node> > operands_;
 };
 
 } }
@@ -114,8 +105,8 @@ namespace std {
 
 template<>
 inline void swap(
-    neurite::geometry::operation_node& lhs,
-    neurite::geometry::operation_node& rhs) {
+    neurite::geometry::union_node& lhs,
+    neurite::geometry::union_node& rhs) {
     lhs.swap(rhs);
 }
 

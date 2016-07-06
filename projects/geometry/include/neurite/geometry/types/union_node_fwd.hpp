@@ -18,35 +18,17 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TEST_DATA_OPERATION_TD_HPP
-#define NEURITE_GEOMETRY_TEST_DATA_OPERATION_TD_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_UNION_NODE_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_UNION_NODE_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/geometry/types/operation.hpp"
-
 namespace neurite {
 namespace geometry {
 
-class operation_generator {
-public:
-    operation_generator();
-
-public:
-    typedef neurite::geometry::operation result_type;
-
-public:
-    static void populate(const unsigned int position, result_type& v);
-    static result_type create(const unsigned int position);
-    result_type operator()();
-
-private:
-    unsigned int position_;
-public:
-    static result_type* create_ptr(const unsigned int position);
-};
+class union_node;
 
 } }
 

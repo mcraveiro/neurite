@@ -18,38 +18,37 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/geometry/types/operation.hpp"
+#ifndef NEURITE_GEOMETRY_SERIALIZATION_UNION_NODE_SER_HPP
+#define NEURITE_GEOMETRY_SERIALIZATION_UNION_NODE_SER_HPP
 
-namespace neurite {
-namespace geometry {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-operation::operation()
-    : type_(static_cast<neurite::geometry::operation_types>(0)) { }
+#include <boost/serialization/split_free.hpp>
+#include <boost/type_traits/is_virtual_base_of.hpp>
+#include "neurite/geometry/types/union_node.hpp"
 
-operation::operation(const neurite::geometry::operation_types type)
-    : type_(type) { }
+namespace boost {
 
-void operation::swap(operation& other) noexcept {
-    using std::swap;
-    swap(type_, other.type_);
+template<>struct
+is_virtual_base_of<
+    neurite::geometry::abstract_node,
+    neurite::geometry::union_node
+> : public mpl::true_ {};
+
 }
 
-bool operation::operator==(const operation& rhs) const {
-    return type_ == rhs.type_;
-}
+BOOST_SERIALIZATION_SPLIT_FREE(neurite::geometry::union_node)
+namespace boost {
+namespace serialization {
 
-operation& operation::operator=(operation other) {
-    using std::swap;
-    swap(*this, other);
-    return *this;
-}
+template<typename Archive>
+void save(Archive& ar, const neurite::geometry::union_node& v, unsigned int version);
 
-neurite::geometry::operation_types operation::type() const {
-    return type_;
-}
-
-void operation::type(const neurite::geometry::operation_types v) {
-    type_ = v;
-}
+template<typename Archive>
+void load(Archive& ar, neurite::geometry::union_node& v, unsigned int version);
 
 } }
+
+#endif

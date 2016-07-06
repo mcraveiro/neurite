@@ -29,12 +29,11 @@
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
-#include "neurite/geometry/serialization/operation_ser.hpp"
+#include "neurite/geometry/serialization/union_node_ser.hpp"
 #include "neurite/geometry/serialization/abstract_node_ser.hpp"
-#include "neurite/geometry/serialization/operation_node_ser.hpp"
 
 BOOST_CLASS_TRACKING(
-    neurite::geometry::operation_node,
+    neurite::geometry::union_node,
     boost::serialization::track_selectively)
 
 namespace boost {
@@ -42,22 +41,20 @@ namespace serialization {
 
 template<typename Archive>
 void save(Archive& ar,
-    const neurite::geometry::operation_node& v,
+    const neurite::geometry::union_node& v,
     const unsigned int /*version*/) {
     ar << make_nvp("abstract_node", base_object<neurite::geometry::abstract_node>(v));
 
-    ar << make_nvp("operation", v.operation_);
-    ar << make_nvp("children", v.children_);
+    ar << make_nvp("operands", v.operands_);
 }
 
 template<typename Archive>
 void load(Archive& ar,
-    neurite::geometry::operation_node& v,
+    neurite::geometry::union_node& v,
     const unsigned int /*version*/) {
     ar >> make_nvp("abstract_node", base_object<neurite::geometry::abstract_node>(v));
 
-    ar >> make_nvp("operation", v.operation_);
-    ar >> make_nvp("children", v.children_);
+    ar >> make_nvp("operands", v.operands_);
 }
 
 } }
@@ -65,16 +62,16 @@ void load(Archive& ar,
 namespace boost {
 namespace serialization {
 
-template void save(archive::polymorphic_oarchive& ar, const neurite::geometry::operation_node& v, unsigned int version);
-template void load(archive::polymorphic_iarchive& ar, neurite::geometry::operation_node& v, unsigned int version);
+template void save(archive::polymorphic_oarchive& ar, const neurite::geometry::union_node& v, unsigned int version);
+template void load(archive::polymorphic_iarchive& ar, neurite::geometry::union_node& v, unsigned int version);
 
-template void save(archive::text_oarchive& ar, const neurite::geometry::operation_node& v, unsigned int version);
-template void load(archive::text_iarchive& ar, neurite::geometry::operation_node& v, unsigned int version);
+template void save(archive::text_oarchive& ar, const neurite::geometry::union_node& v, unsigned int version);
+template void load(archive::text_iarchive& ar, neurite::geometry::union_node& v, unsigned int version);
 
-template void save(archive::binary_oarchive& ar, const neurite::geometry::operation_node& v, unsigned int version);
-template void load(archive::binary_iarchive& ar, neurite::geometry::operation_node& v, unsigned int version);
+template void save(archive::binary_oarchive& ar, const neurite::geometry::union_node& v, unsigned int version);
+template void load(archive::binary_iarchive& ar, neurite::geometry::union_node& v, unsigned int version);
 
-template void save(archive::xml_oarchive& ar, const neurite::geometry::operation_node& v, unsigned int version);
-template void load(archive::xml_iarchive& ar, neurite::geometry::operation_node& v, unsigned int version);
+template void save(archive::xml_oarchive& ar, const neurite::geometry::union_node& v, unsigned int version);
+template void load(archive::xml_iarchive& ar, neurite::geometry::union_node& v, unsigned int version);
 
 } }

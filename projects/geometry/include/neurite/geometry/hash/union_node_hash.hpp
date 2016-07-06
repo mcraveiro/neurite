@@ -18,26 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_SERIALIZATION_OPERATION_SER_HPP
-#define NEURITE_GEOMETRY_SERIALIZATION_OPERATION_SER_HPP
+#ifndef NEURITE_GEOMETRY_HASH_UNION_NODE_HASH_HPP
+#define NEURITE_GEOMETRY_HASH_UNION_NODE_HASH_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <boost/serialization/split_free.hpp>
-#include "neurite/geometry/types/operation.hpp"
+#include <functional>
+#include "neurite/geometry/types/union_node.hpp"
 
-BOOST_SERIALIZATION_SPLIT_FREE(neurite::geometry::operation)
-namespace boost {
-namespace serialization {
+namespace neurite {
+namespace geometry {
 
-template<typename Archive>
-void save(Archive& ar, const neurite::geometry::operation& v, unsigned int version);
-
-template<typename Archive>
-void load(Archive& ar, neurite::geometry::operation& v, unsigned int version);
+struct union_node_hasher {
+public:
+    static std::size_t hash(const union_node& v);
+};
 
 } }
 
+namespace std {
+
+template<>
+struct hash<neurite::geometry::union_node> {
+public:
+    size_t operator()(const neurite::geometry::union_node& v) const {
+        return neurite::geometry::union_node_hasher::hash(v);
+    }
+};
+
+}
 #endif

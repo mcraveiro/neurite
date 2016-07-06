@@ -37,9 +37,6 @@ std::ostream& operator<<(std::ostream& s, const solid_types& v) {
     case solid_types::sphere:
         attr = "\"sphere\"";
         break;
-    case solid_types::cylinder:
-        attr = "\"cylinder\"";
-        break;
     case solid_types::truncated_cone:
         attr = "\"truncated_cone\"";
         break;

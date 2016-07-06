@@ -20,36 +20,23 @@
  */
 #include "neurite/swc/types/node.hpp"
 
-namespace boost {
-
-inline bool operator==(const boost::shared_ptr<neurite::swc::node>& lhs,
-const boost::shared_ptr<neurite::swc::node>& rhs) {
-    return (!lhs && !rhs) ||(lhs && rhs && (*lhs == *rhs));
-}
-
-}
-
 namespace neurite {
 namespace swc {
 
 node::node(
     const neurite::swc::sample& content,
-    const boost::shared_ptr<neurite::swc::node>& parent,
-    const std::list<boost::shared_ptr<neurite::swc::node> >& children)
+    const std::list<neurite::swc::node>& children)
     : content_(content),
-      parent_(parent),
       children_(children) { }
 
 void node::swap(node& other) noexcept {
     using std::swap;
     swap(content_, other.content_);
-    swap(parent_, other.parent_);
     swap(children_, other.children_);
 }
 
 bool node::operator==(const node& rhs) const {
     return content_ == rhs.content_ &&
-        parent_ == rhs.parent_ &&
         children_ == rhs.children_;
 }
 
@@ -75,35 +62,19 @@ void node::content(const neurite::swc::sample&& v) {
     content_ = std::move(v);
 }
 
-const boost::shared_ptr<neurite::swc::node>& node::parent() const {
-    return parent_;
-}
-
-boost::shared_ptr<neurite::swc::node>& node::parent() {
-    return parent_;
-}
-
-void node::parent(const boost::shared_ptr<neurite::swc::node>& v) {
-    parent_ = v;
-}
-
-void node::parent(const boost::shared_ptr<neurite::swc::node>&& v) {
-    parent_ = std::move(v);
-}
-
-const std::list<boost::shared_ptr<neurite::swc::node> >& node::children() const {
+const std::list<neurite::swc::node>& node::children() const {
     return children_;
 }
 
-std::list<boost::shared_ptr<neurite::swc::node> >& node::children() {
+std::list<neurite::swc::node>& node::children() {
     return children_;
 }
 
-void node::children(const std::list<boost::shared_ptr<neurite::swc::node> >& v) {
+void node::children(const std::list<neurite::swc::node>& v) {
     children_ = v;
 }
 
-void node::children(const std::list<boost::shared_ptr<neurite::swc::node> >&& v) {
+void node::children(const std::list<neurite::swc::node>&& v) {
     children_ = std::move(v);
 }
 

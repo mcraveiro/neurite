@@ -31,8 +31,7 @@ namespace geometry {
 enum class solid_types : unsigned int {
     invalid = 0, ///< Represents an uninitialised enum
     sphere = 1,
-    cylinder = 2,
-    truncated_cone = 3
+    truncated_cone = 2
 };
 
 } }

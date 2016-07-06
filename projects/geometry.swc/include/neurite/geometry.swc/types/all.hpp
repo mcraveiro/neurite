@@ -27,6 +27,6 @@
 
 #include "neurite/geometry.swc/types/swc.hpp"
 #include "neurite/geometry.swc/types/workflow.hpp"
-#include "neurite/geometry.swc/types/tree_factory.hpp"
+#include "neurite/geometry.swc/types/transformer.hpp"
 
 #endif

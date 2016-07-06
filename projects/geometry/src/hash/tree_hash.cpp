@@ -35,14 +35,6 @@ inline std::size_t hash_boost_shared_ptr_neurite_geometry_abstract_node(const bo
     return seed;
 }
 
-inline std::size_t hash_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
-    std::size_t seed(0);
-    for (const auto i : v) {
-        combine(seed, hash_boost_shared_ptr_neurite_geometry_abstract_node(i));
-    }
-    return seed;
-}
-
 }
 
 namespace neurite {
@@ -51,7 +43,7 @@ namespace geometry {
 std::size_t tree_hasher::hash(const tree& v) {
     std::size_t seed(0);
 
-    combine(seed, hash_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(v.root()));
+    combine(seed, hash_boost_shared_ptr_neurite_geometry_abstract_node(v.root()));
     return seed;
 }
 

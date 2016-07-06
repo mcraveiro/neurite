@@ -29,8 +29,8 @@
 #include <boost/archive/polymorphic_oarchive.hpp>
 #include "neurite/geometry/serialization/nef_node_ser.hpp"
 #include "neurite/geometry/serialization/solid_node_ser.hpp"
+#include "neurite/geometry/serialization/union_node_ser.hpp"
 #include "neurite/geometry/serialization/abstract_node_ser.hpp"
-#include "neurite/geometry/serialization/operation_node_ser.hpp"
 #include "neurite/geometry/serialization/polyhedron_node_ser.hpp"
 #include "neurite/geometry/serialization/affine_transformation_node_ser.hpp"
 

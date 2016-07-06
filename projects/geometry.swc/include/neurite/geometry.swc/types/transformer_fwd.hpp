@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_OPERATION_TYPES_FWD_HPP
-#define NEURITE_GEOMETRY_TYPES_OPERATION_TYPES_FWD_HPP
+#ifndef NEURITE_GEOMETRY_SWC_TYPES_TRANSFORMER_FWD_HPP
+#define NEURITE_GEOMETRY_SWC_TYPES_TRANSFORMER_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
@@ -27,9 +27,10 @@
 
 namespace neurite {
 namespace geometry {
+namespace swc {
 
-enum class operation_types : unsigned int;
+class transformer;
 
-} }
+} } }
 
 #endif

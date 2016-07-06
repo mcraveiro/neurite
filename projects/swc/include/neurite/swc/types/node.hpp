@@ -27,9 +27,8 @@
 
 #include <list>
 #include <algorithm>
-#include <boost/shared_ptr.hpp>
+#include "neurite/swc/types/node.hpp"
 #include "neurite/swc/types/sample.hpp"
-#include "neurite/swc/types/node_fwd.hpp"
 #include "neurite/swc/serialization/node_fwd_ser.hpp"
 
 namespace neurite {
@@ -45,8 +44,7 @@ public:
 public:
     node(
         const neurite::swc::sample& content,
-        const boost::shared_ptr<neurite::swc::node>& parent,
-        const std::list<boost::shared_ptr<neurite::swc::node> >& children);
+        const std::list<neurite::swc::node>& children);
 
 private:
     template<typename Archive>
@@ -61,15 +59,10 @@ public:
     void content(const neurite::swc::sample& v);
     void content(const neurite::swc::sample&& v);
 
-    const boost::shared_ptr<neurite::swc::node>& parent() const;
-    boost::shared_ptr<neurite::swc::node>& parent();
-    void parent(const boost::shared_ptr<neurite::swc::node>& v);
-    void parent(const boost::shared_ptr<neurite::swc::node>&& v);
-
-    const std::list<boost::shared_ptr<neurite::swc::node> >& children() const;
-    std::list<boost::shared_ptr<neurite::swc::node> >& children();
-    void children(const std::list<boost::shared_ptr<neurite::swc::node> >& v);
-    void children(const std::list<boost::shared_ptr<neurite::swc::node> >&& v);
+    const std::list<neurite::swc::node>& children() const;
+    std::list<neurite::swc::node>& children();
+    void children(const std::list<neurite::swc::node>& v);
+    void children(const std::list<neurite::swc::node>&& v);
 
 public:
     bool operator==(const node& rhs) const;
@@ -83,8 +76,7 @@ public:
 
 private:
     neurite::swc::sample content_;
-    boost::shared_ptr<neurite::swc::node> parent_;
-    std::list<boost::shared_ptr<neurite::swc::node> > children_;
+    std::list<neurite::swc::node> children_;
 };
 
 } }

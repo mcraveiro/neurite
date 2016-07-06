@@ -29,16 +29,10 @@ inline void combine(std::size_t& seed, const HashableType& value) {
     seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
-inline std::size_t hash_boost_shared_ptr_neurite_swc_node(const boost::shared_ptr<neurite::swc::node>& v) {
-    std::size_t seed(0);
-    combine(seed, *v);
-    return seed;
-}
-
-inline std::size_t hash_std_list_boost_shared_ptr_neurite_swc_node_(const std::list<boost::shared_ptr<neurite::swc::node> >& v) {
+inline std::size_t hash_std_list_neurite_swc_node(const std::list<neurite::swc::node>& v) {
     std::size_t seed(0);
     for (const auto i : v) {
-        combine(seed, hash_boost_shared_ptr_neurite_swc_node(i));
+        combine(seed, i);
     }
     return seed;
 }
@@ -52,8 +46,7 @@ std::size_t node_hasher::hash(const node& v) {
     std::size_t seed(0);
 
     combine(seed, v.content());
-    combine(seed, hash_boost_shared_ptr_neurite_swc_node(v.parent()));
-    combine(seed, hash_std_list_boost_shared_ptr_neurite_swc_node_(v.children()));
+    combine(seed, hash_std_list_neurite_swc_node(v.children()));
 
     return seed;
 }

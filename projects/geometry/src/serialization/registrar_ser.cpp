@@ -28,7 +28,7 @@
 #include <boost/archive/polymorphic_oarchive.hpp>
 #include "neurite/geometry/serialization/nef_node_ser.hpp"
 #include "neurite/geometry/serialization/solid_node_ser.hpp"
-#include "neurite/geometry/serialization/operation_node_ser.hpp"
+#include "neurite/geometry/serialization/union_node_ser.hpp"
 #include "neurite/geometry/serialization/polyhedron_node_ser.hpp"
 #include "neurite/geometry/serialization/affine_transformation_node_ser.hpp"
 
@@ -39,9 +39,9 @@ template<typename Archive>
 void register_types(Archive& ar) {
     ar.template register_type<neurite::geometry::affine_transformation_node>();
     ar.template register_type<neurite::geometry::nef_node>();
-    ar.template register_type<neurite::geometry::operation_node>();
     ar.template register_type<neurite::geometry::polyhedron_node>();
     ar.template register_type<neurite::geometry::solid_node>();
+    ar.template register_type<neurite::geometry::union_node>();
 }
 
 template void register_types(boost::archive::polymorphic_oarchive& ar);

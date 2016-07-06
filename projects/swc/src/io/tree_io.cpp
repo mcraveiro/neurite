@@ -22,22 +22,6 @@
 #include "neurite/swc/io/node_io.hpp"
 #include "neurite/swc/io/tree_io.hpp"
 
-namespace boost {
-
-inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::swc::node>& v) {
-    s << "{ " << "\"__type__\": " << "\"boost::shared_ptr\"" << ", "
-      << "\"memory\": " << "\"" << static_cast<void*>(v.get()) << "\"" << ", ";
-
-    if (v)
-        s << "\"data\": " << *v;
-    else
-        s << "\"data\": ""\"<empty>\"";
-    s << " }";
-    return s;
-}
-
-}
-
 namespace neurite {
 namespace swc {
 

@@ -35,14 +35,6 @@ create_boost_shared_ptr_neurite_geometry_abstract_node(unsigned int position) {
     return r;
 }
 
-std::list<boost::shared_ptr<neurite::geometry::abstract_node> > create_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(unsigned int position) {
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> > r;
-    for (unsigned int i(0); i < 4; ++i) {
-        r.push_back(create_boost_shared_ptr_neurite_geometry_abstract_node(position + i));
-    }
-    return r;
-}
-
 }
 
 namespace neurite {
@@ -52,7 +44,7 @@ tree_generator::tree_generator() : position_(0) { }
 
 void tree_generator::
 populate(const unsigned int position, result_type& v) {
-    v.root(create_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(position + 0));
+    v.root(create_boost_shared_ptr_neurite_geometry_abstract_node(position + 0));
 }
 
 tree_generator::result_type

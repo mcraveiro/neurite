@@ -18,16 +18,10 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/geometry/test_data/operation_td.hpp"
+#include "neurite/geometry/test_data/union_node_td.hpp"
 #include "neurite/geometry/test_data/abstract_node_td.hpp"
-#include "neurite/geometry/test_data/operation_node_td.hpp"
 
 namespace {
-
-neurite::geometry::operation
-create_neurite_geometry_operation(const unsigned int position) {
-    return neurite::geometry::operation_generator::create(position);
-}
 
 neurite::geometry::abstract_node*
 create_neurite_geometry_abstract_node_ptr(const unsigned int position) {
@@ -54,31 +48,30 @@ std::list<boost::shared_ptr<neurite::geometry::abstract_node> > create_std_list_
 namespace neurite {
 namespace geometry {
 
-operation_node_generator::operation_node_generator() : position_(0) { }
+union_node_generator::union_node_generator() : position_(0) { }
 
-void operation_node_generator::
+void union_node_generator::
 populate(const unsigned int position, result_type& v) {
     neurite::geometry::abstract_node_generator::populate(position, v);
-    v.operation(create_neurite_geometry_operation(position + 0));
-    v.children(create_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(position + 1));
+    v.operands(create_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(position + 0));
 }
 
-operation_node_generator::result_type
-operation_node_generator::create(const unsigned int position) {
-    operation_node r;
-    operation_node_generator::populate(position, r);
+union_node_generator::result_type
+union_node_generator::create(const unsigned int position) {
+    union_node r;
+    union_node_generator::populate(position, r);
     return r;
 }
 
-operation_node_generator::result_type*
-operation_node_generator::create_ptr(const unsigned int position) {
-    operation_node* p = new operation_node();
-    operation_node_generator::populate(position, *p);
+union_node_generator::result_type*
+union_node_generator::create_ptr(const unsigned int position) {
+    union_node* p = new union_node();
+    union_node_generator::populate(position, *p);
     return p;
 }
 
-operation_node_generator::result_type
-operation_node_generator::operator()() {
+union_node_generator::result_type
+union_node_generator::operator()() {
     return create(position_++);
 }
 

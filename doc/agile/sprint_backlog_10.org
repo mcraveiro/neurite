@@ -12,20 +12,21 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-07-05 Tue 17:49]
+#+CAPTION: Clock summary at [2016-07-06 Wed 17:33]
 | <75>                                                                        |        |      |      |       |
 | Headline                                                                    | Time   |      |      |     % |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| *Total time*                                                                | *6:19* |      |      | 100.0 |
+| *Total time*                                                                | *8:50* |      |      | 100.0 |
 |-----------------------------------------------------------------------------+--------+------+------+-------|
-| Stories                                                                     | 6:19   |      |      | 100.0 |
-| Active                                                                      |        | 6:19 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |        |      | 1:09 |  18.2 |
-| STARTED Socialising                                                         |        |      | 0:48 |  12.7 |
-| COMPLETED Review the design changes done to geometry                        |        |      | 1:51 |  29.3 |
-| COMPLETED Tidy-up neurite                                                   |        |      | 1:19 |  20.8 |
-| COMPLETED Code-generate all models and get code to build                    |        |      | 0:25 |   6.6 |
-| STARTED Create a polygon mesh with the simple SWC file                      |        |      | 0:47 |  12.4 |
+| Stories                                                                     | 8:50   |      |      | 100.0 |
+| Active                                                                      |        | 8:50 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |        |      | 1:09 |  13.0 |
+| STARTED Socialising                                                         |        |      | 0:48 |   9.1 |
+| COMPLETED Review the design changes done to geometry                        |        |      | 1:51 |  20.9 |
+| COMPLETED Tidy-up neurite                                                   |        |      | 1:19 |  14.9 |
+| COMPLETED Code-generate all models and get code to build                    |        |      | 0:25 |   4.7 |
+| STARTED Implement =swc= to =geometry= tree factory                          |        |      | 2:31 |  28.5 |
+| STARTED Create a polygon mesh with the simple SWC file                      |        |      | 0:47 |   8.9 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -87,10 +88,11 @@ all of the legacy code including VTK, etc.
   =CGAL::Nef_polyhedron_3<CGAL::Cartesian<NT3>>= so these got removed
   until we do.
 
-*** Implement SWC tree factory                                        :story:
+*** STARTED Implement =swc= to =geometry= tree factory                :story:
+    CLOCK: [2016-07-06 Wed 15:02]--[2016-07-06 Wed 17:33] =>  2:31
 
-Create a simple class that takes in a SWC model and creates a tree
-with operations plus solids.
+Create a simple class that takes in a =swc::tree= and creates a
+=geometry::tree= with operations plus solids.
 
 *** Implement the affine transformation injector                      :story:
 

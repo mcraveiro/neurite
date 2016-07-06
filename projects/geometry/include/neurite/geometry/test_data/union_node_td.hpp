@@ -18,23 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_SERIALIZATION_OPERATION_NODE_FWD_SER_HPP
-#define NEURITE_GEOMETRY_SERIALIZATION_OPERATION_NODE_FWD_SER_HPP
+#ifndef NEURITE_GEOMETRY_TEST_DATA_UNION_NODE_TD_HPP
+#define NEURITE_GEOMETRY_TEST_DATA_UNION_NODE_TD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include "neurite/geometry/types/operation_node_fwd.hpp"
+#include "neurite/geometry/types/union_node.hpp"
 
-namespace boost {
-namespace serialization {
+namespace neurite {
+namespace geometry {
 
-template<class Archive>
-void save(Archive& ar, const neurite::geometry::operation_node& v, unsigned int version);
+class union_node_generator {
+public:
+    union_node_generator();
 
-template<class Archive>
-void load(Archive& ar, neurite::geometry::operation_node& v, unsigned int version);
+public:
+    typedef neurite::geometry::union_node result_type;
+
+public:
+    static void populate(const unsigned int position, result_type& v);
+    static result_type create(const unsigned int position);
+    result_type operator()();
+
+private:
+    unsigned int position_;
+public:
+    static result_type* create_ptr(const unsigned int position);
+};
 
 } }
 

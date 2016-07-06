@@ -18,35 +18,18 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_HASH_OPERATION_HASH_HPP
-#define NEURITE_GEOMETRY_HASH_OPERATION_HASH_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_SCAD_EVALUATOR_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_SCAD_EVALUATOR_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <functional>
-#include "neurite/geometry/types/operation.hpp"
-
 namespace neurite {
 namespace geometry {
 
-struct operation_hasher {
-public:
-    static std::size_t hash(const operation& v);
-};
+class scad_evaluator;
 
 } }
 
-namespace std {
-
-template<>
-struct hash<neurite::geometry::operation> {
-public:
-    size_t operator()(const neurite::geometry::operation& v) const {
-        return neurite::geometry::operation_hasher::hash(v);
-    }
-};
-
-}
 #endif

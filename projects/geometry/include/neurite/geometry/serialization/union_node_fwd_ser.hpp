@@ -18,17 +18,23 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_OPERATION_FWD_HPP
-#define NEURITE_GEOMETRY_TYPES_OPERATION_FWD_HPP
+#ifndef NEURITE_GEOMETRY_SERIALIZATION_UNION_NODE_FWD_SER_HPP
+#define NEURITE_GEOMETRY_SERIALIZATION_UNION_NODE_FWD_SER_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-namespace neurite {
-namespace geometry {
+#include "neurite/geometry/types/union_node_fwd.hpp"
 
-class operation;
+namespace boost {
+namespace serialization {
+
+template<class Archive>
+void save(Archive& ar, const neurite::geometry::union_node& v, unsigned int version);
+
+template<class Archive>
+void load(Archive& ar, neurite::geometry::union_node& v, unsigned int version);
 
 } }
 

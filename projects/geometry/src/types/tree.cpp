@@ -33,7 +33,7 @@ const boost::shared_ptr<neurite::geometry::abstract_node>& rhs) {
 namespace neurite {
 namespace geometry {
 
-tree::tree(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& root)
+tree::tree(const boost::shared_ptr<neurite::geometry::abstract_node>& root)
     : root_(root) { }
 
 void tree::swap(tree& other) noexcept {
@@ -51,19 +51,19 @@ tree& tree::operator=(tree other) {
     return *this;
 }
 
-const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& tree::root() const {
+const boost::shared_ptr<neurite::geometry::abstract_node>& tree::root() const {
     return root_;
 }
 
-std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& tree::root() {
+boost::shared_ptr<neurite::geometry::abstract_node>& tree::root() {
     return root_;
 }
 
-void tree::root(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
+void tree::root(const boost::shared_ptr<neurite::geometry::abstract_node>& v) {
     root_ = v;
 }
 
-void tree::root(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v) {
+void tree::root(const boost::shared_ptr<neurite::geometry::abstract_node>&& v) {
     root_ = std::move(v);
 }
 

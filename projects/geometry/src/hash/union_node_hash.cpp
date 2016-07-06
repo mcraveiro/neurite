@@ -18,9 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/geometry/hash/operation_hash.hpp"
+#include "neurite/geometry/hash/union_node_hash.hpp"
 #include "neurite/geometry/hash/abstract_node_hash.hpp"
-#include "neurite/geometry/hash/operation_node_hash.hpp"
 
 namespace {
 
@@ -49,14 +48,12 @@ inline std::size_t hash_std_list_boost_shared_ptr_neurite_geometry_abstract_node
 namespace neurite {
 namespace geometry {
 
-std::size_t operation_node_hasher::hash(const operation_node& v) {
+std::size_t union_node_hasher::hash(const union_node& v) {
     std::size_t seed(0);
 
     combine(seed, dynamic_cast<const neurite::geometry::abstract_node&>(v));
 
-    combine(seed, v.operation());
-    combine(seed, hash_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(v.children()));
-
+    combine(seed, hash_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(v.operands()));
     return seed;
 }
 

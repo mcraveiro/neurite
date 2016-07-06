@@ -19,10 +19,9 @@
  *
  */
 #include <ostream>
-#include "neurite/geometry/io/operation_io.hpp"
+#include "neurite/geometry/types/union_node.hpp"
 #include "neurite/geometry/io/abstract_node_io.hpp"
 #include "neurite/geometry/types/abstract_node.hpp"
-#include "neurite/geometry/types/operation_node.hpp"
 
 namespace boost {
 
@@ -66,80 +65,58 @@ const boost::shared_ptr<neurite::geometry::abstract_node>& rhs) {
 namespace neurite {
 namespace geometry {
 
-operation_node::operation_node(
-    const neurite::geometry::operation& operation,
-    const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children)
+union_node::union_node(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands)
     : neurite::geometry::abstract_node(),
-      operation_(operation),
-      children_(children) { }
+      operands_(operands) { }
 
-void operation_node::to_stream(std::ostream& s) const {
+void union_node::to_stream(std::ostream& s) const {
     s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::operation_node\"" << ", "
+      << "\"__type__\": " << "\"neurite::geometry::union_node\"" << ", "
       << "\"__parent_0__\": ";
     abstract_node::to_stream(s);
     s << ", "
-      << "\"operation\": " << operation_ << ", "
-      << "\"children\": " << children_
+      << "\"operands\": " << operands_
       << " }";
 }
 
-void operation_node::swap(operation_node& other) noexcept {
+void union_node::swap(union_node& other) noexcept {
     abstract_node::swap(other);
 
     using std::swap;
-    swap(operation_, other.operation_);
-    swap(children_, other.children_);
+    swap(operands_, other.operands_);
 }
 
-bool operation_node::equals(const neurite::geometry::abstract_node& other) const {
-    const operation_node* const p(dynamic_cast<const operation_node* const>(&other));
+bool union_node::equals(const neurite::geometry::abstract_node& other) const {
+    const union_node* const p(dynamic_cast<const union_node* const>(&other));
     if (!p) return false;
     return *this == *p;
 }
 
-bool operation_node::operator==(const operation_node& rhs) const {
+bool union_node::operator==(const union_node& rhs) const {
     return abstract_node::compare(rhs) &&
-        operation_ == rhs.operation_ &&
-        children_ == rhs.children_;
+        operands_ == rhs.operands_;
 }
 
-operation_node& operation_node::operator=(operation_node other) {
+union_node& union_node::operator=(union_node other) {
     using std::swap;
     swap(*this, other);
     return *this;
 }
 
-const neurite::geometry::operation& operation_node::operation() const {
-    return operation_;
+const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& union_node::operands() const {
+    return operands_;
 }
 
-neurite::geometry::operation& operation_node::operation() {
-    return operation_;
+std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& union_node::operands() {
+    return operands_;
 }
 
-void operation_node::operation(const neurite::geometry::operation& v) {
-    operation_ = v;
+void union_node::operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
+    operands_ = v;
 }
 
-void operation_node::operation(const neurite::geometry::operation&& v) {
-    operation_ = std::move(v);
-}
-
-const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operation_node::children() const {
-    return children_;
-}
-
-std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operation_node::children() {
-    return children_;
-}
-
-void operation_node::children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
-    children_ = v;
-}
-
-void operation_node::children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v) {
-    children_ = std::move(v);
+void union_node::operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v) {
+    operands_ = std::move(v);
 }
 
 } }

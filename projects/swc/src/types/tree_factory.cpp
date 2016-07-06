@@ -19,7 +19,6 @@
  *
  */
 #include <sstream>
-#include <boost/make_shared.hpp>
 #include <boost/throw_exception.hpp>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/types/building_error.hpp"
@@ -42,15 +41,15 @@ const std::string duplicate_sample_number("Duplicate sample number found: ");
 namespace neurite {
 namespace swc {
 
-std::unordered_map<int, boost::shared_ptr<node>>
+std::unordered_map<int, node>
 tree_factory::initialise_index(const model& m) const {
-    std::unordered_map<int, boost::shared_ptr<node>> r;
+    std::unordered_map<int, node> r;
 
     for (const auto& s : m.samples()) {
-        auto node(boost::make_shared<node>());
-        node->content(s);
+        node n;
+        n.content(s);
 
-        const auto pair(std::make_pair(s.number(), node));
+        const auto pair(std::make_pair(s.number(), n));
         const auto result(r.insert(pair));
         if (!result.second) {
             BOOST_LOG_SEV(lg, error) << duplicate_sample_number << s.number()
@@ -64,10 +63,9 @@ tree_factory::initialise_index(const model& m) const {
     return r;
 }
 
-void tree_factory::
-link_index(std::unordered_map<int, boost::shared_ptr<node>>& index) const {
+void tree_factory::link_index(std::unordered_map<int, node>& index) const {
     for (auto& pair : index) {
-        auto& node(*pair.second);
+        auto& node(pair.second);
         const auto& sample(node.content());
         const auto sample_number(pair.first);
         if (sample_number == soma_sample_number) {
@@ -88,14 +86,11 @@ link_index(std::unordered_map<int, boost::shared_ptr<node>>& index) const {
                 << error_with_sample(sample.number())
                 << error_at_line(sample.line_number()));
         }
-        node.parent(i->second);
-        i->second->children().push_back(pair.second);
+        i->second.children().push_back(pair.second);
     }
 }
 
-boost::shared_ptr<node> tree_factory::
-get_soma(const std::unordered_map<int, boost::shared_ptr<node>>& index) const {
-
+node tree_factory::get_soma(const std::unordered_map<int, node>& index) const {
     auto i(index.find(soma_sample_number));
     if (i == index.end()) {
         BOOST_LOG_SEV(lg, error) << soma_not_found << soma_sample_number;

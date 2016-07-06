@@ -18,34 +18,47 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_SWC_TYPES_TREE_FACTORY_HPP
-#define NEURITE_SWC_TYPES_TREE_FACTORY_HPP
+#ifndef NEURITE_GEOMETRY_SWC_TYPES_TRANSFORMER_HPP
+#define NEURITE_GEOMETRY_SWC_TYPES_TRANSFORMER_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <unordered_map>
-#include <boost/exception/error_info.hpp>
-#include "neurite/swc/types/model.hpp"
+#include <boost/shared_ptr.hpp>
 #include "neurite/swc/types/tree.hpp"
+#include "neurite/swc/types/point.hpp"
+#include "neurite/swc/types/sample.hpp"
+#include "neurite/geometry/types/tree.hpp"
+#include "neurite/geometry/types/solid.hpp"
+#include "neurite/geometry/types/vector3d.hpp"
+#include "neurite/geometry/types/abstract_node.hpp"
 
 namespace neurite {
+namespace geometry {
 namespace swc {
 
-typedef boost::error_info<struct tag_line_number, int> error_at_line;
-typedef boost::error_info<struct tag_sample_number, int> error_with_sample;
-
-class tree_factory {
+class transformer {
 private:
-    std::unordered_map<int, node> initialise_index(const model& m) const;
-    void link_index(std::unordered_map<int, node>& index) const;
-    node get_soma(const std::unordered_map<int, node>& index) const;
+    geometry::solid creare_sphere(const neurite::swc::sample& s) const;
+    geometry::solid creare_truncated_cone(
+        const neurite::swc::sample& s1, const neurite::swc::sample& s2) const;
+
+    geometry::vector3d transform(const neurite::swc::point& p) const;
+
+
+private:
+    boost::shared_ptr<abstract_node>
+    transform(const neurite::swc::node& parent,
+        const neurite::swc::node& n) const;
+
+    boost::shared_ptr<abstract_node>
+    transform(const neurite::swc::node& n) const;
 
 public:
-    tree build(const model& m) const;
+    geometry::tree transform(const neurite::swc::tree& t) const;
 };
 
-} }
+} } }
 
 #endif

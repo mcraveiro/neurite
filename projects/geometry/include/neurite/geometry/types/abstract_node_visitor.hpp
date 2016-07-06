@@ -27,7 +27,7 @@
 
 #include "neurite/geometry/types/nef_node_fwd.hpp"
 #include "neurite/geometry/types/solid_node_fwd.hpp"
-#include "neurite/geometry/types/operation_node_fwd.hpp"
+#include "neurite/geometry/types/union_node_fwd.hpp"
 #include "neurite/geometry/types/polyhedron_node_fwd.hpp"
 #include "neurite/geometry/types/affine_transformation_node_fwd.hpp"
 
@@ -63,16 +63,6 @@ public:
     /**@}*/
 
     /**
-     * @brief Accept visits for type neurite::geometry::operation_node
-     */
-    /**@{*/
-    virtual void visit(const neurite::geometry::operation_node&) const { }
-    virtual void visit(const neurite::geometry::operation_node&) { }
-    virtual void visit(neurite::geometry::operation_node&) const { }
-    virtual void visit(neurite::geometry::operation_node&) { }
-    /**@}*/
-
-    /**
      * @brief Accept visits for type neurite::geometry::polyhedron_node
      */
     /**@{*/
@@ -90,6 +80,16 @@ public:
     virtual void visit(const neurite::geometry::solid_node&) { }
     virtual void visit(neurite::geometry::solid_node&) const { }
     virtual void visit(neurite::geometry::solid_node&) { }
+    /**@}*/
+
+    /**
+     * @brief Accept visits for type neurite::geometry::union_node
+     */
+    /**@{*/
+    virtual void visit(const neurite::geometry::union_node&) const { }
+    virtual void visit(const neurite::geometry::union_node&) { }
+    virtual void visit(neurite::geometry::union_node&) const { }
+    virtual void visit(neurite::geometry::union_node&) { }
     /**@}*/
 };
 

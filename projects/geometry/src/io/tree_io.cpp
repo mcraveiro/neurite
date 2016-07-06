@@ -38,20 +38,6 @@ inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite
 
 }
 
-namespace std {
-
-inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
-    s << "[ ";
-    for (auto i(v.begin()); i != v.end(); ++i) {
-        if (i != v.begin()) s << ", ";
-        s << *i;
-    }
-    s << "] ";
-    return s;
-}
-
-}
-
 namespace neurite {
 namespace geometry {
 

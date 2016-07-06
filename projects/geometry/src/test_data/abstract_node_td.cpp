@@ -20,8 +20,8 @@
  */
 #include "neurite/geometry/test_data/nef_node_td.hpp"
 #include "neurite/geometry/test_data/solid_node_td.hpp"
+#include "neurite/geometry/test_data/union_node_td.hpp"
 #include "neurite/geometry/test_data/abstract_node_td.hpp"
-#include "neurite/geometry/test_data/operation_node_td.hpp"
 #include "neurite/geometry/test_data/polyhedron_node_td.hpp"
 #include "neurite/geometry/test_data/affine_transformation_node_td.hpp"
 
@@ -37,11 +37,11 @@ abstract_node_generator::create_ptr(const unsigned int position) {
     if ((position % 4) == 0)
         return neurite::geometry::nef_node_generator::create_ptr(position);
     if ((position % 4) == 1)
-        return neurite::geometry::operation_node_generator::create_ptr(position);
-    if ((position % 4) == 2)
         return neurite::geometry::polyhedron_node_generator::create_ptr(position);
-    if ((position % 4) == 3)
+    if ((position % 4) == 2)
         return neurite::geometry::solid_node_generator::create_ptr(position);
+    if ((position % 4) == 3)
+        return neurite::geometry::union_node_generator::create_ptr(position);
     return neurite::geometry::affine_transformation_node_generator::create_ptr(position);
 }
 

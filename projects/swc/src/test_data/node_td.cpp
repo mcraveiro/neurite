@@ -28,22 +28,15 @@ create_neurite_swc_sample(const unsigned int position) {
     return neurite::swc::sample_generator::create(position);
 }
 
-neurite::swc::node*
-create_neurite_swc_node_ptr(const unsigned int) {
-    return nullptr;
+neurite::swc::node
+create_neurite_swc_node(const unsigned int) {
+    return neurite::swc::node();
 }
 
-boost::shared_ptr<neurite::swc::node>
-create_boost_shared_ptr_neurite_swc_node(unsigned int position) {
-    boost::shared_ptr<neurite::swc::node> r(
-        create_neurite_swc_node_ptr(position));
-    return r;
-}
-
-std::list<boost::shared_ptr<neurite::swc::node> > create_std_list_boost_shared_ptr_neurite_swc_node_(unsigned int position) {
-    std::list<boost::shared_ptr<neurite::swc::node> > r;
+std::list<neurite::swc::node> create_std_list_neurite_swc_node(unsigned int position) {
+    std::list<neurite::swc::node> r;
     for (unsigned int i(0); i < 4; ++i) {
-        r.push_back(create_boost_shared_ptr_neurite_swc_node(position + i));
+        r.push_back(create_neurite_swc_node(position + i));
     }
     return r;
 }
@@ -58,8 +51,7 @@ node_generator::node_generator() : position_(0) { }
 void node_generator::
 populate(const unsigned int position, result_type& v) {
     v.content(create_neurite_swc_sample(position + 0));
-    v.parent(create_boost_shared_ptr_neurite_swc_node(position + 1));
-    v.children(create_std_list_boost_shared_ptr_neurite_swc_node_(position + 2));
+    v.children(create_std_list_neurite_swc_node(position + 1));
 }
 
 node_generator::result_type

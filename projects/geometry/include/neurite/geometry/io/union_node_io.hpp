@@ -18,22 +18,22 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_IO_OPERATION_NODE_IO_HPP
-#define NEURITE_GEOMETRY_IO_OPERATION_NODE_IO_HPP
+#ifndef NEURITE_GEOMETRY_IO_UNION_NODE_IO_HPP
+#define NEURITE_GEOMETRY_IO_UNION_NODE_IO_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
 #include <iosfwd>
-#include "neurite/geometry/types/operation_node.hpp"
+#include "neurite/geometry/types/union_node.hpp"
 
 namespace neurite {
 namespace geometry {
 
 std::ostream&
 operator<<(std::ostream& s,
-     const neurite::geometry::operation_node& v);
+     const neurite::geometry::union_node& v);
 
 } }
 

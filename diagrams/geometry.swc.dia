@@ -284,19 +284,19 @@
         <dia:point val="30,30"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="29.95,29.95;43.255,33.65"/>
+        <dia:rectangle val="29.95,29.95;48.26,33.65"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="30,30"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="13.205"/>
+        <dia:real val="18.210000000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.6000000000000001"/>
       </dia:attribute>
       <dia:attribute name="name">
-        <dia:string>#tree_factory#</dia:string>
+        <dia:string>#transformer#</dia:string>
       </dia:attribute>
       <dia:attribute name="stereotype">
         <dia:string>#service#</dia:string>
@@ -386,13 +386,13 @@
       <dia:attribute name="operations">
         <dia:composite type="umloperation">
           <dia:attribute name="name">
-            <dia:string>#build#</dia:string>
+            <dia:string>#transform#</dia:string>
           </dia:attribute>
           <dia:attribute name="stereotype">
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#tree#</dia:string>
+            <dia:string>#geometry::tree#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -415,10 +415,10 @@
           <dia:attribute name="parameters">
             <dia:composite type="umlparameter">
               <dia:attribute name="name">
-                <dia:string>#m#</dia:string>
+                <dia:string>#t#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#const swc::model&amp;#</dia:string>
+                <dia:string>#const swc::tree&amp;#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>

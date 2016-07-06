@@ -29,12 +29,6 @@ inline void combine(std::size_t& seed, const HashableType& value) {
     seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
-inline std::size_t hash_boost_shared_ptr_neurite_swc_node(const boost::shared_ptr<neurite::swc::node>& v) {
-    std::size_t seed(0);
-    combine(seed, *v);
-    return seed;
-}
-
 }
 
 namespace neurite {
@@ -43,7 +37,7 @@ namespace swc {
 std::size_t tree_hasher::hash(const tree& v) {
     std::size_t seed(0);
 
-    combine(seed, hash_boost_shared_ptr_neurite_swc_node(v.root()));
+    combine(seed, v.root());
     return seed;
 }
 
