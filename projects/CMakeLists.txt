@@ -130,6 +130,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/projects/soma/include
     ${CMAKE_SOURCE_DIR}/projects/geometry/include
     ${CMAKE_SOURCE_DIR}/projects/geometry.swc/include
+    ${CMAKE_SOURCE_DIR}/projects/scader/include
     ${CMAKE_SOURCE_DIR}/projects/vtk.geometry/include
     ${CMAKE_SOURCE_DIR}/projects/utility/include
     )

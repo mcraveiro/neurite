@@ -18,10 +18,42 @@
  * MA 02110-1301, USA.
  *
  */
+#include <iostream>
 #include "neurite/swc/types/hydrator.hpp"
 #include "neurite/swc/types/tree_factory.hpp"
 #include "neurite/geometry/types/scad_evaluator.hpp"
+#include "neurite/scader/program_options_parser.hpp"
+#include "neurite/scader/parser_validation_error.hpp"
 
-int main(const int /*argc*/, const char** /*argv[]*/) {
+namespace {
+
+const std::string more_information(
+    "Try `neurite.scader --help' for more information.");
+const std::string usage_error_msg("Usage error: ");
+
+}
+
+int main(const int argc, const char* argv[]) {
+    try {
+        neurite::scader::program_options_parser p;
+        const auto o(p.parse(argc, argv));
+
+        /* can only happen if the options are valid but do not
+         * require any action.
+         */
+        if (!o)
+            return 0;
+    } catch (const neurite::scader::parser_validation_error& e) {
+        std::cerr << usage_error_msg << e.what() << std::endl
+                  << more_information << std::endl;
+        return 1;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;;
+        return 1;
+    } catch(...) {
+        std::cerr << "A fatal error occurred during the conversion: ";
+        return 1;
+    }
+
     return 0;
 }
