@@ -29,6 +29,7 @@ set_target_properties(${name} PROPERTIES OUTPUT_NAME neurite.${name})
 target_link_libraries(${name}
     swc
     geometry
+    geometry_swc
     utility
     ${LIBXML2_LIBRARIES}
     ${Boost_LIBRARIES})

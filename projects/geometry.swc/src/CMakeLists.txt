@@ -24,6 +24,7 @@ file(GLOB_RECURSE all_files RELATIVE
 
 add_library(geometry_swc STATIC ${all_files})
 target_link_libraries(geometry_swc
+  geometry
   ${Boost_LIBRARIES}
   ${CGAL_LIBRARIES})
 
