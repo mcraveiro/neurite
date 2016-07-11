@@ -18,9 +18,9 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/test_data/node_td.hpp"
 #include "neurite/geometry/test_data/solid_td.hpp"
 #include "neurite/geometry/test_data/solid_node_td.hpp"
-#include "neurite/geometry/test_data/abstract_node_td.hpp"
 
 namespace {
 
@@ -45,7 +45,7 @@ solid_node_generator::solid_node_generator() : position_(0) { }
 
 void solid_node_generator::
 populate(const unsigned int position, result_type& v) {
-    neurite::geometry::abstract_node_generator::populate(position, v);
+    neurite::geometry::node_generator::populate(position, v);
     v.solid(create_boost_shared_ptr_neurite_geometry_solid(position + 0));
 }
 

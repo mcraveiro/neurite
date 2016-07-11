@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/hash/node_hash.hpp"
 #include "neurite/geometry/hash/nef_node_hash.hpp"
-#include "neurite/geometry/hash/abstract_node_hash.hpp"
 #include "neurite/geometry/hash/nef_polyhedron_hash.hpp"
 
 namespace {
@@ -38,7 +38,7 @@ namespace geometry {
 std::size_t nef_node_hasher::hash(const nef_node& v) {
     std::size_t seed(0);
 
-    combine(seed, dynamic_cast<const neurite::geometry::abstract_node&>(v));
+    combine(seed, dynamic_cast<const neurite::geometry::node&>(v));
 
     combine(seed, v.polyhedron());
     return seed;

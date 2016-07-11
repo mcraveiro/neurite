@@ -18,15 +18,19 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/io/abstract_node_io.hpp"
+#include "neurite/geometry/hash/node_hash.hpp"
+
+namespace {
+
+
+}
 
 namespace neurite {
 namespace geometry {
 
-std::ostream& operator<<(std::ostream& s, const abstract_node& v) {
-    v.to_stream(s);
-    return(s);
+std::size_t node_hasher::hash(const node&) {
+    std::size_t seed(0);
+    return seed;
 }
 
 } }

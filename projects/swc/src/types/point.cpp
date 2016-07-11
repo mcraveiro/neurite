@@ -26,32 +26,27 @@ namespace swc {
 point::point()
     : x_(static_cast<double>(0)),
       y_(static_cast<double>(0)),
-      z_(static_cast<double>(0)),
-      radius_(static_cast<double>(0)) { }
+      z_(static_cast<double>(0)) { }
 
 point::point(
     const double x,
     const double y,
-    const double z,
-    const double radius)
+    const double z)
     : x_(x),
       y_(y),
-      z_(z),
-      radius_(radius) { }
+      z_(z) { }
 
 void point::swap(point& other) noexcept {
     using std::swap;
     swap(x_, other.x_);
     swap(y_, other.y_);
     swap(z_, other.z_);
-    swap(radius_, other.radius_);
 }
 
 bool point::operator==(const point& rhs) const {
     return x_ == rhs.x_ &&
         y_ == rhs.y_ &&
-        z_ == rhs.z_ &&
-        radius_ == rhs.radius_;
+        z_ == rhs.z_;
 }
 
 point& point::operator=(point other) {
@@ -84,15 +79,6 @@ double point::z() const {
 
 point& point::z(const double v) {
     z_ = v;
-    return *this;
-}
-
-double point::radius() const {
-    return radius_;
-}
-
-point& point::radius(const double v) {
-    radius_ = v;
     return *this;
 }
 

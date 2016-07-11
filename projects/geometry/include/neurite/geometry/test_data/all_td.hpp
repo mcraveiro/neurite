@@ -25,6 +25,7 @@
 #pragma once
 #endif
 
+#include "neurite/geometry/test_data/node_td.hpp"
 #include "neurite/geometry/test_data/tree_td.hpp"
 #include "neurite/geometry/test_data/solid_td.hpp"
 #include "neurite/geometry/test_data/sphere_td.hpp"
@@ -34,7 +35,6 @@
 #include "neurite/geometry/test_data/polyhedron_td.hpp"
 #include "neurite/geometry/test_data/solid_node_td.hpp"
 #include "neurite/geometry/test_data/union_node_td.hpp"
-#include "neurite/geometry/test_data/abstract_node_td.hpp"
 #include "neurite/geometry/test_data/nef_polyhedron_td.hpp"
 #include "neurite/geometry/test_data/truncated_cone_td.hpp"
 #include "neurite/geometry/test_data/polyhedron_node_td.hpp"

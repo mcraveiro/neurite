@@ -18,13 +18,38 @@
  * MA 02110-1301, USA.
  *
  */
+#include <sstream>
+#include <boost/throw_exception.hpp>
+#include "neurite/utility/log/logger.hpp"
+#include "neurite/geometry/io/tree_io.hpp"
+#include "neurite/geometry/types/node.hpp"
+#include "neurite/geometry/types/sphere.hpp"
+#include "neurite/geometry/types/union_node.hpp"
+#include "neurite/geometry/types/solid_node.hpp"
+#include "neurite/geometry/types/node_visitor.hpp"
+#include "neurite/geometry/types/solid_visitor.hpp"
+#include "neurite/geometry/types/evaluation_error.hpp"
+#include "neurite/geometry/types/scad_formatter.hpp"
 #include "neurite/geometry/types/scad_evaluator.hpp"
+
+namespace {
+
+using namespace neurite::utility::log;
+auto lg(logger_factory("geometry.scad_evaluator"));
+
+const std::string indent_unit("    ");
+
+}
 
 namespace neurite {
 namespace geometry {
 
-std::string scad_evaluator::evaluate(const tree& /*t*/) const {
-    std::string r("test");
+std::string scad_evaluator::evaluate(const tree& t) const {
+    BOOST_LOG_SEV(lg, debug) << "Starting evaluation at root.";
+    BOOST_LOG_SEV(lg, debug) << "Tree contents: " << t;
+    scad_formatter sf;
+    const auto r(sf.format(*t.root()));
+    BOOST_LOG_SEV(lg, debug) << "Finished evaluation. Result: " << r;
     return r;
 }
 

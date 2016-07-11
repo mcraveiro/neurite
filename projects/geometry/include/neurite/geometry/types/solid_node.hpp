@@ -28,14 +28,14 @@
 #include <iosfwd>
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
+#include "neurite/geometry/types/node.hpp"
 #include "neurite/geometry/types/solid_fwd.hpp"
-#include "neurite/geometry/types/abstract_node.hpp"
 #include "neurite/geometry/serialization/solid_node_fwd_ser.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class solid_node final : public neurite::geometry::abstract_node {
+class solid_node final : public neurite::geometry::node {
 public:
     solid_node() = default;
     solid_node(const solid_node&) = default;
@@ -54,21 +54,21 @@ private:
     friend void boost::serialization::load(Archive& ar, neurite::geometry::solid_node& v, unsigned int version);
 
 public:
-    using abstract_node::accept;
+    using node::accept;
 
-    virtual void accept(const abstract_node_visitor& v) const override {
+    virtual void accept(const node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) const override {
+    virtual void accept(node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(const abstract_node_visitor& v) override {
+    virtual void accept(const node_visitor& v) override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) override {
+    virtual void accept(node_visitor& v) override {
         v.visit(*this);
     }
 
@@ -88,7 +88,7 @@ public:
     }
 
 public:
-    bool equals(const neurite::geometry::abstract_node& other) const override;
+    bool equals(const neurite::geometry::node& other) const override;
 
 public:
     void swap(solid_node& other) noexcept;

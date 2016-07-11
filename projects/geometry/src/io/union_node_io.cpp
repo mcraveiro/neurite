@@ -19,8 +19,8 @@
  *
  */
 #include <ostream>
+#include "neurite/geometry/io/node_io.hpp"
 #include "neurite/geometry/io/union_node_io.hpp"
-#include "neurite/geometry/io/abstract_node_io.hpp"
 
 namespace neurite {
 namespace geometry {

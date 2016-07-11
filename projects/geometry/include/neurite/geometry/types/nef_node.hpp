@@ -27,14 +27,14 @@
 
 #include <iosfwd>
 #include <algorithm>
-#include "neurite/geometry/types/abstract_node.hpp"
+#include "neurite/geometry/types/node.hpp"
 #include "neurite/geometry/types/nef_polyhedron.hpp"
 #include "neurite/geometry/serialization/nef_node_fwd_ser.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class nef_node final : public neurite::geometry::abstract_node {
+class nef_node final : public neurite::geometry::node {
 public:
     nef_node() = default;
     nef_node(const nef_node&) = default;
@@ -53,21 +53,21 @@ private:
     friend void boost::serialization::load(Archive& ar, neurite::geometry::nef_node& v, unsigned int version);
 
 public:
-    using abstract_node::accept;
+    using node::accept;
 
-    virtual void accept(const abstract_node_visitor& v) const override {
+    virtual void accept(const node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) const override {
+    virtual void accept(node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(const abstract_node_visitor& v) override {
+    virtual void accept(const node_visitor& v) override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) override {
+    virtual void accept(node_visitor& v) override {
         v.visit(*this);
     }
 
@@ -87,7 +87,7 @@ public:
     }
 
 public:
-    bool equals(const neurite::geometry::abstract_node& other) const override;
+    bool equals(const neurite::geometry::node& other) const override;
 
 public:
     void swap(nef_node& other) noexcept;

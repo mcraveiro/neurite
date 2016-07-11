@@ -29,8 +29,8 @@
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
+#include "neurite/geometry/serialization/node_ser.hpp"
 #include "neurite/geometry/serialization/union_node_ser.hpp"
-#include "neurite/geometry/serialization/abstract_node_ser.hpp"
 
 BOOST_CLASS_TRACKING(
     neurite::geometry::union_node,
@@ -43,7 +43,7 @@ template<typename Archive>
 void save(Archive& ar,
     const neurite::geometry::union_node& v,
     const unsigned int /*version*/) {
-    ar << make_nvp("abstract_node", base_object<neurite::geometry::abstract_node>(v));
+    ar << make_nvp("node", base_object<neurite::geometry::node>(v));
 
     ar << make_nvp("operands", v.operands_);
 }
@@ -52,7 +52,7 @@ template<typename Archive>
 void load(Archive& ar,
     neurite::geometry::union_node& v,
     const unsigned int /*version*/) {
-    ar >> make_nvp("abstract_node", base_object<neurite::geometry::abstract_node>(v));
+    ar >> make_nvp("node", base_object<neurite::geometry::node>(v));
 
     ar >> make_nvp("operands", v.operands_);
 }

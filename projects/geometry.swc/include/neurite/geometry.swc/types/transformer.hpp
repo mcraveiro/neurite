@@ -32,7 +32,7 @@
 #include "neurite/geometry/types/tree.hpp"
 #include "neurite/geometry/types/solid.hpp"
 #include "neurite/geometry/types/vector3d.hpp"
-#include "neurite/geometry/types/abstract_node.hpp"
+#include "neurite/geometry/types/node.hpp"
 
 namespace neurite {
 namespace geometry {
@@ -50,12 +50,10 @@ private:
 
 
 private:
-    boost::shared_ptr<abstract_node>
-    transform(const neurite::swc::node& parent,
+    boost::shared_ptr<node> transform(const neurite::swc::node& parent,
         const neurite::swc::node& n) const;
 
-    boost::shared_ptr<abstract_node>
-    transform(const neurite::swc::node& n) const;
+    boost::shared_ptr<node> transform(const neurite::swc::node& n) const;
 
 public:
     geometry::tree transform(const neurite::swc::tree& t) const;

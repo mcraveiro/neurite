@@ -44,8 +44,7 @@ public:
     point(
         const double x,
         const double y,
-        const double z,
-        const double radius);
+        const double z);
 
 private:
     template<typename Archive>
@@ -79,14 +78,6 @@ public:
     point& z(const double v);
     /**@}*/
 
-    /**
-     * @brief Half the dendrite thickness, given in micrometers.
-     */
-    /**@{*/
-    double radius() const;
-    point& radius(const double v);
-    /**@}*/
-
 public:
     bool operator==(const point& rhs) const;
     bool operator!=(const point& rhs) const {
@@ -101,7 +92,6 @@ private:
     double x_;
     double y_;
     double z_;
-    double radius_;
 };
 
 } }

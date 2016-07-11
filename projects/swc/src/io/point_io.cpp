@@ -36,8 +36,7 @@ std::ostream& operator<<(std::ostream& s, const point& v) {
       << "\"__type__\": " << "\"neurite::swc::point\"" << ", "
       << "\"x\": " << v.x() << ", "
       << "\"y\": " << v.y() << ", "
-      << "\"z\": " << v.z() << ", "
-      << "\"radius\": " << v.radius()
+      << "\"z\": " << v.z()
       << " }";
     return(s);
 }

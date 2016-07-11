@@ -19,6 +19,7 @@
  *
  */
 #include <boost/make_shared.hpp>
+#include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/types/node.hpp"
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/union_node.hpp"
@@ -26,12 +27,23 @@
 #include "neurite/geometry/types/truncated_cone.hpp"
 #include "neurite/geometry.swc/types/transformer.hpp"
 
+namespace {
+
+using namespace neurite::utility::log;
+auto lg(logger_factory("geometry.swc.transformer"));
+
+const std::string indent_unit("    ");
+
+}
+
+
 namespace neurite {
 namespace geometry {
 namespace swc {
 
 boost::shared_ptr<geometry::solid>
 transformer::creare_sphere(const neurite::swc::sample& s) const {
+    BOOST_LOG_SEV(lg, debug) << "Creating sphere.";
     auto r(boost::make_shared<geometry::sphere>());
     r->centre(transform(s.position()));
     r->radius(s.radius());
@@ -40,6 +52,7 @@ transformer::creare_sphere(const neurite::swc::sample& s) const {
 
 boost::shared_ptr<geometry::solid> transformer::creare_truncated_cone(
     const neurite::swc::sample& s1, const neurite::swc::sample& s2) const {
+    BOOST_LOG_SEV(lg, debug) << "Creating truncated cone.";
     auto r(boost::make_shared<geometry::truncated_cone>());
 
     r->first(transform(s1.position()));
@@ -51,6 +64,7 @@ boost::shared_ptr<geometry::solid> transformer::creare_truncated_cone(
 }
 
 geometry::vector3d transformer::transform(const neurite::swc::point& p) const {
+    BOOST_LOG_SEV(lg, debug) << "Transforming point.";
     geometry::vector3d r;
     r.x(p.x());
     r.y(p.y());
@@ -58,8 +72,9 @@ geometry::vector3d transformer::transform(const neurite::swc::point& p) const {
     return r;
 }
 
-boost::shared_ptr<abstract_node> transformer::
+boost::shared_ptr<node> transformer::
 transform(const neurite::swc::node& parent, const neurite::swc::node& n) const {
+    BOOST_LOG_SEV(lg, debug) << "Transforming two nodes.";
     const auto lambda([&]() {
             auto r(boost::make_shared<solid_node>());
             r->solid(creare_truncated_cone(parent.content(), n.content()));
@@ -78,8 +93,9 @@ transform(const neurite::swc::node& parent, const neurite::swc::node& n) const {
     return r;
 }
 
-boost::shared_ptr<abstract_node> transformer::
+boost::shared_ptr<node> transformer::
 transform(const neurite::swc::node& n) const {
+    BOOST_LOG_SEV(lg, debug) << "Transforming single node.";
     const auto soma(neurite::swc::structure_identifier_types::soma);
     const bool is_soma(n.content().structure_identifier() == soma);
     const bool is_root(n.content().number() == 0);
@@ -95,12 +111,17 @@ transform(const neurite::swc::node& n) const {
          * If I do not have children and I'm not the root soma, there
          * is nothing to be done.
          */
-        if (!is_soma || !is_root)
-            return boost::shared_ptr<abstract_node>();
+        if (!is_soma || !is_root) {
+            BOOST_LOG_SEV(lg, debug) << "Not creating sphere for soma."
+                                     << " is soma: " << is_soma
+                                     << " is root: " << is_root;
+            return boost::shared_ptr<node>();
+        }
 
         /*
          * Create a sphere for the root soma.
          */
+        BOOST_LOG_SEV(lg, debug) << "Creating sphere for soma.";
         return lambda();
     }
 

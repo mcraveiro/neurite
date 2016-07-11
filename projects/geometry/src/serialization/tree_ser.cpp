@@ -28,8 +28,8 @@
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/archive/polymorphic_iarchive.hpp>
 #include <boost/archive/polymorphic_oarchive.hpp>
+#include "neurite/geometry/serialization/node_ser.hpp"
 #include "neurite/geometry/serialization/tree_ser.hpp"
-#include "neurite/geometry/serialization/abstract_node_ser.hpp"
 
 namespace boost {
 namespace serialization {

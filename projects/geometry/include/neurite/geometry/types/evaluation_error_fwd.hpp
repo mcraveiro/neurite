@@ -18,17 +18,21 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/io/node_io.hpp"
-#include "neurite/geometry/io/polyhedron_io.hpp"
-#include "neurite/geometry/io/polyhedron_node_io.hpp"
+#ifndef NEURITE_GEOMETRY_TYPES_EVALUATION_ERROR_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_EVALUATION_ERROR_FWD_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
+
+#include <string>
+#include <boost/exception/info.hpp>
 
 namespace neurite {
 namespace geometry {
 
-std::ostream& operator<<(std::ostream& s, const polyhedron_node& v) {
-    v.to_stream(s);
-    return(s);
-}
+class evaluation_error;
 
 } }
+
+#endif

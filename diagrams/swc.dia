@@ -1018,8 +1018,9 @@ Identifies the brain structure.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#'radius' is half the dendrite thickness, also given in micrometers (note this is
-one of the few formats which use radius instead of diameter).#</dia:string>
+            <dia:string>#Half the dendrite thickness, also given in micrometers.
+
+Note this is one of the few formats which use radius instead of diameter.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2326,16 +2327,16 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:point val="-6,42"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-6.05,41.95;0.325,48.05"/>
+        <dia:rectangle val="-6.05,41.95;-1.6,47.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="-6,42"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="6.2750000000000004"/>
+        <dia:real val="4.3499999999999996"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="6.0000000000000009"/>
+        <dia:real val="5.2000000000000011"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#point#</dia:string>
@@ -2494,29 +2495,6 @@ Parent samples should appear before any child samples.#</dia:string>
             <dia:boolean val="false"/>
           </dia:attribute>
         </dia:composite>
-        <dia:composite type="umlattribute">
-          <dia:attribute name="name">
-            <dia:string>#radius#</dia:string>
-          </dia:attribute>
-          <dia:attribute name="type">
-            <dia:string>#double#</dia:string>
-          </dia:attribute>
-          <dia:attribute name="value">
-            <dia:string>##</dia:string>
-          </dia:attribute>
-          <dia:attribute name="comment">
-            <dia:string>#Half the dendrite thickness, given in micrometers.#</dia:string>
-          </dia:attribute>
-          <dia:attribute name="visibility">
-            <dia:enum val="0"/>
-          </dia:attribute>
-          <dia:attribute name="abstract">
-            <dia:boolean val="false"/>
-          </dia:attribute>
-          <dia:attribute name="class_scope">
-            <dia:boolean val="false"/>
-          </dia:attribute>
-        </dia:composite>
       </dia:attribute>
       <dia:attribute name="operations"/>
       <dia:attribute name="template">
@@ -2565,7 +2543,7 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:point val="7,30.6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-2.9125,29.85;7.75,42.8"/>
+        <dia:rectangle val="-3.875,29.85;7.75,42.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -2573,8 +2551,8 @@ Parent samples should appear before any child samples.#</dia:string>
       <dia:attribute name="orth_points">
         <dia:point val="7,30.6"/>
         <dia:point val="7,37"/>
-        <dia:point val="-2.8625,37"/>
-        <dia:point val="-2.8625,42"/>
+        <dia:point val="-3.825,37"/>
+        <dia:point val="-3.825,42"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>

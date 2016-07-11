@@ -92,8 +92,9 @@ public:
     /**@}*/
 
     /**
-     * @brief 'radius' is half the dendrite thickness, also given in micrometers (note this is
-     * one of the few formats which use radius instead of diameter).
+     * @brief Half the dendrite thickness, also given in micrometers.
+     *
+     * Note this is one of the few formats which use radius instead of diameter.
      */
     /**@{*/
     double radius() const;

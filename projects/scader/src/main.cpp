@@ -61,6 +61,7 @@ int main(const int argc, const char* argv[]) {
 
         const auto source(o->first);
         initialise_logging(source.stem().string(), true/*verbose*/);
+        BOOST_LOG_SEV(lg, debug) << p.product() << " started.";
 
         neurite::swc::hydrator h;
         const auto m(h.hydrate(source));
@@ -76,6 +77,8 @@ int main(const int argc, const char* argv[]) {
 
         const auto destination(o->second);
         neurite::utility::filesystem::write_file_content(destination, scad);
+
+        BOOST_LOG_SEV(lg, debug) << p.product() << " finished.";
 
     } catch (const neurite::scader::parser_validation_error& e) {
         std::cerr << usage_error_msg << e.what() << std::endl

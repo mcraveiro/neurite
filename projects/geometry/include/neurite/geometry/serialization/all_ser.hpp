@@ -25,6 +25,7 @@
 #pragma once
 #endif
 
+#include "neurite/geometry/serialization/node_ser.hpp"
 #include "neurite/geometry/serialization/tree_ser.hpp"
 #include "neurite/geometry/serialization/solid_ser.hpp"
 #include "neurite/geometry/serialization/sphere_ser.hpp"
@@ -35,7 +36,6 @@
 #include "neurite/geometry/serialization/polyhedron_ser.hpp"
 #include "neurite/geometry/serialization/solid_node_ser.hpp"
 #include "neurite/geometry/serialization/union_node_ser.hpp"
-#include "neurite/geometry/serialization/abstract_node_ser.hpp"
 #include "neurite/geometry/serialization/nef_polyhedron_ser.hpp"
 #include "neurite/geometry/serialization/truncated_cone_ser.hpp"
 #include "neurite/geometry/serialization/polyhedron_node_ser.hpp"

@@ -29,15 +29,15 @@
 #include <iosfwd>
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
-#include "neurite/geometry/types/abstract_node.hpp"
-#include "neurite/geometry/types/abstract_node_fwd.hpp"
+#include "neurite/geometry/types/node.hpp"
+#include "neurite/geometry/types/node_fwd.hpp"
 #include "neurite/geometry/types/affine_transformation.hpp"
 #include "neurite/geometry/serialization/affine_transformation_node_fwd_ser.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class affine_transformation_node final : public neurite::geometry::abstract_node {
+class affine_transformation_node final : public neurite::geometry::node {
 public:
     affine_transformation_node() = default;
     affine_transformation_node(const affine_transformation_node&) = default;
@@ -48,7 +48,7 @@ public:
 public:
     affine_transformation_node(
         const neurite::geometry::affine_transformation& transformation,
-        const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children);
+        const std::list<boost::shared_ptr<neurite::geometry::node> >& children);
 
 private:
     template<typename Archive>
@@ -58,21 +58,21 @@ private:
     friend void boost::serialization::load(Archive& ar, neurite::geometry::affine_transformation_node& v, unsigned int version);
 
 public:
-    using abstract_node::accept;
+    using node::accept;
 
-    virtual void accept(const abstract_node_visitor& v) const override {
+    virtual void accept(const node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) const override {
+    virtual void accept(node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(const abstract_node_visitor& v) override {
+    virtual void accept(const node_visitor& v) override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) override {
+    virtual void accept(node_visitor& v) override {
         v.visit(*this);
     }
 
@@ -85,10 +85,10 @@ public:
     void transformation(const neurite::geometry::affine_transformation& v);
     void transformation(const neurite::geometry::affine_transformation&& v);
 
-    const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children() const;
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children();
-    void children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v);
-    void children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v);
+    const std::list<boost::shared_ptr<neurite::geometry::node> >& children() const;
+    std::list<boost::shared_ptr<neurite::geometry::node> >& children();
+    void children(const std::list<boost::shared_ptr<neurite::geometry::node> >& v);
+    void children(const std::list<boost::shared_ptr<neurite::geometry::node> >&& v);
 
 public:
     bool operator==(const affine_transformation_node& rhs) const;
@@ -97,7 +97,7 @@ public:
     }
 
 public:
-    bool equals(const neurite::geometry::abstract_node& other) const override;
+    bool equals(const neurite::geometry::node& other) const override;
 
 public:
     void swap(affine_transformation_node& other) noexcept;
@@ -105,7 +105,7 @@ public:
 
 private:
     neurite::geometry::affine_transformation transformation_;
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> > children_;
+    std::list<boost::shared_ptr<neurite::geometry::node> > children_;
 };
 
 } }

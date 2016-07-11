@@ -19,7 +19,7 @@
  *
  */
 #include <ostream>
-#include "neurite/geometry/io/abstract_node_io.hpp"
+#include "neurite/geometry/io/node_io.hpp"
 #include "neurite/geometry/io/affine_transformation_io.hpp"
 #include "neurite/geometry/io/affine_transformation_node_io.hpp"
 

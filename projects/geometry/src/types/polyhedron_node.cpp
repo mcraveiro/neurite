@@ -19,42 +19,42 @@
  *
  */
 #include <ostream>
+#include "neurite/geometry/io/node_io.hpp"
 #include "neurite/geometry/io/polyhedron_io.hpp"
-#include "neurite/geometry/io/abstract_node_io.hpp"
 #include "neurite/geometry/types/polyhedron_node.hpp"
 
 namespace neurite {
 namespace geometry {
 
 polyhedron_node::polyhedron_node(const neurite::geometry::polyhedron& polyhedron)
-    : neurite::geometry::abstract_node(),
+    : neurite::geometry::node(),
       polyhedron_(polyhedron) { }
 
 void polyhedron_node::to_stream(std::ostream& s) const {
     s << " { "
       << "\"__type__\": " << "\"neurite::geometry::polyhedron_node\"" << ", "
       << "\"__parent_0__\": ";
-    abstract_node::to_stream(s);
+    node::to_stream(s);
     s << ", "
       << "\"polyhedron\": " << polyhedron_
       << " }";
 }
 
 void polyhedron_node::swap(polyhedron_node& other) noexcept {
-    abstract_node::swap(other);
+    node::swap(other);
 
     using std::swap;
     swap(polyhedron_, other.polyhedron_);
 }
 
-bool polyhedron_node::equals(const neurite::geometry::abstract_node& other) const {
+bool polyhedron_node::equals(const neurite::geometry::node& other) const {
     const polyhedron_node* const p(dynamic_cast<const polyhedron_node* const>(&other));
     if (!p) return false;
     return *this == *p;
 }
 
 bool polyhedron_node::operator==(const polyhedron_node& rhs) const {
-    return abstract_node::compare(rhs) &&
+    return node::compare(rhs) &&
         polyhedron_ == rhs.polyhedron_;
 }
 

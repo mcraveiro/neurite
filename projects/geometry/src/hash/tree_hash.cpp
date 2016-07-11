@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/hash/node_hash.hpp"
 #include "neurite/geometry/hash/tree_hash.hpp"
-#include "neurite/geometry/hash/abstract_node_hash.hpp"
 
 namespace {
 
@@ -29,7 +29,7 @@ inline void combine(std::size_t& seed, const HashableType& value) {
     seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
-inline std::size_t hash_boost_shared_ptr_neurite_geometry_abstract_node(const boost::shared_ptr<neurite::geometry::abstract_node>& v) {
+inline std::size_t hash_boost_shared_ptr_neurite_geometry_node(const boost::shared_ptr<neurite::geometry::node>& v) {
     std::size_t seed(0);
     combine(seed, *v);
     return seed;
@@ -43,7 +43,7 @@ namespace geometry {
 std::size_t tree_hasher::hash(const tree& v) {
     std::size_t seed(0);
 
-    combine(seed, hash_boost_shared_ptr_neurite_geometry_abstract_node(v.root()));
+    combine(seed, hash_boost_shared_ptr_neurite_geometry_node(v.root()));
     return seed;
 }
 

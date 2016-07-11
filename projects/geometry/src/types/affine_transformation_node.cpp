@@ -19,14 +19,14 @@
  *
  */
 #include <ostream>
-#include "neurite/geometry/io/abstract_node_io.hpp"
-#include "neurite/geometry/types/abstract_node.hpp"
+#include "neurite/geometry/io/node_io.hpp"
+#include "neurite/geometry/types/node.hpp"
 #include "neurite/geometry/io/affine_transformation_io.hpp"
 #include "neurite/geometry/types/affine_transformation_node.hpp"
 
 namespace boost {
 
-inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::geometry::abstract_node>& v) {
+inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::geometry::node>& v) {
     s << "{ " << "\"__type__\": " << "\"boost::shared_ptr\"" << ", "
       << "\"memory\": " << "\"" << static_cast<void*>(v.get()) << "\"" << ", ";
 
@@ -42,7 +42,7 @@ inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite
 
 namespace std {
 
-inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
+inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_ptr<neurite::geometry::node> >& v) {
     s << "[ ";
     for (auto i(v.begin()); i != v.end(); ++i) {
         if (i != v.begin()) s << ", ";
@@ -56,8 +56,8 @@ inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_p
 
 namespace boost {
 
-inline bool operator==(const boost::shared_ptr<neurite::geometry::abstract_node>& lhs,
-const boost::shared_ptr<neurite::geometry::abstract_node>& rhs) {
+inline bool operator==(const boost::shared_ptr<neurite::geometry::node>& lhs,
+const boost::shared_ptr<neurite::geometry::node>& rhs) {
     return (!lhs && !rhs) ||(lhs && rhs && (*lhs == *rhs));
 }
 
@@ -68,8 +68,8 @@ namespace geometry {
 
 affine_transformation_node::affine_transformation_node(
     const neurite::geometry::affine_transformation& transformation,
-    const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& children)
-    : neurite::geometry::abstract_node(),
+    const std::list<boost::shared_ptr<neurite::geometry::node> >& children)
+    : neurite::geometry::node(),
       transformation_(transformation),
       children_(children) { }
 
@@ -77,7 +77,7 @@ void affine_transformation_node::to_stream(std::ostream& s) const {
     s << " { "
       << "\"__type__\": " << "\"neurite::geometry::affine_transformation_node\"" << ", "
       << "\"__parent_0__\": ";
-    abstract_node::to_stream(s);
+    node::to_stream(s);
     s << ", "
       << "\"transformation\": " << transformation_ << ", "
       << "\"children\": " << children_
@@ -85,21 +85,21 @@ void affine_transformation_node::to_stream(std::ostream& s) const {
 }
 
 void affine_transformation_node::swap(affine_transformation_node& other) noexcept {
-    abstract_node::swap(other);
+    node::swap(other);
 
     using std::swap;
     swap(transformation_, other.transformation_);
     swap(children_, other.children_);
 }
 
-bool affine_transformation_node::equals(const neurite::geometry::abstract_node& other) const {
+bool affine_transformation_node::equals(const neurite::geometry::node& other) const {
     const affine_transformation_node* const p(dynamic_cast<const affine_transformation_node* const>(&other));
     if (!p) return false;
     return *this == *p;
 }
 
 bool affine_transformation_node::operator==(const affine_transformation_node& rhs) const {
-    return abstract_node::compare(rhs) &&
+    return node::compare(rhs) &&
         transformation_ == rhs.transformation_ &&
         children_ == rhs.children_;
 }
@@ -126,19 +126,19 @@ void affine_transformation_node::transformation(const neurite::geometry::affine_
     transformation_ = std::move(v);
 }
 
-const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& affine_transformation_node::children() const {
+const std::list<boost::shared_ptr<neurite::geometry::node> >& affine_transformation_node::children() const {
     return children_;
 }
 
-std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& affine_transformation_node::children() {
+std::list<boost::shared_ptr<neurite::geometry::node> >& affine_transformation_node::children() {
     return children_;
 }
 
-void affine_transformation_node::children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
+void affine_transformation_node::children(const std::list<boost::shared_ptr<neurite::geometry::node> >& v) {
     children_ = v;
 }
 
-void affine_transformation_node::children(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v) {
+void affine_transformation_node::children(const std::list<boost::shared_ptr<neurite::geometry::node> >&& v) {
     children_ = std::move(v);
 }
 

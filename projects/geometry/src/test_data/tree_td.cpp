@@ -18,20 +18,20 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/test_data/node_td.hpp"
 #include "neurite/geometry/test_data/tree_td.hpp"
-#include "neurite/geometry/test_data/abstract_node_td.hpp"
 
 namespace {
 
-neurite::geometry::abstract_node*
-create_neurite_geometry_abstract_node_ptr(const unsigned int position) {
-    return neurite::geometry::abstract_node_generator::create_ptr(position);
+neurite::geometry::node*
+create_neurite_geometry_node_ptr(const unsigned int position) {
+    return neurite::geometry::node_generator::create_ptr(position);
 }
 
-boost::shared_ptr<neurite::geometry::abstract_node>
-create_boost_shared_ptr_neurite_geometry_abstract_node(unsigned int position) {
-    boost::shared_ptr<neurite::geometry::abstract_node> r(
-        create_neurite_geometry_abstract_node_ptr(position));
+boost::shared_ptr<neurite::geometry::node>
+create_boost_shared_ptr_neurite_geometry_node(unsigned int position) {
+    boost::shared_ptr<neurite::geometry::node> r(
+        create_neurite_geometry_node_ptr(position));
     return r;
 }
 
@@ -44,7 +44,7 @@ tree_generator::tree_generator() : position_(0) { }
 
 void tree_generator::
 populate(const unsigned int position, result_type& v) {
-    v.root(create_boost_shared_ptr_neurite_geometry_abstract_node(position + 0));
+    v.root(create_boost_shared_ptr_neurite_geometry_node(position + 0));
 }
 
 tree_generator::result_type

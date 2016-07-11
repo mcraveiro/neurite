@@ -18,31 +18,22 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TEST_DATA_ABSTRACT_NODE_TD_HPP
-#define NEURITE_GEOMETRY_TEST_DATA_ABSTRACT_NODE_TD_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
-
-#include "neurite/geometry/types/abstract_node.hpp"
+#include <ostream>
+#include "neurite/geometry/types/node.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class abstract_node_generator {
-public:
-    abstract_node_generator();
+void node::to_stream(std::ostream& s) const {
+    s << " { "
+      << "\"__type__\": " << "\"neurite::geometry::node\"" << " }";
+}
 
-public:
-    typedef neurite::geometry::abstract_node result_type;
+void node::swap(node&) noexcept {
+}
 
-public:
-    static void populate(const unsigned int position, result_type& v);
-public:
-    static result_type* create_ptr(const unsigned int position);
-};
+bool node::compare(const node& /*rhs*/) const {
+    return true;
+}
 
 } }
-
-#endif

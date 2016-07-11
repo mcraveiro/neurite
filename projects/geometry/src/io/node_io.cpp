@@ -18,18 +18,15 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_ABSTRACT_NODE_FWD_HPP
-#define NEURITE_GEOMETRY_TYPES_ABSTRACT_NODE_FWD_HPP
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-#pragma once
-#endif
+#include <ostream>
+#include "neurite/geometry/io/node_io.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class abstract_node;
+std::ostream& operator<<(std::ostream& s, const node& v) {
+    v.to_stream(s);
+    return(s);
+}
 
 } }
-
-#endif

@@ -52,6 +52,9 @@ private:
     transform_options(const boost::program_options::variables_map& vm) const;
 
 public:
+    std::string product() const;
+
+public:
     boost::optional<std::pair<boost::filesystem::path, boost::filesystem::path>>
     parse(const int argc, const char* argv[]) const;
 };

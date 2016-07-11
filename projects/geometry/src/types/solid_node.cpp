@@ -19,10 +19,10 @@
  *
  */
 #include <ostream>
+#include "neurite/geometry/io/node_io.hpp"
 #include "neurite/geometry/io/solid_io.hpp"
 #include "neurite/geometry/types/solid.hpp"
 #include "neurite/geometry/types/solid_node.hpp"
-#include "neurite/geometry/io/abstract_node_io.hpp"
 
 namespace boost {
 
@@ -53,34 +53,34 @@ namespace neurite {
 namespace geometry {
 
 solid_node::solid_node(const boost::shared_ptr<neurite::geometry::solid>& solid)
-    : neurite::geometry::abstract_node(),
+    : neurite::geometry::node(),
       solid_(solid) { }
 
 void solid_node::to_stream(std::ostream& s) const {
     s << " { "
       << "\"__type__\": " << "\"neurite::geometry::solid_node\"" << ", "
       << "\"__parent_0__\": ";
-    abstract_node::to_stream(s);
+    node::to_stream(s);
     s << ", "
       << "\"solid\": " << solid_
       << " }";
 }
 
 void solid_node::swap(solid_node& other) noexcept {
-    abstract_node::swap(other);
+    node::swap(other);
 
     using std::swap;
     swap(solid_, other.solid_);
 }
 
-bool solid_node::equals(const neurite::geometry::abstract_node& other) const {
+bool solid_node::equals(const neurite::geometry::node& other) const {
     const solid_node* const p(dynamic_cast<const solid_node* const>(&other));
     if (!p) return false;
     return *this == *p;
 }
 
 bool solid_node::operator==(const solid_node& rhs) const {
-    return abstract_node::compare(rhs) &&
+    return node::compare(rhs) &&
         solid_ == rhs.solid_;
 }
 

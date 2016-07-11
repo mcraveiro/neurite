@@ -18,13 +18,13 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/types/node.hpp"
 #include "neurite/geometry/types/tree.hpp"
-#include "neurite/geometry/types/abstract_node.hpp"
 
 namespace boost {
 
-inline bool operator==(const boost::shared_ptr<neurite::geometry::abstract_node>& lhs,
-const boost::shared_ptr<neurite::geometry::abstract_node>& rhs) {
+inline bool operator==(const boost::shared_ptr<neurite::geometry::node>& lhs,
+const boost::shared_ptr<neurite::geometry::node>& rhs) {
     return (!lhs && !rhs) ||(lhs && rhs && (*lhs == *rhs));
 }
 
@@ -33,7 +33,7 @@ const boost::shared_ptr<neurite::geometry::abstract_node>& rhs) {
 namespace neurite {
 namespace geometry {
 
-tree::tree(const boost::shared_ptr<neurite::geometry::abstract_node>& root)
+tree::tree(const boost::shared_ptr<neurite::geometry::node>& root)
     : root_(root) { }
 
 void tree::swap(tree& other) noexcept {
@@ -51,19 +51,19 @@ tree& tree::operator=(tree other) {
     return *this;
 }
 
-const boost::shared_ptr<neurite::geometry::abstract_node>& tree::root() const {
+const boost::shared_ptr<neurite::geometry::node>& tree::root() const {
     return root_;
 }
 
-boost::shared_ptr<neurite::geometry::abstract_node>& tree::root() {
+boost::shared_ptr<neurite::geometry::node>& tree::root() {
     return root_;
 }
 
-void tree::root(const boost::shared_ptr<neurite::geometry::abstract_node>& v) {
+void tree::root(const boost::shared_ptr<neurite::geometry::node>& v) {
     root_ = v;
 }
 
-void tree::root(const boost::shared_ptr<neurite::geometry::abstract_node>&& v) {
+void tree::root(const boost::shared_ptr<neurite::geometry::node>&& v) {
     root_ = std::move(v);
 }
 

@@ -18,19 +18,37 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/geometry/hash/abstract_node_hash.hpp"
+#ifndef NEURITE_GEOMETRY_TYPES_EVALUATION_ERROR_HPP
+#define NEURITE_GEOMETRY_TYPES_EVALUATION_ERROR_HPP
 
-namespace {
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
 
-
-}
+#include <string>
+#include <boost/exception/info.hpp>
 
 namespace neurite {
 namespace geometry {
 
-std::size_t abstract_node_hasher::hash(const abstract_node&) {
-    std::size_t seed(0);
-    return seed;
-}
+/**
+ * @brief An exception occurred whilst evaluating a tree.
+ */
+class evaluation_error : public virtual std::exception, public virtual boost::exception {
+public:
+    evaluation_error() = default;
+    ~evaluation_error() noexcept = default;
+
+public:
+    evaluation_error(const std::string& message) : message_(message) { }
+
+public:
+    const char* what() const noexcept { return(message_.c_str()); }
+
+private:
+    const std::string message_;
+};
 
 } }
+
+#endif

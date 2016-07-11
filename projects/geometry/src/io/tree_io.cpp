@@ -19,12 +19,12 @@
  *
  */
 #include <ostream>
+#include "neurite/geometry/io/node_io.hpp"
 #include "neurite/geometry/io/tree_io.hpp"
-#include "neurite/geometry/io/abstract_node_io.hpp"
 
 namespace boost {
 
-inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::geometry::abstract_node>& v) {
+inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::geometry::node>& v) {
     s << "{ " << "\"__type__\": " << "\"boost::shared_ptr\"" << ", "
       << "\"memory\": " << "\"" << static_cast<void*>(v.get()) << "\"" << ", ";
 

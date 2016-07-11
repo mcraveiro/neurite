@@ -94,8 +94,8 @@ process_sample(const std::string& line, const unsigned int line_number) const {
         p.x(stod(tokens[++field_number]));
         p.y(stod(tokens[++field_number]));
         p.z(stod(tokens[++field_number]));
-        p.radius(stod(tokens[++field_number]));
         r.position(p);
+        r.radius(stod(tokens[++field_number]));
 
         r.parent(stoi(tokens[++field_number]));
         r.line_number(line_number);

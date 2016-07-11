@@ -18,22 +18,23 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/types/abstract_node.hpp"
+#ifndef NEURITE_GEOMETRY_IO_NODE_IO_HPP
+#define NEURITE_GEOMETRY_IO_NODE_IO_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
+
+#include <iosfwd>
+#include "neurite/geometry/types/node.hpp"
 
 namespace neurite {
 namespace geometry {
 
-void abstract_node::to_stream(std::ostream& s) const {
-    s << " { "
-      << "\"__type__\": " << "\"neurite::geometry::abstract_node\"" << " }";
-}
-
-void abstract_node::swap(abstract_node&) noexcept {
-}
-
-bool abstract_node::compare(const abstract_node& /*rhs*/) const {
-    return true;
-}
+std::ostream&
+operator<<(std::ostream& s,
+     const neurite::geometry::node& v);
 
 } }
+
+#endif

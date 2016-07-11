@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/test_data/node_td.hpp"
 #include "neurite/geometry/test_data/nef_node_td.hpp"
-#include "neurite/geometry/test_data/abstract_node_td.hpp"
 #include "neurite/geometry/test_data/nef_polyhedron_td.hpp"
 
 namespace {
@@ -38,7 +38,7 @@ nef_node_generator::nef_node_generator() : position_(0) { }
 
 void nef_node_generator::
 populate(const unsigned int position, result_type& v) {
-    neurite::geometry::abstract_node_generator::populate(position, v);
+    neurite::geometry::node_generator::populate(position, v);
     v.polyhedron(create_neurite_geometry_nef_polyhedron(position + 0));
 }
 

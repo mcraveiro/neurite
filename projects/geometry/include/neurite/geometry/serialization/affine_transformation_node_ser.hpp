@@ -33,7 +33,7 @@ namespace boost {
 
 template<>struct
 is_virtual_base_of<
-    neurite::geometry::abstract_node,
+    neurite::geometry::node,
     neurite::geometry::affine_transformation_node
 > : public mpl::true_ {};
 

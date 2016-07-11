@@ -25,6 +25,7 @@
 #pragma once
 #endif
 
+#include "neurite/geometry/types/node.hpp"
 #include "neurite/geometry/types/tree.hpp"
 #include "neurite/geometry/types/solid.hpp"
 #include "neurite/geometry/types/mesher.hpp"
@@ -39,14 +40,15 @@
 #include "neurite/geometry/types/union_node.hpp"
 #include "neurite/geometry/types/nef_factory.hpp"
 #include "neurite/geometry/types/tessellator.hpp"
-#include "neurite/geometry/types/abstract_node.hpp"
+#include "neurite/geometry/types/node_visitor.hpp"
 #include "neurite/geometry/types/nef_evaluator.hpp"
 #include "neurite/geometry/types/solid_visitor.hpp"
 #include "neurite/geometry/types/nef_polyhedron.hpp"
 #include "neurite/geometry/types/scad_evaluator.hpp"
+#include "neurite/geometry/types/scad_formatter.hpp"
 #include "neurite/geometry/types/truncated_cone.hpp"
 #include "neurite/geometry/types/polyhedron_node.hpp"
-#include "neurite/geometry/types/abstract_node_visitor.hpp"
+#include "neurite/geometry/types/evaluation_error.hpp"
 #include "neurite/geometry/types/affine_transformation.hpp"
 #include "neurite/geometry/types/tessellation_executor.hpp"
 #include "neurite/geometry/types/nef_conversion_executor.hpp"

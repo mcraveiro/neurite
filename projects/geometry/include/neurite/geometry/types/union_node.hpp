@@ -29,14 +29,14 @@
 #include <iosfwd>
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
-#include "neurite/geometry/types/abstract_node.hpp"
-#include "neurite/geometry/types/abstract_node_fwd.hpp"
+#include "neurite/geometry/types/node.hpp"
+#include "neurite/geometry/types/node_fwd.hpp"
 #include "neurite/geometry/serialization/union_node_fwd_ser.hpp"
 
 namespace neurite {
 namespace geometry {
 
-class union_node final : public neurite::geometry::abstract_node {
+class union_node final : public neurite::geometry::node {
 public:
     union_node() = default;
     union_node(const union_node&) = default;
@@ -45,7 +45,7 @@ public:
     virtual ~union_node() noexcept { }
 
 public:
-    explicit union_node(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands);
+    explicit union_node(const std::list<boost::shared_ptr<neurite::geometry::node> >& operands);
 
 private:
     template<typename Archive>
@@ -55,21 +55,21 @@ private:
     friend void boost::serialization::load(Archive& ar, neurite::geometry::union_node& v, unsigned int version);
 
 public:
-    using abstract_node::accept;
+    using node::accept;
 
-    virtual void accept(const abstract_node_visitor& v) const override {
+    virtual void accept(const node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) const override {
+    virtual void accept(node_visitor& v) const override {
         v.visit(*this);
     }
 
-    virtual void accept(const abstract_node_visitor& v) override {
+    virtual void accept(const node_visitor& v) override {
         v.visit(*this);
     }
 
-    virtual void accept(abstract_node_visitor& v) override {
+    virtual void accept(node_visitor& v) override {
         v.visit(*this);
     }
 
@@ -77,10 +77,10 @@ public:
     void to_stream(std::ostream& s) const override;
 
 public:
-    const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands() const;
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands();
-    void operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v);
-    void operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v);
+    const std::list<boost::shared_ptr<neurite::geometry::node> >& operands() const;
+    std::list<boost::shared_ptr<neurite::geometry::node> >& operands();
+    void operands(const std::list<boost::shared_ptr<neurite::geometry::node> >& v);
+    void operands(const std::list<boost::shared_ptr<neurite::geometry::node> >&& v);
 
 public:
     bool operator==(const union_node& rhs) const;
@@ -89,14 +89,14 @@ public:
     }
 
 public:
-    bool equals(const neurite::geometry::abstract_node& other) const override;
+    bool equals(const neurite::geometry::node& other) const override;
 
 public:
     void swap(union_node& other) noexcept;
     union_node& operator=(union_node other);
 
 private:
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> > operands_;
+    std::list<boost::shared_ptr<neurite::geometry::node> > operands_;
 };
 
 } }

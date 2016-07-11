@@ -25,6 +25,7 @@
 #pragma once
 #endif
 
+#include "neurite/geometry/hash/node_hash.hpp"
 #include "neurite/geometry/hash/tree_hash.hpp"
 #include "neurite/geometry/hash/solid_hash.hpp"
 #include "neurite/geometry/hash/sphere_hash.hpp"
@@ -34,7 +35,6 @@
 #include "neurite/geometry/hash/polyhedron_hash.hpp"
 #include "neurite/geometry/hash/solid_node_hash.hpp"
 #include "neurite/geometry/hash/union_node_hash.hpp"
-#include "neurite/geometry/hash/abstract_node_hash.hpp"
 #include "neurite/geometry/hash/nef_polyhedron_hash.hpp"
 #include "neurite/geometry/hash/truncated_cone_hash.hpp"
 #include "neurite/geometry/hash/polyhedron_node_hash.hpp"

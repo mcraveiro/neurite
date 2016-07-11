@@ -19,42 +19,42 @@
  *
  */
 #include <ostream>
+#include "neurite/geometry/io/node_io.hpp"
 #include "neurite/geometry/types/nef_node.hpp"
-#include "neurite/geometry/io/abstract_node_io.hpp"
 #include "neurite/geometry/io/nef_polyhedron_io.hpp"
 
 namespace neurite {
 namespace geometry {
 
 nef_node::nef_node(const neurite::geometry::nef_polyhedron& polyhedron)
-    : neurite::geometry::abstract_node(),
+    : neurite::geometry::node(),
       polyhedron_(polyhedron) { }
 
 void nef_node::to_stream(std::ostream& s) const {
     s << " { "
       << "\"__type__\": " << "\"neurite::geometry::nef_node\"" << ", "
       << "\"__parent_0__\": ";
-    abstract_node::to_stream(s);
+    node::to_stream(s);
     s << ", "
       << "\"polyhedron\": " << polyhedron_
       << " }";
 }
 
 void nef_node::swap(nef_node& other) noexcept {
-    abstract_node::swap(other);
+    node::swap(other);
 
     using std::swap;
     swap(polyhedron_, other.polyhedron_);
 }
 
-bool nef_node::equals(const neurite::geometry::abstract_node& other) const {
+bool nef_node::equals(const neurite::geometry::node& other) const {
     const nef_node* const p(dynamic_cast<const nef_node* const>(&other));
     if (!p) return false;
     return *this == *p;
 }
 
 bool nef_node::operator==(const nef_node& rhs) const {
-    return abstract_node::compare(rhs) &&
+    return node::compare(rhs) &&
         polyhedron_ == rhs.polyhedron_;
 }
 

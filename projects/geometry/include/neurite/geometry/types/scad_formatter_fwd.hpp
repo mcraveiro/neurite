@@ -18,35 +18,18 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_HASH_ABSTRACT_NODE_HASH_HPP
-#define NEURITE_GEOMETRY_HASH_ABSTRACT_NODE_HASH_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_SCAD_FORMATTER_FWD_HPP
+#define NEURITE_GEOMETRY_TYPES_SCAD_FORMATTER_FWD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <functional>
-#include "neurite/geometry/types/abstract_node.hpp"
-
 namespace neurite {
 namespace geometry {
 
-struct abstract_node_hasher {
-public:
-    static std::size_t hash(const abstract_node& v);
-};
+class scad_formatter;
 
 } }
 
-namespace std {
-
-template<>
-struct hash<neurite::geometry::abstract_node> {
-public:
-    size_t operator()(const neurite::geometry::abstract_node& v) const {
-        return neurite::geometry::abstract_node_hasher::hash(v);
-    }
-};
-
-}
 #endif

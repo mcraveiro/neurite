@@ -123,6 +123,10 @@ transform_options(const boost::program_options::variables_map& vm) const {
     return r;
 }
 
+std::string program_options_parser::product() const {
+    return scader_product;
+}
+
 boost::optional<std::pair<boost::filesystem::path, boost::filesystem::path>>
 program_options_parser::parse(const int argc, const char* argv[]) const {
     const std::vector<std::string> args(argv + 1, argv + argc);

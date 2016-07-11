@@ -18,22 +18,22 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/test_data/node_td.hpp"
 #include "neurite/geometry/test_data/nef_node_td.hpp"
 #include "neurite/geometry/test_data/solid_node_td.hpp"
 #include "neurite/geometry/test_data/union_node_td.hpp"
-#include "neurite/geometry/test_data/abstract_node_td.hpp"
 #include "neurite/geometry/test_data/polyhedron_node_td.hpp"
 #include "neurite/geometry/test_data/affine_transformation_node_td.hpp"
 
 namespace neurite {
 namespace geometry {
 
-void abstract_node_generator::
+void node_generator::
 populate(const unsigned int /*position*/, result_type& /*v*/) {
 }
 
-abstract_node_generator::result_type*
-abstract_node_generator::create_ptr(const unsigned int position) {
+node_generator::result_type*
+node_generator::create_ptr(const unsigned int position) {
     if ((position % 4) == 0)
         return neurite::geometry::nef_node_generator::create_ptr(position);
     if ((position % 4) == 1)

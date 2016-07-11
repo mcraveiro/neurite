@@ -99,11 +99,12 @@ BOOST_AUTO_TEST_CASE(hydrating_one_line_input_results_in_expected_model) {
 
     using neurite::swc::structure_identifier_types;
     BOOST_CHECK(s.structure_identifier() == structure_identifier_types::axon);
+    BOOST_CHECK_CLOSE(s.radius(), 8.209, 0.000001);
+
     const auto p(s.position());
-    BOOST_REQUIRE_CLOSE(p.x(), 3.087, 0.000001);
-    BOOST_REQUIRE_CLOSE(p.y(), 7.342, 0.000001);
-    BOOST_REQUIRE_CLOSE(p.z(), -21.875, 0.000001);
-    BOOST_REQUIRE_CLOSE(p.radius(), 8.209, 0.000001);
+    BOOST_CHECK_CLOSE(p.x(), 3.087, 0.000001);
+    BOOST_CHECK_CLOSE(p.y(), 7.342, 0.000001);
+    BOOST_CHECK_CLOSE(p.z(), -21.875, 0.000001);
 
     BOOST_CHECK(s.parent() == -1);
     BOOST_CHECK(s.line_number() == 0);
@@ -127,12 +128,12 @@ BOOST_AUTO_TEST_CASE(hydrating_three_line_input_results_in_expected_model) {
 
         using ste = neurite::swc::structure_identifier_types;
         BOOST_CHECK(s.structure_identifier() == ste::axon);
+        BOOST_CHECK_CLOSE(s.radius(), i + 0.209, 0.000001);
 
         const auto p(s.position());
-        BOOST_REQUIRE_CLOSE(p.x(), i + 0.087, 0.000001);
-        BOOST_REQUIRE_CLOSE(p.y(), i + 0.342, 0.000001);
-        BOOST_REQUIRE_CLOSE(p.z(), i + 0.875, 0.000001);
-        BOOST_REQUIRE_CLOSE(p.radius(), i + 0.209, 0.000001);
+        BOOST_CHECK_CLOSE(p.x(), i + 0.087, 0.000001);
+        BOOST_CHECK_CLOSE(p.y(), i + 0.342, 0.000001);
+        BOOST_CHECK_CLOSE(p.z(), i + 0.875, 0.000001);
 
         BOOST_CHECK(s.parent() == -1);
         BOOST_CHECK(s.line_number() == i);
@@ -214,12 +215,12 @@ BOOST_AUTO_TEST_CASE(hydrating_commented_input_input_results_in_expected_model) 
 
         using ste = neurite::swc::structure_identifier_types;
         BOOST_CHECK(s.structure_identifier() == ste::axon);
+        BOOST_CHECK_CLOSE(s.radius(), i + 0.209, 0.000001);
 
         const auto p(s.position());
-        BOOST_REQUIRE_CLOSE(p.x(), i + 0.087, 0.000001);
-        BOOST_REQUIRE_CLOSE(p.y(), i + 0.342, 0.000001);
-        BOOST_REQUIRE_CLOSE(p.z(), i + 0.875, 0.000001);
-        BOOST_REQUIRE_CLOSE(p.radius(), i + 0.209, 0.000001);
+        BOOST_CHECK_CLOSE(p.x(), i + 0.087, 0.000001);
+        BOOST_CHECK_CLOSE(p.y(), i + 0.342, 0.000001);
+        BOOST_CHECK_CLOSE(p.z(), i + 0.875, 0.000001);
 
         BOOST_CHECK(s.parent() == -1);
         BOOST_CHECK(s.line_number() == 0 || s.line_number() == 3);

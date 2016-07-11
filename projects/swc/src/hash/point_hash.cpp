@@ -39,7 +39,6 @@ std::size_t point_hasher::hash(const point& v) {
     combine(seed, v.x());
     combine(seed, v.y());
     combine(seed, v.z());
-    combine(seed, v.radius());
 
     return seed;
 }

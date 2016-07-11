@@ -18,22 +18,48 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_IO_ABSTRACT_NODE_IO_HPP
-#define NEURITE_GEOMETRY_IO_ABSTRACT_NODE_IO_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_SCAD_FORMATTER_HPP
+#define NEURITE_GEOMETRY_TYPES_SCAD_FORMATTER_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <iosfwd>
-#include "neurite/geometry/types/abstract_node.hpp"
+#include <sstream>
+#include "neurite/geometry/types/node.hpp"
+#include "neurite/geometry/types/node_visitor.hpp"
+#include "neurite/geometry/types/solid_visitor.hpp"
 
 namespace neurite {
 namespace geometry {
 
-std::ostream&
-operator<<(std::ostream& s,
-     const neurite::geometry::abstract_node& v);
+class scad_formatter : public node_visitor, public solid_visitor {
+public:
+    scad_formatter();
+
+private:
+    void indent();
+
+public:
+    using solid_visitor::visit;
+    void visit(const sphere& s) override;
+    void visit(const truncated_cone& s) override;
+
+public:
+    using node_visitor::visit;
+    void visit(const affine_transformation_node& n) override;
+    void visit(const nef_node& n) override;
+    void visit(const polyhedron_node& n) override;
+    void visit(const solid_node& n) override;
+    void visit(const union_node& n) override;
+
+public:
+    std::string format(const node& n);
+
+private:
+    std::ostringstream stream_;
+    unsigned int indentation_level_;
+};
 
 } }
 

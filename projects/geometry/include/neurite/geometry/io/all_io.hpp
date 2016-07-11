@@ -25,6 +25,7 @@
 #pragma once
 #endif
 
+#include "neurite/geometry/io/node_io.hpp"
 #include "neurite/geometry/io/tree_io.hpp"
 #include "neurite/geometry/io/solid_io.hpp"
 #include "neurite/geometry/io/sphere_io.hpp"
@@ -34,7 +35,6 @@
 #include "neurite/geometry/io/polyhedron_io.hpp"
 #include "neurite/geometry/io/solid_node_io.hpp"
 #include "neurite/geometry/io/union_node_io.hpp"
-#include "neurite/geometry/io/abstract_node_io.hpp"
 #include "neurite/geometry/io/nef_polyhedron_io.hpp"
 #include "neurite/geometry/io/truncated_cone_io.hpp"
 #include "neurite/geometry/io/polyhedron_node_io.hpp"

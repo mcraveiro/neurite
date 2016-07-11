@@ -38,7 +38,6 @@ populate(const unsigned int position, result_type& v) {
     v.x(create_double(position + 0));
     v.y(create_double(position + 1));
     v.z(create_double(position + 2));
-    v.radius(create_double(position + 3));
 }
 
 point_generator::result_type

@@ -18,7 +18,7 @@
  * MA 02110-1301, USA.
  *
  */
-#include "neurite/geometry/test_data/abstract_node_td.hpp"
+#include "neurite/geometry/test_data/node_td.hpp"
 #include "neurite/geometry/test_data/affine_transformation_td.hpp"
 #include "neurite/geometry/test_data/affine_transformation_node_td.hpp"
 
@@ -29,22 +29,22 @@ create_neurite_geometry_affine_transformation(const unsigned int position) {
     return neurite::geometry::affine_transformation_generator::create(position);
 }
 
-neurite::geometry::abstract_node*
-create_neurite_geometry_abstract_node_ptr(const unsigned int position) {
-    return neurite::geometry::abstract_node_generator::create_ptr(position);
+neurite::geometry::node*
+create_neurite_geometry_node_ptr(const unsigned int position) {
+    return neurite::geometry::node_generator::create_ptr(position);
 }
 
-boost::shared_ptr<neurite::geometry::abstract_node>
-create_boost_shared_ptr_neurite_geometry_abstract_node(unsigned int position) {
-    boost::shared_ptr<neurite::geometry::abstract_node> r(
-        create_neurite_geometry_abstract_node_ptr(position));
+boost::shared_ptr<neurite::geometry::node>
+create_boost_shared_ptr_neurite_geometry_node(unsigned int position) {
+    boost::shared_ptr<neurite::geometry::node> r(
+        create_neurite_geometry_node_ptr(position));
     return r;
 }
 
-std::list<boost::shared_ptr<neurite::geometry::abstract_node> > create_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(unsigned int position) {
-    std::list<boost::shared_ptr<neurite::geometry::abstract_node> > r;
+std::list<boost::shared_ptr<neurite::geometry::node> > create_std_list_boost_shared_ptr_neurite_geometry_node_(unsigned int position) {
+    std::list<boost::shared_ptr<neurite::geometry::node> > r;
     for (unsigned int i(0); i < 4; ++i) {
-        r.push_back(create_boost_shared_ptr_neurite_geometry_abstract_node(position + i));
+        r.push_back(create_boost_shared_ptr_neurite_geometry_node(position + i));
     }
     return r;
 }
@@ -58,9 +58,9 @@ affine_transformation_node_generator::affine_transformation_node_generator() : p
 
 void affine_transformation_node_generator::
 populate(const unsigned int position, result_type& v) {
-    neurite::geometry::abstract_node_generator::populate(position, v);
+    neurite::geometry::node_generator::populate(position, v);
     v.transformation(create_neurite_geometry_affine_transformation(position + 0));
-    v.children(create_std_list_boost_shared_ptr_neurite_geometry_abstract_node_(position + 1));
+    v.children(create_std_list_boost_shared_ptr_neurite_geometry_node_(position + 1));
 }
 
 affine_transformation_node_generator::result_type

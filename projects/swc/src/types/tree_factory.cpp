@@ -23,6 +23,7 @@
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/types/building_error.hpp"
 #include "neurite/swc/types/node.hpp"
+#include "neurite/swc/io/tree_io.hpp"
 #include "neurite/swc/types/tree_factory.hpp"
 
 namespace {
@@ -112,7 +113,7 @@ tree tree_factory::build(const model& m) const {
 
     tree r;
     r.root(get_soma(index));
-    BOOST_LOG_SEV(lg, debug) << "Tree built.";
+    BOOST_LOG_SEV(lg, debug) << "Tree built: " << r;
 
     return r;
 }

@@ -18,17 +18,35 @@
  * MA 02110-1301, USA.
  *
  */
-#include <ostream>
-#include "neurite/geometry/io/node_io.hpp"
-#include "neurite/geometry/io/polyhedron_io.hpp"
-#include "neurite/geometry/io/polyhedron_node_io.hpp"
+#ifndef NEURITE_GEOMETRY_HASH_NODE_HASH_HPP
+#define NEURITE_GEOMETRY_HASH_NODE_HASH_HPP
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#pragma once
+#endif
+
+#include <functional>
+#include "neurite/geometry/types/node.hpp"
 
 namespace neurite {
 namespace geometry {
 
-std::ostream& operator<<(std::ostream& s, const polyhedron_node& v) {
-    v.to_stream(s);
-    return(s);
-}
+struct node_hasher {
+public:
+    static std::size_t hash(const node& v);
+};
 
 } }
+
+namespace std {
+
+template<>
+struct hash<neurite::geometry::node> {
+public:
+    size_t operator()(const neurite::geometry::node& v) const {
+        return neurite::geometry::node_hasher::hash(v);
+    }
+};
+
+}
+#endif

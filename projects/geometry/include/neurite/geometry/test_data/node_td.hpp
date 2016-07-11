@@ -18,28 +18,30 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_SERIALIZATION_ABSTRACT_NODE_SER_HPP
-#define NEURITE_GEOMETRY_SERIALIZATION_ABSTRACT_NODE_SER_HPP
+#ifndef NEURITE_GEOMETRY_TEST_DATA_NODE_TD_HPP
+#define NEURITE_GEOMETRY_TEST_DATA_NODE_TD_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
 #endif
 
-#include <boost/serialization/split_free.hpp>
-#include <boost/serialization/assume_abstract.hpp>
-#include "neurite/geometry/types/abstract_node.hpp"
+#include "neurite/geometry/types/node.hpp"
 
-BOOST_SERIALIZATION_SPLIT_FREE(neurite::geometry::abstract_node)
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(neurite::geometry::abstract_node)
+namespace neurite {
+namespace geometry {
 
-namespace boost {
-namespace serialization {
+class node_generator {
+public:
+    node_generator();
 
-template<typename Archive>
-void save(Archive& ar, const neurite::geometry::abstract_node& v, unsigned int version);
+public:
+    typedef neurite::geometry::node result_type;
 
-template<typename Archive>
-void load(Archive& ar, neurite::geometry::abstract_node& v, unsigned int version);
+public:
+    static void populate(const unsigned int position, result_type& v);
+public:
+    static result_type* create_ptr(const unsigned int position);
+};
 
 } }
 

@@ -18,8 +18,8 @@
  * MA 02110-1301, USA.
  *
  */
-#ifndef NEURITE_GEOMETRY_TYPES_ABSTRACT_NODE_VISITOR_HPP
-#define NEURITE_GEOMETRY_TYPES_ABSTRACT_NODE_VISITOR_HPP
+#ifndef NEURITE_GEOMETRY_TYPES_NODE_VISITOR_HPP
+#define NEURITE_GEOMETRY_TYPES_NODE_VISITOR_HPP
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #pragma once
@@ -35,11 +35,11 @@ namespace neurite {
 namespace geometry {
 
 /**
- * @brief Visitor for abstract_node
+ * @brief Visitor for node
  */
-class abstract_node_visitor {
+class node_visitor {
 public:
-    virtual ~abstract_node_visitor() noexcept = 0;
+    virtual ~node_visitor() noexcept = 0;
 
 public:
     /**
@@ -93,7 +93,7 @@ public:
     /**@}*/
 };
 
-inline abstract_node_visitor::~abstract_node_visitor() noexcept { }
+inline node_visitor::~node_visitor() noexcept { }
 
 } }
 

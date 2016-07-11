@@ -18,9 +18,9 @@
  * MA 02110-1301, USA.
  *
  */
+#include "neurite/geometry/hash/node_hash.hpp"
 #include "neurite/geometry/hash/solid_hash.hpp"
 #include "neurite/geometry/hash/solid_node_hash.hpp"
-#include "neurite/geometry/hash/abstract_node_hash.hpp"
 
 namespace {
 
@@ -44,7 +44,7 @@ namespace geometry {
 std::size_t solid_node_hasher::hash(const solid_node& v) {
     std::size_t seed(0);
 
-    combine(seed, dynamic_cast<const neurite::geometry::abstract_node&>(v));
+    combine(seed, dynamic_cast<const neurite::geometry::node&>(v));
 
     combine(seed, hash_boost_shared_ptr_neurite_geometry_solid(v.solid()));
     return seed;

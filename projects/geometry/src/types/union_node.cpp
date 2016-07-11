@@ -19,13 +19,13 @@
  *
  */
 #include <ostream>
+#include "neurite/geometry/io/node_io.hpp"
+#include "neurite/geometry/types/node.hpp"
 #include "neurite/geometry/types/union_node.hpp"
-#include "neurite/geometry/io/abstract_node_io.hpp"
-#include "neurite/geometry/types/abstract_node.hpp"
 
 namespace boost {
 
-inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::geometry::abstract_node>& v) {
+inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite::geometry::node>& v) {
     s << "{ " << "\"__type__\": " << "\"boost::shared_ptr\"" << ", "
       << "\"memory\": " << "\"" << static_cast<void*>(v.get()) << "\"" << ", ";
 
@@ -41,7 +41,7 @@ inline std::ostream& operator<<(std::ostream& s, const boost::shared_ptr<neurite
 
 namespace std {
 
-inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
+inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_ptr<neurite::geometry::node> >& v) {
     s << "[ ";
     for (auto i(v.begin()); i != v.end(); ++i) {
         if (i != v.begin()) s << ", ";
@@ -55,8 +55,8 @@ inline std::ostream& operator<<(std::ostream& s, const std::list<boost::shared_p
 
 namespace boost {
 
-inline bool operator==(const boost::shared_ptr<neurite::geometry::abstract_node>& lhs,
-const boost::shared_ptr<neurite::geometry::abstract_node>& rhs) {
+inline bool operator==(const boost::shared_ptr<neurite::geometry::node>& lhs,
+const boost::shared_ptr<neurite::geometry::node>& rhs) {
     return (!lhs && !rhs) ||(lhs && rhs && (*lhs == *rhs));
 }
 
@@ -65,35 +65,35 @@ const boost::shared_ptr<neurite::geometry::abstract_node>& rhs) {
 namespace neurite {
 namespace geometry {
 
-union_node::union_node(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& operands)
-    : neurite::geometry::abstract_node(),
+union_node::union_node(const std::list<boost::shared_ptr<neurite::geometry::node> >& operands)
+    : neurite::geometry::node(),
       operands_(operands) { }
 
 void union_node::to_stream(std::ostream& s) const {
     s << " { "
       << "\"__type__\": " << "\"neurite::geometry::union_node\"" << ", "
       << "\"__parent_0__\": ";
-    abstract_node::to_stream(s);
+    node::to_stream(s);
     s << ", "
       << "\"operands\": " << operands_
       << " }";
 }
 
 void union_node::swap(union_node& other) noexcept {
-    abstract_node::swap(other);
+    node::swap(other);
 
     using std::swap;
     swap(operands_, other.operands_);
 }
 
-bool union_node::equals(const neurite::geometry::abstract_node& other) const {
+bool union_node::equals(const neurite::geometry::node& other) const {
     const union_node* const p(dynamic_cast<const union_node* const>(&other));
     if (!p) return false;
     return *this == *p;
 }
 
 bool union_node::operator==(const union_node& rhs) const {
-    return abstract_node::compare(rhs) &&
+    return node::compare(rhs) &&
         operands_ == rhs.operands_;
 }
 
@@ -103,19 +103,19 @@ union_node& union_node::operator=(union_node other) {
     return *this;
 }
 
-const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& union_node::operands() const {
+const std::list<boost::shared_ptr<neurite::geometry::node> >& union_node::operands() const {
     return operands_;
 }
 
-std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& union_node::operands() {
+std::list<boost::shared_ptr<neurite::geometry::node> >& union_node::operands() {
     return operands_;
 }
 
-void union_node::operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >& v) {
+void union_node::operands(const std::list<boost::shared_ptr<neurite::geometry::node> >& v) {
     operands_ = v;
 }
 
-void union_node::operands(const std::list<boost::shared_ptr<neurite::geometry::abstract_node> >&& v) {
+void union_node::operands(const std::list<boost::shared_ptr<neurite::geometry::node> >&& v) {
     operands_ = std::move(v);
 }
 

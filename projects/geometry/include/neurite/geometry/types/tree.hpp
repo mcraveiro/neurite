@@ -27,7 +27,7 @@
 
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
-#include "neurite/geometry/types/abstract_node_fwd.hpp"
+#include "neurite/geometry/types/node_fwd.hpp"
 #include "neurite/geometry/serialization/tree_fwd_ser.hpp"
 
 namespace neurite {
@@ -41,7 +41,7 @@ public:
     ~tree() = default;
 
 public:
-    explicit tree(const boost::shared_ptr<neurite::geometry::abstract_node>& root);
+    explicit tree(const boost::shared_ptr<neurite::geometry::node>& root);
 
 private:
     template<typename Archive>
@@ -51,10 +51,10 @@ private:
     friend void boost::serialization::load(Archive& ar, neurite::geometry::tree& v, unsigned int version);
 
 public:
-    const boost::shared_ptr<neurite::geometry::abstract_node>& root() const;
-    boost::shared_ptr<neurite::geometry::abstract_node>& root();
-    void root(const boost::shared_ptr<neurite::geometry::abstract_node>& v);
-    void root(const boost::shared_ptr<neurite::geometry::abstract_node>&& v);
+    const boost::shared_ptr<neurite::geometry::node>& root() const;
+    boost::shared_ptr<neurite::geometry::node>& root();
+    void root(const boost::shared_ptr<neurite::geometry::node>& v);
+    void root(const boost::shared_ptr<neurite::geometry::node>&& v);
 
 public:
     bool operator==(const tree& rhs) const;
@@ -67,7 +67,7 @@ public:
     tree& operator=(tree other);
 
 private:
-    boost::shared_ptr<neurite::geometry::abstract_node> root_;
+    boost::shared_ptr<neurite::geometry::node> root_;
 };
 
 } }
