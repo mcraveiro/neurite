@@ -29,18 +29,21 @@ namespace geometry {
 
 truncated_cone::truncated_cone()
     : first_radius_(static_cast<double>(0)),
-      second_radius_(static_cast<double>(0)) { }
+      second_radius_(static_cast<double>(0)),
+      height_(static_cast<unsigned int>(0)) { }
 
 truncated_cone::truncated_cone(
     const neurite::geometry::vector3d& first,
     const double first_radius,
     const double second_radius,
-    const neurite::geometry::vector3d& second)
+    const neurite::geometry::vector3d& second,
+    const unsigned int height)
     : neurite::geometry::solid(),
       first_(first),
       first_radius_(first_radius),
       second_radius_(second_radius),
-      second_(second) { }
+      second_(second),
+      height_(height) { }
 
 void truncated_cone::to_stream(std::ostream& s) const {
     boost::io::ios_flags_saver ifs(s);
@@ -57,7 +60,8 @@ void truncated_cone::to_stream(std::ostream& s) const {
       << "\"first\": " << first_ << ", "
       << "\"first_radius\": " << first_radius_ << ", "
       << "\"second_radius\": " << second_radius_ << ", "
-      << "\"second\": " << second_
+      << "\"second\": " << second_ << ", "
+      << "\"height\": " << height_
       << " }";
 }
 
@@ -69,6 +73,7 @@ void truncated_cone::swap(truncated_cone& other) noexcept {
     swap(first_radius_, other.first_radius_);
     swap(second_radius_, other.second_radius_);
     swap(second_, other.second_);
+    swap(height_, other.height_);
 }
 
 bool truncated_cone::equals(const neurite::geometry::solid& other) const {
@@ -82,7 +87,8 @@ bool truncated_cone::operator==(const truncated_cone& rhs) const {
         first_ == rhs.first_ &&
         first_radius_ == rhs.first_radius_ &&
         second_radius_ == rhs.second_radius_ &&
-        second_ == rhs.second_;
+        second_ == rhs.second_ &&
+        height_ == rhs.height_;
 }
 
 truncated_cone& truncated_cone::operator=(truncated_cone other) {
@@ -137,6 +143,14 @@ void truncated_cone::second(const neurite::geometry::vector3d& v) {
 
 void truncated_cone::second(const neurite::geometry::vector3d&& v) {
     second_ = std::move(v);
+}
+
+unsigned int truncated_cone::height() const {
+    return height_;
+}
+
+void truncated_cone::height(const unsigned int v) {
+    height_ = v;
 }
 
 } }

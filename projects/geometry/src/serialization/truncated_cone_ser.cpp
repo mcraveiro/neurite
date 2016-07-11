@@ -48,6 +48,7 @@ void save(Archive& ar,
     ar << make_nvp("first_radius", v.first_radius_);
     ar << make_nvp("second_radius", v.second_radius_);
     ar << make_nvp("second", v.second_);
+    ar << make_nvp("height", v.height_);
 }
 
 template<typename Archive>
@@ -60,6 +61,7 @@ void load(Archive& ar,
     ar >> make_nvp("first_radius", v.first_radius_);
     ar >> make_nvp("second_radius", v.second_radius_);
     ar >> make_nvp("second", v.second_);
+    ar >> make_nvp("height", v.height_);
 }
 
 } }

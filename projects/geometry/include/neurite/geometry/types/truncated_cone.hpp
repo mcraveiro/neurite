@@ -49,7 +49,8 @@ public:
         const neurite::geometry::vector3d& first,
         const double first_radius,
         const double second_radius,
-        const neurite::geometry::vector3d& second);
+        const neurite::geometry::vector3d& second,
+        const unsigned int height);
 
 private:
     template<typename Archive>
@@ -97,6 +98,9 @@ public:
     void second(const neurite::geometry::vector3d& v);
     void second(const neurite::geometry::vector3d&& v);
 
+    unsigned int height() const;
+    void height(const unsigned int v);
+
 public:
     bool operator==(const truncated_cone& rhs) const;
     bool operator!=(const truncated_cone& rhs) const {
@@ -115,6 +119,7 @@ private:
     double first_radius_;
     double second_radius_;
     neurite::geometry::vector3d second_;
+    unsigned int height_;
 };
 
 } }

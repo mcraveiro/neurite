@@ -33,6 +33,10 @@ double create_double(const unsigned int position) {
     return static_cast<double>(position);
 }
 
+unsigned int create_unsigned_int(const unsigned int position) {
+    return static_cast<unsigned int>(position);
+}
+
 }
 
 namespace neurite {
@@ -47,6 +51,7 @@ populate(const unsigned int position, result_type& v) {
     v.first_radius(create_double(position + 1));
     v.second_radius(create_double(position + 2));
     v.second(create_neurite_geometry_vector3d(position + 3));
+    v.height(create_unsigned_int(position + 4));
 }
 
 truncated_cone_generator::result_type

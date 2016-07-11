@@ -44,6 +44,7 @@ std::size_t truncated_cone_hasher::hash(const truncated_cone& v) {
     combine(seed, v.first_radius());
     combine(seed, v.second_radius());
     combine(seed, v.second());
+    combine(seed, v.height());
 
     return seed;
 }
