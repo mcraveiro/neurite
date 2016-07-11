@@ -98,7 +98,8 @@ transform(const neurite::swc::node& n) const {
     BOOST_LOG_SEV(lg, debug) << "Transforming single node.";
     const auto soma(neurite::swc::structure_identifier_types::soma);
     const bool is_soma(n.content().structure_identifier() == soma);
-    const bool is_root(n.content().number() == 0);
+    const auto first_sample_number(1);
+    const bool is_root(n.content().number() == first_sample_number);
 
     const auto lambda([&]() {
             auto r(boost::make_shared<solid_node>());
@@ -127,10 +128,16 @@ transform(const neurite::swc::node& n) const {
 
     auto r(boost::make_shared<union_node>());
     if (is_soma && is_root) {
+        BOOST_LOG_SEV(lg, debug) << "Creating sphere for soma.";
+
         /*
          * Create a sphere for the root soma.
          */
         r->operands().push_back(lambda());
+    } else {
+        BOOST_LOG_SEV(lg, debug) << "Not creating sphere for soma."
+                                 << " is soma: " << is_soma
+                                 << " is root: " << is_root;
     }
 
     for (const auto& c : n.children()) {
