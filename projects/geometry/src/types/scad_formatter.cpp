@@ -25,6 +25,7 @@
 #include "neurite/geometry/types/union_node.hpp"
 #include "neurite/geometry/types/solid_node.hpp"
 #include "neurite/geometry/types/evaluation_error.hpp"
+#include "neurite/geometry/types/affine_transformation_node.hpp"
 #include "neurite/geometry/types/scad_formatter.hpp"
 
 namespace {
@@ -67,8 +68,25 @@ void scad_formatter::visit(const truncated_cone& s) {
             << std::endl;
 }
 
-void scad_formatter::visit(const affine_transformation_node& /*n*/) {
+void scad_formatter::visit(const affine_transformation_node& n) {
     BOOST_LOG_SEV(lg, debug) << "Found affine transformation node.";
+    indent();
+    const auto& t(n.transformation());
+    stream_ << "translate(["
+            << t.arguments().x() << ", "
+            << t.arguments().y() << ", "
+            << t.arguments().z() << "]) {"
+            << std::endl;
+
+    ++indentation_level_;
+    for (const auto& ptr : n.children()) {
+        const auto& op(*ptr);
+        op.accept(*this);
+    }
+
+    --indentation_level_;
+    indent();
+    stream_ << "}" << std::endl;
 }
 
 void scad_formatter::visit(const nef_node& /*n*/) {

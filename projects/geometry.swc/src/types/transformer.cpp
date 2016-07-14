@@ -23,6 +23,7 @@
 #include "neurite/swc/types/node.hpp"
 #include "neurite/geometry/types/sphere.hpp"
 #include "neurite/geometry/types/union_node.hpp"
+#include "neurite/geometry/types/affine_transformation_node.hpp"
 #include "neurite/geometry/types/solid_node.hpp"
 #include "neurite/geometry/types/truncated_cone.hpp"
 #include "neurite/geometry.swc/types/transformer.hpp"
@@ -76,8 +77,17 @@ boost::shared_ptr<node> transformer::
 transform(const neurite::swc::node& parent, const neurite::swc::node& n) const {
     BOOST_LOG_SEV(lg, debug) << "Transforming two nodes.";
     const auto lambda([&]() {
-            auto r(boost::make_shared<solid_node>());
-            r->solid(creare_truncated_cone(parent.content(), n.content()));
+            affine_transformation t;
+            t.type(affine_transformation_types::translation);
+            t.arguments(transform(n.content().position()));
+
+            auto r(boost::make_shared<affine_transformation_node>());
+            r->transformation(t);
+
+            auto sn(boost::make_shared<solid_node>());
+            sn->solid(creare_truncated_cone(parent.content(), n.content()));
+            r->children().push_back(sn);
+
             return r;
         });
 

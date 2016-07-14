@@ -5,30 +5,30 @@
 
 * Mission
 
-- Setup the processing pipeline in geometry.
+- Generate CSG representations on SCAD.
 
 * Stories
 
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-07-11 Mon 17:56]
+#+CAPTION: Clock summary at [2016-07-14 Thu 14:46]
 | <75>                                                                        |         |       |      |       |
 | Headline                                                                    | Time    |       |      |     % |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| *Total time*                                                                | *14:06* |       |      | 100.0 |
+| *Total time*                                                                | *15:16* |       |      | 100.0 |
 |-----------------------------------------------------------------------------+---------+-------+------+-------|
-| Stories                                                                     | 14:06   |       |      | 100.0 |
-| Active                                                                      |         | 14:06 |      | 100.0 |
-| STARTED Sprint and product backlog grooming                                 |         |       | 1:09 |   8.2 |
-| STARTED Socialising                                                         |         |       | 0:48 |   5.7 |
-| COMPLETED Review the design changes done to geometry                        |         |       | 1:51 |  13.1 |
-| COMPLETED Tidy-up neurite                                                   |         |       | 1:19 |   9.3 |
-| COMPLETED Code-generate all models and get code to build                    |         |       | 0:25 |   3.0 |
-| COMPLETED Create a command-line utility to execute geometry workflow        |         |       | 1:42 |  12.1 |
-| STARTED Implement =swc= to =geometry= tree factory                          |         |       | 2:48 |  19.9 |
-| STARTED Create a class to generate scad files                               |         |       | 3:17 |  23.3 |
-| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 0:47 |   5.6 |
+| Stories                                                                     | 15:16   |       |      | 100.0 |
+| Active                                                                      |         | 15:16 |      | 100.0 |
+| STARTED Sprint and product backlog grooming                                 |         |       | 1:09 |   7.5 |
+| STARTED Socialising                                                         |         |       | 0:48 |   5.2 |
+| COMPLETED Review the design changes done to geometry                        |         |       | 1:51 |  12.1 |
+| COMPLETED Tidy-up neurite                                                   |         |       | 1:19 |   8.6 |
+| COMPLETED Code-generate all models and get code to build                    |         |       | 0:25 |   2.7 |
+| COMPLETED Create a command-line utility to execute geometry workflow        |         |       | 1:42 |  11.1 |
+| STARTED Implement =swc= to =geometry= tree factory                          |         |       | 2:48 |  18.3 |
+| STARTED Create a class to generate scad files                               |         |       | 4:27 |  29.1 |
+| STARTED Create a polygon mesh with the simple SWC file                      |         |       | 0:47 |   5.1 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
@@ -111,6 +111,7 @@ Create a simple class that takes in a =swc::tree= and creates a
 =geometry::tree= with operations plus solids.
 
 *** STARTED Create a class to generate scad files                     :story:
+    CLOCK: [2016-07-14 Thu 13:36]--[2016-07-14 Thu 14:46] =>  1:10
     CLOCK: [2016-07-11 Mon 17:29]--[2016-07-11 Mon 17:56] =>  0:27
     CLOCK: [2016-07-11 Mon 17:22]--[2016-07-11 Mon 17:29] =>  0:07
     CLOCK: [2016-07-11 Mon 14:45]--[2016-07-11 Mon 17:21] =>  2:36
