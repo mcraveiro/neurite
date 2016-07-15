@@ -19,6 +19,7 @@
  *
  */
 #include <boost/make_shared.hpp>
+#include <boost/math/constants/constants.hpp>
 #include <CGAL/Simple_cartesian.h>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/types/node.hpp"
@@ -97,16 +98,63 @@ boost::shared_ptr<node> transformer::
 transform(const neurite::swc::node& parent, const neurite::swc::node& n) const {
     BOOST_LOG_SEV(lg, debug) << "Transforming two nodes.";
     const auto lambda([&]() {
-            affine_transformation t;
-            t.type(affine_transformation_types::translation);
-            t.arguments(transform(n.content().position()));
-
-            auto r(boost::make_shared<affine_transformation_node>());
-            r->transformation(t);
-
             auto sn(boost::make_shared<solid_node>());
             sn->solid(creare_truncated_cone(parent.content(), n.content()));
-            r->children().push_back(sn);
+
+            affine_transformation rot;
+            rot.type(affine_transformation_types::rotation);
+
+            Point_3 p1(n.content().position().x(),
+                n.content().position().y(),
+                n.content().position().z());
+            BOOST_LOG_SEV(lg, debug) <<  "p1 = " << p1;
+
+            Point_3 p2(parent.content().position().x(),
+                parent.content().position().y(),
+                parent.content().position().z());
+            BOOST_LOG_SEV(lg, debug) <<  "p2 = " << p2;
+
+            Vector_3 v1(p2 - p1);
+            v1 = v1 / std::sqrt(v1 * v1);
+            BOOST_LOG_SEV(lg, debug) <<  "v1 = " << v1;
+
+/*
+            Vector_3 v1(parent.content().position().x(),
+                parent.content().position().y(),
+                parent.content().position().z());
+            BOOST_LOG_SEV(lg, debug) <<  "v1 = " << v1;
+
+            v1 = v1 / std::sqrt(v1 * v1);
+            BOOST_LOG_SEV(lg, debug) <<  "v1 norm = " << v1;
+
+            Vector_3 v2(n.content().position().x(),
+                n.content().position().y(),
+                n.content().position().z());
+            BOOST_LOG_SEV(lg, debug) <<  "v2 = " << v2;
+
+            v2 = v2 / std::sqrt(v2 * v2);
+            BOOST_LOG_SEV(lg, debug) <<  "v2 norm = " << v2;
+
+            const double pi(boost::math::constants::pi<double>());
+            auto angle(std::acos(v1 * v2) * 180.0 / pi);
+            BOOST_LOG_SEV(lg, debug) << "angle = " << angle;
+*/
+
+            rot.arguments(
+                geometry::vector3d(v1.x(), v1.y(), v1.z())
+                    //transform(n.content().position())
+                );
+
+            auto rn(boost::make_shared<affine_transformation_node>());
+            rn->transformation(rot);
+            rn->children().push_back(sn);
+
+            affine_transformation trans;
+            trans.type(affine_transformation_types::translation);
+            trans.arguments(transform(n.content().position()));
+            auto r(boost::make_shared<affine_transformation_node>());
+            r->transformation(trans);
+            r->children().push_back(rn);
 
             return r;
         });

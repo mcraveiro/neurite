@@ -34,7 +34,7 @@ namespace utility {
 namespace log {
 
 enum severity_level {
-    fine_debug,
+    trace,
     debug,
     info,
     warn,
@@ -46,7 +46,7 @@ template<typename CharT, typename TraitsT>
 inline std::basic_ostream<CharT, TraitsT>&
 operator<<(std::basic_ostream<CharT, TraitsT>& stream, severity_level level) {
     switch(level) {
-    case severity_level::fine_debug: stream << "FINE_DEBUG"; break;
+    case severity_level::trace: stream << "TRACE"; break;
     case severity_level::debug: stream << "DEBUG"; break;
     case severity_level::info: stream << "INFO"; break;
     case severity_level::warn: stream << "WARN"; break;

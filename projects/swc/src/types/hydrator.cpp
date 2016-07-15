@@ -72,7 +72,7 @@ sample hydrator::
 process_sample(const std::string& line, const unsigned int line_number) const {
     std::vector<std::string> tokens;
     boost::split(tokens, line, boost::is_space(), boost::token_compress_on);
-    BOOST_LOG_SEV(lg, debug) << "Parsing line with tokens: " << tokens;
+    BOOST_LOG_SEV(lg, trace) << "Parsing line with tokens: " << tokens;
 
     if (tokens.size() < minimum_number_of_fields) {
         BOOST_LOG_SEV(lg, error) << missing_fields << ". Expected: "
@@ -126,7 +126,8 @@ model hydrator::hydrate(std::istream& is) const {
         while (std::getline(is, input_line)) {
             const auto trimmed(boost::trim_copy(input_line));
             if (!trimmed.empty() && trimmed[0] != hash) {
-                /* ignore lines starting with hash for now until we 
+                /*
+                 * Ignore lines starting with hash for now until we
                  * have support for processing headers.
                  */
                 r.samples().push_back(process_sample(trimmed, line_number));

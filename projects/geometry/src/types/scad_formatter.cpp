@@ -72,8 +72,16 @@ void scad_formatter::visit(const affine_transformation_node& n) {
     BOOST_LOG_SEV(lg, debug) << "Found affine transformation node.";
     indent();
     const auto& t(n.transformation());
-    stream_ << "translate(["
-            << t.arguments().x() << ", "
+
+    if (t.type() == affine_transformation_types::translation)
+        stream_ << "translate([";
+    else if (t.type() == affine_transformation_types::rotation)
+        stream_ << "rotate([";
+    else {
+        // FIXME: throw
+    }
+
+    stream_ << t.arguments().x() << ", "
             << t.arguments().y() << ", "
             << t.arguments().z() << "]) {"
             << std::endl;
