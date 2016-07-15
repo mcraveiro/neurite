@@ -19,6 +19,7 @@
  *
  */
 #include <boost/make_shared.hpp>
+#include <CGAL/Simple_cartesian.h>
 #include "neurite/utility/log/logger.hpp"
 #include "neurite/swc/types/node.hpp"
 #include "neurite/geometry/types/sphere.hpp"
@@ -26,7 +27,12 @@
 #include "neurite/geometry/types/affine_transformation_node.hpp"
 #include "neurite/geometry/types/solid_node.hpp"
 #include "neurite/geometry/types/truncated_cone.hpp"
+#include "neurite/geometry/io/truncated_cone_io.hpp"
 #include "neurite/geometry.swc/types/transformer.hpp"
+
+typedef CGAL::Simple_cartesian<double> Kernel;
+typedef Kernel::Point_3 Point_3;
+typedef Kernel::Vector_3 Vector_3;
 
 namespace {
 
@@ -60,6 +66,20 @@ boost::shared_ptr<geometry::solid> transformer::creare_truncated_cone(
     r->first_radius(s1.radius());
     r->second(transform(s2.position()));
     r->second_radius(s2.radius());
+
+    Point_3 p(r->first().x(), r->first().y(), r->first().z());
+    BOOST_LOG_SEV(lg, debug) <<  "p = " << p;
+
+    Point_3 q(r->second().x(), r->second().y(), r->second().z());
+    BOOST_LOG_SEV(lg, debug) <<  "q = " << q;
+
+    const auto sd(CGAL::squared_distance(p,q));
+    BOOST_LOG_SEV(lg, debug) <<  "Squared distance: " << sd;
+
+    r->height(std::sqrt(sd));
+    BOOST_LOG_SEV(lg, debug) <<  "Height: " << r->height();
+
+    BOOST_LOG_SEV(lg, debug) << "Truncated cone: " << *r;
 
     return r;
 }

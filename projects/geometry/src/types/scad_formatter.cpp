@@ -60,7 +60,7 @@ void scad_formatter::visit(const truncated_cone& s) {
 
     indent();
     stream_ << "cylinder("
-            << "h=" << 15 << ", "
+            << "h=" << s.height() << ", "
             << "r1=" << s.first_radius() << ", "
             << "r2=" << s.second_radius() << ", "
             << "center=false"

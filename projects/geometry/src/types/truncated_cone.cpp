@@ -30,14 +30,14 @@ namespace geometry {
 truncated_cone::truncated_cone()
     : first_radius_(static_cast<double>(0)),
       second_radius_(static_cast<double>(0)),
-      height_(static_cast<unsigned int>(0)) { }
+      height_(static_cast<double>(0)) { }
 
 truncated_cone::truncated_cone(
     const neurite::geometry::vector3d& first,
     const double first_radius,
     const double second_radius,
     const neurite::geometry::vector3d& second,
-    const unsigned int height)
+    const double height)
     : neurite::geometry::solid(),
       first_(first),
       first_radius_(first_radius),
@@ -145,11 +145,11 @@ void truncated_cone::second(const neurite::geometry::vector3d&& v) {
     second_ = std::move(v);
 }
 
-unsigned int truncated_cone::height() const {
+double truncated_cone::height() const {
     return height_;
 }
 
-void truncated_cone::height(const unsigned int v) {
+void truncated_cone::height(const double v) {
     height_ = v;
 }
 
