@@ -58,7 +58,7 @@ transformer::creare_sphere(const neurite::swc::sample& s) const {
     return r;
 }
 
-boost::shared_ptr<geometry::solid> transformer::creare_truncated_cone(
+boost::shared_ptr<geometry::truncated_cone> transformer::creare_truncated_cone(
     const neurite::swc::sample& s1, const neurite::swc::sample& s2) const {
     BOOST_LOG_SEV(lg, debug) << "Creating truncated cone.";
     auto r(boost::make_shared<geometry::truncated_cone>());
@@ -97,9 +97,11 @@ geometry::vector3d transformer::transform(const neurite::swc::point& p) const {
 boost::shared_ptr<node> transformer::
 transform(const neurite::swc::node& parent, const neurite::swc::node& n) const {
     BOOST_LOG_SEV(lg, debug) << "Transforming two nodes.";
+
     const auto lambda([&]() {
             auto sn(boost::make_shared<solid_node>());
-            sn->solid(creare_truncated_cone(parent.content(), n.content()));
+            const auto tc(creare_truncated_cone(parent.content(), n.content()));
+            sn->solid(tc);
 
             affine_transformation rot;
             rot.type(affine_transformation_types::rotation);
@@ -114,36 +116,24 @@ transform(const neurite::swc::node& parent, const neurite::swc::node& n) const {
                 parent.content().position().z());
             BOOST_LOG_SEV(lg, debug) <<  "p2 = " << p2;
 
-            Vector_3 v1(p2 - p1);
-            v1 = v1 / std::sqrt(v1 * v1);
-            BOOST_LOG_SEV(lg, debug) <<  "v1 = " << v1;
-
-/*
-            Vector_3 v1(parent.content().position().x(),
-                parent.content().position().y(),
-                parent.content().position().z());
-            BOOST_LOG_SEV(lg, debug) <<  "v1 = " << v1;
-
-            v1 = v1 / std::sqrt(v1 * v1);
-            BOOST_LOG_SEV(lg, debug) <<  "v1 norm = " << v1;
-
-            Vector_3 v2(n.content().position().x(),
-                n.content().position().y(),
+            Point_3 p3(n.content().position().x(),
+                n.content().position().y() + tc->height(),
                 n.content().position().z());
-            BOOST_LOG_SEV(lg, debug) <<  "v2 = " << v2;
+            BOOST_LOG_SEV(lg, debug) <<  "p3 = " << p3;
 
+            Vector_3 v1(p1 - p2);
+            v1 = v1 / std::sqrt(v1 * v1);
+            BOOST_LOG_SEV(lg, debug) <<  "v1 = " << v1;
+
+            Vector_3 v2(p3 - p2);
             v2 = v2 / std::sqrt(v2 * v2);
-            BOOST_LOG_SEV(lg, debug) <<  "v2 norm = " << v2;
+            BOOST_LOG_SEV(lg, debug) <<  "v2 = " << v2;
 
             const double pi(boost::math::constants::pi<double>());
             auto angle(std::acos(v1 * v2) * 180.0 / pi);
             BOOST_LOG_SEV(lg, debug) << "angle = " << angle;
-*/
 
-            rot.arguments(
-                geometry::vector3d(v1.x(), v1.y(), v1.z())
-                    //transform(n.content().position())
-                );
+            rot.arguments(geometry::vector3d(angle, 0, 0));
 
             auto rn(boost::make_shared<affine_transformation_node>());
             rn->transformation(rot);
@@ -219,6 +209,12 @@ transform(const neurite::swc::node& n) const {
     }
 
     for (const auto& c : n.children()) {
+        if (c.content().structure_identifier() == soma &&
+            c.content().number() < 4) {
+            BOOST_LOG_SEV(lg, debug) << "Skipping cylinders of a 3-point soma.";
+            continue;
+        }
+
         r->operands().push_back(transform(n, c));
     }
     return r;
