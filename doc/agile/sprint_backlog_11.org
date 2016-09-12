@@ -85,7 +85,7 @@ Helping colleagues with experiments.
 We need to figure out the correct incantation to compute the rotation
 angle.
 
-*** COMPLETED Coding the Matrix chapter 1                             :story:
+*** COMPLETED Coding the Matrix chapter 0                             :story:
     CLOSED: [2016-09-12 Mon 14:01]
     CLOCK: [2016-09-09 Fri 15:10]--[2016-09-09 Fri 16:00] =>  0:50
     CLOCK: [2016-09-09 Fri 13:10]--[2016-09-09 Fri 14:00] =>  0:50
