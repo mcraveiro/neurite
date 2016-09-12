@@ -12,33 +12,40 @@
 ** Active
 
 #+begin: clocktable :maxlevel 3 :scope subtree :indent nil :emphasize nil :scope file :narrow 75 :formula %
-#+CAPTION: Clock summary at [2016-09-09 Fri 13:31]
+#+CAPTION: Clock summary at [2016-09-12 Mon 14:02]
 | <75>                                                                        |         |       |       |       |
 | Headline                                                                    | Time    |       |       |     % |
 |-----------------------------------------------------------------------------+---------+-------+-------+-------|
-| *Total time*                                                                | *16:10* |       |       | 100.0 |
+| *Total time*                                                                | *20:50* |       |       | 100.0 |
 |-----------------------------------------------------------------------------+---------+-------+-------+-------|
-| Stories                                                                     | 16:10   |       |       | 100.0 |
-| Active                                                                      |         | 16:10 |       | 100.0 |
-| Socialising                                                                 |         |       |  0:48 |   4.9 |
-| COMPLETED Read the btmorph paper                                            |         |       |  0:29 |   3.0 |
-| COMPLETED Help with experiments                                             |         |       |  0:30 |   3.1 |
-| STARTED Compute the rotation angles                                         |         |       |  0:15 |   1.5 |
-| STARTED Coding the Matrix chapter 1                                         |         |       | 14:08 |  87.4 |
+| Stories                                                                     | 20:50   |       |       | 100.0 |
+| Active                                                                      |         | 20:50 |       | 100.0 |
+| COMPLETED Journal club and lectures                                         |         |       |  2:00 |   9.6 |
+| COMPLETED Socialising                                                       |         |       |  1:48 |   8.6 |
+| COMPLETED Read the btmorph paper                                            |         |       |  0:29 |   2.3 |
+| COMPLETED Help with experiments                                             |         |       |  0:30 |   2.4 |
+| POSTPONED Compute the rotation angles                                       |         |       |  0:15 |   1.2 |
+| COMPLETED Coding the Matrix chapter 1                                       |         |       | 15:48 |  75.8 |
 #+TBLFM: $5='(org-clock-time% @3$2 $2..$4);%.1f
 #+end:
 
-*** Sprint and product backlog grooming                               :story:
+*** COMPLETED Sprint and product backlog grooming                     :story:
+    CLOSED: [2016-09-12 Mon 14:02]
 
 Updates to sprint and product backlog.
 
-*** Journal club and lectures                                         :story:
+*** COMPLETED Journal club and lectures                               :story:
+    CLOSED: [2016-09-12 Mon 14:01]
+    CLOCK: [2016-09-09 Fri 16:00]--[2016-09-09 Fri 17:00] =>  1:00
+    CLOCK: [2016-09-09 Fri 14:00]--[2016-09-09 Fri 15:00] =>  1:00
 
 Time spent in generic tasks.
 
 - sorting out supervision.
 
-*** Socialising                                                       :story:
+*** COMPLETED Socialising                                             :story:
+    CLOSED: [2016-09-12 Mon 14:01]
+    CLOCK: [2016-09-09 Fri 17:00]--[2016-09-09 Fri 18:00] =>  1:00
     CLOCK: [2016-07-05 Tue 17:01]--[2016-07-05 Tue 17:49] =>  0:48
 
 Any events during work hours not directly connected to work.
@@ -71,14 +78,17 @@ then drops the soma when rendering:
     CLOCK: [2016-09-07 Wed 14:00]--[2016-09-07 Wed 14:30] =>  0:30
 
 Helping colleagues with experiments.
-*** STARTED Compute the rotation angles                               :story:
+*** POSTPONED Compute the rotation angles                             :story:
+    CLOSED: [2016-09-12 Mon 14:01]
     CLOCK: [2016-07-22 Fri 14:30]--[2016-07-22 Fri 14:45] =>  0:15
 
 We need to figure out the correct incantation to compute the rotation
 angle.
 
-*** STARTED Coding the Matrix chapter 1                               :story:
-    CLOCK: [2016-09-09 Fri 13:10]
+*** COMPLETED Coding the Matrix chapter 1                             :story:
+    CLOSED: [2016-09-12 Mon 14:01]
+    CLOCK: [2016-09-09 Fri 15:10]--[2016-09-09 Fri 16:00] =>  0:50
+    CLOCK: [2016-09-09 Fri 13:10]--[2016-09-09 Fri 14:00] =>  0:50
     CLOCK: [2016-09-08 Thu 13:10]--[2016-09-08 Thu 17:00] =>  3:50
     CLOCK: [2016-09-07 Wed 16:27]--[2016-09-07 Wed 17:00] =>  0:33
     CLOCK: [2016-09-07 Wed 14:30]--[2016-09-07 Wed 16:26] =>  1:56
@@ -89,106 +99,5 @@ We need to get up to speed with Linear Algebra. Do a few chapters of
 Coding the Matrix.
 
 cd /home/marco/Development/phd/neurite/build/output/gcc-5/ && CMAKE_INCLUDE_PATH=/home/marco/Development/local/include CMAKE_LIBRARY_PATH=/home/marco/Development/local/lib CMAKE_PROGRAM_PATH=/home/marco/Development/DomainDrivenConsulting/dogen/build/output/gcc-5/stage/bin cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ../../.. -G Ninja && ninja -j5 && /home/marco/Development/phd/neurite/build/output/gcc-5/stage/bin/neurite.scader -s /home/marco/Development/phd/neurite/test_data/swc/ball_and_stick.swc -d /home/marco/Development/phd/neurite/build/output/gcc-5/stage/bin/crap2.scad
-
-*** Read scratchpixel again                                           :story:
-
-- [[http://www.scratchapixel.com/lessons/3d-basic-rendering/get-started][A Very Gentle Introduction to Computer Graphics Programming]]
-
-- scene: a collection of 3D objects in memory; also includes the
-  concept of camera and lights.
-- topology: system that defines how eight points are connected to each
-  other to make up an object (e.g. the faces of the box); refers to
-  how points which we generally call vertices are connected to each
-  other to form faces (or flat surfaces). These faces are also called
-  polygons. A box is made up of six faces or six polygons and the set
-  of polygons forms what we call a polygonal mesh or simply a mesh.
-- model: an object is also called a model.
-- perspective projection: system to create an image of a
-  model. Requires to actually project it onto an imaginary canvas. The
-  process of projecting 3D point of the surface of the canvas,
-  actually involves a special matrix called the perspective matrix.
-- viewing frustum:
-- coordinate system: In CG, this coordinate system is often called the
-  world coordinate system, and the point (0,0,0), the origin.
-
-*** Implement the affine transformation injector                      :story:
-
-Create a simple injector that computes the rotations and translations
-based on CSG objects. Use eigen for vector calculations.
-
-*** Implement the tesselation executor                                :story:
-
-We need to first implement the tesselator and then implement the
-corresponding executor.
-
-*** Implement the affine transformation executor                      :story:
-
-Once we have polyhedra, we can start implementing the execution of the
-affine transforms. This will be done by using eigen against the
-polygons.
-
-*** Implement the Nef conversion executor                             :story:
-
-We need to first implement the Nef factory and then the conversion
-executor.
-
-*** Implement the Nef evaluator                                       :story:
-
-Create a class responsible for evaluating the CSG operations and
-merging the Nef polyhedra into a final Nef polyhedron.
-
-*** Implement the mesher                                              :story:
-
-Create a simple class that converts a Nef polyhedron into a CGAL mesh.
-
-*** Create a geometry workflow for the processing pipeline            :story:
-
-Add all available steps to the pipeline.
-
-*** Create a polygon mesh with the simple SWC file                    :story:
-
-We need to create a polygon mesh representation of the simple ball and
-stick SWC file.
-
-- [[http://doc.cgal.org/latest/Mesh_3/index.html][CGAL 4.7 - 3D Mesh Generation]]
-
-Notes:
-
-- Delaunay refinement:
-- restricted Delaunay triangulation:
-- requirements on the input domain: The domain to be meshed is assumed
-  to be bounded and representable as a pure 3D complex. A 3D complex
-  is a set of faces with dimension 0, 1, 2 and 3 such that all faces
-  are pairwise interior disjoint, and the boundary of each face of the
-  complex is the union of faces of the complex. The 3D complex is
-  pure, meaning that each face is included in a face of dimension 3,
-  so that the complex is entirely described by the set of its 3D faces
-  and their subfaces.
-- output mesh: This means that each subdomain is approximated by the
-  union of the tetrahedral cells whose circumcenters are located
-  inside the domain (or subdomain). Each surface patch is approximated
-  by the union of the Delaunay mesh facets whose dual Voronoi edges
-  intersect the surface patch. Such mesh facets are called surface
-  facets in the following. The 1-dimensional exposed features are
-  approximated by sequences of mesh edges and the 0-dimensional
-  exposed features are represented by mesh vertices.
-- The mesh density refers to the number of mesh vertices and cells,
-  i.e. to the complexity of the mesh. The mesh quality referred to
-  here is measured by the radius edge ratio of surface facets end mesh
-  cells, where the radius edge ratio of a simplex (triangle or
-  tetrahedron) is the the ratio between its circumradius and its
-  shortest edge.
-- [[http://cgal-discuss.949826.n4.nabble.com/newbie-question-3D-meshing-of-geometric-objects-cylinder-box-etc-amp-boolean-ops-td4657492.html][Meshing of geometric objects (cylinder, box, etc) & boolean ops]]:
-  CGAL allows to mesh a domain whose boundary is defined by one of
-  several implicit surfaces. See the example in subsection 3.5.2 of
-  chapter 3D Mesh Generation of the user manual. However if the
-  surfaces intersect and if you want the mesh to precisely reproduce
-  the intersection curves you have to previously detect those
-  intersections.
-- [[http://stackoverflow.com/questions/33197841/create-parameterized-3d-primitives-with-cgal][Create parameterized 3D primitives with cgal]]
-
-*** Sprint review                                                     :story:
-
-Review of the sprint.
 
 ** Deprecated
