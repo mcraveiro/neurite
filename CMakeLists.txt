@@ -162,6 +162,10 @@ if(WITH_LATEX)
     endif()
 endif()
 
+## Link libraries
+find_package(PNG REQUIRED)
+include_directories(${PNG_INCLUDE_DIR})
+
 #
 # useful vars
 #

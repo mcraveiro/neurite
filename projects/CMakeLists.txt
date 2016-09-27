@@ -131,6 +131,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/projects/geometry/include
     ${CMAKE_SOURCE_DIR}/projects/geometry.swc/include
     ${CMAKE_SOURCE_DIR}/projects/scader/include
+    ${CMAKE_SOURCE_DIR}/projects/trig/include
     ${CMAKE_SOURCE_DIR}/projects/vtk.geometry/include
     ${CMAKE_SOURCE_DIR}/projects/utility/include
     )
@@ -142,6 +143,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/swc)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/geometry.swc)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/scader/src)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/trig/src)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility/src)
 
 if(WITH_UI)
