@@ -65,16 +65,16 @@
   <dia:layer name="Background" visible="true" active="true">
     <dia:object type="UML - Note" version="0" id="O0">
       <dia:attribute name="obj_pos">
-        <dia:point val="-19,-28"/>
+        <dia:point val="-6,-27"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-19.05,-28.05;16.215,-20.65"/>
+        <dia:rectangle val="-6.05,-27.05;29.215,-19.65"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="-19,-28"/>
+        <dia:point val="-6,-27"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="35.164999999999999"/>
@@ -110,7 +110,7 @@ and expot support.
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="-18.65,-26.755"/>
+            <dia:point val="-5.65,-25.755"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -307,13 +307,13 @@ useful for debug purposes.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O2">
       <dia:attribute name="obj_pos">
-        <dia:point val="52,23"/>
+        <dia:point val="44,23"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="51.95,22.95;63.715,36.25"/>
+        <dia:rectangle val="43.95,22.95;55.715,36.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="52,23"/>
+        <dia:point val="44,23"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="11.665000000000001"/>
@@ -779,7 +779,7 @@ useful for debug purposes.#</dia:string>
         <dia:point val="45.82,13.4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.07,12.65;58.0325,23.8"/>
+        <dia:rectangle val="45.07,12.65;50.0325,23.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -787,8 +787,8 @@ useful for debug purposes.#</dia:string>
       <dia:attribute name="orth_points">
         <dia:point val="45.82,13.4"/>
         <dia:point val="45.82,19"/>
-        <dia:point val="57.8325,19"/>
-        <dia:point val="57.8325,23"/>
+        <dia:point val="49.8325,19"/>
+        <dia:point val="49.8325,23"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -811,13 +811,13 @@ useful for debug purposes.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O4">
       <dia:attribute name="obj_pos">
-        <dia:point val="7,23"/>
+        <dia:point val="19,23"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="6.95,22.95;26.415,30.65"/>
+        <dia:rectangle val="18.95,22.95;38.415,30.65"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="7,23"/>
+        <dia:point val="19,23"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="19.365000000000002"/>
@@ -1128,7 +1128,7 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:point val="33,13.4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="26.315,12.65;33.75,23.8"/>
+        <dia:rectangle val="32.25,12.65;38.565,23.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -1136,8 +1136,8 @@ Parent samples should appear before any child samples.#</dia:string>
       <dia:attribute name="orth_points">
         <dia:point val="33,13.4"/>
         <dia:point val="33,19"/>
-        <dia:point val="26.365,19"/>
-        <dia:point val="26.365,23"/>
+        <dia:point val="38.365,19"/>
+        <dia:point val="38.365,23"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1468,17 +1468,17 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="26.365,30.6"/>
+        <dia:point val="38.365,30.6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="25.615,29.85;33.265,42.8"/>
+        <dia:rectangle val="33.015,29.85;39.115,42.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="26.365,30.6"/>
-        <dia:point val="26.365,37"/>
+        <dia:point val="38.365,30.6"/>
+        <dia:point val="38.365,37"/>
         <dia:point val="33.065,37"/>
         <dia:point val="33.065,42"/>
       </dia:attribute>
@@ -1503,13 +1503,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O8">
       <dia:attribute name="obj_pos">
-        <dia:point val="46,-5"/>
+        <dia:point val="43,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.95,-5.05;65.415,-0.55"/>
+        <dia:rectangle val="42.95,-5.05;62.415,-0.55"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="46,-5"/>
+        <dia:point val="43,-5"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="19.365000000000002"/>
@@ -1710,13 +1710,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O9">
       <dia:attribute name="obj_pos">
-        <dia:point val="65,-17"/>
+        <dia:point val="58,-17"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="64.95,-17.05;72.605,-13.95"/>
+        <dia:rectangle val="57.95,-17.05;65.605,-13.95"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="65,-17"/>
+        <dia:point val="58,-17"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="7.5549999999999997"/>
@@ -1856,19 +1856,19 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="55.6825,-5"/>
+        <dia:point val="52.6825,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="54.9325,-14.05;68.9775,-4.2"/>
+        <dia:rectangle val="51.9325,-14.05;61.9775,-4.2"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="55.6825,-5"/>
-        <dia:point val="55.6825,-9"/>
-        <dia:point val="68.7775,-9"/>
-        <dia:point val="68.7775,-14"/>
+        <dia:point val="52.6825,-5"/>
+        <dia:point val="52.6825,-9"/>
+        <dia:point val="61.7775,-9"/>
+        <dia:point val="61.7775,-14"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1927,17 +1927,17 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="55.6825,-0.6"/>
+        <dia:point val="52.6825,-0.6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.77,-1.35;56.4325,9.8"/>
+        <dia:rectangle val="45.77,-1.35;53.4325,9.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="55.6825,-0.6"/>
-        <dia:point val="55.6825,4"/>
+        <dia:point val="52.6825,-0.6"/>
+        <dia:point val="52.6825,4"/>
         <dia:point val="45.82,4"/>
         <dia:point val="45.82,9"/>
       </dia:attribute>
@@ -2143,13 +2143,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O14">
       <dia:attribute name="obj_pos">
-        <dia:point val="38,-17"/>
+        <dia:point val="33,-17"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="37.95,-17.05;45.73,-13.95"/>
+        <dia:rectangle val="32.95,-17.05;40.73,-13.95"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="38,-17"/>
+        <dia:point val="33,-17"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="7.6799999999999997"/>
@@ -2292,7 +2292,7 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:point val="26.3675,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="25.6175,-14.05;42.04,-4.2"/>
+        <dia:rectangle val="25.6175,-14.05;37.04,-4.2"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -2300,8 +2300,8 @@ Parent samples should appear before any child samples.#</dia:string>
       <dia:attribute name="orth_points">
         <dia:point val="26.3675,-5"/>
         <dia:point val="26.3675,-9"/>
-        <dia:point val="41.84,-9"/>
-        <dia:point val="41.84,-14"/>
+        <dia:point val="36.84,-9"/>
+        <dia:point val="36.84,-14"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -2324,13 +2324,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O16">
       <dia:attribute name="obj_pos">
-        <dia:point val="-6,42"/>
+        <dia:point val="13,42"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-6.05,41.95;-1.6,47.25"/>
+        <dia:rectangle val="12.95,41.95;17.4,47.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="-6,42"/>
+        <dia:point val="13,42"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="4.3499999999999996"/>
@@ -2540,19 +2540,19 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="7,30.6"/>
+        <dia:point val="19,30.6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-3.875,29.85;7.75,42.8"/>
+        <dia:rectangle val="15.125,29.85;19.75,42.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="7,30.6"/>
-        <dia:point val="7,37"/>
-        <dia:point val="-3.825,37"/>
-        <dia:point val="-3.825,42"/>
+        <dia:point val="19,30.6"/>
+        <dia:point val="19,37"/>
+        <dia:point val="15.175,37"/>
+        <dia:point val="15.175,42"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -2575,13 +2575,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O18">
       <dia:attribute name="obj_pos">
-        <dia:point val="8,9"/>
+        <dia:point val="17,9"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7.95,8.95;18.56,12.65"/>
+        <dia:rectangle val="16.95,8.95;27.56,12.65"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="8,9"/>
+        <dia:point val="17,9"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="10.51"/>
@@ -2768,19 +2768,19 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="13.255,12.6"/>
+        <dia:point val="22.255,12.6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="6.95,11.85;14.005,23.8"/>
+        <dia:rectangle val="18.95,11.85;23.005,23.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="13.255,12.6"/>
-        <dia:point val="13.255,19"/>
-        <dia:point val="7,19"/>
-        <dia:point val="7,23"/>
+        <dia:point val="22.255,12.6"/>
+        <dia:point val="22.255,19"/>
+        <dia:point val="19,19"/>
+        <dia:point val="19,23"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -2803,13 +2803,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O20">
       <dia:attribute name="obj_pos">
-        <dia:point val="5,-5"/>
+        <dia:point val="14,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="4.95,-5.05;9.785,-2.15"/>
+        <dia:rectangle val="13.95,-5.05;18.785,-2.15"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="5,-5"/>
+        <dia:point val="14,-5"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="4.7350000000000003"/>
@@ -2973,19 +2973,19 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="7.3675,-2.2"/>
+        <dia:point val="16.3675,-2.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="6.6175,-2.95;13.455,9.8"/>
+        <dia:rectangle val="15.6175,-2.95;22.455,9.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="7.3675,-2.2"/>
-        <dia:point val="7.3675,4"/>
-        <dia:point val="13.255,4"/>
-        <dia:point val="13.255,9"/>
+        <dia:point val="16.3675,-2.2"/>
+        <dia:point val="16.3675,4"/>
+        <dia:point val="22.255,4"/>
+        <dia:point val="22.255,9"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -3008,13 +3008,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O22">
       <dia:attribute name="obj_pos">
-        <dia:point val="-19,-5"/>
+        <dia:point val="-2,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-19.05,-5.05;-7.67,-1.35"/>
+        <dia:rectangle val="-2.05,-5.05;9.33,-1.35"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="-19,-5"/>
+        <dia:point val="-2,-5"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="11.279999999999999"/>
@@ -3203,19 +3203,19 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="-13.36,-5"/>
+        <dia:point val="3.64,-5"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-14.11,-9.75;7.5675,-4.2"/>
+        <dia:rectangle val="2.89,-9.75;16.5675,-4.2"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="-13.36,-5"/>
-        <dia:point val="-13.36,-9"/>
-        <dia:point val="7.3675,-9"/>
-        <dia:point val="7.3675,-5"/>
+        <dia:point val="3.64,-5"/>
+        <dia:point val="3.64,-9"/>
+        <dia:point val="16.3675,-9"/>
+        <dia:point val="16.3675,-5"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -3238,13 +3238,13 @@ Parent samples should appear before any child samples.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O24">
       <dia:attribute name="obj_pos">
-        <dia:point val="-8,9"/>
+        <dia:point val="5,9"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-8.05,8.95;-1.09,12.05"/>
+        <dia:rectangle val="4.95,8.95;11.91,12.05"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="-8,9"/>
+        <dia:point val="5,9"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="6.8600000000000003"/>
@@ -3384,19 +3384,19 @@ Parent samples should appear before any child samples.#</dia:string>
         <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="-13.36,-1.4"/>
+        <dia:point val="3.64,-1.4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-14.11,-2.15;-4.37,9.8"/>
+        <dia:rectangle val="2.89,-2.15;8.63,9.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="-13.36,-1.4"/>
-        <dia:point val="-13.36,4.15"/>
-        <dia:point val="-4.57,4.15"/>
-        <dia:point val="-4.57,9"/>
+        <dia:point val="3.64,-1.4"/>
+        <dia:point val="3.64,4.15"/>
+        <dia:point val="8.43,4.15"/>
+        <dia:point val="8.43,9"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
